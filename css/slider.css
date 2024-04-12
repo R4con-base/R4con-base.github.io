@@ -1,0 +1,16 @@
+.tns-nav {
+    text-align: center;
+    margin-top: 30px;
+  }
+.tns-nav button{
+    width: 15px;
+    height: 15px;
+    border-radius: 20px;
+    border: none;
+    margin: 0 5px;
+    background-color: #dddddd;
+  }
+  .tns-nav button.tns-nav-active{
+    background-color:#2779a8;
+  }
+  
