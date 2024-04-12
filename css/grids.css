@@ -1,0 +1,27 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-columns: auto auto;
+    gap: 1rem;
+  }
+  
+  .grid-item {
+  border: 5px solid #ddd;
+  padding: 3rem;
+  font-size: 1.5rem;
+  text-align: center;
+  }
+  
+  /* straightforward 3x3 CSS grid.webp */
+
+  .grid__item1 {
+    margin: 10px;
+  }
+  .gallery-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
+    grid-template-rows:  1fr 1fr 1fr 1fr;
+    gap: 3rem;
+    
+    
+  }
