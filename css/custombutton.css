@@ -1,37 +1,38 @@
 .custom-button {
 	color: #000000;
-	background-color: #25a547;
-	border-color: #4dff009f
+	background-color: #ffffff;
+	border-color: #1e28199f
 }
 
 .custom-button:hover {
 	color: #000000;
-	background-color: #36a01b;
-	border-color: #54af2db0
+	background-color: #ffffff;
+	border-color: #132312b0
+	
 }
 
 .custom-button.focus,
 .custom-button:focus {
-	box-shadow: 0 0 0 .2rem rgba(4, 255, 0, 0.5)
+	box-shadow: 0 0 0 .2rem rgba(9, 18, 9, 0.5)
 }
 
-.custom-button.disabled,
-.custom-button:disabled {
+.custom-button1.disabled,
+.custom-button1:disabled {
 	color: #000000;
-	background-color: #2f9117;
-	border-color: #40911d
+	background-color: #ffffff;
+	border-color: #182114
 }
 
-.custom-button:not(:disabled):not(.disabled).active,
-.custom-button:not(:disabled):not(.disabled):active,
+.custom-button1:not(:disabled):not(.disabled).active,
+.custom-button1:not(:disabled):not(.disabled):active,
 .show>.custom-button.dropdown-toggle {
 	color: #000000;
-	background-color: #3f892c;
-	border-color: #509a30
+	background-color: #ffffff;
+	border-color: #000000
 }
 
-.custom-button:not(:disabled):not(.disabled).active:focus,
-.custom-button:not(:disabled):not(.disabled):active:focus,
+.custom-button1:not(:disabled):not(.disabled).active:focus,
+.custom-button1:not(:disabled):not(.disabled):active:focus,
 .show>.custom-button.dropdown-toggle:focus {
-	box-shadow: 0 0 0 .2rem rgba(0, 255, 21, 0.5)
+	box-shadow: 0 0 0 .2rem rgba(0, 0, 0, 0.5)
 }
