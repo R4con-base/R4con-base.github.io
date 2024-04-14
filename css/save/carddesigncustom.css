@@ -1,0 +1,14 @@
+.card1 {
+    background-image: url('ruta/a/la/imagen.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 200px; /* Ajusta la altura según tus necesidades */
+    background-color: rgba(255, 255, 255, 0.6);
+    background-size: cover;
+    background-position: center;
+  }
+  
+.card-body1 {
+    background-color: rgba(255, 255, 255, 0.6); /* Ajusta la opacidad según tus necesidades */
+    padding: 1rem;
+  }
