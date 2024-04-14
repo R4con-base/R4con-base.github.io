@@ -48,6 +48,13 @@
     width: 100%;
     gap: 3rem;
     height: auto;
-    object-fit: contain;
-    max-height: 130px; /* Ajusta este valor según tus necesidades */
+    object-fit: cover;
+    object-position: center;
+    max-height: 100px; /* Ajusta este valor según tus necesidades */
+  }
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Ajusta el valor según la separación deseada */
   }
