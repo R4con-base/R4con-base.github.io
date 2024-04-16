@@ -70,6 +70,92 @@
         const markdownContent = `
 # Máquina "Fulcrum" de HackTheBox
 
+Caracteristicas:
+
+- Linux & windows
+- Dificultad Insana
+- Directorio activo
+- Windows .NET
+- API Enumeration
+- Endpoint 
+- Brute Force 
+- Advanced XXE Exploitation (XML External Entity Injection) 
+- XXE Custom Entities 
+- External Entities XXE 
+- XML Parameter Entities XXE 
+- Blind SSRF (Exfiltrate data out-of-band) 
+- Base64 Wrapper [Reading Internal Files] XXE + RFI (Remote File Inclusion) 
+- SSRF to RCE Host Discovery 
+- Bash Scripting Port Discovery 
+- Bash Scripting Decrypting PSCredential Password with PowerShell PIVOTING 1 
+- Tunneling with Chisel + Evil-WinRM Gaining access to a Windows system PowerView.ps1 
+- Active Directory Users Enumeration (Playing with Get-DomainUser) Information Leakage 
+- Domain User Password PIVOTING 2 
+- Using Invoke-Command to execute commands on another Windows server Firewall Bypassing (Playing with Test-NetConnection in PowerShell) 
+- DNS Reverse Shell Authenticating to the DC shares 
+- SYSVOL Enumeration Information Leakage 
+- Domain Admin Password PIVOTING 3 
+- Using Invoke-Command to execute commands on the Domain Controller (DC)
+
+Util para:
+- eWPT
+- eWPTXv2 
+- eCPPTv2 
+- eCPTXv2 
+- OSWE 
+- OSCP 
+- OSEP 
+- Active Directory
+
+    IP 10.10.10.62
+
+-  nmap -p- --open -sS --min-rate 5000 -vvv -n -Pn 10.10.10.62 
+
+    Starting Nmap 7.80 ( https://nmap.org ) at 2022-05-11 09:52 UTC
+    Warning: 10.10.10.62 giving up on port because retransmission cap hit (10).
+    Nmap scan report for 10.10.10.62
+    Host is up (0.14s latency).
+    Not shown: 65529 closed ports
+    PORT      STATE SERVICE
+    4/tcp     open  unknown
+    22/tcp    open  ssh
+    80/tcp    open  http
+    88/tcp    open  kerberos-sec
+    9999/tcp  open  abyss
+    56423/tcp open  unknown
+
+    Nmap done: 1 IP address (1 host up) scanned in 15.68 seconds
+    oxdf@hacky$ nmap -p 4,22,80,88,9999,56423 -sCV 10.10.10.62
+    Starting Nmap 7.80 ( https://nmap.org ) at 2022-05-11 09:52 UTC
+    Nmap scan report for 10.10.10.62
+    Host is up (0.093s latency).
+
+    PORT      STATE SERVICE VERSION
+    4/tcp     open  http    nginx 1.18.0 (Ubuntu)
+    |_http-server-header: nginx/1.18.0 (Ubuntu)
+    |_http-title: Site doesn't have a title (text/html; charset=UTF-8).
+    22/tcp    open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.1 (Ubuntu Linux; protocol 2.0)
+    80/tcp    open  http    nginx 1.18.0 (Ubuntu)
+    |_http-server-header: nginx/1.18.0 (Ubuntu)
+    |_http-title: 502 Bad Gateway
+    88/tcp    open  http    nginx 1.18.0 (Ubuntu)
+    | http-robots.txt: 1 disallowed entry 
+    |_/
+    |_http-server-header: nginx/1.18.0 (Ubuntu)
+    |_http-title: phpMyAdmin
+    9999/tcp  open  http    nginx 1.18.0 (Ubuntu)
+    |_http-server-header: nginx/1.18.0 (Ubuntu)
+    |_http-title: 502 Bad Gateway
+    56423/tcp open  http    nginx 1.18.0 (Ubuntu)
+    |_http-server-header: Fulcrum-API Beta
+    |_http-title: Site doesn't have a title (application/json;charset=utf-8).
+    Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+
+
+
+
 
         `;
         

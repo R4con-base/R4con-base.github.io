@@ -79,11 +79,11 @@ Caracteristicas:
 - Escape del contenedor privilegiado de Docker 
 - GitLab vulnerabilidad es 11.4.7 Community Edition
 
-        IP: 10.10.10.214
+    IP: 10.10.10.214
 
 Escaneo nmap
 
-- nmap -A 10.129.149.69
+- nmap -p- --open -sS --min-rate 5000 -vvv -n -Pn 10.129.149.69
 
 Encontramos dos puertos, puertos que ejecutaban servicios como SSH(22), NGINX(5080). 
 La sesión de escaneo sugiere también una lista corta de carpetas para investigar con el navegador
