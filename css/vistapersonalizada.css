@@ -52,6 +52,14 @@
     object-position: center;
     max-height: 100px; /* Ajusta este valor según tus necesidades */
   }
+  .card-img-personal-2 {
+    width: 100%;
+    gap: 3rem;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+    max-height: 100px; /* Ajusta este valor según tus necesidades */
+  }
   .card-container {
     display: flex;
     flex-wrap: wrap;
