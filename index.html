@@ -1,1205 +1,341 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios DevTech</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 
-	<title>Mi pagina</title>
-<!--
+    <link rel="stylesheet" href="source/css/diseño-principal.css">
+    <link rel="stylesheet" href="source/css/neon.css">
+    <link rel="stylesheet" href="source/css/cafesito.css">
+    <link rel="stylesheet" href="source/css/body.css">
+    <link rel="stylesheet" href="source/css/title-shadow.css">
+    <link rel="stylesheet" href="source/css/sidebar.css">
+    <link rel="stylesheet" href="source/css/cards.css">
 
-Template 2102 Constructive
+    <link rel="stylesheet" href="source/aspekta/font-face.css">
+    <link rel="stylesheet" href="source/terano/font-face.css">
+    <link rel="stylesheet" href="source/emizen/font-face.css">
 
-http://www.tooplate.com/view/2102-constructive
-
--->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">  <!-- Google web font "Open Sans" -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/magnific-popup.css"/>
-	<link rel="stylesheet" type="text/css" href="slick/slick.css"/>
-	<link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
-	<link rel="stylesheet" href="css/tooplate-style.css">
-	<link rel="stylesheet" href="css/icons.css">
-	<link rel="stylesheet" href="css/grids.css">
-	<link rel="stylesheet" href="css/slider.css">
-	<link rel="stylesheet" href="css/custombutton.css">
-	<link rel="stylesheet" href="css/vistapersonalizada.css">
-	<link rel="stylesheet" href="css/carddesigncustom.css">
-
-	<script>
-		var renderPage = true;
-
-	if(navigator.userAgent.indexOf('MSIE')!==-1
-		|| navigator.appVersion.indexOf('Trident/') > 0){
-   		/* Microsoft Internet Explorer detected in. */
-   		alert("Please view this in a modern browser such as Chrome or Microsoft Edge.");
-   		renderPage = false;
-	}
-	</script>
 </head>
+<body class="custom-bg">
 
-<body>
-	<!-- Loader -->
-	<div id="loader-wrapper">
-		<div id="loader"></div>
-		<div class="loader-section section-left"></div>
-		<div class="loader-section section-right"></div>
-	</div>
-	
-	<!-- Page Content -->
-	<div class="container-fluid tm-main">
-		<div class="row tm-main-row">
+    <!-- Sidebar -->
+    <!-- <div id="tmSideBar" class="sidebar fixed top-0 left-0 h-full w-64 text-white shadow-lg bg-cover bg-center transition-all duration-300"> -->
+          <!-- Sidebar -->
+        <div id="tmSideBar" class="sidebar fixed top-0 left-0 h-screen w-screen text-white bg-cover bg-center transition-all duration-300" style="box-shadow: 0 12px 24px -1px rgba(0, 0, 0, 0.9), 0 12px 24px -4px rgba(0, 0, 0, 0.8);">       
+            <div class="absolute inset-0 bg-gray-800/80 backdrop-blur-sm"></div>
+            <div class="relative z-10 h-full flex flex-col"> <!-- Añadido h-full y flex flex-col -->
+            <!-- Botón para alternar el menú -->
+            <button id="sidebarToggle" class="absolute top-4 right-4 p-2 bg-gray-700/50 hover:bg-gray-600/50 rounded-full transition-all duration-300 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+            <!-- Contenido del Sidebar -->
+            <div class="inner flex-grow flex flex-col  items-center "> <!-- Modificado para centrado -->
+                <nav id="tmMainNav" class="tm-main-nav">
+                    <ul class="space-y-4 flex flex-col items-center"> <!-- Aumentado el espacio entre elementos -->
+                        <!-- Elemento 1 -->
 
-			<!-- Sidebar -->
-			<div id="tmSideBar" class="col-xl-3 col-lg-4 col-md-12 col-sm-12 sidebar">
+                        <li class="flex justify-center">
+                            <a href="?page=inicio" class="flex items-center">
+                                <img src="img/ccon.png" alt="Raccoon base" class="w-24 md:w-32 lg:w-48 h-auto">
+                            </a>
+                        </li>
 
-				<button id="tmMainNavToggle" class="menu-icon">&#9776;</button>
+                        <!-- Elemento 2 -->
+                        <li class="flex justify-center">
+                            <a href="#inicio" data-route="secciones/inicio.html"  class="flex items-center p-3 hover:bg-gray-700 rounded-lg transition-colors duration-200 w-full justify-center">
+                                
+                                <span class="nav-text ml-4 font-Terano-1 a-1 text-3xl sidebar-text text tracking-widest">Inicio</span> <!-- Aumentado a text-2xl -->
+                            </a>
+                        </li>
+                        <li class="flex justify-center">
+                            <a href="#servicios" data-route="secciones/servicios.html"  class="flex items-center p-3 hover:bg-gray-700 rounded-lg transition-colors duration-200 w-full justify-center">
+                                
+                                <span class="nav-text ml-4 font-Terano-1 a-1 text-3xl sidebar-text text tracking-widest">Contenido</span><!-- Aumentado a text-2xl -->
+                            </a>
+                        </li>
+                        <!-- Elemento 3 -->
+                        <!-- <li class="flex justify-center">
+                            <a href="#products" class="flex items-center p-3 hover:bg-gray-700 rounded-lg transition-colors duration-200 w-full justify-center">
+                                
+                                <span class="nav-text ml-4 font-Terano-1 a-1 text-3xl sidebar-text text tracking-widest">Productos</span><!-- Aumentado a text-2xl 
+                            </a>
+                        </li> -->
+                        <!-- Elemento 4 -->
+                        <li class="flex justify-center w-full">
+                            <a href="#contacto" data-route="secciones/contacto.html"  class="flex items-center p-4 hover:bg-gray-700/50 rounded-lg transition-colors duration-200 w-full justify-center">
+                                
+                           <!-- <span class="nav-text ml-4 a-1 font-Terano-1 text-4xl sidebar-text">COTIZAR</span> -->
+                                <span class="nav-text ml-4 font-Terano-1 a-1 text-3xl sidebar-text text tracking-widest">Portafolio</span> 
+                            </a>
+                        </li>
+                        <li class="flex justify-center w-full">
+                            <a href="#contacto" data-route="secciones/contacto.html"  class="flex items-center p-4 hover:bg-gray-700/50 rounded-lg transition-colors duration-200 w-full justify-center">
+                                
+                           <!-- <span class="nav-text ml-4 a-1 font-Terano-1 text-4xl sidebar-text">COTIZAR</span> -->
+                                <span class="nav-text ml-4 font-Terano-1 a-1 text-3xl sidebar-text text tracking-widest">Certs</span> 
+                            </a>
+                        </li>
+                        <li class="flex justify-center w-full">
+                            <a href="#contacto" data-route="secciones/contacto.html" class="flex items-center justify-center p-3 hover:bg-gray-700 rounded-lg transition-colors duration-200 w-full">
+                                <span class="nav-text ml-4 font-Terano-1 a-1 text-3xl sidebar-text text tracking-widest">Contacto </span> <!-- Eliminado ml-4 -->
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://instagram.com/fusion_devtech" 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                onclick="console.log('Click en Instagram')"
+                                class="flex items-center justify-center card-neu p-4 rounded-full hover:scale-110 transition-transform">
+                                <svg class="h-8 w-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
 
-				<div class="inner">
-					<nav id="tmMainNav" class="tm-main-nav">
-						<ul>
-							
-								<!--<img class="avatar" src="img/ccon.png">
-								<a href="#intro" id="tmNavLink1" class="scrolly active" data-bg-img="constructive_bg_01.jpg" data-page="#tm-section-1">
-									<img class="imagen-responsiva  " src="img/ccon.png">
-									
-									<span></span>
-								</a>-->
-							
-							<li>
-								<a href="#intro" id="tmNavLink1" class="scrolly active" data-bg-img="constructive_bg_01.jpg" data-page="#tm-section-1">
-									<img class="imagen-responsiva  " src="img/ccon.png">
-									<i class="fas "></i>
-								</a>
-							</li>
-							<li>
-								<a href="#products" id="tmNavLink2" class="scrolly" data-bg-img="pop-bg.jpg" data-page="#tm-section-2" data-page-type="carousel">
-									<img class="imagen-responsiva-2  " src="img/htb2.png">
-									<span>Maquinas</span>
-								</a>
-							</li>							
-							<li>
-								<a href="#company" class="scrolly" data-bg-img="constructive_bg_03.jpeg" data-page="#tm-section-3">
-									<img class="imagen-responsiva-2  " src="img/project.png">
-									<span>Proyectos</span>
-								</a>
-							</li>
-							<li>
-								<a href="#contact" class="scrolly" data-bg-img="constructive_bg_04.jpg" data-page="#tm-section-4">
-									<img class="imagen-responsiva-2  " src="img/save2.png">
-									<span>otros</span>
-								</a>
-							</li>
-						</ul>
-					</nav>
-				</div>
-			</div>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+    
 
-			<div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 tm-content">
+    <!-- Contenido Principal -->
+    <div id="contenido" class="hidden transition-all duration-300 relative z-20 min-h-screen overflow-y-auto flex flex-col">
+        <div id="contenido-principal" class="flex-grow p-8">
+            <!-- El contenido dinámico se cargará aquí -->
+        </div>
+        
+        <!-- Footer -->
+        <footer class="w-full bg-gray-800/50 mt-auto">
+            <div class="container mx-auto px-6 py-16">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                    <!-- Logo y descripción -->
 
-					<!-- section 1 -->
-					<section id="tm-section-1" class="tm-section">
-						<div class="ml-auto">
-							<header class="mb-4"><h1 class="tm-text-white "> Sobre esta web</h1></header>
-							<p class="mb-5 tm-font-big"> 
-								En esta web podrá ver mi trabajo dividido en sus respectivas secciones, 
-                                algunas relacionadas con hacking, programación, investigaciones, 
-                                testeos, tips, proyectos, recursos y más.
-							</p>
-							<a href="#" class="btn tm-btn tm-font-big" data-nav-link="#tmNavLink2">Continuar...</a> 
-							<!-- data-nav-link holds the ID of nav item, which means this link should behave the same as that nav item  -->
-						</div>
-					</section>
+                    <!-- <div class="col-span-1 md:col-span-2 flex flex-col items-center ml-20">
+                        <li class="flex justify-center">
+                            <a href="?page=inicio" class="flex items-center">
+                                <img src="img/ccon.png" alt="Raccoon base" class="w-24 md:w-32 lg:w-48 h-auto">
+                            </a>
+                        </li>
 
-					<!-- section 2 -->
-					<section id="tm-section-2" class="tm-section  tm-section-carousel">
-						<div>
-							<header class="mb-4"><h2 class="tm-text-shadow">Maquinas</h2></header>		            	            
-								<div class="container text-center my-3">
-									<div class="row  mx-auto my-auto">
-										<div id="carouselExample3x3" class="carousel slide" data-ride="carousel">
-											<div class="carousel-inner">
-													<!--  <div class="carousel-inner" role="listbox">  No es el problema -->
-												<div class="carousel-item  py-5 active"> <!-- se agrego py-5 y se arreglo la tamaño segunda tabla-->
-													<div class="container">
-													    <div class="row">
-														    <div class="col-sm-3 mb-3">
-															    <div class="card1">
-															        <div class="card-body1">
-																		<img src="/Maquinas/imagenes/avatars/time.png" class="card-img-personal ">
-																        <h4 class="card-title"></h4>
-																        <a href="/Maquinas/Time.html" class="btn btn-dark">Time</a>
-															        </div>
-															    </div>
-														    </div>
-														    <div class="col-sm-3 mb-3">
-																
-															    <div class="card1">
-															        <div class="card-body1">
-																		<img src="/Maquinas/imagenes/avatars/ready.png" class="card-img-personal">
-																        <h4 class="card-title"></h4>
-																        <a href="/Maquinas/Ready.html" class="btn btn-dark">Ready</a>
-															        </div>
-															    </div>
-														    </div>
-														    <div class="col-sm-3 mb-3">
-															    <div class="card1">
-															        <div class="card-body1">
-																		<img src="/Maquinas/imagenes/avatars/delivery.png" class="card-img-personal">
-																        <h4 class="card-title"></h4>
-																        <a href="/Maquinas/Delivery.html" class="btn btn-dark">Delivery</a>
-															        </div>
-															    </div>
-														    </div>
-														    <div class="col-sm-3 mb-3">
-															    <div class="card1">
-															        <div class="card-body1">
-																		<img src="/Maquinas/imagenes/avatars/fulcrum.png" class="card-img-personal">
-																        <h4 class="card-title"></h4>
-																        <a href="/Maquinas/Fulcrum.html" class="btn btn-dark">Fulcrum</a>
-															        </div>
-															    </div>
-														    </div>
-													    </div>
-													    <div class="row">
-														    <div class="col-sm-3 mb-3">
-															    <div class="card1">
-																	<div class="card-body1">
-																		<img src="/Maquinas/imagenes/avatars/devzat.png" class="card-img-personal">
-																        <h4 class="card-title"></h4>
-																        <a href="/Maquinas/Devzat.html" class="btn btn-dark">Devzat</a>
-															        </div>
-																</div>
-															</div>
-															<div class="col-sm-3 mb-3">
-																<div class="card1">
-																	<div class="card-body1">
-																		<img src="/Maquinas/imagenes/avatars/secret.png" class="card-img-personal">
-																        <h4 class="card-title"></h4>
-																        <a href="/Maquinas/Secret.html" class="btn  btn-dark">Secret</a>
-															        </div>
-																</div>
-															</div>
-															<div class="col-sm-3 mb-3">
-																<div class="card1">
-																	<div class="card-body1">
-																		<img src="/Maquinas/imagenes/avatars/pandora.png" class="card-img-personal">
-																        <h4 class="card-title"></h4>
-																        <a href="/Maquinas/Pandora.html" class="btn btn-dark">Pandora</a>
-															        </div>
-																</div>
-															</div>
-															<div class="col-sm-3 mb-3">
-																<div class="card1">
-																	<div class="card-body1">
-																		<img src="/Maquinas/imagenes/avatars/Object.png" class="card-img-personal">
-																        <h4 class="card-title"></h4>
-																        <a href="/Maquinas/Object.html" class="btn btn-dark">Object</a>
-															        </div>
-																</div>
-															</div>
-													  	</div>
-													  	<div class="row">
-															<div class="col-sm-3 mb-3">
-																<div class="card1">
-																	<div class="card-body1">
-																		<img src="/Maquinas/imagenes/avatars/hancliffe.png" class="card-img-personal">
-																        <h4 class="card-title"></h4>
-																        <a href="/Maquinas/Hancliffe.html" class="btn btn-dark">Hancliffe</a>
-															        </div>
-																</div>
-															</div>
-															<div class="col-sm-3 mb-3">
-																<div class="card1">
-																	<div class="card-body1">
-																		<img src="/Maquinas/imagenes/avatars/shocker.png" class="card-img-personal">
-																        <h4 class="card-title"></h4>
-																        <a href="/Maquinas/Shocker.html" class="btn btn-dark">Shocker</a>
-															        </div>
-																</div>
-															</div>
-															<div class="col-sm-3 mb-3">
-																<div class="card1">
-																	<div class="card-body1">
-																		<img src="/Maquinas/imagenes/avatars/thenotebook.png" class="card-img-personal">
-																        <h4 class="card-title"></h4>
-																        <a href="/Maquinas/TheNotebook.html" class="btn btn-dark">Notebook</a>
-															        </div>
-																</div>
-															</div>
-															<div class="col-sm-3 mb-3">
-																<div class="card1">
-																	<div class="card-body1">
-																		<img src="/Maquinas/imagenes/avatars/alttered.png" class="card-img-personal">
-																        <h4 class="card-title"></h4>
-																        <a href="/Maquinas/Altered.html" class="btn btn-dark">Altered</a>
-															        </div>
-																</div>
-															</div>
-													    </div>
-													
-													</div>
-												
-												</div>	
-											<div class="carousel-item py-5">
-											<div class="container">
-												<div class="row">
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/shibboleth.png" class="card-img-personal">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Shibboleth.html" class="btn btn-dark">Shibboleth</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/backdoor.png" class="card-img-personal">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Backdoor.html" class="btn btn-dark">Backdoor</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/backend.png" class="card-img-personal">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Backend.html" class="btn btn-dark">Backend</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/backendtwo.png" class="card-img-personal">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/BackendTwo.html" class="btn btn-dark">BackendTwo</a>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/unicode.png" class="card-img-personal">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Unicode.html" class="btn btn-dark">Unicode</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/monteverde.png" class="card-img-personal">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Monteverde.html" class="btn btn-dark">Monteverde</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/catch.png" class="card-img-personal">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Catch.html" class="btn btn-dark">Catch</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/routerspace.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/RouterSpace.html" class="btn btn-dark">RouterSpace</a>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/timelapse.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Timelapse.html" class="btn btn-dark">Timelapse</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/noter.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Noter.html" class="btn btn-dark">Noter</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/scrambled.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Scrambled.html" class="btn btn-dark">Scrambled</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/devoops.png" class="card-img-personal">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/DevOops.html" class="btn btn-dark">DevOops</a>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											
-											<!-- Add more carousel items as needed -->
-										</div>
-										<div class="carousel-item py-5">
-											<div class="container">
-												<div class="row">
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/lazy.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Lazy.html"  class="btn btn-dark">lazy</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/intelligence.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Intelligence.html"  class="btn btn-dark">Intelligence</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/redpanda.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Redpanda.html"  class="btn btn-dark">RedPanda</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/beep.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Beep.html"  class="btn btn-dark">Beep</a>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/scriptkiddie.png" class="card-img-personal">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/ScriptKiddie.html"  class="btn btn-dark">ScriptKiddie</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/active.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Active.html"  class="btn btn-dark">Active</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/doctor.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Doctor.html"  class="btn btn-dark">Doctor</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/support.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Support.html"  class="btn btn-dark">Support</a>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/streamio.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/StreamIO.html"  class="btn btn-dark">StreamIO</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/luke.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Luke.html"  class="btn btn-dark">Luke</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/trick.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Trick.html"  class="btn btn-dark">Trick</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/shoppy.png" class="card-img-personal">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Shoppy.html"  class="btn btn-dark">Shoppy</a>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											
-											<!-- Add more carousel items as needed -->
-										</div>
-										<div class="carousel-item py-5">
-											<div class="container">
-												<div class="row">
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/squashed.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Squashed.html"  class="btn btn-dark">Squashed</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/shared.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Shared.html"  class="btn btn-dark">Shared</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/antique.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Antique.html"  class="btn btn-dark">Antique</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/ambassaor.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Ambassador.html" class="btn btn-dark">Ambassador</a>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/outdated.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Outdated.html" class="btn btn-dark">Outdated</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/goodgames.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Goodgames.html" class="btn btn-dark">GoodGames</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/awkward.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Awkward.html" class="btn btn-dark">Awkward</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/rainyday.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Rainyday.html" class="btn btn-dark">RainyDay</a>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/forgot.png" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="/Maquinas/Forgot.html" class="btn btn-dark">Forgot</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="#" class="btn custom-button">proxima</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="#" class="btn custom-button">proxima</a>
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-3 mb-3">
-														<div class="card1">
-															<div class="card-body1">
-																<img src="/Maquinas/imagenes/avatars/" class="card-img-personal ">
-																<h4 class="card-title"></h4>
-																<a href="#" class="btn custom-button">proxima</a>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											
-											<!-- Add more carousel items as needed -->
-										</div>
-									
-									</div>
-								</div>
-								<div class="container">
-										<a class="carousel-control-prev" href="#carouselExample3x3" role="button" data-slide="prev">
-											<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-											<span class="sr-only">Previous</span>
-										  </a>
-										  <a class="carousel-control-next" href="#carouselExample3x3" role="button" data-slide="next">
-											<span class="carousel-control-next-icon" aria-hidden="true"></span>
-											<span class="sr-only">Next</span>
-										</a>
-								</div>
-						</div>
-								<!--
-								<div class="row">
-									<div class="col-12">
-										<a class="carousel-control-prev text-" href="#myCarousel" role="button" data-slide="prev">
-											<span class="fa fa-chevron-left" aria-hidden="true"></span>
-											<span class="sr-only">Anterior</span>
-										</a>
-										<a class="carousel-control-next text-dark" href="#myCarousel" role="button" data-slide="next">
-											<span class="fa fa-chevron-right" aria-hidden="true"></span>
-											<span class="sr-only">Siguiente</span>
-										</a>
-									</div>
-								</div>
-							</div>
-								 
-								<div class="tm-img-slider">
-									<a href="img/gallery-img-01.jpg" class="tm-slider-img"><img src="img/gallery-img-01-tn.jpg" alt="Image" class="img-fluid"></a>
-									<a href="img/gallery-img-02.jpg" class="tm-slider-img"><img src="img/gallery-img-02-tn.jpg" alt="Image" class="img-fluid"></a>
-									<a href="img/gallery-img-03.jpg" class="tm-slider-img"><img src="img/gallery-img-03-tn.jpg" alt="Image" class="img-fluid"></a>
-									<a href="img/gallery-img-04.jpg" class="tm-slider-img"><img src="img/gallery-img-04-tn.jpg" alt="Image" class="img-fluid"></a>
-									<a href="img/gallery-img-05.jpg" class="tm-slider-img"><img src="img/gallery-img-05-tn.jpg" alt="Image" class="img-fluid"></a>
-									<a href="img/gallery-img-06.jpg" class="tm-slider-img"><img src="img/gallery-img-06-tn.jpg" alt="Image" class="img-fluid"></a>
-								</div> -->
+                        <div class="flex space-x-4">
+                            <a href="https://www.instagram.com/fusion_devtech" class="card-neu-social p-2 rounded-full hover:scale-110 transition-transform">
+                                <svg class="h-5 w-5 text-slate-400" fill="currentColor" viewBox="0 0 24 24">
+                                    
+                                </svg>
+                            </a>
+                        </div>
+                    </div> -->
+    
+                    <!-- Contacto -->
+                    <div class="md:col-span-2 ml-40">
+                        <h3 class="text-2xl font-bold mb-6 text-slate-200 text-center md:text-left">Contacto</h3>
+                        <ul class="space-y-4 text-slate-400">
+                            <li class="flex items-center space-x-3">
+                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                                <span class="text-lg">otromas800@gmail.com</span> 
 
-								            		          
-						     		          	
-					</section>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                
+                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                </svg>
+                                <span class="text-lg">+56973177957</span>
+                            </li>
+                            <li  class="flex items-center space-x-3">
+                                <a href="https://www.instagram.com/fusion_devtech" class="card-neu-social p-2 rounded-full hover:scale-110 transition-transform">
+                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                                  </svg>
+                                <span class="text-lg">Instagram</span>
+                                </a>
+                            </li>
+                            <div class="mt-12 pt-8  left-12 text-slate-400">
+                                <p>&copy; 2025 Raccoonbase. Todos los derechos reservados.</p>
+                            </div>
+                            
+                        </ul>
 
-					<!-- section 3 -->
-					<section id="tm-section-3" class="tm-section">	
-						<nav id="tmMainNav" class="tm-main-nav">					
-							<div class="row mb-4">
-								<header class="col-xl-12"><h2 class="tm-text-shadow">Proyectos</h2></header>		
-							</div>
-						<div class="row">
-							<div class="col-sm-12 col-md-6 col-lg-12 col-xl-6 mb-4">
-								<div class="media tm-bg-transparent-black tm-border-white">
-									<img src="img/certs.svg" alt="..." class="mr-4 tm-icon-circled tm-icon-media">
-									<div class="media-body">
-										<li>
-											<a href="#certs" class="scrolly" data-page="#tm-section-5">
-											
-												Certificaciones
-											</a>
-										</li>
-									</div>
-								</div>
-							</div>	
-							<div class="col-sm-12 col-md-6 col-lg-12 col-xl-6 mb-4">
-								<div class="media tm-bg-transparent-black tm-border-white">
-									<img src="img/herramientas.svg" alt="..." class="mr-4 tm-icon-circled tm-icon-media">
-									<div class="media-body">
-										<li>
-											<a href="#herramientas" class="scrolly"  data-page="#tm-section-6">
-												Herramientas
-											</a>
-										</li>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-12 col-md-6 col-lg-12 col-xl-6 mb-4">
-								<div class="media tm-bg-transparent-black tm-border-white" href="">
-									<img src="img/recursos.svg" alt="..." class="mr-4 tm-icon-circled tm-icon-media">
-									<div class="media-body">
-										<li>
-											<a href="#recursos" data-bg-img="" data-page="#tm-section-7">
-												Recursos
-											</a>
-										</li>	
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-12 col-md-6 col-lg-12 col-xl-6 mb-4">
-								<div class="media tm-bg-transparent-black tm-border-white">
-									<img src="img/linux.svg" alt="..." class="mr-4 tm-icon-circled tm-icon-media">
-									<div class="media-body">
-										<li>
-											<a href="#Entorno" data-bg-img="" data-page="#tm-section-8">
-												Personalización de entornos
-											</a>
-										</li>	
-									</div>
-								</div>
-							</div>			          		
-						</div>		
-						</nav>
-								   
-					</section>
-					
-					
-					<!-- section 4 -->
-					<section id="tm-section-4" class="tm-section">
-						<div class="tm-bg-transparent-black tm-contact-box-pad">
-							<div class="row mb-4">
-								<div class="col-sm-12">
-									<header><h2 class="tm-text-shadow">contacto</h2></header>
-								</div>
-							</div>
-							<div class="row tm-page-4-content">
-								<div class="col-md-6 col-sm-12 tm-contact-col">
-									<div class="contact_message">
-										<form action="#contact" method="post" class="contact-form">
-											<div class="form-group">
-												<input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Name" required="">
-											</div>
-											<div class="form-group">
-												<input type="email" id="contact_email" name="contact_email" class="form-control" placeholder="Email" required="">
-											</div>
-											<div class="form-group">
-												<textarea id="contact_message" name="contact_message" class="form-control" rows="9" placeholder="Message" required=""></textarea>
-											</div>
-											<button type="submit" class="btn tm-btn-submit tm-btn ml-auto">Submit</button>
-										</form>
-									</div>
-								</div>
-								<div class="col-md-6 col-sm-12 tm-contact-col">
-									<div class="tm-address-box">
-										<p></p>
-										<p></p>
-										<address>
-											direccion<br>
-											<br>
-										
-										</address>
-									</div>
-								</div>
-							</div>
-						</div>
-					</section>
-					<section id="tm-section-5" class="tm-section">
-							<div class="row mb-4">
-								<div class="col-sm-12">
-									<header><h2 class="tm-text-shadow">Certificaciones</h2></header>
-								</div>
-								
-							</div>
-							<div class="tm-bg-transparent-black container-fluid tm-contact-box-pad">
-								<div class="container">
-									<div class="row">    
-									   	<div class="col-lg-4 mb-3">
-										  	<div class="card1">
-											 	<div class="card-body1">
-											  		<div class="wrap">
-													<img class="img-fluid" src="img/ejpt.png" alt="image 1">
-											 		</div><!-- card image -->
-											 	</div> 
-											<div class="card-content bg-light text-dark">
-											</div><!-- card content -->
-											<div class="card-reveal show1">
-											<span class="card-title">ejptV2
-											 	<p>Certificacion INE</p>
-										  	</div><!-- card reveal -->
-											</div>
-										</div>
-								   		<div class="col-lg-4">
-											<div class="card1">
-												<div class="card-body1">
-												 	<div class="wrap">
-											   			<img class="img-fluid" src="img/ec-counsil.png" alt="image 1">
-													</div><!-- card image -->
-												</div> 
-									   			<div class="card-content bg-light text-dark">
-									   			</div><!-- card content -->
-									   			<div class="card-reveal show1">
-									   			<span class="card-title">Practical Cyber Threat Intelligence
-												<p></p>
-												</div><!-- card reveal -->
-									   		</div>
-											   
-									  	</div><!-- card content -->
-											  
-										<div class="col-lg-4">
-											<div class="card1">
-											   	<div class="card-body1">
-													<div class="wrap">
-												  	<img class="img-fluid" src="img/ec-counsil.png" alt="image 1">
-												   	</div><!-- card image -->
-											   	</div> 
-										  	<div class="card-content bg-light text-dark">
-										  	</div><!-- card content -->
-										  	<div class="card-reveal show1">
-										  	<span class="card-title">Common Cybersecurity Attacks and Defense Strategies
-											   <p></p>
-											</div><!-- card reveal -->
-										  	</div>
-									    </div>
-									</div>
-									<div class="row">
-										<div class="col-lg-4" >
-											<div class="card1">
-											   	<div class="card-body1">
-													<div class="wrap">
-												  	<img class="img-fluid" src="img/ec-counsil.png" alt="image 1">
-												   	</div><!-- card image -->
-											   	</div> 
-										  	<div class="card-content bg-light text-dark">
-										  	</div><!-- card content -->
-										  	<div class="card-reveal show1">
-										  	<span class="card-title">Windows Penetration Testing Essentials
-											   <p></p>
-											</div><!-- card reveal -->
-										  	</div>
-									    </div>
-										<div class="col-lg-4">
-											<div class="card1">
-											   	<div class="card-body1">
-													<div class="wrap">
-												  	<img class="img-fluid" src="img/ec-counsil.png" alt="image 1">
-												   	</div><!-- card image -->
-											   	</div> 
-										  	<div class="card-content bg-light text-dark">
-										  	</div><!-- card content -->
-										  	<div class="card-reveal show1">
-										  	<span class="card-title">Black Hat Python: Python For Pentesters
-											   <p></p>
-											</div><!-- card reveal -->
-										  	</div>
-									    </div>
-									</div>
-								</div>
-							</div>  
-						</section> 
-					
-				
-							
-				
-				</section>			
-					<section id="tm-section-6" class="tm-section">
-						<div class="row mb-4">
-							<div class="col-sm-12">
-								<header><h2 class="tm-text-shadow">Herramientas</h2></header>
-							</div>
-						</div>
-						
-						<div class="tm-bg-transparent-black-1 mb-4 container-fluid tm-contact-box-pad">
-							<div class="row">    
-								<div class="media">
-									<img  src="img/herramientas.svg" class="w-25" alt="Generic placeholder image">
-									<div class="media-body mb-4 ">
-									  <h5 class="mt-0">Herramienta 1</h5>
-									  <p>Herramienta 1 texto informativo de la herramienta funcionamiento y composicion etc lorem ipsum</p>
-									  <p>Herramienta 1 info 2.</p>
-									</div>
-								  </div>
-							 </div>
-						</div>
-						
-						
-						<div class="tm-bg-transparent-black-1 mb-4 container-fluid tm-contact-box-pad">
-							<div class="row">    
-								<div class="media">
-									<img  src="img/herramientas.svg" class="w-25" alt="Generic placeholder image">
-									<div class="media-body">
-									  <h5 class="mt-0">Herramienta 2</h5>
-									  <p>Herramienta 2 texto informativo de la herramienta funcionamiento y composicion etc lorem ipsum</p>
-									  <p>Herramienta 2 info 2.</p>
-									</div>
-								  </div>
-							 </div>
-						</div>
-						<div class="tm-bg-transparent-black-1 mb-4 container-fluid tm-contact-box-pad">
-							<div class="row">    
-								<div class="media">
-									<img  src="img/herramientas.svg" class="w-25" alt="Generic placeholder image">
-									<div class="media-body">
-									  <h5 class="mt-0">Herramienta 3</h5>
-									  <p>Herramienta 3 texto informativo de la herramienta funcionamiento y composicion etc lorem ipsum</p>
-									  <p>Herramienta 3 info 2.</p>
-									</div>
-								  </div>
-							 </div>
-						</div>
-						
-					</section>
-					<section id="tm-section-7" class="tm-section">
-						<div class="row mb-4">
-							<div class="col-sm-12">
-								<header><h2 class="tm-text-shadow">recursos</h2></header>
-							</div>
-						</div>
-						<div class="tm-bg-transparent-black container-fluid tm-contact-box-pad">
-							<div class="autogrid row">
-								<div class="col">
-								  <h2>Title</h2>
-								  <p>Lorem ipsum dolor sit amet, unum option constituam ei pri. Illum delicatissimi quo ex. Eros graecis vim id. Eos ad sumo soluta convenire. Alia partem philosophia ad pri. Verear sanctus ex vel, an eam atqui offendit.</p>
-								</div>
-								<div class="col">
-								  <h2>Title</h2>
-								  <p>Lorem ipsum dolor sit amet, unum option constituam ei pri. Illum delicatissimi quo ex. Eros graecis vim id. Eos ad sumo soluta convenire. Alia partem philosophia ad pri. Verear sanctus ex vel, an eam atqui offendit.</p>
-								</div>
-								<div class="col">
-								  <h2>Title</h2>
-								  <p>Lorem ipsum dolor sit amet, unum option constituam ei pri. Illum delicatissimi quo ex. Eros graecis vim id. Eos ad sumo soluta convenire. Alia partem philosophia ad pri. Verear sanctus ex vel, an eam atqui offendit.</p>
-								</div>
-								<div class="col">
-								  <h2>Title</h2>
-								  <p>Lorem ipsum dolor sit amet, unum option constituam ei pri. Illum delicatissimi quo ex. Eros graecis vim id. Eos ad sumo soluta convenire. Alia partem philosophia ad pri. Verear sanctus ex vel, an eam atqui offendit.</p>
-								</div>  
-							  </div>
-							  <div class="autogrid row">
-								<div class="col">
-								  <h2>Title</h2>
-								  <p>Lorem ipsum dolor sit amet, unum option constituam ei pri. Illum delicatissimi quo ex. Eros graecis vim id. Eos ad sumo soluta convenire. Alia partem philosophia ad pri. Verear sanctus ex vel, an eam atqui offendit.</p>
-								</div>
-								<div class="col">
-								  <h2>Title</h2>
-								  <p>Lorem ipsum dolor sit amet, unum option constituam ei pri. Illum delicatissimi quo ex. Eros graecis vim id. Eos ad sumo soluta convenire. Alia partem philosophia ad pri. Verear sanctus ex vel, an eam atqui offendit.</p>
-								</div>
-								<div class="col">
-								  <h2>Title</h2>
-								  <p>Lorem ipsum dolor sit amet, unum option constituam ei pri. Illum delicatissimi quo ex. Eros graecis vim id. Eos ad sumo soluta convenire. Alia partem philosophia ad pri. Verear sanctus ex vel, an eam atqui offendit.</p>
-								</div>
-								<div class="col">
-								  <h2>Title</h2>
-								  <p>Lorem ipsum dolor sit amet, unum option constituam ei pri. Illum delicatissimi quo ex. Eros graecis vim id. Eos ad sumo soluta convenire. Alia partem philosophia ad pri. Verear sanctus ex vel, an eam atqui offendit.</p>
-								</div>  
-							  </div>
-							  <div class="autogrid row">
-								<div class="col">
-								  <h2>Title</h2>
-								  <p>Lorem ipsum dolor sit amet, unum option constituam ei pri. Illum delicatissimi quo ex. Eros graecis vim id. Eos ad sumo soluta convenire. Alia partem philosophia ad pri. Verear sanctus ex vel, an eam atqui offendit.</p>
-								</div>
-								<div class="col">
-								  <h2>Title</h2>
-								  <p>Lorem ipsum dolor sit amet, unum option constituam ei pri. Illum delicatissimi quo ex. Eros graecis vim id. Eos ad sumo soluta convenire. Alia partem philosophia ad pri. Verear sanctus ex vel, an eam atqui offendit.</p>
-								</div>
-								<div class="col">
-								  <h2>Title</h2>
-								  <p>Lorem ipsum dolor sit amet, unum option constituam ei pri. Illum delicatissimi quo ex. Eros graecis vim id. Eos ad sumo soluta convenire. Alia partem philosophia ad pri. Verear sanctus ex vel, an eam atqui offendit.</p>
-								</div>
-								<div class="col">
-								  <h2>Title</h2>
-								  <p>Lorem ipsum dolor sit amet, unum option constituam ei pri. Illum delicatissimi quo ex. Eros graecis vim id. Eos ad sumo soluta convenire. Alia partem philosophia ad pri. Verear sanctus ex vel, an eam atqui offendit.</p>
-								</div>
-								
-							  </div>
-						</div>
-						
-					</section>
-					<section id="tm-section-8" class="tm-section">
-						<div class="row mb-4">
-							<div class="col-sm-12">
-								<header><h2 class="tm-text-shadow">Personalización de entornos    </h2></header>
-							</div>
-						</div>
-						<div class="tm-bg-transparent-black container-fluid tm-contact-box-pad">
-							<div class="tm-bg-transparent-black-1 mb-4 container-fluid tm-contact-box-pad">
-								<div class="row">    
-									<div class="media">
-										<img  src="img/linux.svg" class="w-25" alt="Generic placeholder image">
-										<div class="media-body mb-4 ">
-										  <h5 class="mt-0">Entorno 1</h5>
-										  <p>Entorno 1 texto informativo del entorno funcionamiento y composicion etc lorem ipsum</p>
-										  <p>Entorno 1 info 2.</p>
-										</div>
-									  </div>
-								 </div>
-							</div>
-							
-							
-							<div class="tm-bg-transparent-black-1 mb-4 container-fluid tm-contact-box-pad">
-								<div class="row">    
-									<div class="media">
-										<img  src="img/linux.svg" class="w-25" alt="Generic placeholder image">
-										<div class="media-body">
-										  <h5 class="mt-0">Entorno 2</h5>
-										  <p>Entorno 2 texto informativo del entorno funcionamiento y composicion etc lorem ipsum</p>
-										  <p>Entorno 2 info 2.</p>
-										</div>
-									  </div>
-								 </div>
-							</div>
-							<div class="tm-bg-transparent-black-1 mb-4 container-fluid tm-contact-box-pad">
-								<div class="row">    
-									<div class="media">
-										<img  src="img/linux.svg" class="w-25" alt="Generic placeholder image">
-										<div class="media-body">
-										  <h5 class="mt-0">Entorno 3</h5>
-										  <p>Herramienta 3 texto informativo de la herramienta funcionamiento y composicion etc lorem ipsum</p>
-										  <p>Herramienta 3 info 2.</p>
-										</div>
-									  </div>
-								 </div>
-							</div>
-							
-						</div>
-					
-					</section>
-				</div>
-				</div>
-				</div>
-							
-		<div id="preload-01"></div>
-		<div id="preload-02"></div>
-		<div id="preload-03"></div>
-		<div id="preload-04"></div>
+                    </div>
+                    <!-- <div class="col-span-1 md:col-span-2 flex flex-col items-center ml-20">
+                        <li class="flex justify-center">
+                            <a href="#inicio" class="mb-4">
+                                <img class="w-48 h-16 brightness-0 invert" src="img/logo-dev-tech.png" alt="Logo">
+                            </a>
+                        </li>
 
-		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-		<script type="text/javascript" src="js/jquery.magnific-popup.min.js"></script>
-		<script type="text/javascript" src="js/jquery.backstretch.min.js"></script>
-		<script type="text/javascript" src="slick/slick.min.js"></script>
-		
-		<script type="text/javascript" src="js/bootstrap.bundle.js"></script>
-		<script type="text/javascript" src="js/bootstrap.bundle.js.map"></script>
-		<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.bundle.min.js.map"></script>
-		<script type="text/javascript" src="js/bootstrap.js"></script>
-		<script type="text/javascript" src="js/bootstrap.js.map"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js.map"></script>
-		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-		<script type="text/javascript" src="js/jquery.backstretch.min.js"></script>
-		<script type="text/javascript" src="js/jquery.magnific-popup.min.js"></script>
+                        <div class="flex space-x-4">
+                            <a href="https://www.instagram.com/fusion_devtech" class="card-neu-social p-2 rounded-full hover:scale-110 transition-transform">
+                                <svg class="h-5 w-5 text-slate-400" fill="currentColor" viewBox="0 0 24 24">
+                                    
+                                </svg>
+                            </a>
+                        </div>
+                    </div>  -->
 
-		<!-- Slick Carousel -->
+                </div>
+                
+                <!-- Copyright -->
+            </div>
+        </footer>
+    </div>
 
-		<script>
+    <!-- JavaScript para la funcionalidad de expansión/contracción -->
+    <script>
 
-		var sidebarVisible = false;
-		var currentPageID = "#tm-section-1";
+document.addEventListener('DOMContentLoaded', () => {
+    const sidebar = document.getElementById('tmSideBar');
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const contenido = document.getElementById('contenido');
+    const textElements = document.querySelectorAll('.sidebar-text');
+    let isExpanded = true;
 
-		// Setup Carousel
-		function setupCarousel() {
+    async function cargarContenido(ruta) {
+        try {
+            const respuesta = await fetch(ruta);
+            if (!respuesta.ok) {
+                throw new Error('Error al cargar el contenido');
+            }
+            const contenidoHTML = await respuesta.text();
+            
+            // Resetear la posición de desplazamiento
+            contenido.scrollTop = 0;
+            window.scrollTo(0, 0);
+            
+            // Cargar el nuevo contenido
+            document.getElementById('contenido-principal').innerHTML = contenidoHTML;
+            
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('contenido-principal').innerHTML = '<p>Error al cargar el contenido</p>';
+        }
+    }
+    document.querySelectorAll('#tmMainNav a[data-route]').forEach(enlace => {
+        enlace.addEventListener('click', (e) => {
+            e.preventDefault();
+            const ruta = enlace.getAttribute('data-route');
+            
+            if (ruta) {
+                if (isExpanded) {
+                    toggleSidebar();
+                }
+                cargarContenido(ruta);
+            }
+        });
+    });
 
-			// If current page isn't Carousel page, don't do anything.
-			if($('#tm-section-2').css('display') == "none") {
-			}
-			else {	// If current page is Carousel page, set up the Carousel.
+    
 
-				var slider = $('.tm-img-slider');
-				var windowWidth = $(window).width();
+    const backgrounds = [
+        'tablero.jpg',
+        'blue-room.jpg',
+        'consola-espacio.jpg',
+        'pasillo-cables.jpg',
+        'lentes-neon.jpg',
+        'tablero-monitor.jpg',
+        'fondo-camino-grafiti.jpg',
+        'fondo-codigo.jpg',
+        'fondo-cuadrado-neon.jpg',
+        'fondo-cuadrados-neon.jpg',
+        'fondo-cuadrado-verde-neon.jpg',
+        'fondo-monitor.jpg',
+        'fondo-panel-control.jpg',
+        'fondo-pantas-neon.jpg',
+        'fondo-escalera-neon.jpg',
+        'eye.jpg',
+        'walking-blue-men.jpg',
+        'hand-1.jpg',
+        'cabina.jpg',
+        'cabina-2.jpg',
+        'cabina-3.jpg',
+        'red-laser-eyes.jpg',
+        'hand-2.jpg',
+        'cabina-4.jpg',
+        'hand-3.jpg',
+        'cabina-5.jpg',
+        'panel.jpg',
+        'monitor-2.jpg',
+        'tablero-2.jpg',
+        'radio-pixel-art.jpg'
+    ];
 
-				if (slider.hasClass('slick-initialized')) {
-					slider.slick('destroy');
-				}
+    function setRandomBackground() {
+        const randomBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+        sidebar.style.backgroundImage = `url('/img/fondos-navbar/${randomBg}')`;
+        sidebar.style.backgroundSize = 'cover';
+        sidebar.style.backgroundPosition = 'center';
+    }
 
-				if(windowWidth < 640) {
-					slider.slick({
-	              		dots: true,
-	              		infinite: false,
-	              		slidesToShow: 1,
-	              		slidesToScroll: 1
-	              	});
-				}
-				else if(windowWidth < 992) {
-					slider.slick({
-	              		dots: true,
-	              		infinite: false,
-	              		slidesToShow: 2,
-	              		slidesToScroll: 1
-	              	});
-				}
-				else {
-					// Slick carousel
-	              	slider.slick({
-	              		dots: true,
-	              		infinite: false,
-	              		slidesToShow: 3,
-	              		slidesToScroll: 2
-	              	});
-				}
+    function toggleSidebar() {
+        // Simplificar el manejo del logo - primero verificar si existe
+        const logoImage = document.querySelector('img[alt="Raccoon base"]');
+        
+        if (isExpanded) {
+            // Contraer
+            sidebar.classList.remove('w-screen');
+            sidebar.classList.add('w-1/4');
+            
+            setTimeout(() => {
+                contenido.classList.remove('hidden');
+                contenido.style.marginLeft = '25%';
+            }, 300);
+            
+            sidebarToggle.style.display = 'none';
 
-				// Init Magnific Popup
-				$('.tm-img-slider').magnificPopup({
-				  delegate: 'a', // child items selector, by clicking on it popup will open
-				  type: 'image',
-				  gallery: {enabled:true}
-				  // other options
-				});
-      		}
-  		}
+            // Ajustar tamaño del texto
+            textElements.forEach(element => {
+                element.classList.remove('text-3xl');
+                element.classList.add('text-xl');
+            });
+            
+            // Ajustar tamaño del logo si existe
+            if (logoImage) {
+                logoImage.classList.remove('lg:w-48');
+                logoImage.classList.add('lg:w-24');
+            }
+        } else {
+            // Expandir
+            sidebar.classList.remove('w-1/4');
+            sidebar.classList.add('w-screen');
+            contenido.classList.add('hidden');
+            contenido.style.marginLeft = '0';
+            sidebarToggle.style.display = 'block';
 
-  		// Setup Nav
-  		function setupNav() {
-  			// Add Event Listener to each Nav item
-	     	$(".tm-main-nav a").click(function(e){
-	     		e.preventDefault();
-		    	
-		    	var currentNavItem = $(this);
-		    	changePage(currentNavItem);
-		    	
-		    	setupCarousel();
-		    	setupFooter();
+            // Ajustar tamaño del texto
+            textElements.forEach(element => {
+                element.classList.remove('text-xl');
+                element.classList.add('text-3xl');
+            });
+            
+            // Ajustar tamaño del logo si existe
+            if (logoImage) {
+                logoImage.classList.remove('lg:w-24');
+                logoImage.classList.add('lg:w-48');
+            }
+        }
+        
+        isExpanded = !isExpanded;
+    }
 
-		    	// Hide the nav on mobile
-		    	$("#tmSideBar").removeClass("show");
-		    });	    
-  		}
+    // Inicialización
+    setRandomBackground();
+    sidebarToggle.addEventListener('click', toggleSidebar);
+    cargarContenido('secciones/inicio.html');
+});
 
-  		function changePage(currentNavItem) {
-  			// Update Nav items
-  			$(".tm-main-nav a").removeClass("active");
-     		currentNavItem.addClass("active");
+            
 
-	    	$(currentPageID).hide();
 
-	    	// Show current page
-	    	currentPageID = currentNavItem.data("page");
-	    	$(currentPageID).fadeIn(1000);
-
-	    	// Change background image
-	    	var bgImg = currentNavItem.data("bgImg");
-	    	$.backstretch("img/" + bgImg);		    	
-  		}
-
-  		// Setup Nav Toggle Button
-  		function setupNavToggle() {
-
-			$("#tmMainNavToggle").on("click", function(){
-				$(".sidebar").toggleClass("show");
-			});
-  		}
-
-  		// If there is enough room, stick the footer at the bottom of page content.
-  		// If not, place it after the page content
-  		function setupFooter() {
-  			
-  			var padding = 100;
-  			var footerPadding = 40;
-  			var mainContent = $("section"+currentPageID);
-  			var mainContentHeight = mainContent.outerHeight(true);
-  			var footer = $(".footer-link");
-  			var footerHeight = footer.outerHeight(true);
-  			var totalPageHeight = mainContentHeight + footerHeight + footerPadding + padding;
-  			var windowHeight = $(window).height();		
-
-  			if(totalPageHeight > windowHeight){
-  				$(".tm-content").css("margin-bottom", footerHeight + footerPadding + "px");
-  				footer.css("bottom", footerHeight + "px");  			
-  			}
-  			else {
-  				$(".tm-content").css("margin-bottom", "0");
-  				footer.css("bottom", "20px");  				
-  			}  			
-  		}
-
-  		// Everything is loaded including images.
-      	$(window).on("load", function(){
-
-      		// Render the page on modern browser only.
-      		if(renderPage) {
-				// Remove loader
-		      	$('body').addClass('loaded');
-
-		      	// Page transition
-		      	var allPages = $(".tm-section");
-
-		      	// Handle click of "Continue", which changes to next page
-		      	// The link contains data-nav-link attribute, which holds the nav item ID
-		      	// Nav item ID is then used to access and trigger click on the corresponding nav item
-		      	var linkToAnotherPage = $("a.tm-btn[data-nav-link]");
-			    
-			    if(linkToAnotherPage != null) {
-			    	
-			    	linkToAnotherPage.on("click", function(){
-			    		var navItemToHighlight = linkToAnotherPage.data("navLink");
-			    		$("a" + navItemToHighlight).click();
-			    	});
-			    }
-		      	
-		      	// Hide all pages
-		      	allPages.hide();
-
-		      	$("#tm-section-1").fadeIn();
-
-		     	// Set up background first page
-		     	var bgImg = $("#tmNavLink1").data("bgImg");
-		     	
-		     	$.backstretch("img/" + bgImg, {fade: 500});
-
-		     	// Setup Carousel, Nav, and Nav Toggle
-			    setupCarousel();
-			    setupNav();
-			    setupNavToggle();
-			    setupFooter();
-
-			    // Resize Carousel upon window resize
-			    $(window).resize(function() {
-			    	setupCarousel();
-			    	setupFooter();
-			    });
-      		}	      	
-		});
-
-		</script>
-	</body>
+    </script>
+</body>
 </html>

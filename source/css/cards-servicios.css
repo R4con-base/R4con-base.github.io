@@ -1,0 +1,12 @@
+/* Para limitar el texto del excerpt a 3 líneas */
+.line-clamp-3 {
+    display: -webkit-box;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Efecto hover para las cards */
+.bg-gray-800:hover {
+    transform: translateY(-4px);
+}

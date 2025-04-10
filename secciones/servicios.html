@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raccoon base</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .card-hover-effect {
+            transition: all 0.3s ease;
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(34, 211, 238, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 min-h-screen overflow-y-auto">
+    <div class="w-full overflow-x-hidden">
+        <section class="py-16 bg-gray-900 bg-opacity-30">
+            <div class="container mx-auto px-4">
+                <!-- Botones de navegación -->
+                <div class="flex justify-center mb-12 gap-6">
+                    <button id="btnPosts" class="py-3 px-8 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg font-medium text-lg transition-colors duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
+                        Posts
+                    </button>
+                    <button id="btnCategorias" class="py-3 px-8 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium text-lg transition-colors duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+                        Categorías
+                    </button>
+                </div>
+
+                <!-- Contenedor principal -->
+                <div class="bg-gray-800 bg-opacity-50 backdrop-blur-sm rounded-xl shadow-2xl p-8 min-h-[600px]">
+                    <!-- Contenido de Posts -->
+                    <div id="contentPosts" class="w-full">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="postsContainer">
+                            <div class="text-center py-8 col-span-4">
+                                <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div>
+                                <p class="mt-4 text-gray-400">Cargando posts...</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contenido de Categorías -->
+                    <div id="contentCategorias" class="w-full hidden">
+                        <p class="text-center text-gray-400 py-8">Contenido de categorías pronto...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Configuración de rutas (ajustadas para funcionar en cualquier entorno)
+            const POSTS_DIRECTORY = window.location.href.includes('localhost') 
+    ? './posts/'  // Para cuando trabajas en localhost con un servidor
+    : 'posts/';  // Para cuando no usas servidor
+            const IMAGES_DIRECTORY = `${POSTS_DIRECTORY}images/`;
+            const POSTS_PER_PAGE = 8;
+            const DEFAULT_IMAGE = `${IMAGES_DIRECTORY}default.jpg`;
+
+            // Elementos del DOM
+            const btnPosts = document.getElementById('btnPosts');
+            const btnCategorias = document.getElementById('btnCategorias');
+            const contentPosts = document.getElementById('contentPosts');
+            const contentCategorias = document.getElementById('contentCategorias');
+            const postsContainer = document.getElementById('postsContainer');
+
+            // Función para cambiar entre pestañas
+            function switchTab(activeTab) {
+                if (activeTab === 'posts') {
+                    btnPosts.classList.replace('bg-gray-700', 'bg-cyan-600');
+                    btnPosts.classList.replace('hover:bg-gray-600', 'hover:bg-cyan-700');
+                    btnCategorias.classList.replace('bg-cyan-600', 'bg-gray-700');
+                    btnCategorias.classList.replace('hover:bg-cyan-700', 'hover:bg-gray-600');
+                    
+                    contentPosts.classList.remove('hidden');
+                    contentCategorias.classList.add('hidden');
+                } else {
+                    btnCategorias.classList.replace('bg-gray-700', 'bg-cyan-600');
+                    btnCategorias.classList.replace('hover:bg-gray-600', 'hover:bg-cyan-700');
+                    btnPosts.classList.replace('bg-cyan-600', 'bg-gray-700');
+                    btnPosts.classList.replace('hover:bg-cyan-700', 'hover:bg-gray-600');
+                    
+                    contentCategorias.classList.remove('hidden');
+                    contentPosts.classList.add('hidden');
+                }
+            }
+
+            // Función para mostrar error
+            function showError(message) {
+                postsContainer.innerHTML = `
+                    <div class="text-center py-8 col-span-4">
+                        <p class="text-red-400">${message}</p>
+                        <button onclick="window.location.reload()" class="mt-4 px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700">
+                            Recargar
+                        </button>
+                    </div>
+                `;
+            }
+
+            // Función mejorada para cargar posts
+            async function loadPosts() {
+                console.log('[Debug] Iniciando carga de posts desde:', POSTS_DIRECTORY);
+                
+                try {
+                    // 1. Intenta cargar el índice de posts
+                    let postNumbers = [];
+                    try {
+                        const indexUrl = `${POSTS_DIRECTORY}index.json`;
+                        console.log('[Debug] Intentando cargar índice:', indexUrl);
+                        
+                        const indexResponse = await fetch(indexUrl);
+                        if (indexResponse.ok) {
+                            const indexData = await indexResponse.json();
+                            postNumbers = indexData.posts || [];
+                            console.log('[Debug] Posts desde index.json:', postNumbers);
+                        } else {
+                            console.warn('[Debug] index.json no encontrado o error al cargar');
+                        }
+                    } catch (e) {
+                        console.warn('[Debug] Error al cargar index.json:', e);
+                    }
+
+                    // 2. Si no hay índice, detectar posts disponibles
+                    if (postNumbers.length === 0) {
+                        console.log('[Debug] Buscando posts individualmente...');
+                        const testPosts = [];
+                        
+                        // Probamos con diferentes formatos de nombres
+                        for (let i = 1; i <= 20; i++) {
+                            const formats = [
+                                `${POSTS_DIRECTORY}post-${i}.json`,
+                                `${POSTS_DIRECTORY}post_${i}.json`,
+                                `${POSTS_DIRECTORY}${i}.json`
+                            ];
+                            
+                            for (const url of formats) {
+                                try {
+                                    const response = await fetch(url);
+                                    if (response.ok) {
+                                        testPosts.push({number: i, url});
+                                        console.log(`[Debug] Post encontrado: ${url}`);
+                                        break; // Si encontramos uno, pasamos al siguiente número
+                                    }
+                                } catch (error) {
+                                    console.log(`[Debug] Error probando ${url}:`, error.message);
+                                }
+                            }
+                        }
+                        
+                        postNumbers = testPosts.map(p => p.number);
+                        console.log('[Debug] Posts detectados:', postNumbers);
+                    }
+
+                    // 3. Si no hay posts, mostrar error
+                    if (postNumbers.length === 0) {
+                        const errorMsg = `No se encontraron posts en ${POSTS_DIRECTORY}.<br>
+                                         Asegúrate de que existan archivos post-1.json, post-2.json, etc.`;
+                        showError(errorMsg);
+                        return;
+                    }
+
+                    // 4. Cargar el contenido de los posts con manejo mejorado de imágenes
+                    const posts = await Promise.all(
+                        postNumbers.map(async number => {
+                            try {
+                                const postUrl = `${POSTS_DIRECTORY}post-${number}.json`;
+                                const response = await fetch(postUrl);
+                                
+                                if (!response.ok) {
+                                    console.warn(`[Debug] Post ${number} no encontrado en ${postUrl}`);
+                                    return null;
+                                }
+                                
+                                const postData = await response.json();
+                                let imageUrl = postData.image || '';
+                                
+                                // Manejo de rutas de imágenes
+                                if (imageUrl) {
+                                    if (!imageUrl.startsWith('http') && !imageUrl.startsWith('/')) {
+                                        imageUrl = `${IMAGES_DIRECTORY}${imageUrl}`;
+                                    }
+                                } else {
+                                    imageUrl = DEFAULT_IMAGE;
+                                }
+                                
+                                return { 
+                                    ...postData, 
+                                    number,
+                                    image: imageUrl,
+                                    postUrl: `${POSTS_DIRECTORY}post-${number}.html`
+                                };
+                            } catch (error) {
+                                console.error(`[Debug] Error cargando post-${number}.json:`, error);
+                                return null;
+                            }
+                        })
+                    );
+                    
+                    // 5. Filtrar y ordenar posts
+                    const validPosts = posts.filter(post => post !== null)
+                                        .sort((a, b) => b.number - a.number)
+                                        .slice(0, POSTS_PER_PAGE);
+                    
+                    // 6. Mostrar resultados
+                    if (validPosts.length === 0) {
+                        showError('Los posts se encontraron pero no se pudieron cargar correctamente.');
+                        return;
+                    }
+                    
+                    renderPosts(validPosts);
+                    
+                } catch (error) {
+                    console.error('[Debug] Error general:', error);
+                    showError(`Error al cargar los posts: ${error.message}`);
+                }
+            }
+
+            // Función mejorada para renderizar posts
+            function renderPosts(posts) {
+                postsContainer.innerHTML = posts.map(post => `
+                    <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg card-hover-effect h-full flex flex-col">
+                        <img src="${post.image}" alt="${post.title}" 
+                             class="w-full h-40 object-cover"
+                             onerror="this.onerror=null;this.src='${DEFAULT_IMAGE}'">
+                        <div class="p-4 flex-grow">
+                            <span class="inline-block px-3 py-1 bg-gray-700 rounded-full text-xs text-cyan-400 mb-2">
+                                ${post.category || 'General'}
+                            </span>
+                            <h3 class="text-lg font-bold text-white mb-2">${post.title}</h3>
+                            <p class="text-gray-300 text-sm line-clamp-3">${post.excerpt || ''}</p>
+                        </div>
+                        <div class="px-4 pb-4">
+                            <a href="${post.postUrl}" 
+                               class="text-cyan-400 hover:text-cyan-300 text-sm font-medium">
+                                Leer más →
+                            </a>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Event listeners
+            btnPosts.addEventListener('click', () => switchTab('posts'));
+            btnCategorias.addEventListener('click', () => switchTab('categorias'));
+
+            // Inicialización
+            switchTab('posts');
+            loadPosts();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+@font-face {
+  font-family: 'Emizen';
+  src: url('Emizen.otf') format('opentype'),
+       url('Emizen.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-Emizen-1 {
+  font-family: 'Emizen', sans-serif;
+  font-weight: 600; /* o 100, dependiendo del peso que quieras usar */
+}
+.font-Emizen-2 {
+  font-family: 'Emizen', sans-serif;
+  font-weight: 300; /* o 100, dependiendo del peso que quieras usar */
+}

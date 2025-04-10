@@ -1,0 +1,9 @@
+.background-animate {
+    background-size: 400%;
+    animation: AnimateBackground 3s ease infinite;
+  }
+  
+  @keyframes AnimateBackground {
+    0%,100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }

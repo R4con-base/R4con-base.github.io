@@ -1,0 +1,17 @@
+@font-face {
+  font-family: 'Terano';
+  src: url('TeranoBold.ttf') format('truetype'),
+       url('TeranoBold.otf') format('opentype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-Terano-1 {
+  font-family: 'Terano', sans-serif;
+  font-weight: 600; /* o 100, dependiendo del peso que quieras usar */
+}
+.font-Terano-2 {
+  font-family: 'Terano', sans-serif;
+  font-weight: 300; /* o 100, dependiendo del peso que quieras usar */
+}

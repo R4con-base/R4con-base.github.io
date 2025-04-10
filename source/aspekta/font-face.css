@@ -1,0 +1,22 @@
+@font-face {
+  font-family: 'Aspekta';
+  font-style: normal;
+  font-weight: 100;  /* Usa el número específico en lugar de "bold" */
+  font-display: swap;
+  src: url('Aspekta-100.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Aspekta';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('Aspekta-600.ttf') format('truetype'),
+  
+}
+
+.font-aspekta-1 {
+  font-family: 'Aspekta', sans-serif;
+  font-weight: 600; /* o 100, dependiendo del peso que quieras usar */
+}
+

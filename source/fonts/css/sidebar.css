@@ -1,0 +1,6 @@
+.sidebar {
+    transition: all 0.3s ease-in-out;
+}
+.sidebar.collapsed {
+    width: 5rem;
+}

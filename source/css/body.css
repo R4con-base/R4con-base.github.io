@@ -1,0 +1,128 @@
+/* .custom-bg {
+    background: repeating-linear-gradient(
+        45deg,
+        #2b2d42 0%,
+        #388ea1 25%,
+        #8d99ae 50%,
+        #388ea1 75%,
+        #2b2d42 100%
+    );
+    background-size: 20px 20px;
+    animation: gradientMove 3s linear infinite;
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 20px 20px;
+    }
+} */
+
+/* .custom-bg {
+    background-color: #0a192f;
+    background-image: repeating-linear-gradient(
+        45deg,
+        rgba(56, 142, 161, 0.2) 0px,
+        rgba(56, 142, 161, 0.2) 2px,
+        transparent 2px,
+        transparent 10px
+    );
+    box-shadow: inset 0 0 50px rgba(56, 142, 161, 0.3);
+    animation: pulseGlow 4s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: inset 0 0 50px rgba(56, 142, 161, 0.3); }
+    50% { box-shadow: inset 0 0 70px rgba(56, 142, 161, 0.5); }
+    100% { box-shadow: inset 0 0 50px rgba(56, 142, 161, 0.3); }
+} */
+
+/* .custom-bg {
+    background: 
+        linear-gradient(45deg, #388ea1 25%, transparent 25%) -10px 0,
+        linear-gradient(-45deg, #388ea1 25%, transparent 25%) -10px 0,
+        linear-gradient(45deg, transparent 75%, #388ea1 75%) -10px 0,
+        linear-gradient(-45deg, transparent 75%, #388ea1 75%) -10px 0;
+    background-color: #2b2b2b;
+    background-size: 20px 20px;
+    position: relative;
+}
+
+.custom-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 100%);
+    pointer-events: none;
+} */
+
+
+/* buenisimo diseño */
+body.custom-bg {
+    min-height: 100vh; /* Asegura que el body ocupe al menos toda la altura de la ventana */
+    margin: 0; /* Elimina márgenes por defecto */
+    padding: 0; /* Elimina padding por defecto */
+    background: linear-gradient(
+        135deg,
+        #388ea1 0%,
+        #2b2b2b 25%,
+        #388ea1 50%,
+        #2b2b2b 75%,
+        #388ea1 100%
+    );
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    overflow-y: auto;
+}
+
+body.custom-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.1) 0px,
+        rgba(255,255,255,0.1) 1px,
+        transparent 1px,
+        transparent 10px
+    );
+    animation: movePattern 20s linear infinite;
+    pointer-events: none; /* Permite que los eventos pasen a través de esta capa */
+}
+
+@keyframes movePattern {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(20px, 20px); }
+}
+/* interesante */
+
+/* .custom-bg {
+    background-color: #2b2b2b;
+    background-image: 
+        repeating-linear-gradient(
+            45deg,
+            rgba(56, 142, 161, 0.1) 0px,
+            rgba(56, 142, 161, 0.1) 2px,
+            transparent 2px,
+            transparent 10px
+        ),
+        repeating-linear-gradient(
+            -45deg,
+            rgba(161, 179, 168, 0.1) 0px,
+            rgba(161, 179, 168, 0.1) 2px,
+            transparent 2px,
+            transparent 10px
+        );
+    box-shadow: 
+        inset 0 0 30px rgba(0,0,0,0.5),
+        inset 0 0 60px rgba(56, 142, 161, 0.3);
+} */
