@@ -195,7 +195,7 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
     
-    <script>
+<script>
     document.addEventListener('DOMContentLoaded', () => {
         // Variables globales
         const sidebar = document.getElementById('tmSideBar');
@@ -211,7 +211,20 @@
                 ? './secciones/posts/'  
                 : 'secciones/posts/',
             postsPerPage: 8,
-            activeSection: null
+            activeSection: null,
+            // Lista fija de categorías
+            categories: [
+                "Tutoriales",
+                "Seguridad",
+                "Desarrollo",
+                "Redes",
+                "Hardware",
+                "Linux",
+                "Windows",
+                "Programación",
+                "Bases de Datos",
+                "Cloud"
+            ]
         };
         
         config.imagesDirectory = `${config.postsDirectory}images/`;
@@ -249,6 +262,57 @@
             }
         }
         
+        // Función global para cambiar pestañas (fuera de initServiciosSection)
+        window.switchTab = function(activeTab) {
+            const btnPosts = document.getElementById('btnPosts');
+            const btnCategorias = document.getElementById('btnCategorias');
+            const contentPosts = document.getElementById('contentPosts');
+            const contentCategorias = document.getElementById('contentCategorias');
+            
+            if (!btnPosts || !btnCategorias || !contentPosts || !contentCategorias) {
+                console.warn('Elementos de tabs no encontrados');
+                return;
+            }
+            
+            if (activeTab === 'posts') {
+                btnPosts.classList.replace('bg-gray-700', 'bg-cyan-600');
+                btnPosts.classList.replace('hover:bg-gray-600', 'hover:bg-cyan-700');
+                btnCategorias.classList.replace('bg-cyan-600', 'bg-gray-700');
+                btnCategorias.classList.replace('hover:bg-cyan-700', 'hover:bg-gray-600');
+                
+                contentPosts.classList.remove('hidden');
+                contentCategorias.classList.add('hidden');
+            } else {
+                btnCategorias.classList.replace('bg-gray-700', 'bg-cyan-600');
+                btnCategorias.classList.replace('hover:bg-gray-600', 'hover:bg-cyan-700');
+                btnPosts.classList.replace('bg-cyan-600', 'bg-gray-700');
+                btnPosts.classList.replace('hover:bg-cyan-700', 'hover:bg-gray-600');
+                
+                contentCategorias.classList.remove('hidden');
+                contentPosts.classList.add('hidden');
+            }
+        };
+        
+        // Función global para mostrar errores
+        function showError(message) {
+            if (!postsContainer) {
+                postsContainer = document.getElementById('postsContainer');
+                if (!postsContainer) {
+                    console.error('postsContainer no encontrado para mostrar error:', message);
+                    return;
+                }
+            }
+            
+            postsContainer.innerHTML = `
+                <div class="text-center py-8 col-span-4">
+                    <p class="text-red-400">${message}</p>
+                    <button onclick="window.location.reload()" class="mt-4 px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700">
+                        Recargar
+                    </button>
+                </div>
+            `;
+        }
+        
         function initServiciosSection() {
             console.log('Configurando sección de servicios...');
             
@@ -263,291 +327,433 @@
                 return;
             }
             
-            function switchTab(activeTab) {
-                if (activeTab === 'posts') {
-                    btnPosts.classList.replace('bg-gray-700', 'bg-cyan-600');
-                    btnPosts.classList.replace('hover:bg-gray-600', 'hover:bg-cyan-700');
-                    btnCategorias.classList.replace('bg-cyan-600', 'bg-gray-700');
-                    btnCategorias.classList.replace('hover:bg-cyan-700', 'hover:bg-gray-600');
-                    contentPosts.classList.remove('hidden');
-                    contentCategorias.classList.add('hidden');
-                } else {
-                    btnCategorias.classList.replace('bg-gray-700', 'bg-cyan-600');
-                    btnCategorias.classList.replace('hover:bg-gray-600', 'hover:bg-cyan-700');
-                    btnPosts.classList.replace('bg-cyan-600', 'bg-gray-700');
-                    btnPosts.classList.replace('hover:bg-cyan-700', 'hover:bg-gray-600');
-                    contentCategorias.classList.remove('hidden');
-                    contentPosts.classList.add('hidden');
+            btnPosts.addEventListener('click', () => window.switchTab('posts'));
+            btnCategorias.addEventListener('click', () => window.switchTab('categorias'));
+            window.switchTab('posts');
+            window.loadPosts();
+            window.loadCategories(); // Precargar categorías
+        }
+    
+        // Modificar loadPosts para que devuelva una promesa
+        window.loadPosts = function() {
+            console.log('Cargando posts desde:', config.postsDirectory);
+            
+            return new Promise(async (resolve, reject) => {
+                try {
+                    postsContainer = document.getElementById('postsContainer');
+                    if (!postsContainer) {
+                        reject(new Error('postsContainer no encontrado'));
+                        return;
+                    }
+                    
+                    // Mostrar loader
+                    postsContainer.innerHTML = `
+                        <div class="text-center py-8 col-span-1 w-full">
+                            <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div>
+                            <p class="mt-4 text-gray-400">Cargando posts...</p>
+                        </div>
+                    `;
+                    
+                    // Resto del código de carga de posts existente
+                    let postNumbers = [];
+                    try {
+                        const indexResponse = await fetch(`${config.postsDirectory}index.json`);
+                        if (indexResponse.ok) {
+                            const indexData = await indexResponse.json();
+                            postNumbers = indexData.posts || [];
+                            console.log('Posts desde index.json:', postNumbers);
+                        }
+                    } catch (e) {
+                        console.warn('Error al cargar index.json:', e);
+                    }
+
+                    if (postNumbers.length === 0) {
+                        console.log('Buscando posts individualmente...');
+                        for (let i = 1; i <= 20; i++) {
+                            try {
+                                const response = await fetch(`${config.postsDirectory}post-${i}.json`);
+                                if (response.ok) {
+                                    const text = await response.text();
+                                    try {
+                                        JSON.parse(text);
+                                        postNumbers.push(i);
+                                    } catch (parseError) {
+                                        console.error(`Error en el JSON del post-${i}.json:`, parseError);
+                                    }
+                                }
+                            } catch (error) {
+                                console.log(`Error probando post-${i}.json:`, error.message);
+                            }
+                        }
+                    }
+
+                    if (postNumbers.length === 0) {
+                        showError(`No se encontraron posts válidos en ${config.postsDirectory}`);
+                        resolve([]);
+                        return;
+                    }
+
+                    const posts = await Promise.all(
+                        postNumbers.map(async number => {
+                            try {
+                                const response = await fetch(`${config.postsDirectory}post-${number}.json`);
+                                if (!response.ok) return null;
+                                
+                                const text = await response.text();
+                                const postData = JSON.parse(text);
+                                
+                                let imageUrl = postData.image || '';
+                                
+                                if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('/')) {
+                                    imageUrl = `${config.imagesDirectory}${imageUrl}`;
+                                } else {
+                                    imageUrl = config.defaultImage;
+                                }
+                                
+                                return { 
+                                    ...postData,
+                                    number,
+                                    image: imageUrl,
+                                    title: postData.title || 'Sin título',
+                                    category: postData.category || 'General',
+                                    excerpt: postData.excerpt || '',
+                                    date: postData.date || ''
+                                };
+                            } catch (error) {
+                                console.error(`Error procesando post-${number}.json:`, error);
+                                return null;
+                            }
+                        })
+                    );
+                    
+                    const validPosts = posts.filter(post => post !== null)
+                                        .sort((a, b) => {
+                                            const dateA = a.date ? new Date(a.date) : new Date(0);
+                                            const dateB = b.date ? new Date(b.date) : new Date(0);
+                                            return dateB - dateA;
+                                        })
+                                        .slice(0, config.postsPerPage);
+                    
+                    if (validPosts.length === 0) {
+                        showError('Los posts se encontraron pero no se pudieron cargar correctamente');
+                        resolve([]);
+                        return;
+                    }
+                    
+                    renderPosts(validPosts, false); // No es vista filtrada
+                    resolve(validPosts);
+                    
+                } catch (error) {
+                    console.error('Error general:', error);
+                    showError(`Error al cargar los posts: ${error.message}`);
+                    reject(error);
+                }
+            });
+        };
+    
+        // Función para renderizar posts (modificada)
+        function renderPosts(posts, isFiltered = false) {
+            if (!postsContainer) {
+                postsContainer = document.getElementById('postsContainer');
+                if (!postsContainer) {
+                    console.error('postsContainer no encontrado para renderizar posts');
+                    return;
                 }
             }
+            
+            // Configuración del grid responsivo
+            if (isFiltered) {
+                // Vista filtrada: 4 columnas
+                postsContainer.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6";
+            } else {
+                // Vista normal de posts: 1 columna
+                postsContainer.className = "grid grid-cols-1 gap-6";
+            }
+            
+            postsContainer.innerHTML = posts.map(post => {
+                // Asegurar que la categoría sea válida si existe la lista de categorías
+                const validCategory = (config.categories && config.categories.includes(post.category)) 
+                    ? post.category 
+                    : 'General';
+                    
+                return `
+                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg card-hover-effect h-full flex flex-col w-full">
+                    <img src="${post.image}" alt="${post.title}" 
+                        class="w-full h-48 object-cover"
+                        onerror="this.onerror=null;this.src='${config.defaultImage}'">
+                    <div class="p-4 flex-grow">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="inline-block px-3 py-1 bg-gray-700 rounded-full text-xs text-cyan-400">
+                                ${validCategory}
+                            </span>
+                            <span class="text-gray-400 text-xs">${post.date}</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">${post.title}</h3>
+                        <p class="text-gray-300 text-sm line-clamp-3">${post.excerpt}</p>
+                    </div>
+                    <div class="px-4 pb-4">
+                        <a href="javascript:void(0)" 
+                        data-post-number="${post.number}"
+                        class="view-post-link text-cyan-400 hover:text-cyan-300 text-sm font-medium">
+                            Leer más →
+                        </a>
+                    </div>
+                </div>
+                `;
+            }).join('');
+                
+            document.querySelectorAll('.view-post-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.loadFullPost(this.getAttribute('data-post-number'));
+                });
+            });
+        }
     
-            function showError(message) {
+        // Función para cargar categorías (modificada)
+        window.loadCategories = function() {
+            const categoriesContainer = document.getElementById('categoriesContainer');
+            if (!categoriesContainer) {
+                console.warn('categoriesContainer no encontrado');
+                return;
+            }
+
+            // Asegurarnos de que tenemos las categorías
+            if (!config.categories || !Array.isArray(config.categories)) {
+                console.warn('La configuración de categorías no es válida');
+                return;
+            }
+
+            // Mostrar categorías en UNA sola columna
+            categoriesContainer.className = "grid grid-cols-1 gap-6";
+
+            categoriesContainer.innerHTML = config.categories.map(category => `
+                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg card-hover-effect h-full flex flex-col w-full">
+                    <div class="p-6 flex-grow flex flex-col items-center justify-center">
+                        <span class="inline-block px-4 py-2 bg-cyan-600 rounded-full text-lg text-white mb-4">
+                            ${category}
+                        </span>
+                        <button data-category="${category}" class="view-category-btn px-6 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors">
+                            Ver Posts
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            // Agregar event listeners a los botones de categoría
+            document.querySelectorAll('.view-category-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    window.filterPostsByCategory(category);
+                });
+            });
+        };
+    
+        // Función para filtrar posts por categoría (modificada)
+        window.filterPostsByCategory = async function(category) {
+            // Cambiar a la pestaña de posts
+            if (typeof window.switchTab === 'function') {
+                window.switchTab('posts');
+            } else {
+                const contentPosts = document.getElementById('contentPosts');
+                const contentCategorias = document.getElementById('contentCategorias');
+                if (contentPosts && contentCategorias) {
+                    contentPosts.classList.remove('hidden');
+                    contentCategorias.classList.add('hidden');
+                }
+            }
+            
+            // Obtener el contenedor de posts
+            if (!postsContainer) {
+                postsContainer = document.getElementById('postsContainer');
+                if (!postsContainer) {
+                    console.error('postsContainer no encontrado');
+                    return;
+                }
+            }
+            
+            // Mostrar loader
+            postsContainer.innerHTML = `
+                <div class="text-center py-8 col-span-4">
+                    <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div>
+                    <p class="mt-4 text-gray-400">Cargando posts de ${category}...</p>
+                </div>
+            `;
+            
+            try {
+                // Cargar todos los posts
+                const allPosts = await window.loadPosts();
+                
+                // Filtrar los posts por categoría (comparación case-insensitive)
+                const filteredPosts = allPosts.filter(post => {
+                    return post.category && 
+                           post.category.toString().trim().toLowerCase() === category.trim().toLowerCase();
+                });
+                
+                if (filteredPosts.length === 0) {
+                    postsContainer.innerHTML = `
+                        <div class="col-span-4 text-center py-8">
+                            <p class="text-gray-400">No hay posts en la categoría ${category}</p>
+                            <button onclick="window.loadPosts()" class="mt-4 px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700">
+                                Ver todos los posts
+                            </button>
+                        </div>
+                    `;
+                } else {
+                    // Renderizar solo los posts filtrados (con 4 columnas)
+                    renderPosts(filteredPosts, true);
+                    
+                    // Agregar botón para limpiar filtro
+                    postsContainer.insertAdjacentHTML('afterbegin', `
+                        <div class="col-span-4 flex justify-center mb-6">
+                            <button onclick="window.loadPosts()" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg">
+                                ← Ver todas las categorías
+                            </button>
+                        </div>
+                    `);
+                    
+                    // Agregar título de categoría
+                    postsContainer.insertAdjacentHTML('afterbegin', `
+                        <div class="col-span-4 text-center mb-6">
+                            <h2 class="text-2xl font-bold text-white">Posts en la categoría: ${category}</h2>
+                        </div>
+                    `);
+                }
+            } catch (error) {
+                console.error('Error al filtrar por categoría:', error);
                 postsContainer.innerHTML = `
                     <div class="text-center py-8 col-span-4">
-                        <p class="text-red-400">${message}</p>
-                        <button onclick="window.location.reload()" class="mt-4 px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700">
-                            Recargar
+                        <p class="text-red-400">Error al cargar los posts de ${category}: ${error.message}</p>
+                        <button onclick="window.loadPosts()" class="mt-4 px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700">
+                            Ver todos los posts
                         </button>
                     </div>
                 `;
             }
-    
-            window.loadPosts = async function() {
-            console.log('Cargando posts desde:', config.postsDirectory);
-            
-            try {
-                let postNumbers = [];
-                try {
-                    const indexResponse = await fetch(`${config.postsDirectory}index.json`);
-                    if (indexResponse.ok) {
-                        const indexData = await indexResponse.json();
-                        postNumbers = indexData.posts || [];
-                        console.log('Posts desde index.json:', postNumbers);
-                    }
-                } catch (e) {
-                    console.warn('Error al cargar index.json:', e);
-                }
-
-                if (postNumbers.length === 0) {
-                    console.log('Buscando posts individualmente...');
-                    for (let i = 1; i <= 20; i++) {
-                        try {
-                            const response = await fetch(`${config.postsDirectory}post-${i}.json`);
-                            if (response.ok) {
-                                const text = await response.text();
-                                // Verificar si es un JSON válido antes de agregarlo
-                                try {
-                                    JSON.parse(text);
-                                    postNumbers.push(i);
-                                } catch (parseError) {
-                                    console.error(`Error en el JSON del post-${i}.json:`, parseError);
-                                }
-                            }
-                        } catch (error) {
-                            console.log(`Error probando post-${i}.json:`, error.message);
-                        }
-                    }
-                }
-
-                if (postNumbers.length === 0) {
-                    showError(`No se encontraron posts válidos en ${config.postsDirectory}`);
-                    return;
-                }
-
-                const posts = await Promise.all(
-                    postNumbers.map(async number => {
-                        try {
-                            const response = await fetch(`${config.postsDirectory}post-${number}.json`);
-                            if (!response.ok) return null;
-                            
-                            const text = await response.text();
-                            const postData = JSON.parse(text); // Parseamos el texto manualmente
-                            
-                            let imageUrl = postData.image || '';
-                            
-                            if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('/')) {
-                                imageUrl = `${config.imagesDirectory}${imageUrl}`;
-                            } else {
-                                imageUrl = config.defaultImage;
-                            }
-                            
-                            return { 
-                                ...postData,
-                                number,
-                                image: imageUrl,
-                                title: postData.title || 'Sin título',
-                                category: postData.category || 'General',
-                                excerpt: postData.excerpt || '',
-                                date: postData.date || ''
-                            };
-                        } catch (error) {
-                            console.error(`Error procesando post-${number}.json:`, error);
-                            return null;
-                        }
-                    })
-                );
-                
-                const validPosts = posts.filter(post => post !== null)
-                                    .sort((a, b) => {
-                                        const dateA = a.date ? new Date(a.date) : new Date(0);
-                                        const dateB = b.date ? new Date(b.date) : new Date(0);
-                                        return dateB - dateA;
-                                    })
-                                    .slice(0, config.postsPerPage);
-                
-                if (validPosts.length === 0) {
-                    showError('Los posts se encontraron pero no se pudieron cargar correctamente');
-                    return;
-                }
-                
-                renderPosts(validPosts);
-                
-            } catch (error) {
-                console.error('Error general:', error);
-                showError(`Error al cargar los posts: ${error.message}`);
-            }
         };
     
-            function renderPosts(posts) {
-                postsContainer.className = "grid grid-cols-1 gap-4";
-                postsContainer.innerHTML = posts.map(post => `
-                    <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg card-hover-effect h-full flex flex-col w-full">
-                        <img src="${post.image}" alt="${post.title}" 
-                            class="w-full h-40 object-cover"
+        window.loadFullPost = async function(postNumber) {
+            if (!postsContainer) {
+                postsContainer = document.getElementById('postsContainer');
+                if (!postsContainer) {
+                    console.error('postsContainer no está definido');
+                    return;
+                }
+            }
+    
+            try {
+                // Mostrar loader
+                postsContainer.innerHTML = `
+                    <div class="text-center py-8 col-span-1 w-full">
+                        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div>
+                        <p class="mt-4 text-gray-400">Cargando post...</p>
+                    </div>
+                `;
+                
+                // 1. Cargar metadatos del post
+                const response = await fetch(`${config.postsDirectory}post-${postNumber}.json`);
+                if (!response.ok) throw new Error(`No se pudo cargar el post #${postNumber}`);
+                
+                const post = await response.json();
+                
+                // Procesar imagen
+                let imageUrl = post.image || '';
+                if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('/')) {
+                    imageUrl = `${config.imagesDirectory}${imageUrl}`;
+                } else {
+                    imageUrl = config.defaultImage;
+                }
+                
+                // 2. Cargar contenido Markdown desde archivo separado
+                let postContent = '';
+                if (post.contentFile) {
+                    try {
+                        const contentResponse = await fetch(`${config.postsDirectory}${post.contentFile}`);
+                        if (contentResponse.ok) {
+                            const markdownContent = await contentResponse.text();
+                            
+                            // Configurar marked
+                            marked.setOptions({
+                                breaks: true,
+                                gfm: true,
+                                tables: true,
+                                sanitize: false
+                            });
+                            
+                            // Convertir Markdown a HTML y sanitizar
+                            postContent = DOMPurify.sanitize(marked.parse(markdownContent));
+                        }
+                    } catch (e) {
+                        console.error('Error al cargar contenido Markdown:', e);
+                        postContent = `<div class="text-red-400 p-4 border border-red-400 rounded">
+                            <p>Error al cargar el contenido</p>
+                            <details class="mt-2 text-sm">
+                                <summary>Detalles técnicos</summary>
+                                <pre class="overflow-auto">${e.message}</pre>
+                            </details>
+                        </div>`;
+                    }
+                } else if (post.content) {
+                    // Fallback para posts con contenido directo en JSON
+                    try {
+                        postContent = DOMPurify.sanitize(marked.parse(post.content));
+                    } catch (e) {
+                        console.error('Error al procesar Markdown:', e);
+                        postContent = `<p class="text-red-400">Error al formatear el contenido</p>`;
+                    }
+                } else {
+                    postContent = '<p class="text-gray-400">No hay contenido disponible</p>';
+                }
+                
+                // Renderizar el post
+                postsContainer.innerHTML = `
+                    <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg w-full">
+                        <img src="${imageUrl}" alt="${post.title}" 
+                            class="w-full h-60 object-cover"
                             onerror="this.onerror=null;this.src='${config.defaultImage}'">
-                        <div class="p-4 flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="inline-block px-3 py-1 bg-gray-700 rounded-full text-xs text-cyan-400">
-                                    ${post.category}
-                                </span>
-                                <span class="text-gray-400 text-xs">${post.date}</span>
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <div>
+                                    <span class="inline-block px-3 py-1 bg-gray-700 rounded-full text-xs text-cyan-400">
+                                        ${post.category || 'General'}
+                                    </span>
+                                    <span class="text-gray-400 text-xs ml-2">${post.date || ''}</span>
+                                </div>
+                                <button id="btnBackToPosts" class="text-gray-400 hover:text-white px-3 py-1 bg-gray-700 rounded">
+                                    ← Volver a posts
+                                </button>
                             </div>
-                            <h3 class="text-lg font-bold text-white mb-2">${post.title}</h3>
-                            <p class="text-gray-300 text-sm line-clamp-3">${post.excerpt}</p>
-                        </div>
-                        <div class="px-4 pb-4">
-                            <a href="javascript:void(0)" 
-                               data-post-number="${post.number}"
-                               class="view-post-link text-cyan-400 hover:text-cyan-300 text-sm font-medium">
-                                Leer más →
-                            </a>
+                            <h2 class="text-2xl font-bold text-white mb-4">${post.title || 'Sin título'}</h2>
+                            <div class="text-gray-300 post-content">
+                                ${postContent}
+                            </div>
                         </div>
                     </div>
-                `).join('');
+                `;
                 
-                document.querySelectorAll('.view-post-link').forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        loadFullPost(this.getAttribute('data-post-number'));
-                    });
+                // Configurar botón de volver
+                document.getElementById('btnBackToPosts').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.loadPosts();
                 });
-            }
-    
-            btnPosts.addEventListener('click', () => switchTab('posts'));
-            btnCategorias.addEventListener('click', () => switchTab('categorias'));
-            switchTab('posts');
-            loadPosts();
-        }
-    
-        window.loadFullPost = async function(postNumber) {
-    if (!postsContainer) {
-        console.error('postsContainer no está definido');
-        return;
-    }
-
-    try {
-        // Mostrar loader
-        postsContainer.innerHTML = `
-            <div class="text-center py-8 col-span-1 w-full">
-                <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div>
-                <p class="mt-4 text-gray-400">Cargando post...</p>
-            </div>
-        `;
-        
-        // 1. Cargar metadatos del post
-        const response = await fetch(`${config.postsDirectory}post-${postNumber}.json`);
-        if (!response.ok) throw new Error(`No se pudo cargar el post #${postNumber}`);
-        
-        const post = await response.json();
-        
-        // Procesar imagen
-        let imageUrl = post.image || '';
-        if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('/')) {
-            imageUrl = `${config.imagesDirectory}${imageUrl}`;
-        } else {
-            imageUrl = config.defaultImage;
-        }
-        
-        // 2. Cargar contenido Markdown desde archivo separado
-        let postContent = '';
-        if (post.contentFile) {
-            try {
-                const contentResponse = await fetch(`${config.postsDirectory}${post.contentFile}`);
-                if (contentResponse.ok) {
-                    const markdownContent = await contentResponse.text();
-                    
-                    // Configurar marked
-                    marked.setOptions({
-                        breaks: true,
-                        gfm: true,
-                        tables: true,
-                        sanitize: false
-                    });
-                    
-                    // Convertir Markdown a HTML y sanitizar
-                    postContent = DOMPurify.sanitize(marked.parse(markdownContent));
-                }
-            } catch (e) {
-                console.error('Error al cargar contenido Markdown:', e);
-                postContent = `<div class="text-red-400 p-4 border border-red-400 rounded">
-                    <p>Error al cargar el contenido</p>
-                    <details class="mt-2 text-sm">
-                        <summary>Detalles técnicos</summary>
-                        <pre class="overflow-auto">${e.message}</pre>
-                    </details>
-                </div>`;
-            }
-        } else if (post.content) {
-            // Fallback para posts con contenido directo en JSON
-            try {
-                postContent = DOMPurify.sanitize(marked.parse(post.content));
-            } catch (e) {
-                console.error('Error al procesar Markdown:', e);
-                postContent = `<p class="text-red-400">Error al formatear el contenido</p>`;
-            }
-        } else {
-            postContent = '<p class="text-gray-400">No hay contenido disponible</p>';
-        }
-        
-        // Renderizar el post
-        postsContainer.innerHTML = `
-            <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg w-full">
-                <img src="${imageUrl}" alt="${post.title}" 
-                    class="w-full h-60 object-cover"
-                    onerror="this.onerror=null;this.src='${config.defaultImage}'">
-                <div class="p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <div>
-                            <span class="inline-block px-3 py-1 bg-gray-700 rounded-full text-xs text-cyan-400">
-                                ${post.category || 'General'}
-                            </span>
-                            <span class="text-gray-400 text-xs ml-2">${post.date || ''}</span>
-                        </div>
-                        <button id="btnBackToPosts" class="text-gray-400 hover:text-white px-3 py-1 bg-gray-700 rounded">
-                            ← Volver a posts
+                
+            } catch (error) {
+                console.error('Error al cargar el post completo:', error);
+                postsContainer.innerHTML = `
+                    <div class="text-center py-8 col-span-1 w-full">
+                        <p class="text-red-400">Error al cargar el post: ${error.message}</p>
+                        <button id="btnErrorBackToPosts" class="mt-4 px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700">
+                            Volver a posts
                         </button>
                     </div>
-                    <h2 class="text-2xl font-bold text-white mb-4">${post.title || 'Sin título'}</h2>
-                    <div class="text-gray-300 post-content">
-                        ${postContent}
-                    </div>
-                </div>
-            </div>
-        `;
+                `;
+                
+                document.getElementById('btnErrorBackToPosts').addEventListener('click', function() {
+                    window.loadPosts();
+                });
+            }
+        };
         
-        // Configurar botón de volver
-        document.getElementById('btnBackToPosts').addEventListener('click', function(e) {
-            e.preventDefault();
-            loadPosts();
-        });
-        
-    } catch (error) {
-        console.error('Error al cargar el post completo:', error);
-        postsContainer.innerHTML = `
-            <div class="text-center py-8 col-span-1 w-full">
-                <p class="text-red-400">Error al cargar el post: ${error.message}</p>
-                <button id="btnErrorBackToPosts" class="mt-4 px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700">
-                    Volver a posts
-                </button>
-            </div>
-        `;
-        
-        document.getElementById('btnErrorBackToPosts').addEventListener('click', function() {
-            loadPosts();
-        });
-    }
-};
-    
         // Resto del código (navegación, sidebar, etc.)
         document.querySelectorAll('#tmMainNav a[data-route]').forEach(enlace => {
             enlace.addEventListener('click', (e) => {
@@ -605,6 +811,6 @@
         sidebarToggle.addEventListener('click', toggleSidebar);
         cargarContenido('secciones/inicio.html');
     });
-    </script>
+</script>
 </body>
 </html>
