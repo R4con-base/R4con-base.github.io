@@ -1,9 +1,4 @@
-{
-  "title": "Título del Post",
-  "category": "Tutorial",
-  "image": "imagen-1.jpg",
-  "excerpt": "Breve descripción...",
-  "content": "#### Dependencias de captura de tráfico
+#### Dependencias de captura de tráfico
 
 | Dependencia                        | Pasivo | Activo | Descripción |
 |------------------------------------|--------|--------|-------------|
@@ -12,7 +7,4 @@
 | **Capture Tool**                   | ☑      | ☑      | Una forma de ingerir el tráfico. Basta con un ordenador con acceso a herramientas como TCPDump, Wireshark, Netminer u otras. Tenga en cuenta que, al trabajar con datos PCAP, estos archivos pueden crecer considerablemente rápidamente. Cada vez que se les aplica un filtro en herramientas como Wireshark, la aplicación vuelve a analizar los datos. Este proceso puede consumir muchos recursos, así que asegúrese de que el host tenga suficientes recursos. |
 | **In-line Placement**              | ☐      | ☑      | Colocar un Tap en línea requiere un cambio de topología en la red en la que está trabajando. Los hosts de origen y destino no notarán una diferencia en el tráfico, pero para el enrutamiento y la conmutación, será un siguiente salto invisible por el que pasará el tráfico en su camino hacia el destino. |
 | **Network Tap or Host With Multiple NIC's** | ☐ | ☑ | Se requiere una computadora con dos tarjetas de red (NIC) o un dispositivo como un tap de red para que los datos que inspeccionamos sigan fluyendo. Es como añadir otro enrutador a un enlace. Para capturar el tráfico de forma activa, duplicaremos los datos directamente desde las fuentes. La mejor ubicación para un tap es en un enlace de capa 3 entre segmentos conmutados. Esto permite capturar cualquier tráfico que se enrute fuera de la red local. Un puerto conmutado o la segmentación de VLAN no filtran nuestra vista. |
-| **Storage and Processing Power**    | ☑      | ☑      | Necesitará mucho espacio de almacenamiento y potencia de procesamiento para capturar tráfico directamente desde un punto de acceso. Mucho más tráfico atraviesa un enlace de capa 3 que solo dentro de una LAN conmutada. Piénselo así: capturar tráfico pasivamente dentro de una LAN es como verter agua de una fuente en una taza. Es un flujo constante, pero manejable. Capturar tráfico activamente de un enlace enrutado es más como usar una manguera para llenar una taza de té. Hay mucha más presión detrás del flujo, y puede ser mucho para que el host lo procese y almacene. |"
-  ,
-  "date": "2023-05-15"
-}
+| **Storage and Processing Power**    | ☑      | ☑      | Necesitará mucho espacio de almacenamiento y potencia de procesamiento para capturar tráfico directamente desde un punto de acceso. Mucho más tráfico atraviesa un enlace de capa 3 que solo dentro de una LAN conmutada. Piénselo así: capturar tráfico pasivamente dentro de una LAN es como verter agua de una fuente en una taza. Es un flujo constante, pero manejable. Capturar tráfico activamente de un enlace enrutado es más como usar una manguera para llenar una taza de té. Hay mucha más presión detrás del flujo, y puede ser mucho para que el host lo procese y almacene. |

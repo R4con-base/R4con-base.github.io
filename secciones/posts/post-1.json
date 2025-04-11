@@ -1,7 +1,8 @@
 {
-    "title": "Título del Post",
-    "category": "Tutorial",
-    "image": "imagen-1.jpg",
-    "excerpt": "Breve descripción...",
-    "content": "a"
-  }
+  "title": "Título del Post",
+  "category": "Tutorial",
+  "image": "imagen-1.jpg",
+  "excerpt": "Breve descripción...",
+  "contentFile": "post-1.md",
+  "date": "2023-06-15"
+}

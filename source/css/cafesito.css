@@ -7,3 +7,93 @@
     0%,100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
   }
+
+/* Contenedor principal del contenido */
+.post-content {
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+/* Tablas */
+.post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  background-color: #374151;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.post-content th, .post-content td {
+  padding: 0.75rem 1rem;
+  border: 1px solid #4B5563;
+  text-align: left;
+}
+
+.post-content th {
+  background-color: #1F2937;
+  color: #E5E7EB;
+  font-weight: 600;
+}
+
+.post-content tr:nth-child(even) {
+  background-color: #3c4656;
+}
+
+/* Bloques de código */
+.post-content pre {
+  background-color: #1F2937;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border-left: 4px solid #3B82F6;
+}
+
+.post-content code {
+  font-family: 'Fira Code', 'Consolas', monospace;
+  background-color: #1F2937;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+}
+
+/* Imágenes */
+.post-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem 0;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Encabezados */
+.post-content h2, .post-content h3, .post-content h4 {
+  color: white;
+  margin: 1.5rem 0 1rem;
+  font-weight: 600;
+}
+
+.post-content h2 {
+  font-size: 1.5rem;
+  border-bottom: 1px solid #4b5563;
+  padding-bottom: 0.5rem;
+}
+
+/* Listas */
+.post-content ul, .post-content ol {
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+.post-content li {
+  margin-bottom: 0.5rem;
+}
+
+/* Bloques de cita */
+.post-content blockquote {
+  border-left: 4px solid #4b5563;
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  color: #d1d5db;
+  font-style: italic;
+}
