@@ -1,0 +1,8 @@
+{
+    "title": "Título del Post",
+    "category": "informacion",
+    "image": "imagen-1.jpg",
+    "excerpt": "Post de prueba",
+    "contentFile": "post-3.md",
+    "date": "2023-06-15"
+  }
