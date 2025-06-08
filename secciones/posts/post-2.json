@@ -1,8 +1,8 @@
 {
-  "title": "Título del Post",
-  "category": "Tutoriales",
-  "image": "imagen-1.jpg",
-  "excerpt": "Post de prueba",
-  "contentFile": "post-1.md",
-  "date": "2023-06-15"
+  "title": "El modelo TCP/IP",
+  "category": ["Redes", "Programación"],
+  "image": "tcp-ip.jpg",
+  "excerpt": "Definición del TCP/IP",
+  "contentFile": "post-2.md",
+  "date": "2025-06-08"
 }

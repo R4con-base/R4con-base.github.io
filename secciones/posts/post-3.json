@@ -1,8 +1,8 @@
 {
-    "title": "Título del Post",
-    "category": "informacion",
-    "image": "imagen-1.jpg",
-    "excerpt": "Post de prueba",
+    "title": "Proxy Transparente",
+    "category": ["Redes", "Programación", "Exfiltracion"],
+    "image": "proxy.jpeg",
+    "excerpt": "Proxys",
     "contentFile": "post-3.md",
-    "date": "2023-06-15"
+    "date": "2025-06-08"
   }

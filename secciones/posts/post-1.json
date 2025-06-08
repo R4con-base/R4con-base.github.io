@@ -1,8 +1,8 @@
 {
-  "title": "Título del Post",
-  "category": ["Tutoriales", "Programación"],
-  "image": "imagen-1.jpg",
-  "excerpt": "Post de prueba",
+  "title": "El modelo OSI ",
+  "category": ["Redes", "Programación"],
+  "image": "Modelo-OSI-cap.jpg",
+  "excerpt": "Definición del `ISO/OSI`estándar",
   "contentFile": "post-1.md",
   "date": "2023-06-15"
 }
