@@ -21,188 +21,161 @@
 </head>
 <body class="bg-gray-900 text-gray-100">
     <!-- Sección de Certificaciones -->
-    <section id="certificaciones" class="py-24 bg-gray-800 relative">
+    <section id="certificaciones" class="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-800 relative">
         <div class="absolute inset-0 bg-gradient-to-r from-gray-900/50 to-gray-800/50"></div>
-        <div class="container mx-auto px-4 relative z-10">
-            <h2 class="text-4xl font-bold text-center text-white mb-16 section-title">Mis Certificaciones</h2>
-            
-            <!-- Filtros -->
-            <!-- <div class="flex flex-wrap justify-center gap-4 mb-12">
-                <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all filter-btn active" data-filter="all">
-                    Todos
-                </button>
-                <button class="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-all filter-btn" data-filter="programacion">
-                    Programación
-                </button>
-                <button class="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-all filter-btn" data-filter="diseno">
-                    Diseño
-                </button>
-                <button class="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-all filter-btn" data-filter="idiomas">
-                    Idiomas
-                </button>
-                <button class="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-all filter-btn" data-filter="otros">
-                    Otros
-                </button>
-            </div> -->
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-white mb-8 sm:mb-12 md:mb-16 section-title">
+                Mis Certificaciones
+            </h2>
             
             <!-- Grid de Certificaciones -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                 <!-- Certificado 1 -->
-                <div class="certificate-card bg-gray-800/30 p-6 rounded-xl backdrop-blur-sm border border-gray-700" data-category="programacion">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-blue-500/20 p-3 rounded-lg mr-4">
-                            <i class="fas fa-code text-blue-400 text-xl"></i>
+                <div class="certificate-card bg-gray-800/30 p-4 sm:p-6 rounded-xl backdrop-blur-sm border border-gray-700" data-category="programacion">
+                    <div class="flex items-start sm:items-center mb-4">
+                        <div class="bg-blue-500/20 p-2 sm:p-3 rounded-lg mr-3 sm:mr-4 flex-shrink-0">
+                            <i class="fas fa-code text-blue-400 text-lg sm:text-xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-white">Desarrollo Web Full Stack</h3>
+                        <h3 class="text-lg sm:text-xl font-bold text-white leading-tight">Desarrollo Web Full Stack</h3>
                     </div>
-                    <p class="text-gray-300 mb-4">Certificado por Academia X - 2023</p>
-                    <div class="flex justify-between items-center">
-                        <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm">200 horas</span>
-                        <button class="view-certificate px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all" data-certificate="cert1">
+                    <p class="text-gray-300 mb-4 text-sm sm:text-base">Certificado por Academia X - 2023</p>
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
+                        <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm w-fit">200 horas</span>
+                        <button class="view-certificate px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all text-sm sm:text-base w-full sm:w-auto" data-certificate="cert1">
                             Ver Certificado
                         </button>
                     </div>
                 </div>
                 
                 <!-- Certificado 2 -->
-                <div class="certificate-card bg-gray-800/30 p-6 rounded-xl backdrop-blur-sm border border-gray-700" data-category="diseno">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-purple-500/20 p-3 rounded-lg mr-4">
-                            <i class="fas fa-paint-brush text-purple-400 text-xl"></i>
+                <div class="certificate-card bg-gray-800/30 p-4 sm:p-6 rounded-xl backdrop-blur-sm border border-gray-700" data-category="diseno">
+                    <div class="flex items-start sm:items-center mb-4">
+                        <div class="bg-purple-500/20 p-2 sm:p-3 rounded-lg mr-3 sm:mr-4 flex-shrink-0">
+                            <i class="fas fa-paint-brush text-purple-400 text-lg sm:text-xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-white">Diseño UX/UI Avanzado</h3>
+                        <h3 class="text-lg sm:text-xl font-bold text-white leading-tight">Diseño UX/UI Avanzado</h3>
                     </div>
-                    <p class="text-gray-300 mb-4">Certificado por Design Institute - 2022</p>
-                    <div class="flex justify-between items-center">
-                        <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">120 horas</span>
-                        <button class="view-certificate px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all" data-certificate="cert2">
+                    <p class="text-gray-300 mb-4 text-sm sm:text-base">Certificado por Design Institute - 2022</p>
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
+                        <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm w-fit">120 horas</span>
+                        <button class="view-certificate px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all text-sm sm:text-base w-full sm:w-auto" data-certificate="cert2">
                             Ver Certificado
                         </button>
                     </div>
                 </div>
                 
                 <!-- Certificado 3 -->
-                <div class="certificate-card bg-gray-800/30 p-6 rounded-xl backdrop-blur-sm border border-gray-700" data-category="programacion">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-blue-500/20 p-3 rounded-lg mr-4">
-                            <i class="fab fa-js text-yellow-400 text-xl"></i>
+                <div class="certificate-card bg-gray-800/30 p-4 sm:p-6 rounded-xl backdrop-blur-sm border border-gray-700" data-category="programacion">
+                    <div class="flex items-start sm:items-center mb-4">
+                        <div class="bg-blue-500/20 p-2 sm:p-3 rounded-lg mr-3 sm:mr-4 flex-shrink-0">
+                            <i class="fab fa-js text-yellow-400 text-lg sm:text-xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-white">JavaScript Moderno</h3>
+                        <h3 class="text-lg sm:text-xl font-bold text-white leading-tight">JavaScript Moderno</h3>
                     </div>
-                    <p class="text-gray-300 mb-4">Certificado por Code Academy - 2023</p>
-                    <div class="flex justify-between items-center">
-                        <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm">80 horas</span>
-                        <button class="view-certificate px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all" data-certificate="cert3">
+                    <p class="text-gray-300 mb-4 text-sm sm:text-base">Certificado por Code Academy - 2023</p>
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
+                        <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm w-fit">80 horas</span>
+                        <button class="view-certificate px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all text-sm sm:text-base w-full sm:w-auto" data-certificate="cert3">
                             Ver Certificado
                         </button>
                     </div>
                 </div>
                 
                 <!-- Certificado 4 -->
-                <div class="certificate-card bg-gray-800/30 p-6 rounded-xl backdrop-blur-sm border border-gray-700" data-category="idiomas">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-green-500/20 p-3 rounded-lg mr-4">
-                            <i class="fas fa-language text-green-400 text-xl"></i>
+                <div class="certificate-card bg-gray-800/30 p-4 sm:p-6 rounded-xl backdrop-blur-sm border border-gray-700" data-category="idiomas">
+                    <div class="flex items-start sm:items-center mb-4">
+                        <div class="bg-green-500/20 p-2 sm:p-3 rounded-lg mr-3 sm:mr-4 flex-shrink-0">
+                            <i class="fas fa-language text-green-400 text-lg sm:text-xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-white">Inglés Avanzado</h3>
+                        <h3 class="text-lg sm:text-xl font-bold text-white leading-tight">Inglés Avanzado</h3>
                     </div>
-                    <p class="text-gray-300 mb-4">Certificado por Cambridge - 2021</p>
-                    <div class="flex justify-between items-center">
-                        <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">C1</span>
-                        <button class="view-certificate px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all" data-certificate="cert4">
+                    <p class="text-gray-300 mb-4 text-sm sm:text-base">Certificado por Cambridge - 2021</p>
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
+                        <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm w-fit">C1</span>
+                        <button class="view-certificate px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all text-sm sm:text-base w-full sm:w-auto" data-certificate="cert4">
                             Ver Certificado
                         </button>
                     </div>
                 </div>
                 
                 <!-- Certificado 5 -->
-                <div class="certificate-card bg-gray-800/30 p-6 rounded-xl backdrop-blur-sm border border-gray-700" data-category="otros">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-red-500/20 p-3 rounded-lg mr-4">
-                            <i class="fas fa-users text-red-400 text-xl"></i>
+                <div class="certificate-card bg-gray-800/30 p-4 sm:p-6 rounded-xl backdrop-blur-sm border border-gray-700" data-category="otros">
+                    <div class="flex items-start sm:items-center mb-4">
+                        <div class="bg-red-500/20 p-2 sm:p-3 rounded-lg mr-3 sm:mr-4 flex-shrink-0">
+                            <i class="fas fa-users text-red-400 text-lg sm:text-xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-white">Gestión de Proyectos</h3>
+                        <h3 class="text-lg sm:text-xl font-bold text-white leading-tight">Gestión de Proyectos</h3>
                     </div>
-                    <p class="text-gray-300 mb-4">Certificado por PM Institute - 2022</p>
-                    <div class="flex justify-between items-center">
-                        <span class="px-3 py-1 bg-red-500/20 text-red-400 rounded-full text-sm">60 horas</span>
-                        <button class="view-certificate px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all" data-certificate="cert5">
+                    <p class="text-gray-300 mb-4 text-sm sm:text-base">Certificado por PM Institute - 2022</p>
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
+                        <span class="px-3 py-1 bg-red-500/20 text-red-400 rounded-full text-sm w-fit">60 horas</span>
+                        <button class="view-certificate px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all text-sm sm:text-base w-full sm:w-auto" data-certificate="cert5">
                             Ver Certificado
                         </button>
                     </div>
                 </div>
                 
                 <!-- Certificado 6 -->
-                <div class="certificate-card bg-gray-800/30 p-6 rounded-xl backdrop-blur-sm border border-gray-700" data-category="programacion">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-blue-500/20 p-3 rounded-lg mr-4">
-                            <i class="fab fa-react text-blue-300 text-xl"></i>
+                <div class="certificate-card bg-gray-800/30 p-4 sm:p-6 rounded-xl backdrop-blur-sm border border-gray-700" data-category="programacion">
+                    <div class="flex items-start sm:items-center mb-4">
+                        <div class="bg-blue-500/20 p-2 sm:p-3 rounded-lg mr-3 sm:mr-4 flex-shrink-0">
+                            <i class="fab fa-react text-blue-300 text-lg sm:text-xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-white">React.js Profesional</h3>
+                        <h3 class="text-lg sm:text-xl font-bold text-white leading-tight">React.js Profesional</h3>
                     </div>
-                    <p class="text-gray-300 mb-4">Certificado por Frontend Masters - 2023</p>
-                    <div class="flex justify-between items-center">
-                        <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm">100 horas</span>
-                        <button class="view-certificate px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all" data-certificate="cert6">
+                    <p class="text-gray-300 mb-4 text-sm sm:text-base">Certificado por Frontend Masters - 2023</p>
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
+                        <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm w-fit">100 horas</span>
+                        <button class="view-certificate px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all text-sm sm:text-base w-full sm:w-auto" data-certificate="cert6">
                             Ver Certificado
                         </button>
                     </div>
                 </div>
             </div>
-            
-            <!-- Botón para descargar todas las certificaciones -->
-            <!-- <div class="text-center mt-16">
-                <a href="#" class="inline-flex items-center px-6 py-3 border border-blue-400 text-blue-400 rounded-lg hover:bg-blue-400 hover:text-gray-900 transition-all duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                    Descargar Todas las Certificaciones
-                </a>
-            </div> -->
         </div>
     </section>
     
     <!-- Modal para ver certificados -->
-    <div id="certificate-modal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 opacity-0 invisible transition-all duration-300">
-        <div class="bg-gray-800 rounded-xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-auto">
-            <div class="p-6">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 id="modal-title" class="text-2xl font-bold text-white">Título del Certificado</h3>
-                    <button id="close-modal" class="text-gray-400 hover:text-white">
+    <div id="certificate-modal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 opacity-0 invisible transition-all duration-300 p-4">
+        <div class="bg-gray-800 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-auto">
+            <div class="p-4 sm:p-6">
+                <div class="flex justify-between items-start mb-4 sm:mb-6">
+                    <h3 id="modal-title" class="text-xl sm:text-2xl font-bold text-white pr-4 leading-tight">Título del Certificado</h3>
+                    <button id="close-modal" class="text-gray-400 hover:text-white flex-shrink-0 p-1">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
                 </div>
                 
-                <div id="modal-content" class="mb-6">
+                <div id="modal-content" class="mb-4 sm:mb-6">
                     <!-- Contenido dinámico del certificado -->
-                    <img id="certificate-image" src="" alt="Certificado" class="w-full rounded-lg border border-gray-700">
+                    <img id="certificate-image" src="https://via.placeholder.com/800x600/374151/ffffff?text=Certificado+de+Ejemplo" alt="Certificado" class="w-full rounded-lg border border-gray-700 mb-4 sm:mb-6">
                     
-                    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                         <div>
-                            <h4 class="text-lg font-medium text-white mb-2">Detalles del Certificado</h4>
-                            <ul class="space-y-2 text-gray-300">
+                            <h4 class="text-base sm:text-lg font-medium text-white mb-2">Detalles del Certificado</h4>
+                            <ul class="space-y-2 text-gray-300 text-sm sm:text-base">
                                 <li class="flex items-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-400 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-blue-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                     <span id="cert-issuer">Institución: Academia X</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-400 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-blue-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                     <span id="cert-date">Fecha: Enero 2023</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-400 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-blue-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                     <span id="cert-duration">Duración: 200 horas</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-400 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-blue-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                     <span id="cert-id">ID: CERT-123456</span>
@@ -211,14 +184,18 @@
                         </div>
                         
                         <div>
-                            <h4 class="text-lg font-medium text-white mb-2">Habilidades Adquiridas</h4>
-                            <div id="skills-list" class="flex flex-wrap gap-2">
-                                <!-- Habilidades dinámicas -->
+                            <h4 class="text-base sm:text-lg font-medium text-white mb-2">Habilidades Adquiridas</h4>
+                            <div id="skills-list" class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-xs">HTML</span>
+                                <span class="px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-xs">CSS</span>
+                                <span class="px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-xs">JavaScript</span>
+                                <span class="px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-xs">React</span>
+                                <span class="px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-xs">Node.js</span>
                             </div>
                             
-                            <div class="mt-4">
-                                <a id="verify-link" href="#" target="_blank" class="inline-flex items-center text-blue-400 hover:text-blue-300">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <div>
+                                <a id="verify-link" href="#" target="_blank" class="inline-flex items-center text-blue-400 hover:text-blue-300 text-sm">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                     </svg>
                                     Verificar certificado
@@ -228,9 +205,9 @@
                     </div>
                 </div>
                 
-                <div class="flex justify-end gap-4">
-                    <button id="download-cert" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="flex justify-end">
+                    <button id="download-cert" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all flex items-center text-sm sm:text-base">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                         </svg>
                         Descargar
