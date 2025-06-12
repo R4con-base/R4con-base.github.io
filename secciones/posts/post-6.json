@@ -1,0 +1,8 @@
+{
+    "title": "ARP spoofing",
+    "category": ["Redes", "Ciberseguridad"],
+    "image": "arp-poisoning.svg",
+    "excerpt": "ARP spoofing o ARP cache poisoning",
+    "contentFile": "post-6.md",
+    "date": "2025-06-12"
+}
