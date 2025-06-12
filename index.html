@@ -207,7 +207,7 @@
                 searchDebounceTime: 300,
                 lastSearchTerm: '',
                 allPosts: [],
-                categories: ["Tutoriales", "Seguridad", "Desarrollo", "Redes", "Hardware", "Linux", "Windows", "Programación", "Bases de Datos", "Cloud","Ciberseguridad","Exfiltracion"]
+                categories: ["Tutoriales", "Seguridad", "Desarrollo", "Redes", "Hardware", "Linux", "Windows", "Programación", "Bases de Datos", "Cloud", "Ciberseguridad", "Exfiltracion"]
             };
             config.imagesDirectory = `${config.postsDirectory}images/`;
             config.defaultImage = `${config.imagesDirectory}default.jpg`;
@@ -369,243 +369,253 @@
             };
             
             function showError(message) {
-                if (!postsContainer) postsContainer = document.getElementById('postsContainer');
-                if (!postsContainer) return;
-                postsContainer.innerHTML = `<div class="text-center py-8 col-span-4"><p class="text-red-400">${message}</p><button onclick="window.location.reload()" class="mt-4 px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700">Recargar</button></div>`;
-            }
-    
-            function initSearch() {
-                const searchInput = document.getElementById('searchInput');
-                if (!searchInput) return;
-                const debounce = (func, wait) => {
-                    let timeout;
-                    return function executedFunction(...args) {
-                        const later = () => { clearTimeout(timeout); func(...args); };
-                        clearTimeout(timeout);
-                        timeout = setTimeout(later, wait);
-                    };
-                };
-                searchInput.addEventListener('input', debounce(function(e) {
-                    const searchTerm = e.target.value.trim().toLowerCase();
-                    config.lastSearchTerm = searchTerm;
-                    if (searchTerm.length === 0) {
-                        document.getElementById('searchResultsInfo').classList.add('hidden');
-                        window.loadPosts();
-                        return;
-                    }
-                    if (config.allPosts.length === 0) {
-                        window.loadPosts().then(posts => { config.allPosts = posts; performSearch(searchTerm); });
-                    } else {
-                        performSearch(searchTerm);
-                    }
-                }, config.searchDebounceTime));
-                searchInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        const searchTerm = e.target.value.trim().toLowerCase();
-                        if (searchTerm.length > 0) performSearch(searchTerm);
-                    }
-                });
-            }
-    
-            function performSearch(searchTerm) {
-                if (!postsContainer) postsContainer = document.getElementById('postsContainer');
-                if (!postsContainer) return;
-                const resultsInfo = document.getElementById('searchResultsInfo');
-                if (searchTerm.length < 2) { resultsInfo.classList.add('hidden'); return; }
-                postsContainer.innerHTML = `<div class="text-center py-8 col-span-4"><div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div><p class="mt-4 text-gray-400">Buscando "${searchTerm}"...</p></div>`;
-                const filteredPosts = config.allPosts.filter(post => {
-                    const inTitle = post.title.toLowerCase().includes(searchTerm);
-                    let inCategory = false;
-                    if (Array.isArray(post.category)) {
-                        inCategory = post.category.some(cat => cat.toLowerCase().includes(searchTerm));
-                    } else {
-                        inCategory = post.category.toLowerCase().includes(searchTerm);
-                    }
-                    const inExcerpt = post.excerpt.toLowerCase().includes(searchTerm);
-                    let inContent = false;
-                    if (post.content) inContent = post.content.toLowerCase().includes(searchTerm);
-                    return inTitle || inCategory || inExcerpt || inContent;
-                });
-                if (filteredPosts.length === 0) {
-                    postsContainer.innerHTML = `<div class="col-span-4 text-center py-8"><p class="text-gray-400">No se encontraron posts para "${searchTerm}"</p><button onclick="window.loadPosts()" class="mt-4 px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700">Ver todos los posts</button></div>`;
-                    resultsInfo.textContent = `No se encontraron resultados para "${searchTerm}"`;
-                    resultsInfo.classList.remove('hidden');
-                } else {
-                    renderPosts(filteredPosts, true);
-                    resultsInfo.textContent = `Mostrando ${filteredPosts.length} resultados para "${searchTerm}"`;
-                    resultsInfo.classList.remove('hidden');
-                    highlightSearchTerms(searchTerm);
-                }
-            }
-    
-            function highlightSearchTerms(searchTerm) {
-                const elementsToHighlight = [...document.querySelectorAll('.card-hover-effect h3'), ...document.querySelectorAll('.card-hover-effect p'), ...document.querySelectorAll('.card-hover-effect span')];
-                elementsToHighlight.forEach(element => {
-                    const text = element.textContent;
-                    const regex = new RegExp(searchTerm, 'gi');
-                    element.innerHTML = text.replace(regex, match => `<span class="bg-cyan-500/30 text-cyan-300">${match}</span>`);
-                });
-            }
-            
-            function initServiciosSection() {
-                const btnPosts = document.getElementById('btnPosts');
-                const btnCategorias = document.getElementById('btnCategorias');
-                postsContainer = document.getElementById('postsContainer');
-                if (!btnPosts || !btnCategorias || !postsContainer) return;
-                btnPosts.addEventListener('click', () => window.switchTab('posts'));
-                btnCategorias.addEventListener('click', () => window.switchTab('categorias'));
-                window.switchTab('posts');
-                initSearch();
-                window.loadPosts().then(posts => { config.allPosts = posts; });
-                window.loadCategories();
-            }
-        
-            window.loadPosts = function() {
-                return new Promise(async (resolve, reject) => {
+    if (!postsContainer) postsContainer = document.getElementById('postsContainer');
+    if (!postsContainer) return;
+    postsContainer.innerHTML = `<div class="text-center py-4 sm:py-6 md:py-8 col-span-4"><p class="text-red-400 text-sm sm:text-base">${message}</p><button onclick="window.location.reload()" class="mt-3 sm:mt-4 px-3 sm:px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 text-sm sm:text-base">Recargar</button></div>`;
+}
+
+function initSearch() {
+    const searchInput = document.getElementById('searchInput');
+    if (!searchInput) return;
+    const debounce = (func, wait) => {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => { clearTimeout(timeout); func(...args); };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    };
+    searchInput.addEventListener('input', debounce(function(e) {
+        const searchTerm = e.target.value.trim().toLowerCase();
+        config.lastSearchTerm = searchTerm;
+        if (searchTerm.length === 0) {
+            document.getElementById('searchResultsInfo').classList.add('hidden');
+            window.loadPosts();
+            return;
+        }
+        if (config.allPosts.length === 0) {
+            window.loadPosts().then(posts => { config.allPosts = posts; performSearch(searchTerm); });
+        } else {
+            performSearch(searchTerm);
+        }
+    }, config.searchDebounceTime));
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            const searchTerm = e.target.value.trim().toLowerCase();
+            if (searchTerm.length > 0) performSearch(searchTerm);
+        }
+    });
+}
+
+function performSearch(searchTerm) {
+    if (!postsContainer) postsContainer = document.getElementById('postsContainer');
+    if (!postsContainer) return;
+    const resultsInfo = document.getElementById('searchResultsInfo');
+    if (searchTerm.length < 2) { resultsInfo.classList.add('hidden'); return; }
+    postsContainer.innerHTML = `<div class="text-center py-4 sm:py-6 md:py-8 col-span-4"><div class="animate-spin rounded-full h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div><p class="mt-3 sm:mt-4 text-gray-400 text-sm sm:text-base">Buscando "${searchTerm}"...</p></div>`;
+    const filteredPosts = config.allPosts.filter(post => {
+        const inTitle = post.title.toLowerCase().includes(searchTerm);
+        let inCategory = false;
+        if (Array.isArray(post.category)) {
+            inCategory = post.category.some(cat => cat.toLowerCase().includes(searchTerm));
+        } else {
+            inCategory = post.category.toLowerCase().includes(searchTerm);
+        }
+        const inExcerpt = post.excerpt.toLowerCase().includes(searchTerm);
+        let inContent = false;
+        if (post.content) inContent = post.content.toLowerCase().includes(searchTerm);
+        return inTitle || inCategory || inExcerpt || inContent;
+    });
+    if (filteredPosts.length === 0) {
+        postsContainer.innerHTML = `<div class="col-span-4 text-center py-4 sm:py-6 md:py-8"><p class="text-gray-400 text-sm sm:text-base">No se encontraron posts para "${searchTerm}"</p><button onclick="window.loadPosts()" class="mt-3 sm:mt-4 px-3 sm:px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 text-sm sm:text-base">Ver todos los posts</button></div>`;
+        resultsInfo.textContent = `No se encontraron resultados para "${searchTerm}"`;
+        resultsInfo.classList.remove('hidden');
+    } else {
+        renderPosts(filteredPosts, true);
+        resultsInfo.textContent = `Mostrando ${filteredPosts.length} resultados para "${searchTerm}"`;
+        resultsInfo.classList.remove('hidden');
+        highlightSearchTerms(searchTerm);
+    }
+}
+
+function highlightSearchTerms(searchTerm) {
+    const elementsToHighlight = [...document.querySelectorAll('.card-hover-effect h3'), ...document.querySelectorAll('.card-hover-effect p'), ...document.querySelectorAll('.card-hover-effect span')];
+    elementsToHighlight.forEach(element => {
+        const text = element.textContent;
+        const regex = new RegExp(searchTerm, 'gi');
+        element.innerHTML = text.replace(regex, match => `<span class="bg-cyan-500/30 text-cyan-300">${match}</span>`);
+    });
+}
+
+function initServiciosSection() {
+    const btnPosts = document.getElementById('btnPosts');
+    const btnCategorias = document.getElementById('btnCategorias');
+    postsContainer = document.getElementById('postsContainer');
+    if (!btnPosts || !btnCategorias || !postsContainer) return;
+    btnPosts.addEventListener('click', () => window.switchTab('posts'));
+    btnCategorias.addEventListener('click', () => window.switchTab('categorias'));
+    window.switchTab('posts');
+    initSearch();
+    window.loadPosts().then(posts => { config.allPosts = posts; });
+    window.loadCategories();
+}
+
+window.loadPosts = function() {
+    return new Promise(async (resolve, reject) => {
+        try {
+            postsContainer = document.getElementById('postsContainer');
+            if (!postsContainer) return reject(new Error('postsContainer no encontrado'));
+            postsContainer.innerHTML = `<div class="text-center py-4 sm:py-6 md:py-8 col-span-1 w-full"><div class="animate-spin rounded-full h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div><p class="mt-3 sm:mt-4 text-gray-400 text-sm sm:text-base">Cargando posts...</p></div>`;
+            let postNumbers = [];
+            try {
+                const indexResponse = await fetch(`${config.postsDirectory}index.json`);
+                if (indexResponse.ok) postNumbers = (await indexResponse.json()).posts || [];
+            } catch (e) { console.warn('Error al cargar index.json:', e); }
+            if (postNumbers.length === 0) {
+                for (let i = 1; i <= 20; i++) {
                     try {
-                        postsContainer = document.getElementById('postsContainer');
-                        if (!postsContainer) return reject(new Error('postsContainer no encontrado'));
-                        postsContainer.innerHTML = `<div class="text-center py-8 col-span-1 w-full"><div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div><p class="mt-4 text-gray-400">Cargando posts...</p></div>`;
-                        let postNumbers = [];
-                        try {
-                            const indexResponse = await fetch(`${config.postsDirectory}index.json`);
-                            if (indexResponse.ok) postNumbers = (await indexResponse.json()).posts || [];
-                        } catch (e) { console.warn('Error al cargar index.json:', e); }
-                        if (postNumbers.length === 0) {
-                            for (let i = 1; i <= 20; i++) {
-                                try {
-                                    const response = await fetch(`${config.postsDirectory}post-${i}.json`);
-                                    if (response.ok) { JSON.parse(await response.text()); postNumbers.push(i); }
-                                } catch (error) { }
-                            }
-                        }
-                        if (postNumbers.length === 0) { showError(`No se encontraron posts válidos en ${config.postsDirectory}`); return resolve([]); }
-                        const posts = await Promise.all(
-                            postNumbers.map(async number => {
-                                try {
-                                    const response = await fetch(`${config.postsDirectory}post-${number}.json`);
-                                    if (!response.ok) return null;
-                                    const postData = JSON.parse(await response.text());
-                                    let imageUrl = postData.image || '';
-                                    if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('/')) imageUrl = `${config.imagesDirectory}${imageUrl}`;
-                                    else if (!imageUrl) imageUrl = config.defaultImage;
-                                    let fullContent = '';
-                                    if (postData.contentFile) {
-                                        try {
-                                            const contentResponse = await fetch(`${config.postsDirectory}${postData.contentFile}`);
-                                            if (contentResponse.ok) fullContent = await contentResponse.text();
-                                        } catch (e) { console.error('Error al cargar contenido:', e); }
-                                    } else if (postData.content) {
-                                        fullContent = postData.content;
-                                    }
-                                    return { ...postData, number, image: imageUrl, title: postData.title || 'Sin título', category: postData.category ? (Array.isArray(postData.category) ? postData.category : [postData.category]) : ['General'], excerpt: postData.excerpt || '', date: postData.date || '', content: fullContent };
-                                } catch (error) { console.error(`Error procesando post-${number}.json:`, error); return null; }
-                            })
-                        );
-                        const validPosts = posts.filter(p => p !== null).sort((a, b) => (new Date(b.date) - new Date(a.date))).slice(0, config.postsPerPage);
-                        if (validPosts.length === 0) { showError('Los posts se encontraron pero no se pudieron cargar'); return resolve([]); }
-                        renderPosts(validPosts, false);
-                        resolve(validPosts);
-                    } catch (error) { showError(`Error al cargar los posts: ${error.message}`); reject(error); }
-                });
-            };
-        
-            function renderPosts(posts, isFiltered = false) {
-                if (!postsContainer) postsContainer = document.getElementById('postsContainer');
-                if (!postsContainer) return;
-                postsContainer.className = isFiltered ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" : "grid grid-cols-1 gap-6";
-                postsContainer.innerHTML = posts.map(post => `
-                    <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg card-hover-effect h-full flex flex-col w-full">
-                        <img src="${post.image}" alt="${post.title}" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='${config.defaultImage}'">
-                        <div class="p-4 flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <div class="flex flex-wrap gap-1">${Array.isArray(post.category) ? post.category.map(cat => `<span class="inline-block px-3 py-1 bg-gray-700 rounded-full text-xs text-cyan-400">${config.categories.includes(cat) ? cat : 'General'}</span>`).join('') : `<span class="inline-block px-3 py-1 bg-gray-700 rounded-full text-xs text-cyan-400">${config.categories.includes(post.category) ? post.category : 'General'}</span>`}</div>
-                                <span class="text-gray-400 text-xs">${post.date}</span>
-                            </div>
-                            <h3 class="text-lg font-bold text-white mb-2">${post.title}</h3>
-                            <p class="text-gray-300 text-sm line-clamp-3">${post.excerpt}</p>
-                        </div>
-                        <div class="px-4 pb-4"><a href="javascript:void(0)" data-post-number="${post.number}" class="view-post-link text-cyan-400 hover:text-cyan-300 text-sm font-medium">Leer más →</a></div>
-                    </div>`).join('');
-                document.querySelectorAll('.view-post-link').forEach(link => { link.addEventListener('click', function(e) { e.preventDefault(); window.loadFullPost(this.getAttribute('data-post-number')); }); });
-            }
-        
-            window.loadCategories = function() {
-                const categoriesContainer = document.getElementById('categoriesContainer');
-                if (!categoriesContainer || !config.categories) return;
-                categoriesContainer.className = "grid grid-cols-4 gap-6";
-                categoriesContainer.innerHTML = config.categories.map(category => `
-                    <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg card-hover-effect h-full flex flex-col w-full">
-                        <div class="p-6 flex-grow flex flex-col items-center justify-center">
-                            <span class="inline-block px-4 py-2 bg-cyan-600 rounded-full text-lg text-white mb-4">${category}</span>
-                            <button data-category="${category}" class="view-category-btn px-6 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors">Ver Posts</button>
-                        </div>
-                    </div>`).join('');
-                document.querySelectorAll('.view-category-btn').forEach(btn => { btn.addEventListener('click', function() { window.filterPostsByCategory(this.getAttribute('data-category')); }); });
-            };
-        
-            window.filterPostsByCategory = async function(category) {
-                if (typeof window.switchTab === 'function') window.switchTab('posts');
-                if (!postsContainer) postsContainer = document.getElementById('postsContainer');
-                if (!postsContainer) return;
-                postsContainer.innerHTML = `<div class="text-center py-8 col-span-4"><div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div><p class="mt-4 text-gray-400">Cargando posts de ${category}...</p></div>`;
-                try {
-                    const allPosts = await window.loadPosts();
-                    const filteredPosts = allPosts.filter(post => post.category && (Array.isArray(post.category) ? post.category.some(cat => cat.trim().toLowerCase() === category.trim().toLowerCase()) : post.category.trim().toLowerCase() === category.trim().toLowerCase()));
-                    if (filteredPosts.length === 0) {
-                        postsContainer.innerHTML = `<div class="col-span-4 text-center py-8"><p class="text-gray-400">No hay posts en la categoría ${category}</p><button onclick="window.loadPosts()" class="mt-4 px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700">Ver todos los posts</button></div>`;
-                    } else {
-                        renderPosts(filteredPosts, true);
-                        postsContainer.insertAdjacentHTML('afterbegin', `<div class="col-span-4 flex justify-center mb-6"><button onclick="window.loadPosts()" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg">← Ver todas las categorías</button></div>`);
-                        postsContainer.insertAdjacentHTML('afterbegin', `<div class="col-span-4 text-center mb-6"><h2 class="text-2xl font-bold text-white">Posts en la categoría: ${category}</h2></div>`);
-                    }
-                } catch (error) { postsContainer.innerHTML = `<div class="text-center py-8 col-span-4"><p class="text-red-400">Error al cargar los posts de ${category}: ${error.message}</p><button onclick="window.loadPosts()" class="mt-4 px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700">Ver todos los posts</button></div>`; }
-            };
-        
-            window.loadFullPost = async function(postNumber) {
-                if (!postsContainer) postsContainer = document.getElementById('postsContainer');
-                if (!postsContainer) return;
-                try {
-                    postsContainer.innerHTML = `<div class="text-center py-8 col-span-1 w-full"><div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div><p class="mt-4 text-gray-400">Cargando post...</p></div>`;
-                    const response = await fetch(`${config.postsDirectory}post-${postNumber}.json`);
-                    if (!response.ok) throw new Error(`No se pudo cargar el post #${postNumber}`);
-                    const post = await response.json();
-                    let imageUrl = post.image || '';
-                    if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('/')) imageUrl = `${config.imagesDirectory}${imageUrl}`;
-                    else if (!imageUrl) imageUrl = config.defaultImage;
-                    let postContent = '';
-                    if (post.contentFile) {
-                        try {
-                            const contentResponse = await fetch(`${config.postsDirectory}${post.contentFile}`);
-                            if (contentResponse.ok) {
-                                marked.setOptions({ breaks: true, gfm: true, tables: true, sanitize: false });
-                                postContent = DOMPurify.sanitize(marked.parse(await contentResponse.text()));
-                            }
-                        } catch (e) { postContent = `<div class="text-red-400 p-4 border border-red-400 rounded"><p>Error al cargar el contenido</p><details class="mt-2 text-sm"><summary>Detalles técnicos</summary><pre class="overflow-auto">${e.message}</pre></details></div>`; }
-                    } else if (post.content) {
-                        try { postContent = DOMPurify.sanitize(marked.parse(post.content)); }
-                        catch (e) { postContent = `<p class="text-red-400">Error al formatear el contenido</p>`; }
-                    } else { postContent = '<p class="text-gray-400">No hay contenido disponible</p>'; }
-                    postsContainer.innerHTML = `
-                        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg w-full">
-                            <img src="${imageUrl}" alt="${post.title}" class="w-full h-60 object-cover" onerror="this.onerror=null;this.src='${config.defaultImage}'">
-                            <div class="p-6">
-                                <div class="flex justify-between items-center mb-4">
-                                    <div>${Array.isArray(post.category) ? post.category.map(cat => `<span class="inline-block px-3 py-1 bg-gray-700 rounded-full text-xs text-cyan-400 mr-1 mb-1">${cat}</span>`).join('') : `<span class="inline-block px-3 py-1 bg-gray-700 rounded-full text-xs text-cyan-400">${post.category || 'General'}</span>`}
-                                        <span class="text-gray-400 text-xs ml-2">${post.date || ''}</span>
-                                    </div>
-                                    <button id="btnBackToPosts" class="text-gray-400 hover:text-white px-3 py-1 bg-gray-700 rounded">← Volver a posts</button>
-                                </div>
-                                <h2 class="text-2xl font-bold text-white mb-4">${post.title || 'Sin título'}</h2>
-                                <div class="text-gray-300 post-content">${postContent}</div>
-                            </div>
-                        </div>`;
-                    document.getElementById('btnBackToPosts').addEventListener('click', function(e) { e.preventDefault(); window.loadPosts(); });
-                } catch (error) {
-                    postsContainer.innerHTML = `<div class="text-center py-8 col-span-1 w-full"><p class="text-red-400">Error: ${error.message}</p><button id="btnErrorBackToPosts" class="mt-4 px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700">Volver</button></div>`;
-                    document.getElementById('btnErrorBackToPosts').addEventListener('click', () => window.loadPosts());
+                        const response = await fetch(`${config.postsDirectory}post-${i}.json`);
+                        if (response.ok) { JSON.parse(await response.text()); postNumbers.push(i); }
+                    } catch (error) { }
                 }
-            };
+            }
+            if (postNumbers.length === 0) { showError(`No se encontraron posts válidos en ${config.postsDirectory}`); return resolve([]); }
+            const posts = await Promise.all(
+                postNumbers.map(async number => {
+                    try {
+                        const response = await fetch(`${config.postsDirectory}post-${number}.json`);
+                        if (!response.ok) return null;
+                        const postData = JSON.parse(await response.text());
+                        let imageUrl = postData.image || '';
+                        if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('/')) imageUrl = `${config.imagesDirectory}${imageUrl}`;
+                        else if (!imageUrl) imageUrl = config.defaultImage;
+                        let fullContent = '';
+                        if (postData.contentFile) {
+                            try {
+                                const contentResponse = await fetch(`${config.postsDirectory}${postData.contentFile}`);
+                                if (contentResponse.ok) fullContent = await contentResponse.text();
+                            } catch (e) { console.error('Error al cargar contenido:', e); }
+                        } else if (postData.content) {
+                            fullContent = postData.content;
+                        }
+                        return { ...postData, number, image: imageUrl, title: postData.title || 'Sin título', category: postData.category ? (Array.isArray(postData.category) ? postData.category : [postData.category]) : ['General'], excerpt: postData.excerpt || '', date: postData.date || '', content: fullContent };
+                    } catch (error) { console.error(`Error procesando post-${number}.json:`, error); return null; }
+                })
+            );
+            const validPosts = posts.filter(p => p !== null).sort((a, b) => (new Date(b.date) - new Date(a.date))).slice(0, config.postsPerPage);
+            if (validPosts.length === 0) { showError('Los posts se encontraron pero no se pudieron cargar'); return resolve([]); }
+            renderPosts(validPosts, false);
+            resolve(validPosts);
+        } catch (error) { showError(`Error al cargar los posts: ${error.message}`); reject(error); }
+    });
+};
+
+function renderPosts(posts, isFiltered = false) {
+    if (!postsContainer) postsContainer = document.getElementById('postsContainer');
+    if (!postsContainer) return;
+    postsContainer.className = isFiltered ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-6" : "grid grid-cols-1 gap-2 sm:gap-3 md:gap-4";
+    postsContainer.innerHTML = posts.map(post => `
+        <div class="bg-gray-800 rounded-lg sm:rounded-xl overflow-hidden shadow-lg card-hover-effect h-full flex flex-col w-full">
+            <img src="${post.image}" alt="${post.title}" class="w-full h-32 sm:h-40 md:h-48 object-cover" onerror="this.onerror=null;this.src='${config.defaultImage}'">
+            <div class="p-3 sm:p-4 flex-grow">
+                <div class="flex justify-between items-start mb-2">
+                    <div class="flex flex-wrap gap-1">${Array.isArray(post.category) ? post.category.map(cat => `<span class="inline-block px-2 py-0.5 sm:px-3 sm:py-1 bg-gray-700 rounded-full text-xs text-cyan-400">${config.categories && config.categories.includes(cat) ? cat : 'General'}</span>`).join('') : `<span class="inline-block px-2 py-0.5 sm:px-3 sm:py-1 bg-gray-700 rounded-full text-xs text-cyan-400">${config.categories && config.categories.includes(post.category) ? post.category : 'General'}</span>`}</div>
+                    <span class="text-gray-400 text-xs">${post.date}</span>
+                </div>
+                <h3 class="text-base sm:text-lg md:text-xl font-bold text-white mb-2 leading-tight">${post.title}</h3>
+                <p class="text-gray-300 text-xs sm:text-sm line-clamp-3 leading-relaxed">${post.excerpt}</p>
+            </div>
+            <div class="px-3 sm:px-4 pb-3 sm:pb-4"><a href="javascript:void(0)" data-post-number="${post.number}" class="view-post-link text-cyan-400 hover:text-cyan-300 text-xs sm:text-sm font-medium">Leer más →</a></div>
+        </div>`).join('');
+    document.querySelectorAll('.view-post-link').forEach(link => { link.addEventListener('click', function(e) { e.preventDefault(); window.loadFullPost(this.getAttribute('data-post-number')); }); });
+}
+
+window.loadCategories = function() {
+    const categoriesContainer = document.getElementById('categoriesContainer');
+    if (!categoriesContainer || !config.categories) return;
+    categoriesContainer.className = "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3 md:gap-4 lg:gap-6 p-1 sm:p-2 md:p-4";
+    categoriesContainer.innerHTML = config.categories.map(category => `
+        <div class="bg-gray-800 rounded-lg sm:rounded-xl overflow-hidden shadow-lg card-hover-effect h-full flex flex-col w-full">
+            <div class="p-3 sm:p-4 md:p-6 flex-grow flex flex-col items-center justify-center">
+                <span class="inline-block px-3 py-1 sm:px-4 sm:py-2 bg-cyan-600 rounded-full text-sm sm:text-base md:text-lg text-white mb-2 sm:mb-3 md:mb-4 text-center">${category}</span>
+                <button data-category="${category}" class="view-category-btn px-3 py-1 sm:px-4 sm:py-2 md:px-6 md:py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors text-xs sm:text-sm md:text-base">Ver Posts</button>
+            </div>
+        </div>`).join('');
+    document.querySelectorAll('.view-category-btn').forEach(btn => { btn.addEventListener('click', function() { window.filterPostsByCategory(this.getAttribute('data-category')); }); });
+};
+
+window.filterPostsByCategory = async function(category) {
+    if (typeof window.switchTab === 'function') window.switchTab('posts');
+    if (!postsContainer) postsContainer = document.getElementById('postsContainer');
+    if (!postsContainer) return;
+    postsContainer.innerHTML = `<div class="text-center py-4 sm:py-6 md:py-8 col-span-4"><div class="animate-spin rounded-full h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div><p class="mt-3 sm:mt-4 text-gray-400 text-sm sm:text-base">Cargando posts de ${category}...</p></div>`;
+    try {
+        const allPosts = await window.loadPosts();
+        const filteredPosts = allPosts.filter(post => post.category && (Array.isArray(post.category) ? post.category.some(cat => cat.trim().toLowerCase() === category.trim().toLowerCase()) : post.category.trim().toLowerCase() === category.trim().toLowerCase()));
+        if (filteredPosts.length === 0) {
+            postsContainer.innerHTML = `<div class="col-span-4 text-center py-4 sm:py-6 md:py-8"><p class="text-gray-400 text-sm sm:text-base">No hay posts en la categoría ${category}</p><button onclick="window.loadPosts()" class="mt-3 sm:mt-4 px-3 sm:px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 text-sm sm:text-base">Ver todos los posts</button></div>`;
+        } else {
+            renderPosts(filteredPosts, true);
+            postsContainer.insertAdjacentHTML('afterbegin', `<div class="col-span-4 flex justify-center mb-4 sm:mb-6"><button onclick="window.loadPosts()" class="px-3 sm:px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm sm:text-base">← Ver todas las categorías</button></div>`);
+            postsContainer.insertAdjacentHTML('afterbegin', `<div class="col-span-4 text-center mb-4 sm:mb-6"><h2 class="text-lg sm:text-xl md:text-2xl font-bold text-white">Posts en la categoría: ${category}</h2></div>`);
+        }
+    } catch (error) { postsContainer.innerHTML = `<div class="text-center py-4 sm:py-6 md:py-8 col-span-4"><p class="text-red-400 text-sm sm:text-base">Error al cargar los posts de ${category}: ${error.message}</p><button onclick="window.loadPosts()" class="mt-3 sm:mt-4 px-3 sm:px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 text-sm sm:text-base">Ver todos los posts</button></div>`; }
+};
+
+window.loadFullPost = async function(postNumber) {
+    if (!postsContainer) postsContainer = document.getElementById('postsContainer');
+    if (!postsContainer) return;
+    try {
+        postsContainer.innerHTML = `<div class="text-center py-4 sm:py-6 md:py-8 col-span-1 w-full"><div class="animate-spin rounded-full h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div><p class="mt-3 sm:mt-4 text-gray-400 text-sm sm:text-base">Cargando post...</p></div>`;
+        const response = await fetch(`${config.postsDirectory}post-${postNumber}.json`);
+        if (!response.ok) throw new Error(`No se pudo cargar el post #${postNumber}`);
+        const post = await response.json();
+        let imageUrl = post.image || '';
+        if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('/')) imageUrl = `${config.imagesDirectory}${imageUrl}`;
+        else if (!imageUrl) imageUrl = config.defaultImage;
+        let postContent = '';
+        if (post.contentFile) {
+            try {
+                const contentResponse = await fetch(`${config.postsDirectory}${post.contentFile}`);
+                if (contentResponse.ok) {
+                    if (typeof marked !== 'undefined') {
+                        marked.setOptions({ breaks: true, gfm: true, tables: true, sanitize: false });
+                        postContent = typeof DOMPurify !== 'undefined' ? DOMPurify.sanitize(marked.parse(await contentResponse.text())) : marked.parse(await contentResponse.text());
+                    } else {
+                        postContent = await contentResponse.text();
+                    }
+                }
+            } catch (e) { postContent = `<div class="text-red-400 p-3 sm:p-4 border border-red-400 rounded text-sm sm:text-base"><p>Error al cargar el contenido</p><details class="mt-2 text-xs sm:text-sm"><summary>Detalles técnicos</summary><pre class="overflow-auto">${e.message}</pre></details></div>`; }
+        } else if (post.content) {
+            try { 
+                if (typeof marked !== 'undefined') {
+                    postContent = typeof DOMPurify !== 'undefined' ? DOMPurify.sanitize(marked.parse(post.content)) : marked.parse(post.content);
+                } else {
+                    postContent = post.content;
+                }
+            }
+            catch (e) { postContent = `<p class="text-red-400 text-sm sm:text-base">Error al formatear el contenido</p>`; }
+        } else { postContent = '<p class="text-gray-400 text-sm sm:text-base">No hay contenido disponible</p>'; }
+        postsContainer.innerHTML = `
+            <div class="bg-gray-800 rounded-lg sm:rounded-xl overflow-hidden shadow-lg w-full">
+                <img src="${imageUrl}" alt="${post.title}" class="w-full h-40 sm:h-48 md:h-60 object-cover" onerror="this.onerror=null;this.src='${config.defaultImage}'">
+                <div class="p-3 sm:p-4 md:p-6">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3 sm:mb-4 gap-2">
+                        <div class="flex flex-wrap items-center gap-2">${Array.isArray(post.category) ? post.category.map(cat => `<span class="inline-block px-2 py-0.5 sm:px-3 sm:py-1 bg-gray-700 rounded-full text-xs text-cyan-400">${cat}</span>`).join('') : `<span class="inline-block px-2 py-0.5 sm:px-3 sm:py-1 bg-gray-700 rounded-full text-xs text-cyan-400">${post.category || 'General'}</span>`}
+                            <span class="text-gray-400 text-xs">${post.date || ''}</span>
+                        </div>
+                        <button id="btnBackToPosts" class="text-gray-400 hover:text-white px-3 py-1 bg-gray-700 rounded text-xs sm:text-sm self-start sm:self-auto">← Volver a posts</button>
+                    </div>
+                    <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-white mb-3 sm:mb-4 leading-tight">${post.title || 'Sin título'}</h2>
+                    <div class="text-gray-300 post-content leading-relaxed [&_p]:text-xs [&_p]:sm:text-sm [&_p]:leading-relaxed [&_h1]:text-lg [&_h1]:sm:text-xl [&_h2]:text-base [&_h2]:sm:text-lg">${postContent}</div>
+                </div>
+            </div>`;
+        document.getElementById('btnBackToPosts').addEventListener('click', function(e) { e.preventDefault(); window.loadPosts(); });
+    } catch (error) {
+        postsContainer.innerHTML = `<div class="text-center py-4 sm:py-6 md:py-8 col-span-1 w-full"><p class="text-red-400 text-sm sm:text-base">Error: ${error.message}</p><button id="btnErrorBackToPosts" class="mt-3 sm:mt-4 px-3 sm:px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 text-sm sm:text-base">Volver</button></div>`;
+        document.getElementById('btnErrorBackToPosts').addEventListener('click', () => window.loadPosts());
+    }
+};
         });
     </script>
 </body>

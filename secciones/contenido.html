@@ -23,57 +23,118 @@
 </head>
 <body class="bg-gray-900 min-h-screen overflow-y-auto">
     <div class="w-full overflow-x-hidden">
-        <section class="py-16 bg-gray-900 bg-opacity-30">
-            <div class="container mx-auto px-4">
+        <section class="py-4 sm:py-8 md:py-16 bg-gray-900 bg-opacity-30">
+            <div class="container mx-auto px-2 sm:px-4">
                 <!-- Botones de navegación -->
-                <!-- Botones de navegación -->
-                <div class="flex justify-center mb-12 gap-6">
-                    <button id="btnPosts" class="py-3 px-8 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg font-medium text-lg transition-colors duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
+                <div class="flex justify-center mb-6 sm:mb-8 md:mb-12 gap-2 sm:gap-4 md:gap-6 px-2">
+                    <button id="btnPosts" class="flex-1 max-w-[180px] py-2 sm:py-3 px-4 sm:px-6 md:px-8 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg font-medium text-sm sm:text-base md:text-lg transition-colors duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
                         Posts
                     </button>
-                    <button id="btnCategorias" class="py-3 px-8 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium text-lg transition-colors duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+                    <button id="btnCategorias" class="flex-1 max-w-[180px] py-2 sm:py-3 px-4 sm:px-6 md:px-8 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium text-sm sm:text-base md:text-lg transition-colors duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
                         Categorías
                     </button>
                 </div>
 
                 <!-- Buscador -->
-                <div class="max-w-2xl mx-auto mb-8 px-4 w-full">
+                <div class="mx-auto mb-4 sm:mb-6 md:mb-8 px-2 sm:px-4 w-full max-w-2xl">
                     <div class="relative">
                         <input type="text" id="searchInput" 
-                            class="w-full px-6 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 text-white placeholder-gray-400" 
+                            class="w-full px-4 sm:px-6 py-2 sm:py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 text-white placeholder-gray-400 text-sm sm:text-base" 
                             placeholder="Buscar posts por título, categoría o contenido...">
-                        <div class="absolute right-3 top-3 text-gray-400">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div class="absolute right-2 sm:right-3 top-2 sm:top-3 text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </div>
                     </div>
-                    <div id="searchResultsInfo" class="text-sm text-gray-400 mt-2 hidden"></div>
+                    <div id="searchResultsInfo" class="text-xs sm:text-sm text-gray-400 mt-2 hidden px-1"></div>
                 </div>
 
                 <!-- Contenedor principal -->
-                <div class="bg-gray-800 bg-opacity-50 backdrop-blur-sm rounded-xl shadow-2xl p-8 min-h-[600px]">
+                <div class="bg-gray-800 bg-opacity-50 backdrop-blur-sm rounded-none sm:rounded-lg md:rounded-xl shadow-2xl p-2 sm:p-4 md:p-6 lg:p-8 min-h-[400px] sm:min-h-[500px] md:min-h-[600px] mx-0 sm:mx-2">
                     <!-- Contenido de Posts -->
                     <div id="contentPosts" class="w-full">
-                        <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4" id="postsContainer">
-                            <div class="text-center py-8 col-span-4">
-                                <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div>
-                                <p class="mt-4 text-gray-400">Cargando posts...</p>
+                        <div class="grid grid-cols-1 gap-2 sm:gap-3 md:gap-4" id="postsContainer">
+                            <div class="text-center py-6 sm:py-8">
+                                <div class="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div>
+                                <p class="mt-3 sm:mt-4 text-gray-400 text-sm sm:text-base">Cargando posts...</p>
                             </div>
                         </div>
                     </div>
                     
                     <!-- Contenido de Categorías -->
-                <div id="contentCategorias" class="w-full hidden">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4" id="categoriesContainer">
-                        <!-- Las categorías se cargarán aquí dinámicamente -->
+                    <div id="contentCategorias" class="w-full hidden">
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3 md:gap-4 lg:gap-6 p-1 sm:p-2 md:p-4" id="categoriesContainer">
+                            <!-- Las categorías se cargarán aquí dinámicamente -->
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
         </section>
     </div>
 
-
+    <style>
+        /* Optimizaciones adicionales para móvil */
+        @media (max-width: 640px) {
+            .container {
+                max-width: 100%;
+                margin: 0;
+                padding-left: 0;
+                padding-right: 0;
+            }
+            
+            /* Asegurar que las casillas ocupen todo el ancho en móvil */
+            #postsContainer > * {
+                margin-left: 0;
+                margin-right: 0;
+            }
+            
+            /* Optimizar el contenedor principal para móvil */
+            .bg-gray-800.bg-opacity-50 {
+                border-radius: 0;
+                margin-left: 0;
+                margin-right: 0;
+                min-height: 70vh;
+            }
+            
+            /* Botones más táctiles en móvil */
+            button {
+                min-height: 44px;
+                touch-action: manipulation;
+            }
+            
+            /* Input más grande para móvil */
+            input[type="text"] {
+                min-height: 44px;
+                font-size: 16px; /* Previene zoom en iOS */
+            }
+        }
+        
+        /* Para pantallas muy pequeñas */
+        @media (max-width: 375px) {
+            section {
+                padding-top: 8px;
+                padding-bottom: 8px;
+            }
+            
+            .bg-gray-800.bg-opacity-50 {
+                padding: 8px;
+            }
+            
+            /* Botones apilados en pantallas muy pequeñas si es necesario */
+            .flex.justify-center.mb-6 {
+                gap: 8px;
+            }
+        }
+        
+        /* Mejoras para tablets */
+        @media (min-width: 641px) and (max-width: 1024px) {
+            .bg-gray-800.bg-opacity-50 {
+                margin-left: 8px;
+                margin-right: 8px;
+                border-radius: 12px;
+            }
+        }
+    </style>
 </body>
 </html>
