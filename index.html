@@ -44,17 +44,16 @@
                 <li><a href="#inicio" data-route="secciones/inicio.html" class="text-3xl text-white hover:text-cyan-400 transition-colors">Inicio</a></li>
                 <li><a href="#contenido" data-route="secciones/contenido.html" class="text-3xl text-white hover:text-cyan-400 transition-colors">Contenido</a></li>
                 <li><a href="#portafolio" data-route="secciones/portafolio.html" class="text-3xl text-white hover:text-cyan-400 transition-colors">Portafolio</a></li>
+                <li><a href="#marketplace" data-route="secciones/marketplace.html" class="text-3xl text-white hover:text-cyan-400 transition-colors">Marketplace</a></li>
                 <li><a href="#certificaciones" data-route="secciones/certificaciones.html" class="text-3xl text-white hover:text-cyan-400 transition-colors">Certs</a></li>
                 <li><a href="#contact" data-route="secciones/contact.html" class="text-3xl text-white hover:text-cyan-400 transition-colors">Contacto</a></li>
             </ul>
         </nav>
     </div>
 
-    <div 
-    id="tmSideBar" 
-    class="sidebar fixed top-0 left-0 h-screen w-screen text-white bg-cover bg-center transition-all duration-300 hidden lg:flex justify-center items-center"
-    style="box-shadow: 0 12px 24px -1px rgba(0, 0, 0, 0.9), 0 12px 24px -4px rgba(0, 0, 0, 0.8);"
-  >        <div class="absolute inset-0 bg-gray-800/80 backdrop-blur-sm"></div>
+    <div id="tmSideBar" class="sidebar fixed top-0 left-0 h-screen w-screen text-white bg-cover bg-center transition-all duration-300 hidden lg:flex justify-center items-center"
+    style="box-shadow: 0 12px 24px -1px rgba(0, 0, 0, 0.9), 0 12px 24px -4px rgba(0, 0, 0, 0.8);">
+        <div class="absolute inset-0 bg-gray-800/80 backdrop-blur-sm"></div>
         <div class="relative z-10 h-full flex flex-col">
             <button id="sidebarToggle" class="fixed top-4 right-4 z-50 p-2 bg-gray-700/50 hover:bg-gray-600/50 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500/50 lg:right-8 xl:right-12">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -66,32 +65,37 @@
                     <ul class="space-y-4 flex flex-col items-center">
                         <li class="flex justify-center">
                             <a href="?page=inicio" class="flex items-center">
-                                <img src="img/ccon.png" alt="Raccoon base" class="w-24 md:w-32 lg:w-48 h-auto">
+                                <img src="img/ccon.png" alt="Raccoon base" class="w-24 md:w-32 lg:w-32 h-auto">
                             </a>
                         </li>
                         <li class="flex justify-center">
                             <a href="#inicio" data-route="secciones/inicio.html" class="flex items-center p-3 hover:bg-gray-700 rounded-lg transition-colors duration-200 w-full justify-center">
-                                <span class="nav-text ml-4 font-Terano-1 a-1 text-3xl sidebar-text text tracking-widest">Inicio</span>
+                                <span class="nav-text ml-4 font-Terano-1 a-1 text-xl sidebar-text text tracking-widest">Inicio</span>
                             </a>
                         </li>
                         <li class="flex justify-center">
                             <a href="#contenido" data-route="secciones/contenido.html" class="flex items-center p-3 hover:bg-gray-700 rounded-lg transition-colors duration-200 w-full justify-center">
-                                <span class="nav-text ml-4 font-Terano-1 a-1 text-3xl sidebar-text text tracking-widest">Contenido</span>
+                                <span class="nav-text ml-4 font-Terano-1 a-1 text-xl sidebar-text text tracking-widest">Contenido</span>
                             </a>
                         </li>
                         <li class="flex justify-center w-full">
                             <a href="#contacto" data-route="secciones/portafolio.html" class="flex items-center p-4 hover:bg-gray-700/50 rounded-lg transition-colors duration-200 w-full justify-center">
-                                <span class="nav-text ml-4 font-Terano-1 a-1 text-3xl sidebar-text text tracking-widest">Portafolio</span> 
+                                <span class="nav-text ml-4 font-Terano-1 a-1 text-xl sidebar-text text tracking-widest">Portafolio</span> 
+                            </a>
+                        </li>
+                        <li class="flex justify-center w-full">
+                            <a href="#marketplace" data-route="secciones/marketplace.html" class="flex items-center p-4 hover:bg-gray-700/50 rounded-lg transition-colors duration-200 w-full justify-center">
+                                <span class="nav-text ml-4 font-Terano-1 a-1 text-xl sidebar-text text tracking-widest">Tienda</span> 
                             </a>
                         </li>
                         <li class="flex justify-center w-full">
                             <a href="#contacto" data-route="secciones/certificaciones.html" class="flex items-center p-4 hover:bg-gray-700/50 rounded-lg transition-colors duration-200 w-full justify-center">
-                                <span class="nav-text ml-4 font-Terano-1 a-1 text-3xl sidebar-text text tracking-widest">Certs</span> 
+                                <span class="nav-text ml-4 font-Terano-1 a-1 text-xl sidebar-text text tracking-widest">Certs</span> 
                             </a>
                         </li>
                         <li class="flex justify-center w-full">
                             <a href="#contact" data-route="secciones/contact.html" class="flex items-center justify-center p-3 hover:bg-gray-700 rounded-lg transition-colors duration-200 w-full">
-                                <span class="nav-text ml-4 font-Terano-1 a-1 text-3xl sidebar-text text tracking-widest">Contacto </span>
+                                <span class="nav-text ml-4 font-Terano-1 a-1 text-xl sidebar-text text tracking-widest">Contacto </span>
                             </a>
                         </li>
                         <ul class="flex gap-5">
@@ -266,6 +270,7 @@
                 if (isExpanded) { // From fullscreen to side-panel
                     sidebar.classList.remove('w-screen');
                     sidebar.classList.add('w-1/4');
+                    
                     // This timeout is important for the animation
                     setTimeout(() => {
                         contenido.classList.remove('hidden');
@@ -281,14 +286,14 @@
                 }
                 
                 textElements.forEach(element => {
-                    element.classList.toggle('text-3xl');
+                    element.classList.toggle('text-xl');
                     element.classList.toggle('text-xl');
                 });
                 
-                if (logoImage) {
-                    logoImage.classList.toggle('lg:w-48');
-                    logoImage.classList.toggle('lg:w-24');
-                }
+                //if (logoImage) {
+                //    logoImage.classList.toggle('lg:w-36');
+                //    logoImage.classList.toggle('lg:w-24');
+                //}
                 
                 isExpanded = !isExpanded;
             }
