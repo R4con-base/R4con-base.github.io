@@ -1,8 +1,8 @@
 {
-    "title": "Conexiones TCP-UDP",
-    "category": ["Redes", "Ciberseguridad"],
-    "image": "Conexiones-tcpudp.jfif",
-    "excerpt": "Protocolo de Control de Transmisión",
+    "title": "Máquina 'Active' de HackTheBox",
+    "category": ["Maquinas", "Ciberseguridad"],
+    "image": "active.png",
+    "excerpt": "OSCP - OSEP - Active Directory",
     "contentFile": "post-11.md",
-    "date": "2025-06-12"
+    "date": "2025-06-13"
 }
