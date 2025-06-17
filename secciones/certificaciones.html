@@ -55,7 +55,7 @@
         <div class="absolute inset-0 bg-gradient-to-r from-gray-900/50 to-gray-800/50"></div>
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-white mb-8 sm:mb-12 md:mb-16">
-                Mis Certificaciones y Cursos
+                Certificaciones, cursos y laboratorios.
             </h2>
             
             <!-- Grid de Certificaciones -->
@@ -123,70 +123,6 @@
     </div>
 
     <!-- JavaScript para certificados -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Manejador para botones de certificados
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('view-certificate-btn')) {
-                e.preventDefault();
-                const certId = e.target.getAttribute('data-certificate');
-                showCertificate(certId);
-            }
-        });
 
-        // Manejador para cerrar el visor
-        document.getElementById('closeCertificate').addEventListener('click', function() {
-            document.getElementById('certificateViewer').style.display = 'none';
-        });
-
-        // Función para mostrar certificados
-        function showCertificate(certId) {
-            const viewer = document.getElementById('certificateViewer');
-            const content = document.getElementById('certificateContent');
-            
-            // Mostrar loader
-            content.innerHTML = '<div class="text-center py-8"><div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-cyan-500 mx-auto"></div><p class="mt-3 text-gray-400">Cargando certificado...</p></div>';
-            viewer.style.display = 'flex';
-
-            // Simular carga (en producción usarías fetch o similar)
-            setTimeout(() => {
-                switch(certId) {
-                    case 'analista':
-                        content.innerHTML = `
-                            <div class="text-center">
-                                <h3 class="text-2xl font-bold mb-6">Analista Programador</h3>
-                                <img src="/secciones/posts/images/st-logo.png" alt="Certificado" class="mx-auto max-w-full h-auto mb-6">
-                                <div class="text-left space-y-4">
-                                    <p><strong>Institución:</strong> Santo Tomás</p>
-                                    <p><strong>Año:</strong> 2025</p>
-                                    <p><strong>Duración:</strong> 2 años</p>
-                                    <p><strong>Descripción:</strong> Titulación como analista programador con especialización en desarrollo web y seguridad informática.</p>
-                                </div>
-                            </div>`;
-                        break;
-                    case 'hackthebox':
-                        content.innerHTML = `
-                            <div class="text-center">
-                                <h3 class="text-2xl font-bold mb-6">Fundamentos de Seguridad</h3>
-                                <img src="/secciones/posts/images/logo.webp" alt="Certificado" class="mx-auto max-w-full h-auto mb-6">
-                                <div class="text-left space-y-4">
-                                    <p><strong>Plataforma:</strong> HackTheBox</p>
-                                    <p><strong>Duración:</strong> 101 horas</p>
-                                    <p><strong>Descripción:</strong> Curso completo sobre fundamentos de seguridad informática.</p>
-                                </div>
-                            </div>`;
-                        break;
-                    case 'iso27001':
-                        // Para certificados complejos, redirigir directamente
-                        window.open('/certs/iso27.html', '_blank');
-                        viewer.style.display = 'none';
-                        break;
-                    default:
-                        content.innerHTML = '<p class="text-red-400">Certificado no encontrado</p>';
-                }
-            }, 500);
-        }
-    });
-    </script>
 </body>
 </html>
