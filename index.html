@@ -194,10 +194,14 @@
     const closeMobileMenu = document.getElementById('close-mobile-menu');
     const mobileNavLinks = document.querySelectorAll('#mobile-menu a');
 
-    // Common
+    // Common variables globales
     const contenido = document.getElementById('contenido');
     let isExpanded = true;
     let postsContainer = null;
+    let currentPage = 1;
+    let totalPosts = 0;
+    let totalPages = 0;
+    let currentFilteredPosts = [];
     
     // --- Config ---
     const config = {
@@ -209,7 +213,7 @@
         searchDebounceTime: 300,
         lastSearchTerm: '',
         allPosts: [],
-        categories: ["Tutoriales", "Seguridad", "Desarrollo", "Redes", "Hardware", "Linux", "Windows", "Programación", "Bases de Datos", "Cloud", "Ciberseguridad", "Exfiltracion"]
+        categories: ["Tutoriales", "Seguridad", "Desarrollo", "Redes", "Hardware", "Linux", "Windows", "Programación", "Bases de Datos", "Cloud", "Ciberseguridad", "Exfiltracion","Maquinas"]
     };
     config.imagesDirectory = `${config.postsDirectory}images/`;
     config.defaultImage = `${config.imagesDirectory}default.jpg`;
@@ -785,76 +789,341 @@
         window.loadCategories();
     }
 
-    window.loadPosts = function() {
-        return new Promise(async (resolve, reject) => {
+    window.loadPosts = function(page = 1) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            postsContainer = document.getElementById('postsContainer');
+            if (!postsContainer) return reject(new Error('postsContainer no encontrado'));
+            
+            // Muestra un spinner de carga
+            postsContainer.innerHTML = `<div class="text-center py-4 sm:py-6 md:py-8 col-span-1 w-full"><div class="animate-spin rounded-full h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div><p class="mt-3 sm:mt-4 text-gray-400 text-sm sm:text-base">Cargando posts...</p></div>`;
+            
+            let postNumbers = [];
             try {
-                postsContainer = document.getElementById('postsContainer');
-                if (!postsContainer) return reject(new Error('postsContainer no encontrado'));
-                postsContainer.innerHTML = `<div class="text-center py-4 sm:py-6 md:py-8 col-span-1 w-full"><div class="animate-spin rounded-full h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div><p class="mt-3 sm:mt-4 text-gray-400 text-sm sm:text-base">Cargando posts...</p></div>`;
-                let postNumbers = [];
-                try {
-                    const indexResponse = await fetch(`${config.postsDirectory}index.json`);
-                    if (indexResponse.ok) postNumbers = (await indexResponse.json()).posts || [];
-                } catch (e) { console.warn('Error al cargar index.json:', e); }
-                if (postNumbers.length === 0) {
-                    for (let i = 1; i <= 20; i++) {
-                        try {
-                            const response = await fetch(`${config.postsDirectory}post-${i}.json`);
-                            if (response.ok) { JSON.parse(await response.text()); postNumbers.push(i); }
-                        } catch (error) { }
-                    }
+                // Intenta cargar el índice de posts
+                const indexResponse = await fetch(`${config.postsDirectory}index.json`);
+                if (indexResponse.ok) postNumbers = (await indexResponse.json()).posts || [];
+            } catch (e) { console.warn('Error al cargar index.json:', e); }
+            
+            // Si no hay índice, busca posts manualmente
+            if (postNumbers.length === 0) {
+                for (let i = 1; i <= 50; i++) { // Aumentamos el límite de búsqueda
+                    try {
+                        const response = await fetch(`${config.postsDirectory}post-${i}.json`);
+                        if (response.ok) { JSON.parse(await response.text()); postNumbers.push(i); }
+                    } catch (error) { }
                 }
-                if (postNumbers.length === 0) { showError(`No se encontraron posts válidos en ${config.postsDirectory}`); return resolve([]); }
-                const posts = await Promise.all(
-                    postNumbers.map(async number => {
-                        try {
-                            const response = await fetch(`${config.postsDirectory}post-${number}.json`);
-                            if (!response.ok) return null;
-                            const postData = JSON.parse(await response.text());
-                            let imageUrl = postData.image || '';
-                            if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('/')) imageUrl = `${config.imagesDirectory}${imageUrl}`;
-                            else if (!imageUrl) imageUrl = config.defaultImage;
-                            let fullContent = '';
-                            if (postData.contentFile) {
-                                try {
-                                    const contentResponse = await fetch(`${config.postsDirectory}${postData.contentFile}`);
-                                    if (contentResponse.ok) fullContent = await contentResponse.text();
-                                } catch (e) { console.error('Error al cargar contenido:', e); }
-                            } else if (postData.content) {
-                                fullContent = postData.content;
-                            }
-                            return { ...postData, number, image: imageUrl, title: postData.title || 'Sin título', category: postData.category ? (Array.isArray(postData.category) ? postData.category : [postData.category]) : ['General'], excerpt: postData.excerpt || '', date: postData.date || '', content: fullContent };
-                        } catch (error) { console.error(`Error procesando post-${number}.json:`, error); return null; }
-                    })
-                );
-                const validPosts = posts.filter(p => p !== null).sort((a, b) => (new Date(b.date) - new Date(a.date))).slice(0, config.postsPerPage);
-                if (validPosts.length === 0) { showError('Los posts se encontraron pero no se pudieron cargar'); return resolve([]); }
-                renderPosts(validPosts, false);
-                resolve(validPosts);
-            } catch (error) { showError(`Error al cargar los posts: ${error.message}`); reject(error); }
-        });
-    };
+            }
+            
+            if (postNumbers.length === 0) { 
+                showError(`No se encontraron posts válidos en ${config.postsDirectory}`); 
+                return resolve([]); 
+            }
+            
+            // Carga todos los posts
+            const posts = await Promise.all(
+                postNumbers.map(async number => {
+                    try {
+                        const response = await fetch(`${config.postsDirectory}post-${number}.json`);
+                        if (!response.ok) return null;
+                        const postData = JSON.parse(await response.text());
+                        
+                        // Procesa la imagen
+                        let imageUrl = postData.image || '';
+                        if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('/')) {
+                            imageUrl = `${config.imagesDirectory}${imageUrl}`;
+                        } else if (!imageUrl) {
+                            imageUrl = config.defaultImage;
+                        }
+                        
+                        // Carga el contenido (puede estar en archivo separado)
+                        let fullContent = '';
+                        if (postData.contentFile) {
+                            try {
+                                const contentResponse = await fetch(`${config.postsDirectory}${postData.contentFile}`);
+                                if (contentResponse.ok) fullContent = await contentResponse.text();
+                            } catch (e) { console.error('Error al cargar contenido:', e); }
+                        } else if (postData.content) {
+                            fullContent = postData.content;
+                        }
+                        
+                        return { 
+                            ...postData, 
+                            number, 
+                            image: imageUrl, 
+                            title: postData.title || 'Sin título', 
+                            category: postData.category ? (Array.isArray(postData.category) ? postData.category : [postData.category]) : ['General'], 
+                            excerpt: postData.excerpt || '', 
+                            date: postData.date || '', 
+                            content: fullContent 
+                        };
+                    } catch (error) { 
+                        console.error(`Error procesando post-${number}.json:`, error); 
+                        return null; 
+                    }
+                })
+            );
+            
+            // Filtra y ordena todos los posts válidos
+            const validPosts = posts.filter(p => p !== null)
+                                 .sort((a, b) => (new Date(b.date) - new Date(a.date)));
+            
+            if (validPosts.length === 0) { 
+                showError('Los posts se encontraron pero no se pudieron cargar'); 
+                return resolve([]); 
+            }
+            
+            // Configura la paginación
+            currentFilteredPosts = validPosts;
+            totalPosts = validPosts.length;
+            totalPages = Math.ceil(totalPosts / config.postsPerPage);
+            currentPage = Math.max(1, Math.min(page, totalPages));
+            
+            // Calcula los posts para la página actual
+            const startIndex = (currentPage - 1) * config.postsPerPage;
+            const endIndex = startIndex + config.postsPerPage;
+            const postsForCurrentPage = validPosts.slice(startIndex, endIndex);
+            
+            // Renderiza los posts y la paginación
+            renderPostsWithPagination(postsForCurrentPage, false);
+            resolve(validPosts);
+            
+        } catch (error) { 
+            showError(`Error al cargar los posts: ${error.message}`); 
+            reject(error); 
+        }
+    });
+};
 
-    function renderPosts(posts, isFiltered = false) {
-        if (!postsContainer) postsContainer = document.getElementById('postsContainer');
-        if (!postsContainer) return;
-        postsContainer.className = isFiltered ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-6" : "grid grid-cols-1 gap-2 sm:gap-3 md:gap-4";
-        postsContainer.innerHTML = posts.map(post => `
-            <div class="bg-gray-800 rounded-lg sm:rounded-xl overflow-hidden shadow-lg card-hover-effect h-full flex flex-col w-full">
-                <img src="${post.image}" alt="${post.title}" class="w-full h-32 sm:h-40 md:h-48 object-cover" onerror="this.onerror=null;this.src='${config.defaultImage}'">
-                <div class="p-3 sm:p-4 flex-grow">
-                    <div class="flex justify-between items-start mb-2">
-                        <div class="flex flex-wrap gap-1">${Array.isArray(post.category) ? post.category.map(cat => `<span class="inline-block px-2 py-0.5 sm:px-3 sm:py-1 bg-gray-700 rounded-full text-xs text-cyan-400">${config.categories && config.categories.includes(cat) ? cat : 'General'}</span>`).join('') : `<span class="inline-block px-2 py-0.5 sm:px-3 sm:py-1 bg-gray-700 rounded-full text-xs text-cyan-400">${config.categories && config.categories.includes(post.category) ? post.category : 'General'}</span>`}</div>
-                        <span class="text-gray-400 text-xs">${post.date}</span>
+function renderPostsWithPagination(posts, isFiltered = false) {
+    if (!postsContainer) postsContainer = document.getElementById('postsContainer');
+    if (!postsContainer) return;
+    
+    // Configura el grid según si está filtrado o no
+    postsContainer.className = isFiltered 
+        ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-6" 
+        : "grid grid-cols-1 gap-2 sm:gap-3 md:gap-4";
+    
+    // Genera el HTML para cada post
+    const postsHTML = posts.map(post => `
+        <div class="bg-gray-800 rounded-lg sm:rounded-xl overflow-hidden shadow-lg card-hover-effect h-full flex flex-col w-full">
+            <img src="${post.image}" alt="${post.title}" class="w-full h-32 sm:h-40 md:h-48 object-cover" onerror="this.onerror=null;this.src='${config.defaultImage}'">
+            <div class="p-3 sm:p-4 flex-grow">
+                <div class="flex justify-between items-start mb-2">
+                    <div class="flex flex-wrap gap-1">
+                        ${Array.isArray(post.category) 
+                            ? post.category.map(cat => `
+                                <span class="inline-block px-2 py-0.5 sm:px-3 sm:py-1 bg-gray-700 rounded-full text-xs text-cyan-400">
+                                    ${config.categories && config.categories.includes(cat) ? cat : 'General'}
+                                </span>`).join('') 
+                            : `
+                                <span class="inline-block px-2 py-0.5 sm:px-3 sm:py-1 bg-gray-700 rounded-full text-xs text-cyan-400">
+                                    ${config.categories && config.categories.includes(post.category) ? post.category : 'General'}
+                                </span>`}
                     </div>
-                    <h3 class="text-base sm:text-lg md:text-xl font-bold text-white mb-2 leading-tight">${post.title}</h3>
-                    <p class="text-gray-300 text-xs sm:text-sm line-clamp-3 leading-relaxed">${post.excerpt}</p>
+                    <span class="text-gray-400 text-xs">${post.date}</span>
                 </div>
-                <div class="px-3 sm:px-4 pb-3 sm:pb-4"><a href="javascript:void(0)" data-post-number="${post.number}" class="view-post-link text-cyan-400 hover:text-cyan-300 text-xs sm:text-sm font-medium">Leer más →</a></div>
-            </div>`).join('');
-        document.querySelectorAll('.view-post-link').forEach(link => { link.addEventListener('click', function(e) { e.preventDefault(); window.loadFullPost(this.getAttribute('data-post-number')); }); });
+                <h3 class="text-base sm:text-lg md:text-xl font-bold text-white mb-2 leading-tight">${post.title}</h3>
+                <p class="text-gray-300 text-xs sm:text-sm line-clamp-3 leading-relaxed">${post.excerpt}</p>
+            </div>
+            <div class="px-3 sm:px-4 pb-3 sm:pb-4">
+                <a href="javascript:void(0)" data-post-number="${post.number}" class="view-post-link text-cyan-400 hover:text-cyan-300 text-xs sm:text-sm font-medium">
+                    Leer más →
+                </a>
+            </div>
+        </div>`).join('');
+    
+    // Genera la paginación
+    const paginationHTML = generatePaginationHTML();
+    
+    // Genera el HTML de la paginación
+    function generatePaginationHTML() {
+    if (totalPages <= 1) return '';
+    
+    let paginationHTML = `
+        <div class="col-span-full mt-6 sm:mt-8">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <!-- Información de la página actual -->
+                <div class="text-gray-400 text-sm">
+                    Mostrando ${((currentPage - 1) * config.postsPerPage) + 1} - ${Math.min(currentPage * config.postsPerPage, totalPosts)} de ${totalPosts} posts
+                </div>
+                
+                <!-- Controles de paginación -->
+                <div class="flex items-center gap-2">`;
+    
+    // Botón "Primera página"
+    if (currentPage > 1) {
+        paginationHTML += `
+            <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="1">
+                ««
+            </button>`;
     }
+    
+    // Botón "Página anterior"
+    if (currentPage > 1) {
+        paginationHTML += `
+            <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="${currentPage - 1}">
+                ‹ Anterior
+            </button>`;
+    }
+    
+    // Números de página
+    const startPage = Math.max(1, currentPage - 2);
+    const endPage = Math.min(totalPages, currentPage + 2);
+    
+    // Puntos suspensivos al inicio si es necesario
+    if (startPage > 1) {
+        paginationHTML += `
+            <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="1">1</button>`;
+        if (startPage > 2) {
+            paginationHTML += `<span class="text-gray-400 px-2">...</span>`;
+        }
+    }
+    
+    // Números de página visibles
+    for (let i = startPage; i <= endPage; i++) {
+        const isActive = i === currentPage;
+        paginationHTML += `
+            <button class="pagination-btn px-3 py-2 ${isActive ? 'bg-cyan-600 text-white' : 'bg-gray-700 hover:bg-gray-600 text-white'} rounded-lg text-sm transition-colors" data-page="${i}">
+                ${i}
+            </button>`;
+    }
+    
+    // Puntos suspensivos al final si es necesario
+    if (endPage < totalPages) {
+        if (endPage < totalPages - 1) {
+            paginationHTML += `<span class="text-gray-400 px-2">...</span>`;
+        }
+        paginationHTML += `
+            <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="${totalPages}">${totalPages}</button>`;
+    }
+    
+    // Botón "Página siguiente"
+    if (currentPage < totalPages) {
+        paginationHTML += `
+            <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="${currentPage + 1}">
+                Siguiente ›
+            </button>`;
+    }
+    
+    // Botón "Última página"
+    if (currentPage < totalPages) {
+        paginationHTML += `
+            <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="${totalPages}">
+                »»
+            </button>`;
+    }
+    
+    paginationHTML += `
+                </div>
+            </div>
+        </div>`;
+    
+    return paginationHTML;
+}
 
+    // Combina posts y paginación
+    postsContainer.innerHTML = postsHTML + paginationHTML;
+    
+    // Añade eventos a los enlaces "Leer más"
+    document.querySelectorAll('.view-post-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.loadFullPost(this.getAttribute('data-post-number'));
+        });
+    });
+    
+    // Añade eventos a la paginación
+    addPaginationEvents();
+}
+function addPaginationEvents() {
+    document.querySelectorAll('.pagination-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const page = parseInt(this.getAttribute('data-page'));
+            if (page && page !== currentPage) {
+                window.loadPosts(page);
+                // Scroll suave hacia arriba
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    });
+}
+function performSearchWithPagination(searchTerm, page = 1) {
+    if (!postsContainer) postsContainer = document.getElementById('postsContainer');
+    if (!postsContainer) return;
+    
+    const resultsInfo = document.getElementById('searchResultsInfo');
+    if (searchTerm.length < 2) { 
+        resultsInfo.classList.add('hidden'); 
+        return; 
+    }
+    
+    // Muestra un spinner de carga
+    postsContainer.innerHTML = `
+        <div class="text-center py-4 sm:py-6 md:py-8 col-span-4">
+            <div class="animate-spin rounded-full h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div>
+            <p class="mt-3 sm:mt-4 text-gray-400 text-sm sm:text-base">Buscando "${searchTerm}"...</p>
+        </div>`;
+    
+    // Filtra los posts
+    const filteredPosts = config.allPosts.filter(post => {
+        const inTitle = post.title.toLowerCase().includes(searchTerm);
+        let inCategory = false;
+        
+        if (Array.isArray(post.category)) {
+            inCategory = post.category.some(cat => cat.toLowerCase().includes(searchTerm));
+        } else {
+            inCategory = post.category.toLowerCase().includes(searchTerm);
+        }
+        
+        const inExcerpt = post.excerpt.toLowerCase().includes(searchTerm);
+        let inContent = false;
+        if (post.content) inContent = post.content.toLowerCase().includes(searchTerm);
+        
+        return inTitle || inCategory || inExcerpt || inContent;
+    });
+    
+    if (filteredPosts.length === 0) {
+        postsContainer.innerHTML = `
+            <div class="col-span-4 text-center py-4 sm:py-6 md:py-8">
+                <p class="text-gray-400 text-sm sm:text-base">No se encontraron posts para "${searchTerm}"</p>
+                <button onclick="window.loadPosts()" class="mt-3 sm:mt-4 px-3 sm:px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 text-sm sm:text-base">
+                    Ver todos los posts
+                </button>
+            </div>`;
+        resultsInfo.textContent = `No se encontraron resultados para "${searchTerm}"`;
+        resultsInfo.classList.remove('hidden');
+    } else {
+        // Configura paginación para búsqueda
+        currentFilteredPosts = filteredPosts;
+        totalPosts = filteredPosts.length;
+        totalPages = Math.ceil(totalPosts / config.postsPerPage);
+        currentPage = Math.max(1, Math.min(page, totalPages));
+        
+        // Calcula los posts para la página actual
+        const startIndex = (currentPage - 1) * config.postsPerPage;
+        const endIndex = startIndex + config.postsPerPage;
+        const postsForCurrentPage = filteredPosts.slice(startIndex, endIndex);
+        
+        renderPostsWithPagination(postsForCurrentPage, true);
+        resultsInfo.textContent = `Mostrando ${filteredPosts.length} resultados para "${searchTerm}"`;
+        resultsInfo.classList.remove('hidden');
+        highlightSearchTerms(searchTerm);
+    }
+}
+
+// Función auxiliar para cambiar de página en búsquedas
+window.searchPage = function(page) {
+    if (config.lastSearchTerm) {
+        performSearchWithPagination(config.lastSearchTerm, page);
+    }
+};
+
+// Actualiza la función de búsqueda original
+function performSearch(searchTerm) {
+    performSearchWithPagination(searchTerm, 1);
+}
     window.loadCategories = function() {
         const categoriesContainer = document.getElementById('categoriesContainer');
         if (!categoriesContainer || !config.categories) return;
