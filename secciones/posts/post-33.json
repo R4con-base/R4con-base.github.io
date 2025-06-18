@@ -1,0 +1,8 @@
+{
+    "title": "Máquina 'Active' de HackTheBox",
+    "category": ["Maquinas", "Ciberseguridad"],
+    "image": "active.png",
+    "excerpt": "OSCP - OSEP - Active Directory",
+    "contentFile": "post-33.md",
+    "date": "2024-06-13"
+}

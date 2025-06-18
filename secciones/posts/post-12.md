@@ -418,6 +418,8 @@ Ingresaré la contraseña del exploit, "canalizada", y obtendré un shell raíz:
 
 buscamos la flag de root y terminada.
 
+
+
 Algunos de los writeups en esta página, pueden tener contenido de otras páginas o tener muy pocas imágenes, esto 
 debido a que en algunas de las máquinas que realice, no tome los apuntes o no tome capturas de pantalla, así que he decidido buscar varios writeups
 y agregar lo que esté mejor explicado en cada uno para plasmarlo aquí, también si encuentra faltas de ortografía 
