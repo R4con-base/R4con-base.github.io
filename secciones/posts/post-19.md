@@ -246,7 +246,7 @@ curl -s -X GET "http://10.10.11.150:5000/rooms" -H "Authorization: Bearer NjFiOD
 curl -s -X GET "http://10.10.11.150:5000/rooms/61b86b28d984e2451036eb17/messages" -H "Authorization: Bearer NjFiODZhZWFkOTg0ZTI0NTUwMzZlYjE2OmQ1ODg0NjhmZjhiYWU0NDYzNzlhNTdmYTJiNGU2M2EyMzY4MjI0MzM2YjU5NDljNQ==" | jq '.[].text'
 ```
 
-![Mensajes obtenidos](/secciones/posts/imagenes/catch/salida4.jpg)
+![Mensajes obtenidos](/secciones/posts/imagenes/catch/salida4.png)
 
 **Credenciales encontradas en los mensajes**:
 ```

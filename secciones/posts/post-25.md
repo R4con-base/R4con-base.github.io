@@ -63,11 +63,11 @@ Welcome Brankas Application.
 
 Visitamos la web de la página con el puerto 8000:
 
-![Web puerto 8000](/secciones/posts/imagenes/hancliffe/web1.webp)
+![Web  ](/secciones/posts/imagenes/hancliffe/web1.png)
 
 Podemos ver una web que genera contraseñas rellenando tres campos y en el puerto 80 podemos ver un servicio nginx:
 
-![Página de mantenimiento](/secciones/posts/imagenes/hancliffe/mainenance1.png)
+![Página de mantenimiento](/secciones/posts/imagenes/hancliffe/maintenance1.png)
 
 ## Fuzzing de Directorios
 
@@ -98,7 +98,7 @@ wfuzz -c --hc=404 -t 200 -w /usr/share/wordlists/dirbuster/directory-list-2.3-me
 
 Revisamos cada uno y en la sección `/.jsf`:
 
-![Error JSF](/secciones/posts/imagenes/hancliffe/mainenance2.png)
+![Error JSF](/secciones/posts/imagenes/hancliffe/mainenace2.png)
 
 Vemos un mensaje de error "Faceles not found /maintenance/xhtml". Conociendo que es nginx y Java, buscamos en Google y vemos dos cosas interesantes: una vulnerabilidad para el software de Nuxeo y un post donde habla de los ataques relacionados con:
 https://www.acunetix.com/blog/articles/a-fresh-look-on-reverse-proxy-related-attacks/
