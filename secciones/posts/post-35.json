@@ -1,8 +1,8 @@
 {
-    "title": "Máquina 'Active' de HackTheBox",
+    "title": "Máquina 'RedPanda' de HackTheBox",
     "category": ["Maquinas", "Ciberseguridad"],
-    "image": "active.png",
-    "excerpt": "OSCP - OSEP - Active Directory",
+    "image": "redpanda.png",
+    "excerpt": "Linux - Easy - eWPT - eWPTXv2 - OSWE - OSCP",
     "contentFile": "post-35.md",
     "date": "2024-06-13"
 }

@@ -1,8 +1,8 @@
 {
-    "title": "Máquina 'Active' de HackTheBox",
+    "title": "Máquina 'Shared' de HackTheBox",
     "category": ["Maquinas", "Ciberseguridad"],
-    "image": "active.png",
-    "excerpt": "OSCP - OSEP - Active Directory",
+    "image": "shared.png",
+    "excerpt": "Linux - Media - eWPT - OSCP",
     "contentFile": "post-38.md",
     "date": "2024-06-13"
 }

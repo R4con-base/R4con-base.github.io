@@ -1,8 +1,8 @@
 {
-    "title": "Máquina 'Active' de HackTheBox",
+    "title": "Máquina 'Timelapse' de HackTheBox",
     "category": ["Maquinas", "Ciberseguridad"],
-    "image": "active.png",
-    "excerpt": "OSCP - OSEP - Active Directory",
+    "image": "timelapse.png",
+    "excerpt": "Windows - Easy - SMB - Cracking zip - Gaining SSL access with Evil-WinRM - Powershell history (User Pivoting) - OSCP - OSEP  ",
     "contentFile": "post-46.md",
     "date": "2024-06-13"
 }

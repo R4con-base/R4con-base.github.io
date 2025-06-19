@@ -1,8 +1,8 @@
 {
-    "title": "Máquina 'Active' de HackTheBox",
+    "title": "Máquina 'Pandora' de HackTheBox",
     "category": ["Maquinas", "Ciberseguridad"],
-    "image": "active.png",
-    "excerpt": "OSCP - OSEP - Active Directory",
+    "image": "pandora.png",
+    "excerpt": "Linux - Facil - OSCP - eWPT",
     "contentFile": "post-33.md",
     "date": "2024-06-13"
 }

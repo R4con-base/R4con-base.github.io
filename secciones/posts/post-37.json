@@ -1,8 +1,8 @@
 {
-    "title": "Máquina 'Active' de HackTheBox",
+    "title": "Máquina 'Secret' de HackTheBox",
     "category": ["Maquinas", "Ciberseguridad"],
-    "image": "active.png",
-    "excerpt": "OSCP - OSEP - Active Directory",
+    "image": "secret.png",
+    "excerpt": "Linux - Facil - eWPT - eWPTXv2 - OSWE",
     "contentFile": "post-37.md",
     "date": "2024-06-13"
 }

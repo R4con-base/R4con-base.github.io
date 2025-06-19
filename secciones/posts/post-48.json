@@ -1,8 +1,8 @@
 {
-    "title": "Máquina 'Active' de HackTheBox",
+    "title": "Máquina 'Unicode' de HackTheBox",
     "category": ["Maquinas", "Ciberseguridad"],
-    "image": "active.png",
-    "excerpt": "OSCP - OSEP - Active Directory",
+    "image": "unicode.png",
+    "excerpt": "Linux - Media - JWT - Open redirect - Abusing sudoers privilege - eWPT - eWPTXv2 - OSWE",
     "contentFile": "post-48.md",
     "date": "2024-06-13"
 }

@@ -1,7 +1,7 @@
 {
     "title": "Máquina 'Object' de HackTheBox",
     "category": ["Maquinas", "Ciberseguridad"],
-    "image": "object.png",
+    "image": "Object.png",
     "excerpt": "Windows - Dificil - OSCP - OSEP - OSWE - Active Directory ",
     "contentFile": "post-31.md",
     "date": "2024-06-13"

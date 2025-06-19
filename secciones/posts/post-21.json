@@ -1,7 +1,7 @@
 {
     "title": "Máquina 'DevOops' de HackTheBox",
     "category": ["Maquinas", "Ciberseguridad"],
-    "image": "DevOops.png",
+    "image": "devoops.png",
     "excerpt": "Linux - Media - eWPT - OSWE",
     "contentFile": "post-21.md",
     "date": "2024-06-13"

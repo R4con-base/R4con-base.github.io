@@ -1,8 +1,8 @@
 {
-    "title": "Máquina 'Active' de HackTheBox",
+    "title": "Máquina 'Ready' de HackTheBox",
     "category": ["Maquinas", "Ciberseguridad"],
-    "image": "active.png",
-    "excerpt": "OSCP - OSEP - Active Directory",
+    "image": "ready.png",
+    "excerpt": "Linux -Media - Docker - SSRF - Gitlab",
     "contentFile": "post-34.md",
     "date": "2024-06-13"
 }

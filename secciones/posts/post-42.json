@@ -1,8 +1,8 @@
 {
-    "title": "Máquina 'Active' de HackTheBox",
+    "title": "Máquina 'Squashed' de HackTheBox",
     "category": ["Maquinas", "Ciberseguridad"],
-    "image": "active.png",
-    "excerpt": "OSCP - OSEP - Active Directory",
+    "image": "squashed.png",
+    "excerpt": "Linux - Easy - Abysing nfc shared - Web shell - Xauthority xserver x11 - ",
     "contentFile": "post-42.md",
     "date": "2024-06-13"
 }

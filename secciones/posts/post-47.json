@@ -1,8 +1,8 @@
 {
-    "title": "Máquina 'Active' de HackTheBox",
+    "title": "Máquina 'Trick' de HackTheBox",
     "category": ["Maquinas", "Ciberseguridad"],
-    "image": "active.png",
-    "excerpt": "OSCP - OSEP - Active Directory",
+    "image": "trick.png",
+    "excerpt": "Linux - Fácil - DNS enumeration - Domain zone transfer attack (AXFR) - LFI - SMTP - LFI to RCE - Nginx Log Poisoning - eWPT - eWPTv2 - OSWE - OSCP",
     "contentFile": "post-47.md",
     "date": "2024-06-13"
 }

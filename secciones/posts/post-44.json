@@ -1,8 +1,8 @@
 {
-    "title": "Máquina 'Active' de HackTheBox",
+    "title": "Máquina 'TheNotebook' de HackTheBox",
     "category": ["Maquinas", "Ciberseguridad"],
-    "image": "active.png",
-    "excerpt": "OSCP - OSEP - Active Directory",
+    "image": "thenotebook.png",
+    "excerpt": "Linux - Media - Docker Escape - Abusing JWT - Abusing Upload File Docker Breakout - eWPT - OSCP - OSWE ",
     "contentFile": "post-44.md",
     "date": "2024-06-13"
 }

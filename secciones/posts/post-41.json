@@ -1,8 +1,8 @@
 {
-    "title": "Máquina 'Active' de HackTheBox",
+    "title": "Máquina 'Shoppy' de HackTheBox",
     "category": ["Maquinas", "Ciberseguridad"],
-    "image": "active.png",
-    "excerpt": "OSCP - OSEP - Active Directory",
+    "image": "shoppy.png",
+    "excerpt": "Linux - Facil - Mattermost - Reversing - Abusing sudoers privilege - Reversing - Abusing docker group ",
     "contentFile": "post-41.md",
     "date": "2024-06-13"
 }

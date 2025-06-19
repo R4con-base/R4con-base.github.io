@@ -1,8 +1,8 @@
 {
-    "title": "Máquina 'Active' de HackTheBox",
+    "title": "Máquina 'Time' de HackTheBox",
     "category": ["Maquinas", "Ciberseguridad"],
-    "image": "active.png",
-    "excerpt": "OSCP - OSEP - Active Directory",
+    "image": "time.png",
+    "excerpt": "Linux - Media - Abusing crontab (Cronjob) - eWPT - OSWE - OSCP ",
     "contentFile": "post-45.md",
     "date": "2024-06-13"
 }

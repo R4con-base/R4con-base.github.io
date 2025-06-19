@@ -1,7 +1,7 @@
 {
     "title": "Máquina 'BackendTwo' de HackTheBox",
     "category": ["Maquinas", "Ciberseguridad"],
-    "image": "backendTwo.png",
+    "image": "backendtwo.png",
     "excerpt": "Linux - Media - eWPT - eWPTXv2 - OSWE",
     "contentFile": "post-17.md",
     "date": "2024-06-13"
