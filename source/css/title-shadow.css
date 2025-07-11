@@ -158,3 +158,10 @@ h2.elegantshadow {
       4px 4px 0px #3b3b3b,
       7px 7px 0px rgba(0, 0, 0, 0.2);
    }
+
+   .text-shadow-bold {
+   text-shadow: 
+      2px 2px 4px rgba(0, 0, 0, 0.7),
+      -2px -2px 4px rgba(0, 0, 0, 0.7),
+      0 0 8px rgba(0, 0, 0, 0.8);
+}

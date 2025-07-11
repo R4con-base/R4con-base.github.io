@@ -1,5 +1,158 @@
-<div class="bg-blue-500/20 p-2 sm:p-3 rounded-lg mr-3 sm:mr-4 flex-shrink-0" style="background-color: white !important;">
-    <img src="/secciones/posts/images/en-construccion.jfif" alt="Logo Santo Tomás">
-    
-</div>
-<h3 class="text-lg sm:text-3xl font-bold text-white leading-tight">En construcción</h3>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        .gradient-border {
+            background: linear-gradient(135deg, #3B82F6, #10B981);
+            border-radius: 1rem;
+            padding: 2px;
+        }
+        .gradient-border-inner {
+            background: #1F2937;
+            border-radius: 0.875rem;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-900">
+    <!-- Sección de Servicios -->
+    <section id="servicios" class="py-12 sm:py-16 lg:py-24 bg-gray-800 relative min-h-screen">
+        <div class="absolute inset-0 bg-gradient-to-r from-gray-900/50 to-gray-800/50"></div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-6xl">
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-center text-white mb-8 sm:mb-12 lg:mb-16">
+                Mis Servicios
+            </h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12">
+                <!-- Card Páginas Web -->
+                <div class="gradient-border card-hover">
+                    <div class="gradient-border-inner p-8 sm:p-10 lg:p-12 h-full flex flex-col">
+                        <div class="text-center mb-6 sm:mb-8">
+                            <!-- Icono de Páginas Web -->
+                            <div class="bg-blue-500/20 w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full flex items-center justify-center mb-4 sm:mb-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 sm:h-10 sm:w-10 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-3 sm:mb-4">
+                                Páginas Web
+                            </h3>
+                        </div>
+                        
+                        <div class="flex-grow">
+                            <p class="text-gray-300 text-sm sm:text-base lg:text-lg mb-6 sm:mb-8 leading-relaxed">
+                                Desarrollo de sitios web modernos y responsivos. Desde páginas de presentación hasta aplicaciones web complejas, utilizando las últimas tecnologías y mejores prácticas de desarrollo.
+                            </p>
+                            
+                            <ul class="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
+                                <li class="flex items-start">
+                                    <div class="bg-blue-500/20 p-1 rounded-full mr-3 mt-1 flex-shrink-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                    <span class="text-gray-300 text-sm sm:text-base">Diseño responsivo y moderno</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="bg-blue-500/20 p-1 rounded-full mr-3 mt-1 flex-shrink-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                    <span class="text-gray-300 text-sm sm:text-base">Optimización SEO</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="bg-blue-500/20 p-1 rounded-full mr-3 mt-1 flex-shrink-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                    <span class="text-gray-300 text-sm sm:text-base">Desarrollo frontend y backend</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mt-auto">
+                            <button class="w-full px-6 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-300 font-medium text-sm sm:text-base transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800">
+                                Más información
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Hardware Hacking -->
+                <div class="gradient-border card-hover">
+                    <div class="gradient-border-inner p-8 sm:p-10 lg:p-12 h-full flex flex-col">
+                        <div class="text-center mb-6 sm:mb-8">
+                            <!-- Icono de Hardware Hacking -->
+                            <div class="bg-emerald-500/20 w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full flex items-center justify-center mb-4 sm:mb-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 sm:h-10 sm:w-10 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-3 sm:mb-4">
+                                Proximamente Hardware Hacking
+                            </h3>
+                        </div>
+                        
+                        <div class="flex-grow">
+                            <p class="text-gray-300 text-sm sm:text-base lg:text-lg mb-6 sm:mb-8 leading-relaxed">
+                                Dispósitivos electronicos para distintas finalidades de ciberseguridad.  
+                            </p>
+                            
+                            <!--
+                            <ul class="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
+                                <li class="flex items-start">
+                                    <div class="bg-emerald-500/20 p-1 rounded-full mr-3 mt-1 flex-shrink-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                    <span class="text-gray-300 text-sm sm:text-base">Desautenticadores</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="bg-emerald-500/20 p-1 rounded-full mr-3 mt-1 flex-shrink-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                    <span class="text-gray-300 text-sm sm:text-base">Desarrollo de firmware</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="bg-emerald-500/20 p-1 rounded-full mr-3 mt-1 flex-shrink-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                    <span class="text-gray-300 text-sm sm:text-base">Sistemas embebidos</span>
+                                </li>
+                            </ul> -->
+                        </div>
+                        
+                        <div class="mt-auto">
+                            <button class="w-full px-6 py-3 sm:py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 font-medium text-sm sm:text-base transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-gray-800">
+                                Más información
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
