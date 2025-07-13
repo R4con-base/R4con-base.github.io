@@ -181,13 +181,13 @@
     <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
     
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     // --- Global Variables ---
     // Desktop Sidebar
     const sidebar = document.getElementById('tmSideBar');
     const sidebarToggle = document.getElementById('sidebarToggle');
     const textElements = document.querySelectorAll('.sidebar-text');
-    
+
     // Mobile Menu
     const hamburgerButton = document.getElementById('hamburger-button');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -202,18 +202,18 @@
     let totalPosts = 0;
     let totalPages = 0;
     let currentFilteredPosts = [];
-    
+
     // --- Config ---
     const config = {
-        postsDirectory: window.location.href.includes('localhost') 
-            ? './secciones/posts/'  
+        postsDirectory: window.location.href.includes('localhost')
+            ? './secciones/posts/'
             : 'secciones/posts/',
         postsPerPage: 8,
         activeSection: null,
         searchDebounceTime: 300,
         lastSearchTerm: '',
         allPosts: [],
-        categories: ["Tutoriales", "Seguridad", "Desarrollo", "Redes", "Hardware", "Linux", "Windows", "Programación", "Bases de Datos", "Cloud", "Ciberseguridad", "Exfiltracion","Maquinas"]
+        categories: ["Tutoriales", "Seguridad", "Desarrollo", "Redes", "Hardware", "Linux", "Windows", "Programación", "Bases de Datos", "Cloud", "Ciberseguridad", "Exfiltracion", "Maquinas"]
     };
     config.imagesDirectory = `${config.postsDirectory}images/`;
     config.defaultImage = `${config.imagesDirectory}default.jpg`;
@@ -223,7 +223,7 @@
         try {
             const respuesta = await fetch(ruta);
             if (!respuesta.ok) throw new Error('Error al cargar el contenido');
-            
+
             // Verifica si es la página de certificados
             if (ruta.includes('certificaciones.html')) {
                 const contenidoHTML = await respuesta.text();
@@ -233,10 +233,10 @@
                 const contenidoHTML = await respuesta.text();
                 document.getElementById('contenido-principal').innerHTML = contenidoHTML;
             }
-            
+
             contenido.scrollTop = 0;
             window.scrollTo(0, 0);
-            
+
             const seccion = ruta.split('/').pop().replace('.html', '');
             config.activeSection = seccion;
             initializeSection(seccion);
@@ -265,7 +265,7 @@
                 </div>
             </div>`;
             document.body.insertAdjacentHTML('beforeend', modalHTML);
-            
+
             document.getElementById('closeCertModal').addEventListener('click', () => {
                 document.getElementById('certificateModal').classList.add('hidden');
             });
@@ -281,290 +281,289 @@
         });
 
         async function showCertificate(certId) {
-    const modal = document.getElementById('certificateModal');
-    const content = document.getElementById('certModalContent');
-    
-    content.innerHTML = `
-        <div class="text-center py-8">
-            <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-cyan-500 mx-auto"></div>
-            <p class="mt-3 text-gray-400">Cargando certificado...</p>
-        </div>`;
-    
-    modal.classList.remove('hidden');
+            const modal = document.getElementById('certificateModal');
+            const content = document.getElementById('certModalContent');
 
-    try {
-        // Datos específicos para cada certificado
-        let certData = {};
-        switch(certId) {
-            case 'cert1': // Analista Programador
-            certData = {
-                title: "Analista Programador",
-                image: "/secciones/posts/images/st-logo-1.png",
-                details: [
-                    {label: "Institución", value: "Santo Tomás"},
-                    {label: "Año", value: "2025"},
-                    {label: "Duración", value: "2 - 3 años"}
-                ],
-                description: `
-                    <div class="space-y-4 sm:space-y-5 text-justify">
-                        <p class="text-xs sm:text-sm md:text-base leading-relaxed text-gray-300 dark:text-gray-300">
-                            Titulación como analista programador con especialización en desarrollo de software y soluciones tecnológicas innovadoras, preparando profesionales para la era digital actual.
-                        </p>
-                        
-                        <h3 class="font-bold text-cyan-400 dark:text-cyan-300 mt-4 sm:mt-5 mb-2 sm:mb-3 text-sm sm:text-base md:text-lg">
-                            Competencias Desarrolladas:
-                        </h3>
-                        
-                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 text-xs sm:text-sm md:text-base">
-                            <li class="flex items-start leading-relaxed">
-                                <span class="text-cyan-400 dark:text-cyan-300 mr-2 mt-1 flex-shrink-0">•</span>
-                                <span class="text-gray-300 dark:text-gray-400">Desarrollo de software avanzado</span>
-                            </li>
-                            <li class="flex items-start leading-relaxed">
-                                <span class="text-cyan-400 dark:text-cyan-300 mr-2 mt-1 flex-shrink-0">•</span>
-                                <span class="text-gray-300 dark:text-gray-400">Ciberseguridad y protección de datos</span>
-                            </li>
-                            <li class="flex items-start leading-relaxed">
-                                <span class="text-cyan-400 dark:text-cyan-300 mr-2 mt-1 flex-shrink-0">•</span>
-                                <span class="text-gray-300 dark:text-gray-400">Big Data y análisis de información</span>
-                            </li>
-                            <li class="flex items-start leading-relaxed">
-                                <span class="text-cyan-400 dark:text-cyan-300 mr-2 mt-1 flex-shrink-0">•</span>
-                                <span class="text-gray-300 dark:text-gray-400">Tecnologías emergentes (IoT, RA)</span>
-                            </li>
-                            <li class="flex items-start leading-relaxed">
-                                <span class="text-cyan-400 dark:text-cyan-300 mr-2 mt-1 flex-shrink-0">•</span>
-                                <span class="text-gray-300 dark:text-gray-400">Soluciones en la nube</span>
-                            </li>
-                            <li class="flex items-start leading-relaxed">
-                                <span class="text-cyan-400 dark:text-cyan-300 mr-2 mt-1 flex-shrink-0">•</span>
-                                <span class="text-gray-300 dark:text-gray-400">Robótica y domótica</span>
-                            </li>
-                        </ul>
+            content.innerHTML = `
+                <div class="text-center py-8">
+                    <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-cyan-500 mx-auto"></div>
+                    <p class="mt-3 text-gray-400">Cargando certificado...</p>
+                </div>`;
+            modal.classList.remove('hidden');
 
-                        <h3 class="font-bold text-cyan-400 dark:text-cyan-300 mt-4 sm:mt-5 mb-2 sm:mb-3 text-sm sm:text-base md:text-lg">
-                            Campo Laboral:
-                        </h3>
-                        
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs sm:text-sm md:text-base">
-                            <div class="bg-gray-600/30 p-2 sm:p-3 rounded-lg">
-                                <span class="text-gray-300">Empresas TIC</span>
-                            </div>
-                            <div class="bg-gray-600/30 p-2 sm:p-3 rounded-lg">
-                                <span class="text-gray-300">Sector Financiero</span>
-                            </div>
-                            <div class="bg-gray-600/30 p-2 sm:p-3 rounded-lg">
-                                <span class="text-gray-300">Industria Minera</span>
-                            </div>
-                            <div class="bg-gray-600/30 p-2 sm:p-3 rounded-lg">
-                                <span class="text-gray-300">Manufactura</span>
-                            </div>
-                            <div class="bg-gray-600/30 p-2 sm:p-3 rounded-lg">
-                                <span class="text-gray-300">Sector Público</span>
-                            </div>
-                            <div class="bg-gray-600/30 p-2 sm:p-3 rounded-lg">
-                                <span class="text-gray-300">Consultoría IT</span>
-                            </div>
-                        </div>
+            try {
+                // Datos específicos para cada certificado
+                let certData = {};
+                switch(certId) {
+                    case 'cert1': // Analista Programador
+                        certData = {
+                            title: "Analista Programador",
+                            image: "/secciones/posts/images/st-logo-1.png",
+                            details: [
+                                {label: "Institución", value: "Santo Tomás"},
+                                {label: "Año", value: "2025"},
+                                {label: "Duración", value: "2 - 3 años"}
+                            ],
+                            description: `
+                                <div class="space-y-4 sm:space-y-5 text-justify">
+                                    <p class="text-xs sm:text-sm md:text-base leading-relaxed text-gray-300 dark:text-gray-300">
+                                        Titulación como analista programador con especialización en desarrollo de software y soluciones tecnológicas innovadoras, preparando profesionales para la era digital actual.
+                                    </p>
 
-                        <h3 class="font-bold text-cyan-400 dark:text-cyan-300 mt-4 sm:mt-5 mb-2 sm:mb-3 text-sm sm:text-base md:text-lg">
-                            Certificaciones Incluidas:
-                        </h3>
-                        
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-                            <div class="flex items-center space-x-2 bg-gray-600/20 p-2 sm:p-3 rounded-lg">
-                                <span class="text-green-400 text-sm">✓</span>
-                                <span class="text-gray-300 text-xs sm:text-sm">Diseño Básico de Software</span>
-                            </div>
-                            <div class="flex items-center space-x-2 bg-gray-600/20 p-2 sm:p-3 rounded-lg">
-                                <span class="text-green-400 text-sm">✓</span>
-                                <span class="text-gray-300 text-xs sm:text-sm">Programación Básica</span>
-                            </div>
-                            <div class="flex items-center space-x-2 bg-gray-600/20 p-2 sm:p-3 rounded-lg">
-                                <span class="text-green-400 text-sm">✓</span>
-                                <span class="text-gray-300 text-xs sm:text-sm">Programación Avanzada</span>
-                            </div>
-                            <div class="flex items-center space-x-2 bg-gray-600/20 p-2 sm:p-3 rounded-lg">
-                                <span class="text-green-400 text-sm">✓</span>
-                                <span class="text-gray-300 text-xs sm:text-sm">Soporte Informático</span>
-                            </div>
-                        </div>
+                                    <h3 class="font-bold text-cyan-400 dark:text-cyan-300 mt-4 sm:mt-5 mb-2 sm:mb-3 text-sm sm:text-base md:text-lg">
+                                        Competencias Desarrolladas:
+                                    </h3>
 
-                        <div class="mt-4 sm:mt-5 p-3 sm:p-4 bg-cyan-500/10 border-l-4 border-cyan-400 rounded-r-lg">
-                            <p class="text-xs sm:text-sm leading-relaxed">
-                                <span class="font-semibold text-cyan-400">Metodología:</span> 
-                                <span class="text-gray-300">Basado en Marco SFIA y MCTP, con laboratorios equipados y talleres de integración de competencias para evaluación continua del perfil de egreso.</span>
-                            </p>
-                        </div>
+                                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 text-xs sm:text-sm md:text-base">
+                                        <li class="flex items-start leading-relaxed">
+                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 mt-1 flex-shrink-0">•</span>
+                                            <span class="text-gray-300 dark:text-gray-400">Desarrollo de software avanzado</span>
+                                        </li>
+                                        <li class="flex items-start leading-relaxed">
+                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 mt-1 flex-shrink-0">•</span>
+                                            <span class="text-gray-300 dark:text-gray-400">Ciberseguridad y protección de datos</span>
+                                        </li>
+                                        <li class="flex items-start leading-relaxed">
+                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 mt-1 flex-shrink-0">•</span>
+                                            <span class="text-gray-300 dark:text-gray-400">Big Data y análisis de información</span>
+                                        </li>
+                                        <li class="flex items-start leading-relaxed">
+                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 mt-1 flex-shrink-0">•</span>
+                                            <span class="text-gray-300 dark:text-gray-400">Tecnologías emergentes (IoT, RA)</span>
+                                        </li>
+                                        <li class="flex items-start leading-relaxed">
+                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 mt-1 flex-shrink-0">•</span>
+                                            <span class="text-gray-300 dark:text-gray-400">Soluciones en la nube</span>
+                                        </li>
+                                        <li class="flex items-start leading-relaxed">
+                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 mt-1 flex-shrink-0">•</span>
+                                            <span class="text-gray-300 dark:text-gray-400">Robótica y domótica</span>
+                                        </li>
+                                    </ul>
+
+                                    <h3 class="font-bold text-cyan-400 dark:text-cyan-300 mt-4 sm:mt-5 mb-2 sm:mb-3 text-sm sm:text-base md:text-lg">
+                                        Campo Laboral:
+                                    </h3>
+
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs sm:text-sm md:text-base">
+                                        <div class="bg-gray-600/30 p-2 sm:p-3 rounded-lg">
+                                            <span class="text-gray-300">Empresas TIC</span>
+                                        </div>
+                                        <div class="bg-gray-600/30 p-2 sm:p-3 rounded-lg">
+                                            <span class="text-gray-300">Sector Financiero</span>
+                                        </div>
+                                        <div class="bg-gray-600/30 p-2 sm:p-3 rounded-lg">
+                                            <span class="text-gray-300">Industria Minera</span>
+                                        </div>
+                                        <div class="bg-gray-600/30 p-2 sm:p-3 rounded-lg">
+                                            <span class="text-gray-300">Manufactura</span>
+                                        </div>
+                                        <div class="bg-gray-600/30 p-2 sm:p-3 rounded-lg">
+                                            <span class="text-gray-300">Sector Público</span>
+                                        </div>
+                                        <div class="bg-gray-600/30 p-2 sm:p-3 rounded-lg">
+                                            <span class="text-gray-300">Consultoría IT</span>
+                                        </div>
+                                    </div>
+
+                                    <h3 class="font-bold text-cyan-400 dark:text-cyan-300 mt-4 sm:mt-5 mb-2 sm:mb-3 text-sm sm:text-base md:text-lg">
+                                        Certificaciones Incluidas:
+                                    </h3>
+
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+                                        <div class="flex items-center space-x-2 bg-gray-600/20 p-2 sm:p-3 rounded-lg">
+                                            <span class="text-green-400 text-sm">✓</span>
+                                            <span class="text-gray-300 text-xs sm:text-sm">Diseño Básico de Software</span>
+                                        </div>
+                                        <div class="flex items-center space-x-2 bg-gray-600/20 p-2 sm:p-3 rounded-lg">
+                                            <span class="text-green-400 text-sm">✓</span>
+                                            <span class="text-gray-300 text-xs sm:text-sm">Programación Básica</span>
+                                        </div>
+                                        <div class="flex items-center space-x-2 bg-gray-600/20 p-2 sm:p-3 rounded-lg">
+                                            <span class="text-green-400 text-sm">✓</span>
+                                            <span class="text-gray-300 text-xs sm:text-sm">Programación Avanzada</span>
+                                        </div>
+                                        <div class="flex items-center space-x-2 bg-gray-600/20 p-2 sm:p-3 rounded-lg">
+                                            <span class="text-green-400 text-sm">✓</span>
+                                            <span class="text-gray-300 text-xs sm:text-sm">Soporte Informático</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-4 sm:mt-5 p-3 sm:p-4 bg-cyan-500/10 border-l-4 border-cyan-400 rounded-r-lg">
+                                        <p class="text-xs sm:text-sm leading-relaxed">
+                                            <span class="font-semibold text-cyan-400">Metodología:</span>
+                                            <span class="text-gray-300">Basado en Marco SFIA y MCTP, con laboratorios equipados y talleres de integración de competencias para evaluación continua del perfil de egreso.</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            `
+                        };
+                        break;
+
+                    case 'cert2': // Fundamentos de Seguridad
+                        certData = {
+                            title: "Fundamentos de Seguridad de la Información",
+                            image: "/secciones/posts/images/logo.webp",
+                            details: [
+                                {label: "Plataforma", value: "HackTheBox"},
+                                {label: "Duración", value: "101 horas"},
+                                {label: "Año", value: "2024"}
+                            ],
+                            description: `
+                                <div class="space-y-4 sm:space-y-5 md:space-y-6 text-justify">
+                                    <p class="text-xs sm:text-sm md:text-base leading-relaxed text-gray-300 dark:text-gray-300">
+                                        La seguridad de la información es un campo con muchas disciplinas especializadas y altamente técnicas. Puestos como evaluador de penetración y analista de seguridad de la información requieren una sólida base técnica de temas fundamentales de TI y seguridad de la información.
+                                    </p>
+
+                                    <p class="text-sm sm:text-base md:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+                                        Esta ruta de habilidades consta de módulos que ayudarán a los estudiantes a desarrollar o fortalecer una comprensión básica antes de continuar con el aprendizaje de temas de seguridad más complejos. Toda construcción con una larga trayectoria necesita primero una base sólida.
+                                    </p>
+
+                                    <h3 class="font-bold text-cyan-400 dark:text-cyan-300 mt-6 sm:mt-7 md:mt-8 mb-3 sm:mb-4 text-base sm:text-lg md:text-xl">
+                                        Temas del curso:
+                                    </h3>
+
+                                    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 md:gap-4 text-sm sm:text-base md:text-lg">
+                                        <li class="flex items-start leading-relaxed">
+                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
+                                            <span class="text-gray-600 dark:text-gray-400">Proceso de aprendizaje adaptado a seguridad informática</span>
+                                        </li>
+                                        <li class="flex items-start leading-relaxed">
+                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
+                                            <span class="text-gray-600 dark:text-gray-400">Preparación eficiente para pruebas de penetración</span>
+                                        </li>
+                                        <li class="flex items-start leading-relaxed">
+                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
+                                            <span class="text-gray-600 dark:text-gray-400">Fundamentos de Linux y Windows</span>
+                                        </li>
+                                        <li class="flex items-start leading-relaxed">
+                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
+                                            <span class="text-gray-600 dark:text-gray-400">Línea de comandos de Windows (CMD/PowerShell)</span>
+                                        </li>
+                                        <li class="flex items-start leading-relaxed">
+                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
+                                            <span class="text-gray-600 dark:text-gray-400">Automatización con scripts Bash</span>
+                                        </li>
+                                        <li class="flex items-start leading-relaxed">
+                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
+                                            <span class="text-gray-600 dark:text-gray-400">Fundamentos de redes y análisis de tráfico</span>
+                                        </li>
+                                        <li class="flex items-start leading-relaxed">
+                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
+                                            <span class="text-gray-600 dark:text-gray-400">Active Directory en entornos corporativos</span>
+                                        </li>
+                                        <li class="flex items-start leading-relaxed">
+                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
+                                            <span class="text-gray-600 dark:text-gray-400">Seguridad en aplicaciones web</span>
+                                        </li>
+                                        <li class="flex items-start leading-relaxed">
+                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
+                                            <span class="text-gray-600 dark:text-gray-400">Protocolos HTTP y comunicación con backends</span>
+                                        </li>
+                                    </ul>
+
+                                    <div class="mt-4 sm:mt-6 md:mt-7 space-y-2 sm:space-y-3 text-xs sm:text-sm md:text-base">
+                                        <p class="leading-relaxed">
+                                            <span class="font-semibold text-cyan-400 dark:text-cyan-300 text-xs sm:text-sm md:text-base">Enfoque práctico:</span>
+                                            <span class="text-gray-300 dark:text-gray-300 text-xs sm:text-sm md:text-base">Combina teoría con ejercicios hands-on para desarrollar habilidades reales.</span>
+                                        </p>
+                                        <p class="leading-relaxed">
+                                            <span class="font-semibold text-cyan-400 dark:text-cyan-300 text-xs sm:text-sm md:text-base">Para quién es:</span>
+                                            <span class="text-gray-300 dark:text-gray-300 text-xs sm:text-sm md:text-base">Aspirantes a pentesters, analistas de seguridad y administradores de sistemas.</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            `
+                        };
+                        break;
+
+                    case 'cert3': // ISO 27001
+                        certData = {
+                            title: "Fundamentos ISO 27001",
+                            image: "/secciones/posts/images/hk-mentor.webp",
+                            details: [
+                                {label: "Plataforma", value: "Hacker-Mentor"},
+                                {label: "Duración", value: "7 horas"}
+                            ],
+                            description: `
+                                <p class="text-sm sm:text-base md:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+                                    Es la norma internacional que establece los requisitos para un Sistema de Gestión de Seguridad de la Información (SGSI). La actualización más reciente moderniza el enfoque para cubrir amenazas actuales como:
+                                </p>
+                                <ul class="list-disc pl-4 sm:pl-5 md:pl-6 mt-2 sm:mt-3 md:mt-4 space-y-1 sm:space-y-2">
+                                    <li class="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                                        El teletrabajo y la nube
+                                    </li>
+                                    <li class="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                                        El riesgo de terceros (proveedores)
+                                    </li>
+                                    <li class="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                                        El aumento de ataques de ingeniería social
+                                    </li>
+                                    <li class="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                                        Automatización de procesos de monitoreo y respuesta
+                                    </li>
+                                </ul>
+                                <p class="mt-3 sm:mt-4 md:mt-5 text-xs sm:text-sm md:text-base leading-relaxed text-gray-300 dark:text-gray-300 font-medium">
+                                    El enfoque basado en riesgos, controles actualizados y contexto organizacional exige más conocimiento técnico y estratégico que nunca.
+                                </p>
+                            `
+                        };
+                        break;
+
+                    default:
+                        throw new Error("Certificado no encontrado");
+                }
+
+                // Renderizar el certificado con detalles responsivos
+                const detailsHTML = certData.details.map(detail => `
+                    <div class="flex flex-col xs:flex-row xs:items-start gap-1 xs:gap-3 py-2 border-b border-gray-600/30 last:border-b-0">
+                        <span class="font-medium text-gray-300 text-xs sm:text-sm md:text-base shrink-0 xs:min-w-[4rem] sm:min-w-[5rem] md:min-w-[6rem]">
+                            ${detail.label}:
+                        </span>
+                        <span class="text-gray-100 text-xs sm:text-sm md:text-base break-words">
+                            ${detail.value}
+                        </span>
                     </div>
-                `
-            };
-            break;
-                
-            case 'cert2': // Fundamentos de Seguridad
-            certData = {
-                title: "Fundamentos de Seguridad de la Información",
-                image: "/secciones/posts/images/logo.webp",
-                details: [
-                    {label: "Plataforma", value: "HackTheBox"},
-                    {label: "Duración", value: "101 horas"},
-                    {label: "Año", value: "2024"}
-                ],
-                description: `
-                    <div class="space-y-4 sm:space-y-5 md:space-y-6 text-justify">
-                        <p class="text-xs sm:text-sm md:text-base leading-relaxed text-gray-300 dark:text-gray-300">
-                            La seguridad de la información es un campo con muchas disciplinas especializadas y altamente técnicas. Puestos como evaluador de penetración y analista de seguridad de la información requieren una sólida base técnica de temas fundamentales de TI y seguridad de la información.
-                        </p>
-                        
-                        <p class="text-sm sm:text-base md:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-                            Esta ruta de habilidades consta de módulos que ayudarán a los estudiantes a desarrollar o fortalecer una comprensión básica antes de continuar con el aprendizaje de temas de seguridad más complejos. Toda construcción con una larga trayectoria necesita primero una base sólida.
-                        </p>
+                `).join('');
 
-                        <h3 class="font-bold text-cyan-400 dark:text-cyan-300 mt-6 sm:mt-7 md:mt-8 mb-3 sm:mb-4 text-base sm:text-lg md:text-xl">
-                            Temas del curso:
-                        </h3>
-                        
-                        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 md:gap-4 text-sm sm:text-base md:text-lg">
-                            <li class="flex items-start leading-relaxed">
-                                <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
-                                <span class="text-gray-600 dark:text-gray-400">Proceso de aprendizaje adaptado a seguridad informática</span>
-                            </li>
-                            <li class="flex items-start leading-relaxed">
-                                <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
-                                <span class="text-gray-600 dark:text-gray-400">Preparación eficiente para pruebas de penetración</span>
-                            </li>
-                            <li class="flex items-start leading-relaxed">
-                                <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
-                                <span class="text-gray-600 dark:text-gray-400">Fundamentos de Linux y Windows</span>
-                            </li>
-                            <li class="flex items-start leading-relaxed">
-                                <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
-                                <span class="text-gray-600 dark:text-gray-400">Línea de comandos de Windows (CMD/PowerShell)</span>
-                            </li>
-                            <li class="flex items-start leading-relaxed">
-                                <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
-                                <span class="text-gray-600 dark:text-gray-400">Automatización con scripts Bash</span>
-                            </li>
-                            <li class="flex items-start leading-relaxed">
-                                <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
-                                <span class="text-gray-600 dark:text-gray-400">Fundamentos de redes y análisis de tráfico</span>
-                            </li>
-                            <li class="flex items-start leading-relaxed">
-                                <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
-                                <span class="text-gray-600 dark:text-gray-400">Active Directory en entornos corporativos</span>
-                            </li>
-                            <li class="flex items-start leading-relaxed">
-                                <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
-                                <span class="text-gray-600 dark:text-gray-400">Seguridad en aplicaciones web</span>
-                            </li>
-                            <li class="flex items-start leading-relaxed">
-                                <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
-                                <span class="text-gray-600 dark:text-gray-400">Protocolos HTTP y comunicación con backends</span>
-                            </li>
-                        </ul>
+                content.innerHTML = `
+                    <div class="text-center">
+                        <h3 class="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6">${certData.title}</h3>
+                        ${certData.image ? `
+                        <div class="mb-4 sm:mb-6 flex justify-center">
+                            <img src="${certData.image}" alt="Certificado" class="max-w-full h-auto max-h-64 sm:max-h-80 md:max-h-96 rounded-lg border border-gray-700">
+                        </div>` : ''}
+                        <div class="text-left space-y-4 sm:space-y-6">
+                            <!-- Sección de detalles responsiva -->
+                            <div class="bg-gray-700/50 p-3 sm:p-4 md:p-5 rounded-lg">
+                                <h4 class="font-semibold text-gray-200 mb-3 text-sm sm:text-base md:text-lg">Detalles del certificado</h4>
+                                <div class="space-y-1 sm:space-y-2">
+                                    ${detailsHTML}
+                                </div>
+                            </div>
 
-                        <div class="mt-4 sm:mt-6 md:mt-7 space-y-2 sm:space-y-3 text-xs sm:text-sm md:text-base">
-                            <p class="leading-relaxed">
-                                <span class="font-semibold text-cyan-400 dark:text-cyan-300 text-xs sm:text-sm md:text-base">Enfoque práctico:</span> 
-                                <span class="text-gray-300 dark:text-gray-300 text-xs sm:text-sm md:text-base">Combina teoría con ejercicios hands-on para desarrollar habilidades reales.</span>
-                            </p>
-                            <p class="leading-relaxed">
-                                <span class="font-semibold text-cyan-400 dark:text-cyan-300 text-xs sm:text-sm md:text-base">Para quién es:</span> 
-                                <span class="text-gray-300 dark:text-gray-300 text-xs sm:text-sm md:text-base">Aspirantes a pentesters, analistas de seguridad y administradores de sistemas.</span>
-                            </p>
+                            <!-- Sección de descripción -->
+                            <div class="bg-gray-700/30 p-3 sm:p-4 md:p-5 rounded-lg">
+                                <h4 class="font-semibold text-gray-200 mb-3 text-sm sm:text-base md:text-lg">Descripción</h4>
+                                <div class="prose prose-sm sm:prose-base md:prose-lg max-w-none">
+                                    ${certData.description}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                `
-            };
-            break;
-            
-            case 'cert3': // ISO 27001
-            certData = {
-                title: "Fundamentos ISO 27001",
-                image: "/secciones/posts/images/hk-mentor.webp",
-                details: [
-                    {label: "Plataforma", value: "Hacker-Mentor"},
-                    {label: "Duración", value: "7 horas"}
-                ],
-                description: `
-                    <p class="text-sm sm:text-base md:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-                        Es la norma internacional que establece los requisitos para un Sistema de Gestión de Seguridad de la Información (SGSI). La actualización más reciente moderniza el enfoque para cubrir amenazas actuales como:
-                    </p>
-                    <ul class="list-disc pl-4 sm:pl-5 md:pl-6 mt-2 sm:mt-3 md:mt-4 space-y-1 sm:space-y-2">
-                        <li class="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                            El teletrabajo y la nube
-                        </li>
-                        <li class="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                            El riesgo de terceros (proveedores)
-                        </li>
-                        <li class="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                            El aumento de ataques de ingeniería social
-                        </li>
-                        <li class="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                            Automatización de procesos de monitoreo y respuesta
-                        </li>
-                    </ul>
-                                            <p class="mt-3 sm:mt-4 md:mt-5 text-xs sm:text-sm md:text-base leading-relaxed text-gray-300 dark:text-gray-300 font-medium">
-                        El enfoque basado en riesgos, controles actualizados y contexto organizacional exige más conocimiento técnico y estratégico que nunca.
-                    </p>
-                `
-            };
-            break;
-                        
-            default:
-                throw new Error("Certificado no encontrado");
+                    </div>`;
+            } catch (error) {
+                content.innerHTML = `
+                    <div class="text-center text-red-400 py-8">
+                        <p class="text-sm sm:text-base">Error al cargar el certificado</p>
+                        <p class="text-xs sm:text-sm mt-2">${error.message}</p>
+                        <button onclick="window.location.reload()" class="mt-4 px-4 py-2 bg-gray-700 rounded hover:bg-gray-600 text-sm sm:text-base">
+                            Recargar página
+                        </button>
+                    </div>`;
+            }
         }
-
-        // Renderizar el certificado con detalles responsivos
-        const detailsHTML = certData.details.map(detail => `
-            <div class="flex flex-col xs:flex-row xs:items-start gap-1 xs:gap-3 py-2 border-b border-gray-600/30 last:border-b-0">
-                <span class="font-medium text-gray-300 text-xs sm:text-sm md:text-base shrink-0 xs:min-w-[4rem] sm:min-w-[5rem] md:min-w-[6rem]">
-                    ${detail.label}:
-                </span>
-                <span class="text-gray-100 text-xs sm:text-sm md:text-base break-words">
-                    ${detail.value}
-                </span>
-            </div>
-        `).join('');
-
-        content.innerHTML = `
-            <div class="text-center">
-                <h3 class="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6">${certData.title}</h3>
-                ${certData.image ? `
-                <div class="mb-4 sm:mb-6 flex justify-center">
-                    <img src="${certData.image}" alt="Certificado" class="max-w-full h-auto max-h-64 sm:max-h-80 md:max-h-96 rounded-lg border border-gray-700">
-                </div>` : ''}
-                <div class="text-left space-y-4 sm:space-y-6">
-                    <!-- Sección de detalles responsiva -->
-                    <div class="bg-gray-700/50 p-3 sm:p-4 md:p-5 rounded-lg">
-                        <h4 class="font-semibold text-gray-200 mb-3 text-sm sm:text-base md:text-lg">Detalles del certificado</h4>
-                        <div class="space-y-1 sm:space-y-2">
-                            ${detailsHTML}
-                        </div>
-                    </div>
-                    
-                    <!-- Sección de descripción -->
-                    <div class="bg-gray-700/30 p-3 sm:p-4 md:p-5 rounded-lg">
-                        <h4 class="font-semibold text-gray-200 mb-3 text-sm sm:text-base md:text-lg">Descripción</h4>
-                        <div class="prose prose-sm sm:prose-base md:prose-lg max-w-none">
-                            ${certData.description}
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-    } catch (error) {
-        content.innerHTML = `
-            <div class="text-center text-red-400 py-8">
-                <p class="text-sm sm:text-base">Error al cargar el certificado</p>
-                <p class="text-xs sm:text-sm mt-2">${error.message}</p>
-                <button onclick="window.location.reload()" class="mt-4 px-4 py-2 bg-gray-700 rounded hover:bg-gray-600 text-sm sm:text-base">
-                    Recargar página
-                </button>
-            </div>`;
     }
-}
-}
-    
+
     function initializeSection(seccion) {
         switch(seccion) {
             case 'contenido': initServiciosSection(); break;
@@ -592,55 +591,68 @@
     }
 
     // --- Desktop Sidebar Logic ---
-    function toggleSidebar() {
-        // This function is now only for desktop.
-        const logoImage = document.querySelector('img[alt="Raccoon base"]');
+function toggleSidebar() {
+    if (isExpanded) { // From fullscreen to side-panel
+        sidebar.classList.remove('w-screen');
+        sidebar.classList.add('w-1/4');
         
-        if (isExpanded) { // From fullscreen to side-panel
-            sidebar.classList.remove('w-screen');
-            sidebar.classList.add('w-1/4');
-            
-            // This timeout is important for the animation
-            setTimeout(() => {
-                contenido.classList.remove('hidden');
-                contenido.style.marginLeft = '25%';
-            }, 300);
-            sidebarToggle.style.display = 'none';
-        } else { // From side-panel to fullscreen
-            sidebar.classList.remove('w-1/4');
-            sidebar.classList.add('w-screen');
-            contenido.classList.add('hidden');
-            contenido.style.marginLeft = '0';
-            sidebarToggle.style.display = 'block';
-        }
+        setTimeout(() => {
+            contenido.classList.remove('hidden');
+            contenido.style.marginLeft = '25%';
+        }, 300);
+        sidebarToggle.style.display = 'none';
         
+        // Aumentar texto solo cuando se contrae
         textElements.forEach(element => {
-            element.classList.toggle('text-xl');
-            element.classList.toggle('text-xl');
+            element.classList.add('text-xl');
         });
+    } else { // From side-panel to fullscreen
+        sidebar.classList.remove('w-1/4');
+        sidebar.classList.add('w-screen');
+        contenido.classList.add('hidden');
+        contenido.style.marginLeft = '0';
+        sidebarToggle.style.display = 'block';
         
-        isExpanded = !isExpanded;
+        // Restaurar texto cuando se expande
+        textElements.forEach(element => {
+            element.classList.remove('text-xl');
+        });
     }
+    
+    isExpanded = !isExpanded;
+}
 
-    // Desktop navigation link handler
-    document.querySelectorAll('#tmMainNav a[data-route]').forEach(enlace => {
-        enlace.addEventListener('click', (e) => {
+    // --- Event Delegation for Navigation ---
+    document.addEventListener('click', function(e) {
+        // Manejar clicks en enlaces del sidebar y botones de cards
+        const routeElement = e.target.closest('[data-route]');
+        
+        if (routeElement) {
             e.preventDefault();
-            const ruta = enlace.getAttribute('data-route');
+            const ruta = routeElement.getAttribute('data-route');
+            
             if (ruta) {
-                // Only toggle sidebar on desktop if it's in fullscreen mode
+                console.log('Navegando a:', ruta); // Para debugging
+                
+                // Mismo comportamiento que el sidebar
                 if (isExpanded && window.innerWidth >= 1024) {
                     toggleSidebar();
                 }
+                
                 cargarContenido(ruta);
+                
+                // Scroll al inicio
+                contenido.scrollTop = 0;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
-        });
+        }
+        
+        // Manejar el botón de toggle del sidebar
+        if (e.target === sidebarToggle || e.target.closest('#sidebarToggle')) {
+            e.preventDefault();
+            toggleSidebar();
+        }
     });
-    
-    // Desktop sidebar toggle button
-    if (sidebarToggle) {
-        sidebarToggle.addEventListener('click', toggleSidebar);
-    }
 
     // --- Initialization ---
     const backgrounds = ['tablero.jpg', 'blue-room.jpg'];
@@ -651,35 +663,25 @@
 
     setRandomBackground();
     
-    // Check if we are on a mobile device to hide the main content initially
-    // In the new logic, content is always visible, but with padding-top on mobile.
-    // The 'hidden' class was removed from #contenido div.
-    
-    // The only time main content is hidden is when the desktop sidebar is fullscreen.
-    // Let's ensure on mobile that the content is never hidden by the sidebar logic.
+    // Configuración inicial basada en el viewport
     if(window.innerWidth < 1024){
-         // On mobile, the desktop sidebar is hidden via CSS, so `isExpanded` state is irrelevant.
-         // The main `contenido` div starts visible.
+         // On mobile, the desktop sidebar is hidden via CSS
     } else {
-         // On desktop, the sidebar starts fullscreen (`isExpanded = true`), so content is not visible until an action is taken.
-         // We will make the content hidden initially for the desktop transition to work correctly.
+         // On desktop, the sidebar starts fullscreen
          contenido.classList.add('hidden');
     }
 
     cargarContenido('secciones/inicio.html');
 
-    // --- ALL THE OTHER FUNCTIONS (cargarContenido, initServiciosSection, etc.) ---
-    // These functions remain unchanged as they handle the content inside the #contenido div,
-    // which works independently of the navigation method (sidebar or mobile menu).
-    // Pasting them here for completeness.
-
+    // --- ALL THE OTHER FUNCTIONS ---
+    // (El resto de las funciones permanecen igual)
     window.switchTab = function(activeTab) {
         const btnPosts = document.getElementById('btnPosts');
         const btnCategorias = document.getElementById('btnCategorias');
         const contentPosts = document.getElementById('contentPosts');
         const contentCategorias = document.getElementById('contentCategorias');
         if (!btnPosts || !btnCategorias || !contentPosts || !contentCategorias) return;
-        
+
         if (activeTab === 'posts') {
             btnPosts.classList.replace('bg-gray-700', 'bg-cyan-600');
             btnPosts.classList.replace('hover:bg-gray-600', 'hover:bg-cyan-700');
@@ -696,7 +698,7 @@
             contentPosts.classList.add('hidden');
         }
     };
-    
+
     function showError(message) {
         if (!postsContainer) postsContainer = document.getElementById('postsContainer');
         if (!postsContainer) return;
@@ -790,366 +792,366 @@
     }
 
     window.loadPosts = function(page = 1) {
-    return new Promise(async (resolve, reject) => {
-        try {
-            postsContainer = document.getElementById('postsContainer');
-            if (!postsContainer) return reject(new Error('postsContainer no encontrado'));
-            
-            // Muestra un spinner de carga
-            postsContainer.innerHTML = `<div class="text-center py-4 sm:py-6 md:py-8 col-span-1 w-full"><div class="animate-spin rounded-full h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div><p class="mt-3 sm:mt-4 text-gray-400 text-sm sm:text-base">Cargando posts...</p></div>`;
-            
-            let postNumbers = [];
+        return new Promise(async (resolve, reject) => {
             try {
-                // Intenta cargar el índice de posts
-                const indexResponse = await fetch(`${config.postsDirectory}index.json`);
-                if (indexResponse.ok) postNumbers = (await indexResponse.json()).posts || [];
-            } catch (e) { console.warn('Error al cargar index.json:', e); }
-            
-            // Si no hay índice, busca posts manualmente
-            if (postNumbers.length === 0) {
-                for (let i = 1; i <= 50; i++) { // Aumentamos el límite de búsqueda
-                    try {
-                        const response = await fetch(`${config.postsDirectory}post-${i}.json`);
-                        if (response.ok) { JSON.parse(await response.text()); postNumbers.push(i); }
-                    } catch (error) { }
+                postsContainer = document.getElementById('postsContainer');
+                if (!postsContainer) return reject(new Error('postsContainer no encontrado'));
+
+                // Muestra un spinner de carga
+                postsContainer.innerHTML = `<div class="text-center py-4 sm:py-6 md:py-8 col-span-1 w-full"><div class="animate-spin rounded-full h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div><p class="mt-3 sm:mt-4 text-gray-400 text-sm sm:text-base">Cargando posts...</p></div>`;
+
+                let postNumbers = [];
+                try {
+                    // Intenta cargar el índice de posts
+                    const indexResponse = await fetch(`${config.postsDirectory}index.json`);
+                    if (indexResponse.ok) postNumbers = (await indexResponse.json()).posts || [];
+                } catch (e) { console.warn('Error al cargar index.json:', e); }
+
+                // Si no hay índice, busca posts manualmente
+                if (postNumbers.length === 0) {
+                    for (let i = 1; i <= 50; i++) { // Aumentamos el límite de búsqueda
+                        try {
+                            const response = await fetch(`${config.postsDirectory}post-${i}.json`);
+                            if (response.ok) { JSON.parse(await response.text()); postNumbers.push(i); }
+                        } catch (error) { }
+                    }
+                }
+
+                if (postNumbers.length === 0) {
+                    showError(`No se encontraron posts válidos en ${config.postsDirectory}`);
+                    return resolve([]);
+                }
+
+                // Carga todos los posts
+                const posts = await Promise.all(
+                    postNumbers.map(async number => {
+                        try {
+                            const response = await fetch(`${config.postsDirectory}post-${number}.json`);
+                            if (!response.ok) return null;
+                            const postData = JSON.parse(await response.text());
+
+                            // Procesa la imagen
+                            let imageUrl = postData.image || '';
+                            if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('/')) {
+                                imageUrl = `${config.imagesDirectory}${imageUrl}`;
+                            } else if (!imageUrl) {
+                                imageUrl = config.defaultImage;
+                            }
+
+                            // Carga el contenido (puede estar en archivo separado)
+                            let fullContent = '';
+                            if (postData.contentFile) {
+                                try {
+                                    const contentResponse = await fetch(`${config.postsDirectory}${postData.contentFile}`);
+                                    if (contentResponse.ok) fullContent = await contentResponse.text();
+                                } catch (e) { console.error('Error al cargar contenido:', e); }
+                            } else if (postData.content) {
+                                fullContent = postData.content;
+                            }
+
+                            return {
+                                ...postData,
+                                number,
+                                image: imageUrl,
+                                title: postData.title || 'Sin título',
+                                category: postData.category ? (Array.isArray(postData.category) ? postData.category : [postData.category]) : ['General'],
+                                excerpt: postData.excerpt || '',
+                                date: postData.date || '',
+                                content: fullContent
+                            };
+                        } catch (error) {
+                            console.error(`Error procesando post-${number}.json:`, error);
+                            return null;
+                        }
+                    })
+                );
+
+                // Filtra y ordena todos los posts válidos
+                const validPosts = posts.filter(p => p !== null)
+                                     .sort((a, b) => (new Date(b.date) - new Date(a.date)));
+
+                if (validPosts.length === 0) {
+                    showError('Los posts se encontraron pero no se pudieron cargar');
+                    return resolve([]);
+                }
+
+                // Configura la paginación
+                currentFilteredPosts = validPosts;
+                totalPosts = validPosts.length;
+                totalPages = Math.ceil(totalPosts / config.postsPerPage);
+                currentPage = Math.max(1, Math.min(page, totalPages));
+
+                // Calcula los posts para la página actual
+                const startIndex = (currentPage - 1) * config.postsPerPage;
+                const endIndex = startIndex + config.postsPerPage;
+                const postsForCurrentPage = validPosts.slice(startIndex, endIndex);
+
+                // Renderiza los posts y la paginación
+                renderPostsWithPagination(postsForCurrentPage, false);
+                resolve(validPosts);
+
+            } catch (error) {
+                showError(`Error al cargar los posts: ${error.message}`);
+                reject(error);
+            }
+        });
+    };
+
+    // Función original renderPosts para compatibilidad
+    function renderPosts(posts, isFiltered = false) {
+        // Resetea las variables de paginación para modo compatibilidad
+        currentFilteredPosts = posts;
+        totalPosts = posts.length;
+        totalPages = Math.ceil(totalPosts / config.postsPerPage);
+        currentPage = 1;
+
+        // Usa la función con paginación
+        renderPostsWithPagination(posts, isFiltered);
+    }
+
+    function renderPostsWithPagination(posts, isFiltered = false) {
+        if (!postsContainer) postsContainer = document.getElementById('postsContainer');
+        if (!postsContainer) return;
+
+        // Configura el grid según si está filtrado o no
+        postsContainer.className = isFiltered
+            ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-6"
+            : "grid grid-cols-1 gap-2 sm:gap-3 md:gap-4";
+
+        // Genera el HTML para cada post
+        const postsHTML = posts.map(post => `
+            <div class="bg-gray-800 rounded-lg sm:rounded-xl overflow-hidden shadow-lg card-hover-effect h-full flex flex-col w-full">
+                <img src="${post.image}" alt="${post.title}" class="w-full h-32 sm:h-40 md:h-48 object-cover" onerror="this.onerror=null;this.src='${config.defaultImage}'">
+                <div class="p-3 sm:p-4 flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="flex flex-wrap gap-1">
+                            ${Array.isArray(post.category)
+                                ? post.category.map(cat => `
+                                    <span class="inline-block px-2 py-0.5 sm:px-3 sm:py-1 bg-gray-700 rounded-full text-xs text-cyan-400">
+                                        ${config.categories && config.categories.includes(cat) ? cat : 'General'}
+                                    </span>`).join('')
+                                : `
+                                    <span class="inline-block px-2 py-0.5 sm:px-3 sm:py-1 bg-gray-700 rounded-full text-xs text-cyan-400">
+                                        ${config.categories && config.categories.includes(post.category) ? post.category : 'General'}
+                                    </span>`}
+                        </div>
+                        <span class="text-gray-400 text-xs">${post.date}</span>
+                    </div>
+                    <h3 class="text-base sm:text-lg md:text-xl font-bold text-white mb-2 leading-tight">${post.title}</h3>
+                    <p class="text-gray-300 text-xs sm:text-sm line-clamp-3 leading-relaxed">${post.excerpt}</p>
+                </div>
+                <div class="px-3 sm:px-4 pb-3 sm:pb-4">
+                    <a href="javascript:void(0)" data-post-number="${post.number}" class="view-post-link text-cyan-400 hover:text-cyan-300 text-xs sm:text-sm font-medium">
+                        Leer más →
+                    </a>
+                </div>
+            </div>`).join('');
+
+        // Genera la paginación
+        const paginationHTML = generatePaginationHTML();
+
+        // Combina posts y paginación
+        postsContainer.innerHTML = postsHTML + paginationHTML;
+
+        document.querySelectorAll('.view-post-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.loadFullPost(this.getAttribute('data-post-number'));
+            });
+        });
+
+        // Genera el HTML de la paginación
+        function generatePaginationHTML() {
+            if (totalPages <= 1) return '';
+
+            let paginationHTML = `
+                <div class="col-span-full mt-6 sm:mt-8">
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <!-- Información de la página actual -->
+                        <div class="text-gray-400 text-sm">
+                            Mostrando ${((currentPage - 1) * config.postsPerPage) + 1} - ${Math.min(currentPage * config.postsPerPage, totalPosts)} de ${totalPosts} posts
+                        </div>
+
+                        <!-- Controles de paginación -->
+                        <div class="flex items-center gap-2">`;
+
+            // Botón "Primera página"
+            if (currentPage > 1) {
+                paginationHTML += `
+                    <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="1">
+                        ««
+                    </button>`;
+            }
+
+            // Botón "Página anterior"
+            if (currentPage > 1) {
+                paginationHTML += `
+                    <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="${currentPage - 1}">
+                        ‹ Anterior
+                    </button>`;
+            }
+
+            // Números de página
+            const startPage = Math.max(1, currentPage - 2);
+            const endPage = Math.min(totalPages, currentPage + 2);
+
+            // Puntos suspensivos al inicio si es necesario
+            if (startPage > 1) {
+                paginationHTML += `
+                    <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="1">1</button>`;
+                if (startPage > 2) {
+                    paginationHTML += `<span class="text-gray-400 px-2">...</span>`;
                 }
             }
-            
-            if (postNumbers.length === 0) { 
-                showError(`No se encontraron posts válidos en ${config.postsDirectory}`); 
-                return resolve([]); 
+
+            // Números de página visibles
+            for (let i = startPage; i <= endPage; i++) {
+                const isActive = i === currentPage;
+                paginationHTML += `
+                    <button class="pagination-btn px-3 py-2 ${isActive ? 'bg-cyan-600 text-white' : 'bg-gray-700 hover:bg-gray-600 text-white'} rounded-lg text-sm transition-colors" data-page="${i}">
+                        ${i}
+                    </button>`;
             }
-            
-            // Carga todos los posts
-            const posts = await Promise.all(
-                postNumbers.map(async number => {
-                    try {
-                        const response = await fetch(`${config.postsDirectory}post-${number}.json`);
-                        if (!response.ok) return null;
-                        const postData = JSON.parse(await response.text());
-                        
-                        // Procesa la imagen
-                        let imageUrl = postData.image || '';
-                        if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('/')) {
-                            imageUrl = `${config.imagesDirectory}${imageUrl}`;
-                        } else if (!imageUrl) {
-                            imageUrl = config.defaultImage;
-                        }
-                        
-                        // Carga el contenido (puede estar en archivo separado)
-                        let fullContent = '';
-                        if (postData.contentFile) {
-                            try {
-                                const contentResponse = await fetch(`${config.postsDirectory}${postData.contentFile}`);
-                                if (contentResponse.ok) fullContent = await contentResponse.text();
-                            } catch (e) { console.error('Error al cargar contenido:', e); }
-                        } else if (postData.content) {
-                            fullContent = postData.content;
-                        }
-                        
-                        return { 
-                            ...postData, 
-                            number, 
-                            image: imageUrl, 
-                            title: postData.title || 'Sin título', 
-                            category: postData.category ? (Array.isArray(postData.category) ? postData.category : [postData.category]) : ['General'], 
-                            excerpt: postData.excerpt || '', 
-                            date: postData.date || '', 
-                            content: fullContent 
-                        };
-                    } catch (error) { 
-                        console.error(`Error procesando post-${number}.json:`, error); 
-                        return null; 
-                    }
-                })
-            );
-            
-            // Filtra y ordena todos los posts válidos
-            const validPosts = posts.filter(p => p !== null)
-                                 .sort((a, b) => (new Date(b.date) - new Date(a.date)));
-            
-            if (validPosts.length === 0) { 
-                showError('Los posts se encontraron pero no se pudieron cargar'); 
-                return resolve([]); 
+
+            // Puntos suspensivos al final si es necesario
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    paginationHTML += `<span class="text-gray-400 px-2">...</span>`;
+                }
+                paginationHTML += `
+                    <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="${totalPages}">${totalPages}</button>`;
             }
-            
-            // Configura la paginación
-            currentFilteredPosts = validPosts;
-            totalPosts = validPosts.length;
+
+            // Botón "Página siguiente"
+            if (currentPage < totalPages) {
+                paginationHTML += `
+                    <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="${currentPage + 1}">
+                        Siguiente ›
+                    </button>`;
+            }
+
+            // Botón "Última página"
+            if (currentPage < totalPages) {
+                paginationHTML += `
+                    <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="${totalPages}">
+                        »»
+                    </button>`;
+            }
+
+            paginationHTML += `
+                </div>
+            </div>
+        </div>`;
+
+            return paginationHTML;
+        }
+
+        // Combina posts y paginación
+        postsContainer.innerHTML = postsHTML + paginationHTML;
+
+        // Añade eventos a los enlaces "Leer más"
+        document.querySelectorAll('.view-post-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.loadFullPost(this.getAttribute('data-post-number'));
+            });
+        });
+
+        // Añade eventos a la paginación
+        addPaginationEvents();
+    }
+
+    // Añade eventos a los botones de paginación
+    function addPaginationEvents() {
+        document.querySelectorAll('.pagination-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const page = parseInt(this.getAttribute('data-page'));
+                if (page && page !== currentPage) {
+                    window.loadPosts(page);
+                    // Scroll suave hacia arriba
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        });
+    }
+
+    function performSearchWithPagination(searchTerm, page = 1) {
+        if (!postsContainer) postsContainer = document.getElementById('postsContainer');
+        if (!postsContainer) return;
+
+        const resultsInfo = document.getElementById('searchResultsInfo');
+        if (searchTerm.length < 2) {
+            resultsInfo.classList.add('hidden');
+            return;
+        }
+
+        // Muestra un spinner de carga
+        postsContainer.innerHTML = `
+            <div class="text-center py-4 sm:py-6 md:py-8 col-span-4">
+                <div class="animate-spin rounded-full h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div>
+                <p class="mt-3 sm:mt-4 text-gray-400 text-sm sm:text-base">Buscando "${searchTerm}"...</p>
+            </div>`;
+
+        // Filtra los posts
+        const filteredPosts = config.allPosts.filter(post => {
+            const inTitle = post.title.toLowerCase().includes(searchTerm);
+            let inCategory = false;
+
+            if (Array.isArray(post.category)) {
+                inCategory = post.category.some(cat => cat.toLowerCase().includes(searchTerm));
+            } else {
+                inCategory = post.category.toLowerCase().includes(searchTerm);
+            }
+
+            const inExcerpt = post.excerpt.toLowerCase().includes(searchTerm);
+            let inContent = false;
+            if (post.content) inContent = post.content.toLowerCase().includes(searchTerm);
+
+            return inTitle || inCategory || inExcerpt || inContent;
+        });
+
+        if (filteredPosts.length === 0) {
+            postsContainer.innerHTML = `
+                <div class="col-span-4 text-center py-4 sm:py-6 md:py-8">
+                    <p class="text-gray-400 text-sm sm:text-base">No se encontraron posts para "${searchTerm}"</p>
+                    <button onclick="window.loadPosts()" class="mt-3 sm:mt-4 px-3 sm:px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 text-sm sm:text-base">
+                        Ver todos los posts
+                    </button>
+                </div>`;
+            resultsInfo.textContent = `No se encontraron resultados para "${searchTerm}"`;
+            resultsInfo.classList.remove('hidden');
+        } else {
+            // Configura paginación para búsqueda
+            currentFilteredPosts = filteredPosts;
+            totalPosts = filteredPosts.length;
             totalPages = Math.ceil(totalPosts / config.postsPerPage);
             currentPage = Math.max(1, Math.min(page, totalPages));
-            
+
             // Calcula los posts para la página actual
             const startIndex = (currentPage - 1) * config.postsPerPage;
             const endIndex = startIndex + config.postsPerPage;
-            const postsForCurrentPage = validPosts.slice(startIndex, endIndex);
-            
-            // Renderiza los posts y la paginación
-            renderPostsWithPagination(postsForCurrentPage, false);
-            resolve(validPosts);
-            
-        } catch (error) { 
-            showError(`Error al cargar los posts: ${error.message}`); 
-            reject(error); 
-        }
-    });
-};
+            const postsForCurrentPage = filteredPosts.slice(startIndex, endIndex);
 
-// Función original renderPosts para compatibilidad
-function renderPosts(posts, isFiltered = false) {
-    // Resetea las variables de paginación para modo compatibilidad
-    currentFilteredPosts = posts;
-    totalPosts = posts.length;
-    totalPages = Math.ceil(totalPosts / config.postsPerPage);
-    currentPage = 1;
-    
-    // Usa la función con paginación
-    renderPostsWithPagination(posts, isFiltered);
-}
-
-function renderPostsWithPagination(posts, isFiltered = false) {
-    if (!postsContainer) postsContainer = document.getElementById('postsContainer');
-    if (!postsContainer) return;
-    
-    // Configura el grid según si está filtrado o no
-    postsContainer.className = isFiltered 
-        ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-6" 
-        : "grid grid-cols-1 gap-2 sm:gap-3 md:gap-4";
-    
-    // Genera el HTML para cada post
-    const postsHTML = posts.map(post => `
-        <div class="bg-gray-800 rounded-lg sm:rounded-xl overflow-hidden shadow-lg card-hover-effect h-full flex flex-col w-full">
-            <img src="${post.image}" alt="${post.title}" class="w-full h-32 sm:h-40 md:h-48 object-cover" onerror="this.onerror=null;this.src='${config.defaultImage}'">
-            <div class="p-3 sm:p-4 flex-grow">
-                <div class="flex justify-between items-start mb-2">
-                    <div class="flex flex-wrap gap-1">
-                        ${Array.isArray(post.category) 
-                            ? post.category.map(cat => `
-                                <span class="inline-block px-2 py-0.5 sm:px-3 sm:py-1 bg-gray-700 rounded-full text-xs text-cyan-400">
-                                    ${config.categories && config.categories.includes(cat) ? cat : 'General'}
-                                </span>`).join('') 
-                            : `
-                                <span class="inline-block px-2 py-0.5 sm:px-3 sm:py-1 bg-gray-700 rounded-full text-xs text-cyan-400">
-                                    ${config.categories && config.categories.includes(post.category) ? post.category : 'General'}
-                                </span>`}
-                    </div>
-                    <span class="text-gray-400 text-xs">${post.date}</span>
-                </div>
-                <h3 class="text-base sm:text-lg md:text-xl font-bold text-white mb-2 leading-tight">${post.title}</h3>
-                <p class="text-gray-300 text-xs sm:text-sm line-clamp-3 leading-relaxed">${post.excerpt}</p>
-            </div>
-            <div class="px-3 sm:px-4 pb-3 sm:pb-4">
-                <a href="javascript:void(0)" data-post-number="${post.number}" class="view-post-link text-cyan-400 hover:text-cyan-300 text-xs sm:text-sm font-medium">
-                    Leer más →
-                </a>
-            </div>
-        </div>`).join('');
-    
-    // Genera la paginación
-    const paginationHTML = generatePaginationHTML();
-
-    // Combina posts y paginación
-    postsContainer.innerHTML = postsHTML + paginationHTML;
-
-    document.querySelectorAll('.view-post-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            window.loadFullPost(this.getAttribute('data-post-number'));
-        });
-    });
-    
-    // Genera el HTML de la paginación
-    function generatePaginationHTML() {
-    if (totalPages <= 1) return '';
-    
-    let paginationHTML = `
-        <div class="col-span-full mt-6 sm:mt-8">
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                <!-- Información de la página actual -->
-                <div class="text-gray-400 text-sm">
-                    Mostrando ${((currentPage - 1) * config.postsPerPage) + 1} - ${Math.min(currentPage * config.postsPerPage, totalPosts)} de ${totalPosts} posts
-                </div>
-                
-                <!-- Controles de paginación -->
-                <div class="flex items-center gap-2">`;
-    
-    // Botón "Primera página"
-    if (currentPage > 1) {
-        paginationHTML += `
-            <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="1">
-                ««
-            </button>`;
-    }
-    
-    // Botón "Página anterior"
-    if (currentPage > 1) {
-        paginationHTML += `
-            <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="${currentPage - 1}">
-                ‹ Anterior
-            </button>`;
-    }
-    
-    // Números de página
-    const startPage = Math.max(1, currentPage - 2);
-    const endPage = Math.min(totalPages, currentPage + 2);
-    
-    // Puntos suspensivos al inicio si es necesario
-    if (startPage > 1) {
-        paginationHTML += `
-            <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="1">1</button>`;
-        if (startPage > 2) {
-            paginationHTML += `<span class="text-gray-400 px-2">...</span>`;
+            renderPostsWithPagination(postsForCurrentPage, true);
+            resultsInfo.textContent = `Mostrando ${filteredPosts.length} resultados para "${searchTerm}"`;
+            resultsInfo.classList.remove('hidden');
+            highlightSearchTerms(searchTerm);
         }
     }
-    
-    // Números de página visibles
-    for (let i = startPage; i <= endPage; i++) {
-        const isActive = i === currentPage;
-        paginationHTML += `
-            <button class="pagination-btn px-3 py-2 ${isActive ? 'bg-cyan-600 text-white' : 'bg-gray-700 hover:bg-gray-600 text-white'} rounded-lg text-sm transition-colors" data-page="${i}">
-                ${i}
-            </button>`;
-    }
-    
-    // Puntos suspensivos al final si es necesario
-    if (endPage < totalPages) {
-        if (endPage < totalPages - 1) {
-            paginationHTML += `<span class="text-gray-400 px-2">...</span>`;
+
+    // Función auxiliar para cambiar de página en búsquedas
+    window.searchPage = function(page) {
+        if (config.lastSearchTerm) {
+            performSearchWithPagination(config.lastSearchTerm, page);
         }
-        paginationHTML += `
-            <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="${totalPages}">${totalPages}</button>`;
-    }
-    
-    // Botón "Página siguiente"
-    if (currentPage < totalPages) {
-        paginationHTML += `
-            <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="${currentPage + 1}">
-                Siguiente ›
-            </button>`;
-    }
-    
-    // Botón "Última página"
-    if (currentPage < totalPages) {
-        paginationHTML += `
-            <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="${totalPages}">
-                »»
-            </button>`;
-    }
-    
-    paginationHTML += `
-                </div>
-            </div>
-        </div>`;
-    
-    // Añade eventos a la paginación
-    
-    
-    return paginationHTML;
-}
+    };
 
-    // Combina posts y paginación
-    postsContainer.innerHTML = postsHTML + paginationHTML;
-    
-    // Añade eventos a los enlaces "Leer más"
-    document.querySelectorAll('.view-post-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            window.loadFullPost(this.getAttribute('data-post-number'));
-        });
-    });
-    
-    // Añade eventos a la paginación
-    addPaginationEvents();
-}
-// Añade eventos a los botones de paginación
-function addPaginationEvents() {
-    document.querySelectorAll('.pagination-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const page = parseInt(this.getAttribute('data-page'));
-            if (page && page !== currentPage) {
-                window.loadPosts(page);
-                // Scroll suave hacia arriba
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        });
-    });
-}
-function performSearchWithPagination(searchTerm, page = 1) {
-    if (!postsContainer) postsContainer = document.getElementById('postsContainer');
-    if (!postsContainer) return;
-    
-    const resultsInfo = document.getElementById('searchResultsInfo');
-    if (searchTerm.length < 2) { 
-        resultsInfo.classList.add('hidden'); 
-        return; 
+    // Actualiza la función de búsqueda original
+    function performSearch(searchTerm) {
+        performSearchWithPagination(searchTerm, 1);
     }
-    
-    // Muestra un spinner de carga
-    postsContainer.innerHTML = `
-        <div class="text-center py-4 sm:py-6 md:py-8 col-span-4">
-            <div class="animate-spin rounded-full h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div>
-            <p class="mt-3 sm:mt-4 text-gray-400 text-sm sm:text-base">Buscando "${searchTerm}"...</p>
-        </div>`;
-    
-    // Filtra los posts
-    const filteredPosts = config.allPosts.filter(post => {
-        const inTitle = post.title.toLowerCase().includes(searchTerm);
-        let inCategory = false;
-        
-        if (Array.isArray(post.category)) {
-            inCategory = post.category.some(cat => cat.toLowerCase().includes(searchTerm));
-        } else {
-            inCategory = post.category.toLowerCase().includes(searchTerm);
-        }
-        
-        const inExcerpt = post.excerpt.toLowerCase().includes(searchTerm);
-        let inContent = false;
-        if (post.content) inContent = post.content.toLowerCase().includes(searchTerm);
-        
-        return inTitle || inCategory || inExcerpt || inContent;
-    });
-    
-    if (filteredPosts.length === 0) {
-        postsContainer.innerHTML = `
-            <div class="col-span-4 text-center py-4 sm:py-6 md:py-8">
-                <p class="text-gray-400 text-sm sm:text-base">No se encontraron posts para "${searchTerm}"</p>
-                <button onclick="window.loadPosts()" class="mt-3 sm:mt-4 px-3 sm:px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 text-sm sm:text-base">
-                    Ver todos los posts
-                </button>
-            </div>`;
-        resultsInfo.textContent = `No se encontraron resultados para "${searchTerm}"`;
-        resultsInfo.classList.remove('hidden');
-    } else {
-        // Configura paginación para búsqueda
-        currentFilteredPosts = filteredPosts;
-        totalPosts = filteredPosts.length;
-        totalPages = Math.ceil(totalPosts / config.postsPerPage);
-        currentPage = Math.max(1, Math.min(page, totalPages));
-        
-        // Calcula los posts para la página actual
-        const startIndex = (currentPage - 1) * config.postsPerPage;
-        const endIndex = startIndex + config.postsPerPage;
-        const postsForCurrentPage = filteredPosts.slice(startIndex, endIndex);
-        
-        renderPostsWithPagination(postsForCurrentPage, true);
-        resultsInfo.textContent = `Mostrando ${filteredPosts.length} resultados para "${searchTerm}"`;
-        resultsInfo.classList.remove('hidden');
-        highlightSearchTerms(searchTerm);
-    }
-}
 
-// Función auxiliar para cambiar de página en búsquedas
-window.searchPage = function(page) {
-    if (config.lastSearchTerm) {
-        performSearchWithPagination(config.lastSearchTerm, page);
-    }
-};
-
-// Actualiza la función de búsqueda original
-function performSearch(searchTerm) {
-    performSearchWithPagination(searchTerm, 1);
-}
     window.loadCategories = function() {
         const categoriesContainer = document.getElementById('categoriesContainer');
         if (!categoriesContainer || !config.categories) return;
@@ -1171,7 +1173,7 @@ function performSearch(searchTerm) {
 
         // Resetea el grid del contenedor para el post completo
         postsContainer.className = "w-full";
-        
+
         // Renderiza el post completo
         postsContainer.innerHTML = `<div class="text-center py-4 sm:py-6 md:py-8 col-span-4"><div class="animate-spin rounded-full h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div><p class="mt-3 sm:mt-4 text-gray-400 text-sm sm:text-base">Cargando posts de ${category}...</p></div>`;
         try {
@@ -1212,7 +1214,7 @@ function performSearch(searchTerm) {
                     }
                 } catch (e) { postContent = `<div class="text-red-400 p-3 sm:p-4 border border-red-400 rounded text-sm sm:text-base"><p>Error al cargar el contenido</p><details class="mt-2 text-xs sm:text-sm"><summary>Detalles técnicos</summary><pre class="overflow-auto">${e.message}</pre></details></div>`; }
             } else if (post.content) {
-                try { 
+                try {
                     if (typeof marked !== 'undefined') {
                         postContent = typeof DOMPurify !== 'undefined' ? DOMPurify.sanitize(marked.parse(post.content)) : marked.parse(post.content);
                     } else {
@@ -1237,18 +1239,18 @@ function performSearch(searchTerm) {
                     </div>
                 </div>`;
                 document.getElementById('btnBackToPosts').addEventListener('click', function(e) {
-            e.preventDefault(); 
-            window.loadPosts(); 
-        });
-        
-        // Scroll suave hacia arriba al cargar el post
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+                e.preventDefault();
+                window.loadPosts();
+            });
+
+            // Scroll suave hacia arriba al cargar el post
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         } catch (error) {
             postsContainer.innerHTML = `<div class="text-center py-4 sm:py-6 md:py-8 col-span-1 w-full"><p class="text-red-400 text-sm sm:text-base">Error: ${error.message}</p><button id="btnErrorBackToPosts" class="mt-3 sm:mt-4 px-3 sm:px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 text-sm sm:text-base">Volver</button></div>`;
             document.getElementById('btnErrorBackToPosts').addEventListener('click', () => {
-            window.loadPosts();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+                window.loadPosts();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
         }
     };
 });
