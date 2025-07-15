@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bufete Legal García & Asociados</title>
+    <meta name="description" content="Expertos legales comprometidos con la defensa de sus derechos">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Bufete Legal García & Asociados" />
+    <meta property="og:description" content="Expertos legales comprometidos con la defensa de sus derechos" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://garcia-asociados.com" />
+    <meta property="og:image" content="https://garcia-asociados.com/assets/og-image.jpg" />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="./assets/logo.png" type="image/x-icon">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a365d',
+                        secondary: '#d69e2e',
+                        accent: '#2c5282',
+                        light: '#f7fafc',
+                        dark: '#1a202c',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    container: {
+                        center: true,
+                        padding: '1.5rem',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.95) 0%, rgba(44, 82, 130, 0.95) 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .testimonial-slide {
+            display: none;
+        }
+        .testimonial-slide.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-gray-50">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-primary shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <img src="../img/icons/logo.png" alt="Logo" class="h-12">
+                <span class="text-white text-xl font-bold">García & Asociados</span>
+            </div>
+            
+            <nav class="hidden lg:flex items-center space-x-8">
+                <a href="#inicio" class="text-white hover:text-secondary font-medium transition">Inicio</a>
+                <a href="#nosotros" class="text-white hover:text-secondary font-medium transition">Nosotros</a>
+ 
+                <a href="#contacto" class="text-white hover:text-secondary font-medium transition">Contacto</a>
+            </nav>
+            
+            <div class="hidden lg:flex items-center space-x-4">
+                <a href="#" class="text-white hover:text-secondary transition">
+                    <i class="bi bi-facebook text-xl"></i>
+                </a>
+                <a href="#" class="text-white hover:text-secondary transition">
+                    <i class="bi bi-linkedin text-xl"></i>
+                </a>
+                <a href="#" class="text-white hover:text-secondary transition">
+                    <i class="bi bi-twitter-x text-xl"></i>
+                </a>
+            </div>
+            
+            <button class="lg:hidden text-white text-2xl" id="mobile-menu-button">
+                <i class="bi bi-list"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="lg:hidden hidden bg-primary px-4 py-2" id="mobile-menu">
+            <div class="flex flex-col space-y-4 py-4">
+                <a href="#inicio" class="text-white hover:text-secondary">Inicio</a>
+                <a href="#nosotros" class="text-white hover:text-secondary">Nosotros</a>
+ 
+                <a href="#contacto" class="text-white hover:text-secondary">Contacto</a>
+                <div class="flex space-x-4 pt-4">
+                    <a href="#" class="text-white hover:text-secondary">
+                        <i class="bi bi-facebook text-xl"></i>
+                    </a>
+                    <a href="#" class="text-white hover:text-secondary">
+                        <i class="bi bi-linkedin text-xl"></i>
+                    </a>
+                    <a href="#" class="text-white hover:text-secondary">
+                        <i class="bi bi-twitter-x text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero-gradient text-white">
+        <div class="container mx-auto px-4 py-20 md:py-32 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-12 md:mb-0">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                    Expertos legales comprometidos con la defensa de sus derechos
+                </h1>
+                <p class="text-xl mb-8 text-gray-200">
+                    Más de 25 años de experiencia brindando soluciones legales efectivas y personalizadas.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#contacto" class="bg-secondary hover:bg-yellow-600 text-dark font-bold py-3 px-8 rounded-lg transition duration-300 text-center">
+                        Consulta Gratis
+                    </a>
+                    <a href="#servicios" class="bg-transparent hover:bg-white/10 border-2 border-white text-white font-bold py-3 px-8 rounded-lg transition duration-300 text-center">
+                        Nuestros Servicios
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative w-full max-w-md">
+                    <img src="../img/homepage/lawyer3.png" alt="Abogado" class="rounded-lg shadow-2xl w-full">
+                    <div class="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg hidden md:block">
+                        <div class="flex items-center">
+                            <div class="bg-primary p-3 rounded-full mr-4">
+                                <span class="material-symbols-outlined text-white text-3xl">gavel</span>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Casos ganados</p>
+                                <p class="text-2xl font-bold text-dark">1,250+</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Badges -->
+    <section class="bg-white py-8 shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="flex flex-col items-center p-4">
+                    <span class="material-symbols-outlined text-5xl text-secondary mb-2">balance</span>
+                    <h3 class="text-xl font-bold text-dark">25+ Años</h3>
+                    <p class="text-gray-600 text-center">De experiencia</p>
+                </div>
+                <div class="flex flex-col items-center p-4">
+                    <span class="material-symbols-outlined text-5xl text-secondary mb-2">groups</span>
+                    <h3 class="text-xl font-bold text-dark">50+</h3>
+                    <p class="text-gray-600 text-center">Clientes satisfechos</p>
+                </div>
+                <div class="flex flex-col items-center p-4">
+                    <span class="material-symbols-outlined text-5xl text-secondary mb-2">verified</span>
+                    <h3 class="text-xl font-bold text-dark">98%</h3>
+                    <p class="text-gray-600 text-center">Casos exitosos</p>
+                </div>
+                <div class="flex flex-col items-center p-4">
+                    <span class="material-symbols-outlined text-5xl text-secondary mb-2">location_on</span>
+                    <h3 class="text-xl font-bold text-dark">3</h3>
+                    <p class="text-gray-600 text-center">Oficinas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us -->
+    <section id="nosotros" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-12 md:mb-0 md:pr-12">
+                    <img src="./assets/images/law-team.jpg" alt="Equipo legal" class="rounded-lg shadow-xl w-full">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-bold text-dark mb-6">
+                        Nuestra firma legal
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        En García & Asociados, nos enorgullecemos de ofrecer un servicio legal excepcional basado en la integridad, la experiencia y el compromiso con nuestros clientes. Nuestro equipo de abogados altamente calificados está dedicado a brindar soluciones legales efectivas y personalizadas.
+                    </p>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-start">
+                            <span class="material-symbols-outlined text-secondary mr-3 mt-1">check_circle</span>
+                            <div>
+                                <h3 class="text-lg font-semibold text-dark">Enfoque personalizado</h3>
+                                <p class="text-gray-600">Cada caso recibe atención individualizada según sus necesidades específicas.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="material-symbols-outlined text-secondary mr-3 mt-1">check_circle</span>
+                            <div>
+                                <h3 class="text-lg font-semibold text-dark">Transparencia</h3>
+                                <p class="text-gray-600">Mantenemos una comunicación clara y honesta en todo momento.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="material-symbols-outlined text-secondary mr-3 mt-1">check_circle</span>
+                            <div>
+                                <h3 class="text-lg font-semibold text-dark">Resultados comprobados</h3>
+                                <p class="text-gray-600">Historial de éxito en casos complejos y de alto perfil.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#equipo" class="inline-flex items-center text-accent font-semibold hover:text-primary transition">
+                        Conoce a nuestro equipo
+                        <i class="bi bi-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="servicios" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Nuestros Servicios Legales</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Ofrecemos una gama completa de servicios legales para proteger sus derechos e intereses.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="p-6">
+                        <div class="bg-primary/10 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-primary text-3xl">gavel</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-dark mb-3">Derecho Corporativo</h3>
+                        <p class="text-gray-600 mb-4">
+                            Asesoramiento integral para empresas en formación, contratos, fusiones y adquisiciones.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-accent font-semibold hover:text-primary transition">
+                            Más información
+                            <i class="bi bi-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="p-6">
+                        <div class="bg-primary/10 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-primary text-3xl">home</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-dark mb-3">Derecho Inmobiliario</h3>
+                        <p class="text-gray-600 mb-4">
+                            Asesoramiento en compraventa, arrendamientos, propiedad horizontal y conflictos de linderos.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-accent font-semibold hover:text-primary transition">
+                            Más información
+                            <i class="bi bi-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="p-6">
+                        <div class="bg-primary/10 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-primary text-3xl">family_restroom</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-dark mb-3">Derecho de Familia</h3>
+                        <p class="text-gray-600 mb-4">
+                            Divorcios, custodia de menores, pensiones alimenticias y procesos de adopción.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-accent font-semibold hover:text-primary transition">
+                            Más información
+                            <i class="bi bi-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="p-6">
+                        <div class="bg-primary/10 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-primary text-3xl">work</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-dark mb-3">Derecho Laboral</h3>
+                        <p class="text-gray-600 mb-4">
+                            Defensa en despidos, reclamaciones salariales, acoso laboral y negociación colectiva.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-accent font-semibold hover:text-primary transition">
+                            Más información
+                            <i class="bi bi-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service 5 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="p-6">
+                        <div class="bg-primary/10 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-primary text-3xl">medical_information</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-dark mb-3">Responsabilidad Civil</h3>
+                        <p class="text-gray-600 mb-4">
+                            Reclamaciones por daños y perjuicios, negligencias médicas y accidentes.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-accent font-semibold hover:text-primary transition">
+                            Más información
+                            <i class="bi bi-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service 6 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="p-6">
+                        <div class="bg-primary/10 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-primary text-3xl">account_balance</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-dark mb-3">Derecho Administrativo</h3>
+                        <p class="text-gray-600 mb-4">
+                            Recursos administrativos, procedimientos sancionadores y contratación pública.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-accent font-semibold hover:text-primary transition">
+                            Más información
+                            <i class="bi bi-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#contacto" class="bg-primary hover:bg-accent text-white font-bold py-3 px-8 rounded-lg transition duration-300 inline-flex items-center">
+                    Solicitar consulta
+                    <i class="bi bi-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section id="equipo" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Nuestro Equipo</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Conoce a los profesionales que harán la diferencia en tu caso.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Team Member 1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <img src="./assets/images/lawyer1.jpg" alt="Abogado Juan García" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-dark mb-1">Dr. Juan García</h3>
+                        <p class="text-secondary mb-4">Socio Fundador</p>
+                        <p class="text-gray-600 mb-4">
+                            Especialista en Derecho Corporativo con más de 30 años de experiencia.
+                        </p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-500 hover:text-primary transition">
+                                <i class="bi bi-linkedin text-xl"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-primary transition">
+                                <i class="bi bi-envelope text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Member 2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <img src="./assets/images/lawyer2.jpg" alt="Abogada María López" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-dark mb-1">Dra. María López</h3>
+                        <p class="text-secondary mb-4">Socia - Derecho de Familia</p>
+                        <p class="text-gray-600 mb-4">
+                            Experta en derecho de familia con enfoque en soluciones pacíficas.
+                        </p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-500 hover:text-primary transition">
+                                <i class="bi bi-linkedin text-xl"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-primary transition">
+                                <i class="bi bi-envelope text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Member 3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <img src="./assets/images/lawyer3.jpg" alt="Abogado Carlos Méndez" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-dark mb-1">Dr. Carlos Méndez</h3>
+                        <p class="text-secondary mb-4">Socio - Derecho Laboral</p>
+                        <p class="text-gray-600 mb-4">
+                            Especialista en conflictos laborales y negociación colectiva.
+                        </p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-500 hover:text-primary transition">
+                                <i class="bi bi-linkedin text-xl"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-primary transition">
+                                <i class="bi bi-envelope text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-primary text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Lo que dicen nuestros clientes</h2>
+                <p class="text-xl text-gray-200 max-w-3xl mx-auto">
+                    Testimonios reales de quienes han confiado en nosotros.
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="testimonial-slide active">
+                    <div class="bg-white/10 p-8 rounded-xl backdrop-blur-sm">
+                        <div class="flex mb-4">
+                            <i class="bi bi-star-fill text-secondary"></i>
+                            <i class="bi bi-star-fill text-secondary"></i>
+                            <i class="bi bi-star-fill text-secondary"></i>
+                            <i class="bi bi-star-fill text-secondary"></i>
+                            <i class="bi bi-star-fill text-secondary"></i>
+                        </div>
+                        <p class="text-lg italic mb-6">
+                            "El equipo de García & Asociados logró resolver un complejo caso corporativo para nuestra empresa con profesionalismo y eficiencia. Su atención personalizada hizo toda la diferencia."
+                        </p>
+                        <div class="flex items-center">
+                            <img src="./assets/images/client1.jpg" alt="Cliente" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-bold">Roberto Jiménez</h4>
+                                <p class="text-gray-300">CEO, Tecnologías Avanzadas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-slide">
+                    <div class="bg-white/10 p-8 rounded-xl backdrop-blur-sm">
+                        <div class="flex mb-4">
+                            <i class="bi bi-star-fill text-secondary"></i>
+                            <i class="bi bi-star-fill text-secondary"></i>
+                            <i class="bi bi-star-fill text-secondary"></i>
+                            <i class="bi bi-star-fill text-secondary"></i>
+                            <i class="bi bi-star-fill text-secondary"></i>
+                        </div>
+                        <p class="text-lg italic mb-6">
+                            "Durante mi divorcio, la Dra. López fue un apoyo fundamental. Su enfoque humano pero profesional me ayudó a superar este difícil proceso con el mejor resultado posible."
+                        </p>
+                        <div class="flex items-center">
+                            <img src="./assets/images/client2.jpg" alt="Cliente" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-bold">Ana Martínez</h4>
+                                <p class="text-gray-300">Profesora Universitaria</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-slide">
+                    <div class="bg-white/10 p-8 rounded-xl backdrop-blur-sm">
+                        <div class="flex mb-4">
+                            <i class="bi bi-star-fill text-secondary"></i>
+                            <i class="bi bi-star-fill text-secondary"></i>
+                            <i class="bi bi-star-fill text-secondary"></i>
+                            <i class="bi bi-star-fill text-secondary"></i>
+                            <i class="bi bi-star-fill text-secondary"></i>
+                        </div>
+                        <p class="text-lg italic mb-6">
+                            "Como pequeña empresa, enfrentamos un conflicto laboral complejo. El Dr. Méndez nos guió con expertise y logramos una solución favorable sin llegar a juicio. Altamente recomendados."
+                        </p>
+                        <div class="flex items-center">
+                            <img src="./assets/images/client3.jpg" alt="Cliente" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-bold">Luisa Fernández</h4>
+                                <p class="text-gray-300">Gerente, Delicias Gourmet</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center mt-8 space-x-2">
+                    <button class="testimonial-dot w-3 h-3 rounded-full bg-white/30 focus:bg-white/80 transition" data-slide="0"></button>
+                    <button class="testimonial-dot w-3 h-3 rounded-full bg-white/30 focus:bg-white/80 transition" data-slide="1"></button>
+                    <button class="testimonial-dot w-3 h-3 rounded-full bg-white/30 focus:bg-white/80 transition" data-slide="2"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contacto" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row">
+                <div class="lg:w-1/2 mb-12 lg:mb-0 lg:pr-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-dark mb-6">Contáctenos</h2>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Estamos aquí para ayudarle. Complete el formulario o utilice nuestros datos de contacto directo.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-primary/10 p-3 rounded-full mr-4">
+                                <span class="material-symbols-outlined text-primary">location_on</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-dark mb-1">Oficina Principal</h3>
+                                <p class="text-gray-600">Av. Principal 1234, Piso 8, Ciudad de México</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-primary/10 p-3 rounded-full mr-4">
+                                <span class="material-symbols-outlined text-primary">mail</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-dark mb-1">Correo Electrónico</h3>
+                                <p class="text-gray-600">contacto@garcia-asociados.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-primary/10 p-3 rounded-full mr-4">
+                                <span class="material-symbols-outlined text-primary">call</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-dark mb-1">Teléfono</h3>
+                                <p class="text-gray-600">+52 55 1234 5678</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12">
+                        <h3 class="text-xl font-semibold text-dark mb-4">Horario de atención</h3>
+                        <p class="text-gray-600 mb-2">Lunes a Viernes: 9:00 am - 7:00 pm</p>
+                        <p class="text-gray-600">Sábados: 10:00 am - 2:00 pm</p>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <form class="bg-gray-50 p-8 rounded-xl shadow-sm">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="nombre" class="block text-gray-700 font-medium mb-2">Nombre *</label>
+                                <input type="text" id="nombre" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                            </div>
+                            <div>
+                                <label for="apellido" class="block text-gray-700 font-medium mb-2">Apellido *</label>
+                                <input type="text" id="apellido" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="email" class="block text-gray-700 font-medium mb-2">Correo Electrónico *</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="telefono" class="block text-gray-700 font-medium mb-2">Teléfono</label>
+                            <input type="tel" id="telefono" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="servicio" class="block text-gray-700 font-medium mb-2">Área de interés</label>
+                            <select id="servicio" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <option value="">Seleccione un servicio</option>
+                                <option value="corporativo">Derecho Corporativo</option>
+                                <option value="inmobiliario">Derecho Inmobiliario</option>
+                                <option value="familia">Derecho de Familia</option>
+                                <option value="laboral">Derecho Laboral</option>
+                                <option value="civil">Responsabilidad Civil</option>
+                                <option value="administrativo">Derecho Administrativo</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="mensaje" class="block text-gray-700 font-medium mb-2">Mensaje *</label>
+                            <textarea id="mensaje" rows="5" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-primary hover:bg-accent text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                            Enviar Mensaje
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold text-dark mb-4">Manténgase informado</h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+                Suscríbase a nuestro boletín para recibir actualizaciones legales y noticias importantes.
+            </p>
+            
+            <form class="max-w-md mx-auto flex">
+                <input type="email" placeholder="Su correo electrónico" class="flex-grow px-4 py-3 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                <button type="submit" class="bg-primary hover:bg-accent text-white font-bold py-3 px-6 rounded-r-lg transition duration-300">
+                    Suscribirse
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <img src="./assets/logo-white.png" alt="Logo" class="h-12 mb-4">
+                    <p class="text-gray-400">
+                        Expertos legales comprometidos con la defensa de sus derechos desde 1998.
+                    </p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="bi bi-facebook text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="bi bi-linkedin text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="bi bi-twitter-x text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Servicios</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Derecho Corporativo</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Derecho Inmobiliario</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Derecho de Familia</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Derecho Laboral</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Responsabilidad Civil</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Enlaces Rápidos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#inicio" class="text-gray-400 hover:text-white transition">Inicio</a></li>
+                        <li><a href="#nosotros" class="text-gray-400 hover:text-white transition">Nosotros</a></li>
+                        <li><a href="#servicios" class="text-gray-400 hover:text-white transition">Servicios</a></li>
+                        <li><a href="#equipo" class="text-gray-400 hover:text-white transition">Equipo</a></li>
+                        <li><a href="#contacto" class="text-gray-400 hover:text-white transition">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contacto</h3>
+                    <address class="not-italic text-gray-400">
+                        <p class="mb-2">Av. Principal 1234</p>
+                        <p class="mb-2">Piso 8, Ciudad de México</p>
+                        <p class="mb-2">contacto@garcia-asociados.com</p>
+                        <p>+52 55 1234 5678</p>
+                    </address>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 García & Asociados. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Testimonial slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.testimonial-slide');
+        const dots = document.querySelectorAll('.testimonial-dot');
+        
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('bg-white/80'));
+            
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('bg-white/80');
+        }
+        
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+            });
+        });
+        
+        // Auto-rotate testimonials
+        setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 5000);
+    </script>
+</body>
+</html>
