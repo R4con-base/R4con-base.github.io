@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page Showcase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 50%, #4a5568 100%);
+            min-height: 100vh;
+            padding: 3rem 2rem;
+            color: white;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .header h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #3182ce, #63b3ed, #90cdf4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(49, 130, 206, 0.3);
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            color: #a0aec0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: rgba(45, 55, 72, 0.4);
+            border-radius: 24px;
+            padding: 0;
+            border: 1px solid rgba(74, 85, 104, 0.6);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            border-color: #3182ce;
+            box-shadow: 0 25px 50px rgba(49, 130, 206, 0.25);
+        }
+
+        .card-image-section {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+            filter: brightness(0.8);
+        }
+
+        .project-card:hover .card-image {
+            transform: scale(1.1);
+            filter: brightness(1);
+        }
+
+        .card-overlay-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(45deg, #3182ce, #2b6cb0);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(49, 130, 206, 0.4);
+        }
+
+        .card-content {
+            padding: 2rem;
+            position: relative;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #f7fafc;
+            line-height: 1.2;
+        }
+
+        .card-description {
+            color: #cbd5e0;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .card-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .feature-tag {
+            background: linear-gradient(45deg, rgba(49, 130, 206, 0.2), rgba(107, 179, 235, 0.2));
+            color: #90cdf4;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(49, 130, 206, 0.3);
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .card-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #3182ce;
+        }
+
+        .card-button {
+            background: linear-gradient(45deg, #3182ce, #2b6cb0);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .card-button:hover::before {
+            left: 100%;
+        }
+
+        .card-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(49, 130, 206, 0.4);
+        }
+
+
+
+
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.1;
+            }
+            50% { 
+                transform: translateY(-30px) rotate(180deg);
+                opacity: 0.2;
+            }
+        }
+
+        /* Efectos adicionales */
+        .card-glow {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #3182ce, #63b3ed, #90cdf4, #3182ce);
+            border-radius: 26px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: glow-rotate 3s linear infinite;
+        }
+
+        .project-card:hover .card-glow {
+            opacity: 0.7;
+        }
+
+        @keyframes glow-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            body {
+                padding: 2rem 1rem;
+            }
+
+            .card-image-section {
+                height: 180px;
+            }
+
+            .card-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape-4"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            
+            <p>Experiencias digitales excepcionales que convierten visitantes en clientes</p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="project-card">
+                <div class="card-glow"></div>
+                <div class="card-image-section">
+                    <img  src="../img/fondos-landing-pages/starweas2.webp"
+                         alt="SaaS Platform" 
+                         class="card-image">
+                    
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Landing page star wars</h3>
+                    <p class="card-description">Plataforma inspirada en star wars para mostrar el estilo</p>
+                    
+                    <div class="card-footer">
+                        
+                        <a data-route="secciones/landing-1.html"class="card-button">Ver mas</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="card-glow"></div>
+                <div class="card-image-section">
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="E-commerce Luxury" 
+                         class="card-image">
+                    <div class="card-overlay-badge">Luxury</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">E-commerce de Lujo</h3>
+                    <p class="card-description">Tienda online premium con experiencia de compra inmersiva, checkout de un click y personalización avanzada.</p>
+                    
+                    <div class="card-footer">
+                         
+                        <a href="/projects/luxury-ecommerce" class="card-button">Explorar Proyecto</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="card-glow"></div>
+                <div class="card-image-section">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Mobile App Landing" 
+                         class="card-image">
+                    <div class="card-overlay-badge">Mobile</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">App Mobile Showcase</h3>
+                    <p class="card-description">Landing page interactiva con simulador de app, descargas automáticas y onboarding personalizado.</p>
+                    <div class="card-features">
+                        <span class="feature-tag">React Native Demo</span>
+                        <span class="feature-tag">App Store Connect</span>
+                        <span class="feature-tag">Push Notifications</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-price">$1,800</div>
+                        <a href="/projects/mobile-app" class="card-button">Explorar Proyecto</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="card-glow"></div>
+                <div class="card-image-section">
+                    <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Creative Portfolio" 
+                         class="card-image">
+                    <div class="card-overlay-badge">Creative</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Portfolio Artístico</h3>
+                    <p class="card-description">Galería interactiva con efectos WebGL, transiciones cinemáticas y sistema de contacto inteligente.</p>
+                    <div class="card-features">
+                        <span class="feature-tag">Three.js + WebGL</span>
+                        <span class="feature-tag">GSAP Animations</span>
+                        <span class="feature-tag">Dynamic Gallery</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-price">$2,100</div>
+                        <a href="/projects/creative-portfolio" class="card-button">Explorar Proyecto</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="card-glow"></div>
+                <div class="card-image-section">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Corporate Website" 
+                         class="card-image">
+                    <div class="card-overlay-badge">Corporate</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Sitio Corporativo</h3>
+                    <p class="card-description">Presencia digital empresarial con CMS personalizado, blog integrado y sistema de leads automatizado.</p>
+                    <div class="card-features">
+                        <span class="feature-tag">Headless CMS</span>
+                        <span class="feature-tag">SEO Optimized</span>
+                        <span class="feature-tag">Lead Generation</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-price">$2,800</div>
+                        <a href="/projects/corporate-site" class="card-button">Explorar Proyecto</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="card-glow"></div>
+                <div class="card-image-section">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Conversion Landing" 
+                         class="card-image">
+                    <div class="card-overlay-badge">High-CVR</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Landing de Alto Impacto</h3>
+                    <p class="card-description">Página optimizada para conversión con A/B testing automático, heatmaps y funnel de ventas inteligente.</p>
+                    <div class="card-features">
+                        <span class="feature-tag">A/B Testing</span>
+                        <span class="feature-tag">Conversion Tracking</span>
+                        <span class="feature-tag">Smart Funnels</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-price">$1,950</div>
+                        <a href="/projects/high-conversion" class="card-button">Explorar Proyecto</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Efecto de parallax para las formas flotantes
+        document.addEventListener('mousemove', (e) => {
+            const shapes = document.querySelectorAll('.floating-shape');
+            shapes.forEach((shape, index) => {
+                const speed = (index + 1) * 0.02;
+                const x = (e.clientX * speed) / 50;
+                const y = (e.clientY * speed) / 50;
+                shape.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+
+        // Efecto de inclinación en las cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px) scale(1.03)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
+            });
+        });
+
+        // Manejar clicks en los botones
+        document.querySelectorAll('.card-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const route = button.getAttribute('href');
+                console.log(`Navegando a: ${route}`);
+                // Aquí puedes agregar tu lógica de enrutamiento
+                // window.location.href = route;
+            });
+        });
+    </script>
+</body>
+</html>
