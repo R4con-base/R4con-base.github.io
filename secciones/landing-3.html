@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supreme Car Wash | Lavado Premium de Autos</title>
+    <meta name="description" content="El mejor lavado de autos en Texas con servicios premium y atención personalizada">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="./assets/logo.png" type="image/x-icon">
+    
+    <!-- Fuentes -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="./css/tailwind-build.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --accent: #f59e0b;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .header-links {
+            position: relative;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .header-links:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .header-links:hover:after {
+            width: 100%;
+        }
+        
+        .footer-link {
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .service-card {
+            transition: all 0.3s ease;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pricing-card {
+            transition: all 0.3s ease;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        
+        .pricing-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .featured-card {
+            border: 2px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .featured-card:after {
+            content: 'POPULAR';
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--accent);
+            color: white;
+            padding: 0.25rem 2rem;
+            transform: rotate(45deg);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stars {
+            color: #f59e0b;
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3));
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content {
+                background: rgba(0, 0, 0, 0.6);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Barra superior -->
+    <div class="bg-blue-900 text-white py-2 px-4 hidden md:block">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i class="bi bi-clock text-yellow-400"></i>
+                <span>Lun-Vie: 8:00 AM - 9:00 PM | Sáb-Dom: 9:00 AM - 6:00 PM</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <i class="bi bi-telephone text-yellow-400"></i>
+                    <span>+1 222-222-222</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="bi bi-envelope text-yellow-400"></i>
+                    <span>contacto@supremecarwash.com</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <img src="../img/carwash/assets/logo.png" alt="Supreme Car Wash Logo" class="h-12">
+                <span class="text-2xl font-bold text-blue-800 hidden md:block">SUPREME CAR WASH</span>
+            </div>
+            
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#inicio" class="header-links text-blue-800">Inicio</a>
+                <a href="#servicios" class="header-links">Servicios</a>
+                <a href="#precios" class="header-links">Precios</a>
+                <a href="#nosotros" class="header-links">Nosotros</a>
+                <a href="#contacto" class="header-links">Contacto</a>
+                <a href="#reservas" class="btn">Reservar Ahora</a>
+            </nav>
+            
+            <button class="md:hidden text-2xl text-blue-800" id="menu-toggle">
+                <i class="bi bi-list"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-white py-4 px-4 shadow-lg" id="mobile-menu">
+            <div class="flex flex-col gap-4">
+                <a href="#inicio" class="header-links text-blue-800">Inicio</a>
+                <a href="#servicios" class="header-links">Servicios</a>
+                <a href="#precios" class="header-links">Precios</a>
+                <a href="#nosotros" class="header-links">Nosotros</a>
+                <a href="#contacto" class="header-links">Contacto</a>
+                <a href="#reservas" class="btn w-full text-center">Reservar Ahora</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative h-screen max-h-[800px] overflow-hidden">
+        <div class="absolute inset-0 hero-overlay z-10"></div>
+        <img src="../img/carwash/assets/images/slideshow/car-wash.jpg" alt="Lavado de auto premium" class="w-full h-full object-cover">
+        
+        <div class="absolute inset-0 z-20 flex items-center">
+            <div class="container mx-auto px-4">
+                <div class="max-w-2xl bg-white bg-opacity-90 p-8 rounded-lg backdrop-blur-sm md:bg-transparent md:backdrop-blur-none md:bg-none hero-content">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white md:text-blue-900 mb-4">Lavado de Autos <span class="text-yellow-400">Premium</span></h1>
+                    <p class="text-lg text-white md:text-gray-700 mb-8">Deja tu auto impecable con nuestro servicio profesional de lavado. Calidad garantizada y atención al detalle.</p>
+                    <div class="flex gap-4">
+                        <a href="#reservas" class="btn bg-yellow-500 hover:bg-yellow-600">Reservar Ahora</a>
+                        <a href="#servicios" class="btn btn-outline text-white border-white md:text-blue-800 md:border-blue-800">Nuestros Servicios</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-8 left-0 right-0 z-20 flex justify-center">
+            <a href="#servicios" class="animate-bounce text-white text-4xl">
+                <i class="bi bi-arrow-down-circle"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Servicios Section -->
+    <section id="servicios" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="text-yellow-500 font-semibold">NUESTROS SERVICIOS</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">Servicios de <span class="text-blue-600">Lavado Premium</span></h2>
+                <p class="max-w-2xl mx-auto mt-4 text-gray-600">Ofrecemos una gama completa de servicios para mantener tu auto en perfecto estado, tanto por dentro como por fuera.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Servicio 1 -->
+                <div class="service-card bg-white">
+                    <div class="h-48 overflow-hidden">
+                        <img src="../img/carwash/assets/images/slideshow/exterior-wash.jpg" alt="Lavado exterior" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div class="bg-blue-100 p-2 rounded-full">
+                                <i class="bi bi-car-front text-blue-600 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-800">Lavado Exterior</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Lavado completo de carrocería, llantas y vidrios con productos de alta calidad que protegen la pintura.</p>
+                        <a href="#reservas" class="text-blue-600 font-medium flex items-center gap-1">
+                            Reservar ahora <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Servicio 2 -->
+                <div class="service-card bg-white">
+                    <div class="h-48 overflow-hidden">
+                        <img src="../img/carwash/assets/images/slideshow/interior.jpg" alt="Limpieza interior" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div class="bg-blue-100 p-2 rounded-full">
+                                <i class="bi bi-bucket text-blue-600 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-800">Limpieza Interior</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Aspirado profundo, limpieza de tapicería, tablero y consola para un interior como nuevo.</p>
+                        <a href="#reservas" class="text-blue-600 font-medium flex items-center gap-1">
+                            Reservar ahora <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Servicio 3 -->
+                <div class="service-card bg-white">
+                    <div class="h-48 overflow-hidden">
+                        <img src="../img/carwash/assets/images/slideshow/full-service.jpg" alt="Servicio completo" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div class="bg-blue-100 p-2 rounded-full">
+                                <i class="bi bi-star-fill text-blue-600 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-800">Servicio Completo</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Paquete completo que incluye lavado exterior, limpieza interior, encerado y tratamiento de llantas.</p>
+                        <a href="#reservas" class="text-blue-600 font-medium flex items-center gap-1">
+                            Reservar ahora <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Por qué elegirnos -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <img src="../img/carwash/assets/images/homepage/garage.jpg" alt="Nuestro equipo trabajando" class="rounded-xl shadow-xl w-full h-auto">
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <span class="text-yellow-500 font-semibold">¿POR QUÉ ELEGIRNOS?</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2 mb-6">La mejor experiencia de <span class="text-blue-600">lavado de autos</span></h2>
+                    
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full h-12 w-12 flex items-center justify-center">
+                                <i class="bi bi-check-lg text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-gray-800">Equipo Profesional</h4>
+                                <p class="text-gray-600">Nuestro personal está altamente capacitado para brindar un servicio excepcional.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full h-12 w-12 flex items-center justify-center">
+                                <i class="bi bi-check-lg text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-gray-800">Productos Ecológicos</h4>
+                                <p class="text-gray-600">Utilizamos productos biodegradables que no dañan tu auto ni el medio ambiente.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full h-12 w-12 flex items-center justify-center">
+                                <i class="bi bi-check-lg text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-gray-800">Atención al Detalle</h4>
+                                <p class="text-gray-600">Nos enfocamos en cada detalle para dejar tu auto impecable por dentro y por fuera.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full h-12 w-12 flex items-center justify-center">
+                                <i class="bi bi-check-lg text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-gray-800">Resultados Garantizados</h4>
+                                <p class="text-gray-600">Si no quedas satisfecho, rehacemos el servicio sin costo adicional.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Precios Section -->
+    <section id="precios" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="text-yellow-500 font-semibold">NUESTROS PRECIOS</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">Planes de <span class="text-blue-600">Lavado</span></h2>
+                <p class="max-w-2xl mx-auto mt-4 text-gray-600">Elige el paquete que mejor se adapte a tus necesidades y presupuesto.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Plan Básico -->
+                <div class="pricing-card bg-white border border-gray-200 rounded-xl">
+                    <div class="p-6 text-center">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Básico</h3>
+                        <div class="text-5xl font-bold text-blue-600 mb-4">$14</div>
+                        <p class="text-gray-600 mb-6">Perfecto para mantenimiento regular</p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center gap-2">
+                                <i class="bi bi-check-circle text-green-500"></i>
+                                <span>Lavado exterior</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="bi bi-check-circle text-green-500"></i>
+                                <span>Aspirado rápido</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="bi bi-check-circle text-green-500"></i>
+                                <span>Limpieza de vidrios</span>
+                            </li>
+                            <li class="flex items-center gap-2 text-gray-400">
+                                <i class="bi bi-x-circle"></i>
+                                <span>Limpieza interior profunda</span>
+                            </li>
+                            <li class="flex items-center gap-2 text-gray-400">
+                                <i class="bi bi-x-circle"></i>
+                                <span>Encerado</span>
+                            </li>
+                        </ul>
+                        <a href="#reservas" class="btn btn-outline w-full">Reservar</a>
+                    </div>
+                </div>
+                
+                <!-- Plan Premium -->
+                <div class="pricing-card featured-card bg-white rounded-xl shadow-lg">
+                    <div class="p-6 text-center">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Premium</h3>
+                        <div class="text-5xl font-bold text-blue-600 mb-4">$25</div>
+                        <p class="text-gray-600 mb-6">El más popular - Excelente relación calidad/precio</p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center gap-2">
+                                <i class="bi bi-check-circle text-green-500"></i>
+                                <span>Lavado exterior completo</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="bi bi-check-circle text-green-500"></i>
+                                <span>Aspirado profundo</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="bi bi-check-circle text-green-500"></i>
+                                <span>Limpieza de tapicería</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="bi bi-check-circle text-green-500"></i>
+                                <span>Limpieza de tablero y consola</span>
+                            </li>
+                            <li class="flex items-center gap-2 text-gray-400">
+                                <i class="bi bi-x-circle"></i>
+                                <span>Encerado premium</span>
+                            </li>
+                        </ul>
+                        <a href="#reservas" class="btn w-full">Reservar</a>
+                    </div>
+                </div>
+                
+                <!-- Plan VIP -->
+                <div class="pricing-card bg-white border border-gray-200 rounded-xl">
+                    <div class="p-6 text-center">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">VIP</h3>
+                        <div class="text-5xl font-bold text-blue-600 mb-4">$35</div>
+                        <p class="text-gray-600 mb-6">Experiencia de lavado completa</p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center gap-2">
+                                <i class="bi bi-check-circle text-green-500"></i>
+                                <span>Todo lo del plan Premium</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="bi bi-check-circle text-green-500"></i>
+                                <span>Encerado premium</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="bi bi-check-circle text-green-500"></i>
+                                <span>Tratamiento de llantas</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="bi bi-check-circle text-green-500"></i>
+                                <span>Aromatización interior</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="bi bi-check-circle text-green-500"></i>
+                                <span>Protección de pintura</span>
+                            </li>
+                        </ul>
+                        <a href="#reservas" class="btn btn-outline w-full">Reservar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="text-yellow-500 font-semibold">TESTIMONIOS</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">Lo que dicen <span class="text-blue-600">nuestros clientes</span></h2>
+                <p class="max-w-2xl mx-auto mt-4 text-gray-600">Más de 1,000 clientes satisfechos en todo Texas</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonio 1 -->
+                <div class="testimonial-card p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="h-12 w-12 rounded-full overflow-hidden">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Cliente satisfecho" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">María González</h4>
+                            <div class="stars text-yellow-400">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"Nunca había visto mi auto tan limpio. El servicio premium vale cada centavo. El personal es muy amable y profesional. ¡Recomendado 100%!"</p>
+                </div>
+                
+                <!-- Testimonio 2 -->
+                <div class="testimonial-card p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="h-12 w-12 rounded-full overflow-hidden">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Cliente satisfecho" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Carlos Rodríguez</h4>
+                            <div class="stars text-yellow-400">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"Soy cliente regular desde hace 2 años y siempre recibo un servicio excepcional. Mi auto parece nuevo después de cada visita. ¡Excelente trabajo!"</p>
+                </div>
+                
+                <!-- Testimonio 3 -->
+                <div class="testimonial-card p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="h-12 w-12 rounded-full overflow-hidden">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Cliente satisfecho" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Laura Martínez</h4>
+                            <div class="stars text-yellow-400">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"El mejor lavado de autos de la ciudad. La atención al detalle es increíble y usan productos de primera calidad. Mi auto nunca había brillado tanto."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservas Section -->
+    <section id="reservas" class="py-16 bg-blue-900 text-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <span class="text-yellow-400 font-semibold">RESERVAS</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-2">Programa tu <span class="text-yellow-400">lavado</span></h2>
+                    <p class="max-w-2xl mx-auto mt-4 text-blue-200">Completa el formulario y nos pondremos en contacto contigo para confirmar tu reserva.</p>
+                </div>
+                
+                <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="name" class="block mb-2 font-medium">Nombre completo</label>
+                        <input type="text" id="name" class="w-full px-4 py-3 rounded-lg bg-blue-800 border border-blue-700 focus:outline-none focus:ring-2 focus:ring-yellow-400" placeholder="Tu nombre">
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block mb-2 font-medium">Correo electrónico</label>
+                        <input type="email" id="email" class="w-full px-4 py-3 rounded-lg bg-blue-800 border border-blue-700 focus:outline-none focus:ring-2 focus:ring-yellow-400" placeholder="tu@email.com">
+                    </div>
+                    
+                    <div>
+                        <label for="phone" class="block mb-2 font-medium">Teléfono</label>
+                        <input type="tel" id="phone" class="w-full px-4 py-3 rounded-lg bg-blue-800 border border-blue-700 focus:outline-none focus:ring-2 focus:ring-yellow-400" placeholder="+1 (___) ___-____">
+                    </div>
+                    
+                    <div>
+                        <label for="service" class="block mb-2 font-medium">Servicio</label>
+                        <select id="service" class="w-full px-4 py-3 rounded-lg bg-blue-800 border border-blue-700 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                            <option value="">Selecciona un servicio</option>
+                            <option value="basic">Lavado Básico ($14)</option>
+                            <option value="premium">Lavado Premium ($25)</option>
+                            <option value="vip">Lavado VIP ($35)</option>
+                            <option value="other">Otro servicio</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="date" class="block mb-2 font-medium">Fecha preferida</label>
+                        <input type="date" id="date" class="w-full px-4 py-3 rounded-lg bg-blue-800 border border-blue-700 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    </div>
+                    
+                    <div>
+                        <label for="time" class="block mb-2 font-medium">Hora preferida</label>
+                        <select id="time" class="w-full px-4 py-3 rounded-lg bg-blue-800 border border-blue-700 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                            <option value="">Selecciona una hora</option>
+                            <option value="morning">Mañana (8AM - 12PM)</option>
+                            <option value="afternoon">Tarde (12PM - 5PM)</option>
+                            <option value="evening">Noche (5PM - 9PM)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <label for="message" class="block mb-2 font-medium">Mensaje adicional</label>
+                        <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg bg-blue-800 border border-blue-700 focus:outline-none focus:ring-2 focus:ring-yellow-400" placeholder="Algo que debamos saber..."></textarea>
+                    </div>
+                    
+                    <div class="md:col-span-2 text-center">
+                        <button type="submit" class="btn bg-yellow-500 hover:bg-yellow-600 px-8 py-4 text-lg">
+                            <i class="bi bi-calendar-check mr-2"></i> Reservar Ahora
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mapa y Contacto -->
+    <section id="contacto" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="text-yellow-500 font-semibold">CONTACTO</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">Visítanos en <span class="text-blue-600">nuestro local</span></h2>
+                <p class="max-w-2xl mx-auto mt-4 text-gray-600">Estamos ubicados en un lugar conveniente con amplio espacio para atenderte.</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-1/2">
+                    <div class="h-96 w-full rounded-xl overflow-hidden shadow-lg">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3445.321068496657!2d-97.7431236848798!3d30.28488858179459!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644b59b2584cfb7%3A0x8131ee4f174a21de!2sTexas%2C%20EE.%20UU.!5e0!3m2!1ses!2ses!4v1620000000000!5m2!1ses!2ses" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="bg-gray-50 p-8 rounded-xl h-full">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">Información de contacto</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="bg-blue-100 text-blue-600 p-3 rounded-full">
+                                    <i class="bi bi-geo-alt text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Dirección</h4>
+                                    <p class="text-gray-600">12111 Cypress, Texas, Estados Unidos</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="bg-blue-100 text-blue-600 p-3 rounded-full">
+                                    <i class="bi bi-telephone text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Teléfono</h4>
+                                    <p class="text-gray-600">+1 222-222-222</p>
+                                    <p class="text-gray-600">+1 333-333-333 (WhatsApp)</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="bg-blue-100 text-blue-600 p-3 rounded-full">
+                                    <i class="bi bi-envelope text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Correo electrónico</h4>
+                                    <p class="text-gray-600">contacto@supremecarwash.com</p>
+                                    <p class="text-gray-600">reservas@supremecarwash.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="bg-blue-100 text-blue-600 p-3 rounded-full">
+                                    <i class="bi bi-clock text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Horario de atención</h4>
+                                    <p class="text-gray-600">Lunes a Viernes: 8:00 AM - 9:00 PM</p>
+                                    <p class="text-gray-600">Sábado y Domingo: 9:00 AM - 6:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-semibold text-gray-800 mb-4">Síguenos en redes</h4>
+                            <div class="flex gap-4">
+                                <a href="#" class="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition-colors">
+                                    <i class="bi bi-facebook text-xl"></i>
+                                </a>
+                                <a href="#" class="bg-pink-600 text-white p-3 rounded-full hover:bg-pink-700 transition-colors">
+                                    <i class="bi bi-instagram text-xl"></i>
+                                </a>
+                                <a href="#" class="bg-blue-400 text-white p-3 rounded-full hover:bg-blue-500 transition-colors">
+                                    <i class="bi bi-twitter text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <img src="../img/carwash/assets/logo.png" alt="Supreme Car Wash Logo" class="h-12 mb-4">
+                    <p class="text-gray-400">El lavado de autos más premium de Texas, con atención al detalle y resultados garantizados.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Servicios</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="footer-link text-gray-400">Lavado exterior</a></li>
+                        <li><a href="#" class="footer-link text-gray-400">Limpieza interior</a></li>
+                        <li><a href="#" class="footer-link text-gray-400">Encerado</a></li>
+                        <li><a href="#" class="footer-link text-gray-400">Tratamiento de llantas</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Enlaces útiles</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="footer-link text-gray-400">Nosotros</a></li>
+                        <li><a href="#" class="footer-link text-gray-400">Precios</a></li>
+                        <li><a href="#" class="footer-link text-gray-400">Blog</a></li>
+                        <li><a href="#" class="footer-link text-gray-400">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Suscríbete</h4>
+                    <p class="text-gray-400 mb-4">Recibe ofertas exclusivas y consejos para el cuidado de tu auto.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Tu email" class="px-4 py-2 rounded-l-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 w-full">
+                        <button class="bg-yellow-500 hover:bg-yellow-600 px-4 rounded-r-lg">
+                            <i class="bi bi-send"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">© 2023 Supreme Car Wash. Todos los derechos reservados.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white">Términos</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Privacidad</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botón WhatsApp -->
+
+
+    <script>
+        // Menú móvil
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling para enlaces
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Cerrar menú móvil si está abierto
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+        
+        // Animación al hacer scroll
+        window.addEventListener('scroll', function() {
+            const elements = document.querySelectorAll('.service-card, .pricing-card, .testimonial-card');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        });
+        
+        // Inicializar animaciones
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.service-card, .pricing-card, .testimonial-card');
+            elements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'all 0.5s ease';
+            });
+            
+            // Disparar el evento scroll para animar elementos visibles al cargar
+            window.dispatchEvent(new Event('scroll'));
+        });
+    </script>
+</body>
+</html>

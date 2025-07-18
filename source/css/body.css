@@ -104,6 +104,18 @@ body.custom-bg::before {
     100% { transform: translate(20px, 20px); }
 }
 /* interesante */
+/* Mostrar el botón cuando el sidebar está contraído */
+.sidebar-contraido #whatsapp-button {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Ocultar cuando el sidebar está expandido */
+.sidebar-expandido #whatsapp-button {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+}
 
 /* .custom-bg {
     background-color: #2b2b2b;
