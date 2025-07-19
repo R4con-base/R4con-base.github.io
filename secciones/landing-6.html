@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Freebie 64 - Portfolio (Tailwind CSS) by pixelcave</title>
+    <meta name="description" content="Freebie 64 - Portfolio (Tailwind CSS). Check out more at https://pixelcave.com" />
+    <meta name="author" content="pixelcave" />
+
+    <!-- Icons -->
+    <link rel="icon" href="https://cdn.pixelcave.com/favicon.svg" sizes="any" type="image/svg+xml" />
+    <link rel="icon" href="https://cdn.pixelcave.com/favicon.png" type="image/png" />
+
+    <!-- Inter web font from bunny.net -->
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link href="https://fonts.bunny.net/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Alpine.js x-cloak -->
+    <style>
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body class="antialiased font-inter">
+    <!-- Page Container -->
+    <div
+      x-data="{
+        darkMode: false,
+        toggleDarkMode() {
+          this.darkMode = !this.darkMode;
+          document.body.parentNode.classList.toggle('dark');
+        }
+      }"
+      class="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-gray-100 transition-colors duration-300"
+    >
+      <!-- Page Content -->
+      <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Main Header -->
+        <header class="flex items-center justify-between py-6 sticky top-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-10">
+          <div class="flex items-center gap-4">
+            <a href="#" class="text-3xl font-bold text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors">
+              Olivia
+            </a>
+            <button
+              x-on:click="toggleDarkMode()"
+              class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            >
+              <div
+                x-cloak
+                x-show="!darkMode"
+                x-transition
+                class="w-6 h-6 text-gray-600 dark:text-gray-400"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                </svg>
+              </div>
+              <div
+                x-cloak
+                x-show="darkMode"
+                x-transition
+                class="w-6 h-6 text-gray-600 dark:text-gray-400"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+                </svg>
+              </div>
+            </button>
+          </div>
+          <nav class="flex items-center gap-6">
+            <a href="#projects" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Projects</a>
+            <a href="#contact" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Hire me</a>
+          </nav>
+        </header>
+        <!-- END Main Header -->
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+          <!-- Photo -->
+          <div class="md:col-span-5">
+            <img
+              src="assets/photo.jpg"
+              alt="Photo"
+              class="rounded-2xl w-full aspect-square object-cover shadow-lg hover:shadow-xl transition-shadow duration-300"
+            />
+          </div>
+          <!-- END Photo -->
+
+          <!-- Intro -->
+          <div class="md:col-span-7 relative rounded-2xl bg-white dark:bg-gray-800 p-8 shadow-lg">
+            <div class="absolute inset-0 bg-gradient-to-r from-purple-100/30 to-pink-100/30 dark:from-purple-900/30 dark:to-pink-900/30 rounded-2xl"></div>
+            <div class="relative">
+              <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">Hi there, I'm Olivia!</h1>
+              <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                I'm a passionate graphic designer with over 5 years of experience crafting stunning and functional designs. My expertise lies in branding, web design, and print media, creating visuals that tell your story and resonate with your audience.
+              </p>
+            </div>
+          </div>
+          <!-- END Intro -->
+
+          <!-- Projects -->
+          <div id="projects" class="md:col-span-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <a
+              href="#"
+              class="group relative rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <div class="absolute top-4 right-4 text-purple-600 dark:text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                  <path fill-rule="evenodd" d="M3.75 12a.75.75 0 0 1 .75-.75h13.19l-5.47-5.47a.75.75 0 0 1 1.06-1.06l6.75 6.75a.75.75 0 0 1 0 1.06l-6.75 6.75a.75.75 0 1 1-1.06-1.06l5.47-5.47H4.5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Abstract set</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">This month</p>
+              <img
+                src="assets/project1.png"
+                alt="Project 1"
+                class="mt-4 rounded-xl w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            </a>
+            <a
+              href="#"
+              class="group relative rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <div class="absolute top-4 right-4 text-purple-600 dark:text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                  <path fill-rule="evenodd" d="M3.75 12a.75.75 0 0 1 .75-.75h13.19l-5.47-5.47a.75.75 0 0 1 1.06-1.06l6.75 6.75a.75.75 0 0 1 0 1.06l-6.75 6.75a.75.75 0 1 1-1.06-1.06l5.47-5.47H4.5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Illustration</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">This month</p>
+              <img
+                src="assets/project2.png"
+                alt="Project 2"
+                class="mt-4 rounded-xl w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            </a>
+            <a
+              href="#"
+              class="group relative rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <div class="absolute top-4 right-4 text-purple-600 dark:text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                  <path fill-rule="evenodd" d="M3.75 12a.75.75 0 0 1 .75-.75h13.19l-5.47-5.47a.75.75 0 0 1 1.06-1.06l6.75 6.75a.75.75 0 0 1 0 1.06l-6.75 6.75a.75.75 0 1 1-1.06-1.06l5.47-5.47H4.5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Graphic pack</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">This month</p>
+              <img
+                src="assets/project3.png"
+                alt="Project 3"
+                class="mt-4 rounded-xl w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            </a>
+            <a
+              href="#"
+              class="group relative rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <div class="absolute top-4 right-4 text-purple-600 dark:text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                  <path fill-rule="evenodd" d="M3.75 12a.75.75 0 0 1 .75-.75h13.19l-5.47-5.47a.75.75 0 0 1 1.06-1.06l6.75 6.75a.75.75 0 0 1 0 1.06l-6.75 6.75a.75.75 0 1 1-1.06-1.06l5.47-5.47H4.5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Brand identity</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Last month</p>
+              <img
+                src="assets/project4.png"
+                alt="Project 4"
+                class="mt-4 rounded-xl w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            </a>
+            <a
+              href="#"
+              class="group relative rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <div class="absolute top-4 right-4 text-purple-600 dark:text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                  <path fill-rule="evenodd" d="M3.75 12a.75.75 0 0 1 .75-.75h13.19l-5.47-5.47a.75.75 0 0 1 1.06-1.06l6.75 6.75a.75.75 0 0 1 0 1.06l-6.75 6.75a.75.75 0 1 1-1.06-1.06l5.47-5.47H4.5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Illustration Builder</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Last month</p>
+              <img
+                src="assets/project5.png"
+                alt="Project 5"
+                class="mt-4 rounded-xl w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            </a>
+            <a
+              href="#"
+              class="group relative rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <div class="absolute top-4 right-4 text-purple-600 dark:text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                  <path fill-rule="evenodd" d="M3.
+
+75 12a.75.75 0 0 1 .75-.75h13.19l-5.47-5.47a.75.75 0 0 1 1.06-1.06l6.75 6.75a.75.75 0 0 1 0 1.06l-6.75 6.75a.75.75 0 1 1-1.06-1.06l5.47-5.47H4.5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Logo design</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Last month</p>
+              <img
+                src="assets/project6.png"
+                alt="Project 6"
+                class="mt-4 rounded-xl w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            </a>
+          </div>
+          <!-- END Projects -->
+
+          <!-- Contact -->
+          <div id="contact" class="md:col-span-12 relative rounded-2xl bg-white dark:bg-gray-800 p-8 sm:p-12 shadow-lg">
+            <div class="absolute inset-0 bg-gradient-to-r from-purple-100/30 to-pink-100/30 dark:from-purple-900/30 dark:to-pink-900/30 rounded-2xl"></div>
+            <div class="relative max-w-md mx-auto">
+              <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">Get in touch</h2>
+              <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
+                Looking for a creative partner for your next project? I'm available for freelance work and excited to hear about your ideas. Let's collaborate to bring your vision to life.
+              </p>
+              <div class="space-y-6">
+                <div>
+                  <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="mt-1 block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-4 py-3 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                  />
+                </div>
+                <div>
+                  <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="mt-1 block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-4 py-3 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                  />
+                </div>
+                <div>
+                  <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Message</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="6"
+                    class="mt-1 block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-4 py-3 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                  ></textarea>
+                </div>
+                <button
+                  type="button"
+                  class="w-full sm:w-auto px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors"
+                >
+                  Send Message
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- END Contact -->
+
+          <!-- Footer -->
+          <footer class="md:col-span-12 flex flex-col sm:flex-row items-center justify-between py-8 text-sm text-gray-500 dark:text-gray-400">
+            <div class="flex items-center gap-4">
+              <a href="#" class="hover:text-gray-800 dark:hover:text-white transition-colors">
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z" />
+                </svg>
+              </a>
+              <a href="#" class="hover:text-[#1877f2] transition-colors">
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.378 14.192 5 15.115 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z" />
+                </svg>
+              </a>
+              <a href="#" class="hover:text-[#405de6] transition-colors">
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                </svg>
+              </a>
+              <a href="#" class="hover:text-gray-800 dark:hover:text-white transition-colors">
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+                </svg>
+              </a>
+              <a href="#" class="hover:text-[#ea4c89] transition-colors">
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.372 0 0 5.373 0 12s5.372 12 12 12 12-5.373 12-12S18.628 0 12 0zm9.885 11.441c-2.575-.422-4.943-.445-7.103-.073a42.153 42.153 0 00-.767-1.68c2.31-1 4.165-2.358 5.548-4.082a9.863 9.863 0 012.322 5.835zm-3.842-7.282c-1.205 1.554-2.868 2.783-4.986 3.68a46.287 46.287 0 00-3.488-5.438A9.894 9.894 0 0112 2.087c2.275 0 4.368.779 6.043 2.072zM7.527 3.166a44.59 44.59 0 013.537 5.381c-2.43.715-5.331 1.082-8.684 1.105a9.931 9.931 0 015.147-6.486zM2.087 12l.013-.256c3.849-.005 7.169-.448 9.95-1.322.233.475.456.952.67 1.432-3.38 1.057-6.165 3.222-8.337 6.48A9.865 9.865 0 012.087 12zm3.829 7.81c1.969-3.088 4.482-5.098 7.598-6.027a39.137 39.137 0 012.043 7.46c-3.349 1.291-6.953.666-9.641-1.433zm11.586.43a41.098 41.098 0 00-1.92-6.897c1.876-.265 3.94-.196 6.199.196a9.923 9.923 0 01-4.279 6.701z" />
+                </svg>
+              </a>
+            </div>
+            <div class="mt-4 sm:mt-0">
+              <span class="font-medium">Olivia</span> © <span x-text="new Date().getFullYear()"></span>
+            </div>
+          </footer>
+          <!-- END Footer -->
+        </div>
+        <!-- END Main Content -->
+      </main>
+      <!-- END Page Content -->
+    </div>
+    <!-- END Page Container -->
+  </body>
+</html>

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Social - Automatiza tu negocio online</title>
+    <meta name="description" content="Marketing social para automatizar tu negocio online. Prueba gratuita de 7 días disponible.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.8); }
+        }
+        
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-fadeInUp { animation: fadeInUp 0.8s ease-out; }
+        .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .bg-white-10 {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .bg-white-15 {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .backdrop-blur-sm {
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Contenedor Principal -->
+    <div class="min-h-screen flex flex-col">
+        <!-- Hero Section -->
+        <div class="hero-gradient relative overflow-hidden">
+            <!-- Header -->
+            <header class="relative z-10 py-4 sm:py-6 lg:py-8">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
+                        <!-- Logo -->
+                        <div class="flex items-center">
+                            <a href="#" class="flex items-center gap-2 text-lg sm:text-xl font-bold text-white hover:text-blue-300 transition-colors">
+                                <svg class="w-6 h-6 sm:w-8 sm:h-8 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M12.232 4.232a2.5 2.5 0 0 1 3.536 3.536l-1.225 1.224a.75.75 0 0 0 1.061 1.06l1.224-1.224a4 4 0 0 0-5.656-5.656l-3 3a4 4 0 0 0 .225 5.865.75.75 0 0 0 .977-1.138 2.5 2.5 0 0 1-.142-3.667l3-3Z"/>
+                                    <path d="M11.603 7.963a.75.75 0 0 0-.977 1.138 2.5 2.5 0 0 1 .142 3.667l-3 3a2.5 2.5 0 0 1-3.536-3.536l1.225-1.224a.75.75 0 0 0-1.061-1.06l-1.224 1.224a4 4 0 1 0 5.656 5.656l3-3a4 4 0 0 0-.225-5.865Z"/>
+                                </svg>
+                                <span>Marketing Social</span>
+                            </a>
+                        </div>
+                        
+                        <!-- Navigation -->
+                        <nav class="flex items-center gap-3 sm:gap-6 text-sm sm:text-base">
+                            <a href="#funcionalidades" class="text-gray-300 hover:text-white font-medium transition-colors px-2 py-1 rounded">
+                                Funcionalidades
+                            </a>
+                            <a href="#precios" class="text-gray-300 hover:text-white font-medium transition-colors px-2 py-1 rounded">
+                                Precios
+                            </a>
+                            <a href="#contacto" class="text-gray-300 hover:text-white font-medium transition-colors px-2 py-1 rounded">
+                                Contacto
+                            </a>
+                            <a href="#" class="flex items-center gap-2 text-gray-300 hover:text-white font-medium transition-colors px-2 py-1 rounded">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-5.5-2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM10 12a5.99 5.99 0 0 0-4.793 2.39A6.483 6.483 0 0 0 10 16.5a6.483 6.483 0 0 0 4.793-2.11A5.99 5.99 0 0 0 10 12Z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="hidden sm:inline">Iniciar Sesión</span>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Hero Content -->
+            <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-12 sm:py-16 lg:py-24">
+                <div class="text-center max-w-4xl mx-auto">
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 sm:mb-6 leading-tight animate-fadeInUp">
+                        Marketing en redes sociales para tu 
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">negocio online</span>
+                    </h1>
+                    
+                    <p class="text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-8 lg:mb-10 max-w-3xl mx-auto leading-relaxed animate-fadeInUp px-4">
+                        Automatiza tus esfuerzos de marketing hoy y consigue más clientes para tu negocio. 
+                        Prueba gratuita de 7 días disponible para que lo compruebes.
+                    </p>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 sm:mb-16 lg:mb-20 px-4">
+                        <button class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full flex items-center justify-center gap-2 transition-all transform hover:scale-105 animate-pulse-glow">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Comenzar Ahora</span>
+                        </button>
+                        
+                        <button class="w-full sm:w-auto bg-gray-700 hover:bg-gray-600 text-white font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full flex items-center justify-center gap-2 transition-all transform hover:scale-105">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+                                <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 0 1 0-1.186A10.004 10.004 0 0 1 10 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0 1 10 17c-4.257 0-7.893-2.66-9.336-6.41ZM14 10a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Demo en Vivo</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Hero Image con overlay -->
+                    <div class="relative max-w-4xl mx-auto animate-float">
+                        <div class="relative mx-5 -mb-20 rounded-xl bg-white p-2 shadow-lg sm:-mb-40 lg:mx-32">
+                            <img
+                                src="assets/unsplash-4ec70e388b28.jpg"
+                                alt="Hero Image"
+                                class="mx-auto aspect-3/2 w-full rounded-lg object-cover"
+                            />
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="text-center p-4 sm:p-8 bg-white/80 rounded-lg backdrop-blur-sm">
+                                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <svg class="w-6 h-6 sm:w-8 sm:h-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </div>
+                                    <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">Dashboard Interactivo</h3>
+                                    <p class="text-sm sm:text-base text-gray-600">Gestiona todas tus redes sociales desde un solo lugar</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Background Elements -->
+            <div class="absolute inset-0 overflow-hidden">
+                <div class="absolute -top-40 -right-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+                <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <section id="funcionalidades" class="py-12 sm:py-16 lg:py-24 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+                <!-- Heading -->
+                <div class="text-center mb-12 sm:mb-16 lg:mb-20">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 sm:mb-6">
+                        Herramientas Poderosas
+                    </h2>
+                    <p class="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
+                        Construimos las mejores herramientas para elevar tus esfuerzos de marketing 
+                        y hacer crecer tu negocio de manera efectiva.
+                    </p>
+                </div>
+
+                <!-- Features Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
+                    <!-- Feature 1 -->
+                    <div class="text-center group card-hover bg-white p-6 sm:p-8 rounded-xl shadow-lg border border-gray-100">
+                        <div class="relative mb-6 sm:mb-8 inline-flex items-center justify-center">
+                            <div class="absolute inset-0 bg-blue-100 rounded-full transform rotate-6 group-hover:rotate-12 transition-transform"></div>
+                            <div class="relative bg-blue-600 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Automatización</h3>
+                        <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+                            Programa y publica contenido automáticamente en todas tus redes sociales. 
+                            Ahorra tiempo y mantén una presencia constante online las 24 horas del día.
+                        </p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="text-center group card-hover bg-white p-6 sm:p-8 rounded-xl shadow-lg border border-gray-100">
+                        <div class="relative mb-6 sm:mb-8 inline-flex items-center justify-center">
+                            <div class="absolute inset-0 bg-blue-100 rounded-full transform rotate-6 group-hover:rotate-12 transition-transform"></div>
+                            <div class="relative bg-blue-600 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Programación</h3>
+                        <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+                            Planifica tu contenido con semanas de anticipación. Nuestro calendario intuitivo 
+                            te permite organizar y optimizar tu estrategia de contenido fácilmente.
+                        </p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="text-center group card-hover bg-white p-6 sm:p-8 rounded-xl shadow-lg border border-gray-100 md:col-span-2 lg:col-span-1">
+                        <div class="relative mb-6 sm:mb-8 inline-flex items-center justify-center">
+                            <div class="absolute inset-0 bg-blue-100 rounded-full transform rotate-6 group-hover:rotate-12 transition-transform"></div>
+                            <div class="relative bg-blue-600 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center">
+                                <span class="text-white font-bold text-lg sm:text-xl">API</span>
+                            </div>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Integraciones</h3>
+                        <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+                            Conecta con todas las principales plataformas sociales y herramientas de marketing. 
+                            Sincroniza datos y workflows para una experiencia fluida y unificada.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How it Works Section -->
+        <section class="py-12 sm:py-16 lg:py-24 bg-gray-900 relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900"></div>
+            
+            <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+                <!-- Heading -->
+                <div class="text-center mb-12 sm:mb-16 lg:mb-20">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-4 sm:mb-6">
+                        ¿Cómo funciona?
+                    </h2>
+                    <p class="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto px-4">
+                        Tres simples pasos para transformar tu presencia en redes sociales
+                    </p>
+                </div>
+
+                <!-- Steps -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                    <!-- Step 1 -->
+                    <div class="bg-white-10 backdrop-blur-sm rounded-2xl p-6 sm:p-8 hover:bg-white-15 transition-all card-hover border border-white/20">
+                        <div class="bg-blue-500 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mb-4 sm:mb-6">
+                            <svg class="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">
+                            1. Obtén tu dashboard personalizado
+                        </h3>
+                        <p class="text-sm sm:text-base text-gray-300 leading-relaxed">
+                            Configura tu espacio de trabajo personalizado con todas las herramientas 
+                            que necesitas para gestionar tus redes sociales de manera eficiente y profesional.
+                        </p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="bg-white-10 backdrop-blur-sm rounded-2xl p-6 sm:p-8 hover:bg-white-15 transition-all card-hover border border-white/20">
+                        <div class="bg-blue-500 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mb-4 sm:mb-6">
+                            <svg class="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">
+                            2. Conecta tus redes sociales
+                        </h3>
+                        <p class="text-sm sm:text-base text-gray-300 leading-relaxed">
+                            Vincula todas tus cuentas de redes sociales en segundos. Soportamos Facebook, 
+                            Instagram, Twitter, LinkedIn y muchas más plataformas populares.
+                        </p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="bg-white-10 backdrop-blur-sm rounded-2xl p-6 sm:p-8 hover:bg-white-15 transition-all card-hover border border-white/20 sm:col-span-2 lg:col-span-1">
+                        <div class="bg-blue-500 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mb-4 sm:mb-6">
+                            <svg class="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">
+                            3. Publica tu contenido
+                        </h3>
+                        <p class="text-sm sm:text-base text-gray-300 leading-relaxed">
+                            Crea, programa y publica contenido atractivo. Utiliza nuestras plantillas 
+                            prediseñadas o crea contenido único que capture la atención de tu audiencia.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="precios" class="py-12 sm:py-16 lg:py-24 bg-gray-50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+                <!-- Heading -->
+                <div class="text-center mb-12 sm:mb-16">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 sm:mb-6">
+                        Elige tu plan
+                    </h2>
+                    <p class="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
+                        Modelo de precios honesto y asequible para ayudarte a comenzar fácilmente 
+                        y sin complicaciones.
+                    </p>
+                </div>
+
+                <!-- Pricing Cards -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
+                    <!-- Developer Plan -->
+                    <div class="bg-white rounded-2xl border-2 border-gray-200 p-6 sm:p-8 shadow-lg card-hover">
+                        <div class="mb-6">
+                            <span class="inline-block bg-blue-100 text-blue-800 text-xs sm:text-sm font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-4">
+                                Desarrollador
+                            </span>
+                            <div class="flex items-baseline gap-2 mb-3">
+                                <span class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900">$49</span>
+                                <span class="text-sm sm:text-base text-gray-600 font-medium">por año</span>
+                            </div>
+                            <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+                                Hasta <span class="font-semibold text-gray-900">2 redes sociales</span> y 
+                                <span class="font-semibold text-gray-900">2 automatizaciones</span>. 
+                                Perfect para freelancers y pequeños negocios.
+                            </p>
+                        </div>
+                        
+                        <div class="space-y-3 mb-8">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-sm sm:text-base text-gray-600">Dashboard personalizable</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-sm sm:text-base text-gray-600">Soporte por email</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-sm sm:text-base text-gray-600">Análisis básicos</span>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 sm:py-4 rounded-full transition-colors">
+                            Comenzar
+                        </button>
+                    </div>
+
+                    <!-- Agency Plan -->
+                    <div class="bg-white rounded-2xl border-2 border-blue-500 p-6 sm:p-8 shadow-xl card-hover relative">
+                        <!-- Popular Badge -->
+                        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                            <span class="bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+                                Popular
+                            </span>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <span class="inline-block bg-blue-100 text-blue-800 text-xs sm:text-sm font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-4">
+                                Agencia
+                            </span>
+                            <div class="flex items-baseline gap-2 mb-3">
+                                <span class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900">$99</span>
+                                <span class="text-sm sm:text-base text-gray-600 font-medium">por año</span>
+                            </div>
+                            <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+                                Hasta <span class="font-semibold text-gray-900">15 redes sociales</span> y 
+                                <span class="font-semibold text-gray-900">50 automatizaciones</span>. 
+                                Ideal para agencias y negocios en crecimiento.
+                            </p>
+                        </div>
+                        
+                        <div class="space-y-3 mb-8">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-sm sm:text-base text-gray-600">Dashboard avanzado</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-sm sm:text-base text-gray-600">Soporte prioritario 24/7</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-sm sm:text-base text-gray-600">Análisis avanzados</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-sm sm:text-base text-gray-600">Informes personalizados</span>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 sm:py-4 rounded-full transition-colors">
+                            Comenzar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="bg-gray-900">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+                <div class="grid grid-cols-1 divide-y divide-gray-800 text-center sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+                    <div class="space-y-1 px-5 py-16 lg:py-32">
+                        <dt class="text-4xl font-extrabold text-white">998k+</dt>
+                        <dd class="text-sm font-semibold tracking-wide text-blue-400 uppercase">
+                            Publicaciones
+                        </dd>
+                    </div>
+                    <div class="space-y-1 px-5 py-16 lg:py-32">
+                        <dt class="text-4xl font-extrabold text-white">1,5k+</dt>
+                        <dd class="text-sm font-semibold tracking-wide text-blue-400 uppercase">
+                            Automatizaciones
+                        </dd>
+                    </div>
+                    <div class="space-y-1 px-5 py-16 lg:py-32">
+                        <dt class="text-4xl font-extrabold text-white">7,9k</dt>
+                        <dd class="text-sm font-semibold tracking-wide text-blue-400 uppercase">
+                            Dashboards
+                        </dd>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contacto" class="py-12 sm:py-16 lg:py-24 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+                <div class="text-center mb-12 sm:mb-16">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 sm:mb-6">
+                        Contacta con Nosotros
+                    </h2>
+                    <p class="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
+                        ¿Tienes alguna pregunta? Estamos aquí para ayudarte.
+                    </p>
+                </div>
+                
+                <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-6 sm:p-8">
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+                                <input type="text" id="name" name="name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Asunto</label>
+                            <input type="text" id="subject" name="subject" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Mensaje</label>
+                            <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors">
+                                Enviar Mensaje
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-white border-t border-gray-200">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-12">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div class="flex items-center">
+                        <a href="#" class="flex items-center gap-2 text-lg font-bold text-gray-900 hover:text-blue-600 transition-colors">
+                            <svg class="w-6 h-6 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M12.232 4.232a2.5 2.5 0 0 1 3.536 3.536l-1.225 1.224a.75.75 0 0 0 1.061 1.06l1.224-1.224a4 4 0 0 0-5.656-5.656l-3 3a4 4 0 0 0 .225 5.865.75.75 0 0 0 .977-1.138 2.5 2.5 0 0 1-.142-3.667l3-3Z"/>
+                                <path d="M11.603 7.963a.75.75 0 0 0-.977 1.138 2.5 2.5 0 0 1 .142 3.667l-3 3a2.5 2.5 0 0 1-3.536-3.536l1.225-1.224a.75.75 0 0 0-1.061-1.06l-1.224 1.224a4 4 0 1 0 5.656 5.656l3-3a4 4 0 0 0-.225-5.865Z"/>
+                            </svg>
+                            <span>Marketing Social</span>
+                        </a>
+                    </div>
+                    
+                    <nav class="flex flex-wrap justify-center gap-4 sm:gap-6 text-sm">
+                        <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Inicio</a>
+                        <a href="#funcionalidades" class="text-gray-600 hover:text-blue-600 transition-colors">Funcionalidades</a>
+                        <a href="#precios" class="text-gray-600 hover:text-blue-600 transition-colors">Precios</a>
+                        <a href="#contacto" class="text-gray-600 hover:text-blue-600 transition-colors">Contacto</a>
+                        <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Términos</a>
+                        <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Privacidad</a>
+                    </nav>
+                    
+                    <div class="text-sm text-gray-500">
+                        &copy; <span id="year"></span> Marketing Social. Todos los derechos reservados.
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
