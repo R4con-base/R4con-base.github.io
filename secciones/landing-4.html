@@ -1,0 +1,856 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Nutrio restaurant</title>
+        <meta name="description" content="Healthy dining at Nutrio Restaurant" />
+        <meta name="twitter:title" content="Nutrio Restaurant" />
+        <meta name="twitter:description" content="Discover healthy dining options at Nutrio Restaurant" />
+        <meta property="og:title" content="Nutrio Restaurant" />
+        <meta property="og:description" content="Discover healthy dining options at Nutrio Restaurant" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://nutrio-restaurant.com" />
+        <meta property="og:image" content="../img/nutri/logo.png" />
+        <link rel="shortcut icon" href="../img/nutri/logo.png" type="image/x-icon" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQyYAnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <style>
+            body { 
+                font-family: 'Poppins', sans-serif; 
+                background-color: #1a1a1a; 
+                color: #ffffff;
+                line-height: 1.6;
+            }
+            .menu-btn { 
+                position: absolute;
+                bottom: 1rem;
+                left: 1rem;
+                background: rgba(0, 0, 0, 0.8);
+                color: white;
+                padding: 0.75rem 1rem;
+                border-radius: 0.375rem;
+                transition: transform 0.3s ease;
+                font-weight: 500;
+            }
+            .menu-btn:hover { transform: scale(1.05); }
+            
+            .header-links { 
+                transition: color 0.3s ease;
+                color: #ffffff;
+            }
+            .header-links:hover { color: #fbbf24; }
+            
+            .btn { 
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                background-color: #f59e0b;
+                color: white;
+                padding: 0.75rem 1.5rem;
+                border-radius: 0.375rem;
+                font-weight: 500;
+                text-decoration: none;
+                transition: background-color 0.3s ease, transform 0.2s ease;
+                border: none;
+                cursor: pointer;
+            }
+            .btn:hover { 
+                background-color: #d97706;
+                transform: translateY(-2px);
+            }
+            
+            .input { 
+                background-color: #374151;
+                color: white;
+                padding: 0.75rem;
+                border-radius: 0.375rem;
+                border: 1px solid #4b5563;
+                width: 100%;
+                transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            }
+            .input:focus { 
+                outline: none;
+                border-color: #f59e0b;
+                box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+            }
+            
+            .footer-link { 
+                transition: color 0.3s ease;
+                color: #d1d5db;
+                text-decoration: none;
+            }
+            .footer-link:hover { color: #fbbf24; }
+            
+            .slides { display: none; }
+            .slides.active { display: block; }
+            
+            .dot { 
+                height: 0.75rem;
+                width: 0.75rem;
+                background-color: #6b7280;
+                border-radius: 50%;
+                display: inline-block;
+                margin: 0 0.25rem;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+            .dot.active, .dot:hover { background-color: #f59e0b; }
+
+            /* Responsive improvements */
+            @media (max-width: 768px) {
+                .mobile-menu {
+                    transform: translateX(-100%);
+                    transition: transform 0.3s ease;
+                }
+                .mobile-menu.open {
+                    transform: translateX(0);
+                }
+                
+                h1 { font-size: 2rem !important; }
+                h2 { font-size: 1.5rem !important; }
+                h3 { font-size: 1.25rem !important; }
+                
+                .text-justify {
+                    text-align: left;
+                }
+            }
+
+            /* Better contrast and readability */
+            p, .text-gray-300 {
+                color: #d1d5db !important;
+            }
+            
+            .text-yellow-500 {
+                color: #fbbf24 !important;
+            }
+            
+            /* Section spacing */
+            section {
+                padding-top: 4rem;
+                padding-bottom: 4rem;
+            }
+            
+            /* Header fix */
+            header {
+                background: rgba(26, 26, 26, 0.95);
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid #374151;
+            }
+        </style>
+    </head>
+    <body class="min-h-screen bg-gray-900 text-white">
+        <header class="fixed top-0 z-50 w-full px-4 sm:px-6 lg:px-24">
+            <div class="flex h-16 items-center justify-between">
+                <div class="text-2xl font-semibold text-yellow-500">Nutrio</div>
+                
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex items-center gap-6 text-base">
+                    <a class="header-links" href="#about">About us</a>
+                    <a class="header-links" href="#menu">Menus</a>
+                    <a class="header-links" href="#contact">Contact us</a>
+                    <a class="header-links" href="#order" target="_blank" rel="noreferrer">Order online</a>
+                    <div class="flex items-center gap-3 ml-4">
+                        <a href="https://www.facebook.com/" target="_blank" rel="noreferrer noopener" aria-label="facebook" class="header-links">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="https://www.instagram.com/" target="_blank" rel="noreferrer noopener" aria-label="instagram" class="header-links">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                    </div>
+                </nav>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-2xl text-white" onclick="toggleMobileMenu()" aria-label="menu" id="mobile-menu-btn">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div class="mobile-menu md:hidden fixed left-0 top-16 w-full bg-gray-900 border-t border-gray-700" id="mobile-menu">
+                <div class="flex flex-col p-4 space-y-4">
+                    <a class="header-links text-base py-2" href="#about">About us</a>
+                    <a class="header-links text-base py-2" href="#menu">Menus</a>
+                    <a class="header-links text-base py-2" href="#contact">Contact us</a>
+                    <a class="header-links text-base py-2" href="#order" target="_blank" rel="noreferrer">Order online</a>
+                    <div class="flex gap-4 text-xl pt-2">
+                        <a href="https://www.facebook.com/" target="_blank" rel="noreferrer noopener" aria-label="facebook" class="header-links">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="https://www.instagram.com/" target="_blank" rel="noreferrer noopener" aria-label="instagram" class="header-links">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="bg-black relative flex min-h-screen items-center pt-16" id="hero">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-24">
+                <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
+                    <div class="flex-1 text-center lg:text-left max-w-2xl">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white">
+                            Eat Healthy with<br><span class="text-yellow-500">Nutrio Restaurant</span>
+                        </h1>
+                        <p class="text-lg sm:text-xl text-gray-300 mb-8 max-w-lg mx-auto lg:mx-0">
+                            Discover a delightful dining experience with fresh, healthy ingredients at Nutrio Restaurant.
+                        </p>
+                        <a href="#order" class="btn inline-flex">
+                            Order online <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="flex-1 flex justify-center">
+                        <img src="../img/nutri/images/homepage/pizza.png"" alt="Delicious healthy food" class="max-w-md w-full h-auto object-contain">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="bg-black  py-16 lg:py-20" id="about">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-24">
+                <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+                    <div class="flex-1">
+                        <div class="aspect-video rounded-xl overflow-hidden">
+                            <img src="../img/nutri/images/homepage/hero.png" alt="Restaurant interior" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <div class="flex-1 text-center lg:text-left max-w-2xl">
+                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-white">
+                            About <span class="text-yellow-500">Nutrio</span>
+                        </h2>
+                        <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                            Founded in 2010, Nutrio Restaurant has been serving healthy, delicious meals made from locally-sourced ingredients. Our mission is to provide nutritious food that doesn't compromise on taste.
+                        </p>
+                        <p class="text-lg text-gray-300 mb-8 leading-relaxed">
+                            Our chefs combine culinary expertise with nutritional knowledge to create dishes that are as good for your body as they are for your taste buds. We believe in sustainable practices and supporting local farmers.
+                        </p>
+                        <a href="#menu" class="btn">
+                            View our menu <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Discount Section -->
+        <section class="bg-black  py-16 lg:py-20" id="discount">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-24">
+                <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
+                    <div class="w-full max-w-sm lg:max-w-md">
+                        <div class="aspect-square rounded-xl overflow-hidden">
+                            <img src="../img/nutri/images/homepage/coffee.jpg" alt="Coffee and atmosphere" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <div class="flex-1 text-center lg:text-left max-w-lg">
+                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-white">
+                            <span class="text-yellow-500 text-5xl sm:text-6xl">10%</span> off every Wednesday
+                        </h2>
+                        <p class="text-lg text-gray-300 mb-8 leading-relaxed">
+                            Join us every Wednesday for a special 10% discount on your entire order, crafted with fresh ingredients and love.
+                        </p>
+                        <a href="https://maps.app.goo.gl/" class="btn">
+                            View on map <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Favorites Section -->
+        <section class="bg-black  py-16 lg:py-20" id="favorites">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-24">
+                <div class="text-center mb-16">
+                    <p class="text-lg italic text-gray-400 mb-2">Discover Authentic English Flavours</p>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-yellow-500">Diners Favorite</h2>
+                </div>
+                
+                <div class="grid md:grid-cols-1 lg:grid-cols-1 gap-12 max-w-6xl mx-auto">
+                    <!-- Coffee Item -->
+                    <div class="flex flex-col md:flex-row gap-6 items-center bg-gray-800/30 rounded-xl p-6">
+                        <div class="w-48 h-48 rounded-xl overflow-hidden flex-shrink-0">
+                            <img src="../img/nutri/images/homepage/coffee.jpg" alt="Special Chinese Coffee" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        </div>
+                        <div class="flex-1 text-center md:text-left">
+                            <h3 class="text-2xl sm:text-3xl font-bold mb-4 text-white">Special Chinese Coffee</h3>
+                            <p class="text-lg text-gray-300 mb-4 leading-relaxed">
+                                Savor our unique blend of Chinese-inspired coffee, crafted for a delightful experience that awakens your senses.
+                            </p>
+                            <div class="flex justify-center md:justify-start gap-1 text-yellow-500 mb-4">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            </div>
+                            <a href="#order" class="btn">Order now</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Breakfast Item -->
+                    <div class="flex flex-col md:flex-row gap-6 items-center bg-gray-800/30 rounded-xl p-6">
+                        <div class="w-48 h-48 rounded-xl overflow-hidden flex-shrink-0">
+                            <img src="../img/nutri/images/homepage/breakfast.jpg" alt="Bacon and Eggs" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        </div>
+                        <div class="flex-1 text-center md:text-left">
+                            <h3 class="text-2xl sm:text-3xl font-bold mb-4 text-white">Bacon and Eggs</h3>
+                            <p class="text-lg text-gray-300 mb-4 leading-relaxed">
+                                Classic breakfast done right with crispy bacon and perfectly cooked eggs, served with love and attention to detail.
+                            </p>
+                            <div class="flex justify-center md:justify-start gap-1 text-yellow-500 mb-4">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            </div>
+                            <a href="#order" class="btn">Order now</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Dessert Item -->
+                    <div class="flex flex-col md:flex-row gap-6 items-center bg-gray-800/30 rounded-xl p-6">
+                        <div class="w-48 h-48 rounded-xl overflow-hidden flex-shrink-0">
+                            <img src="../img/nutri/images/homepage/dessert.jpg" alt="Red Pastry" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        </div>
+                        <div class="flex-1 text-center md:text-left">
+                            <h3 class="text-2xl sm:text-3xl font-bold mb-4 text-white">Red Pastry</h3>
+                            <p class="text-lg text-gray-300 mb-4 leading-relaxed">
+                                Indulge in our signature red pastry, a sweet treat that's perfect for any time of day and guaranteed to satisfy.
+                            </p>
+                            <div class="flex justify-center md:justify-start gap-1 text-yellow-500 mb-4">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            </div>
+                            <a href="#order" class="btn">Order now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu Section -->
+        <section class="bg-black  py-16 lg:py-20" id="menu">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-24">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-yellow-500">Explore our menu</h2>
+                </div>
+                
+                <div class="grid lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                    <!-- Left Column -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <div class="grid sm:grid-cols-2 gap-6">
+                            <div class="relative h-64 lg:h-80 rounded-xl overflow-hidden cursor-pointer group">
+                                <img src="../img/nutri/images/homepage/coffee.jpg" alt="Coffee menu" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                <div class="menu-btn">Coffee</div>
+                            </div>
+                            <div class="relative h-64 lg:h-80 rounded-xl overflow-hidden cursor-pointer group">
+                                <img src="../img/nutri/images/homepage/lunch.jpg" alt="Lunch menu" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                <div class="menu-btn">Lunch</div>
+                            </div>
+                        </div>
+                        <div class="relative h-48 lg:h-64 rounded-xl overflow-hidden cursor-pointer group">
+                            <img src="../img/nutri/images/homepage/dinner.jpg" alt="Dinner menu" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="menu-btn">Dinner</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column -->
+                    <div class="space-y-6">
+                        <div class="relative h-48 lg:h-32 xl:h-40 rounded-xl overflow-hidden cursor-pointer group">
+                            <img src="../img/nutri/images/homepage/breakfast.jpg" alt="Breakfast menu" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="menu-btn">Breakfast</div>
+                        </div>
+                        <div class="relative h-48 lg:h-32 xl:h-40 rounded-xl overflow-hidden cursor-pointer group">
+                            <img src="../img/nutri/images/homepage/wine.jpeg" alt="Drinks menu" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="menu-btn">Drinks</div>
+                        </div>
+                        <div class="relative h-48 lg:h-32 xl:h-40 rounded-xl overflow-hidden cursor-pointer group">
+                            <img src="../img/nutri/images/homepage/dessert.jpg" alt="Desserts menu" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="menu-btn">Desserts</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Order Online Section -->
+        <section class="bg-black  py-16 lg:py-20 bg-gray-800/50" id="order">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-24">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-yellow-500 mb-4">Order Online</h2>
+                    <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+                        Enjoy our delicious meals from the comfort of your home. Place your order through our partners:
+                    </p>
+                </div>
+                
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                    <!-- Delivery Service 1 -->
+                    <div class="bg-gray-800/30 rounded-xl p-6 text-center hover:bg-gray-800/50 transition-colors">
+                        <div class="h-16 mb-4 flex items-center justify-center">
+                            <img src="../img/nutri/images/homepage/ubereats.png" alt="Uber Eats" class="h-full object-contain">
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Uber Eats</h3>
+                        <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">Fast delivery to your door</p>
+                        <a href="https://www.ubereats.com/" target="_blank" class="btn w-full">
+                            Order now <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Delivery Service 2 -->
+                    <div class="bg-gray-800/30 rounded-xl p-6 text-center hover:bg-gray-800/50 transition-colors">
+                        <div class="h-16 mb-4 flex items-center justify-center">
+                            <img src="../img/nutri/images/homepage/doordash.png" alt="DoorDash" class="h-full object-contain">
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">DoorDash</h3>
+                        <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">Quick and reliable service</p>
+                        <a href="https://www.doordash.com/" target="_blank" class="btn w-full">
+                            Order now <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Delivery Service 3 -->
+                    <div class="bg-gray-800/30 rounded-xl p-6 text-center hover:bg-gray-800/50 transition-colors">
+                        <div class="h-16 mb-4 flex items-center justify-center">
+                            <img src="../img/nutri/images/homepage/grubhub.png" alt="Grubhub" class="h-full object-contain">
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Grubhub</h3>
+                        <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">Wide selection available</p>
+                        <a href="https://www.grubhub.com/" target="_blank" class="btn w-full">
+                            Order now <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Pickup Option -->
+                    <div class="bg-gray-800/30 rounded-xl p-6 text-center hover:bg-gray-800/50 transition-colors">
+                        <div class="h-16 mb-4 flex items-center justify-center text-yellow-500">
+                            <i class="bi bi-bag text-4xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Pickup</h3>
+                        <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">Order online and pick up in-store</p>
+                        <a href="#contact" class="btn w-full">
+                            Call to order <i class="bi bi-telephone"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reservation Section -->
+        <section class="bg-black  py-16 lg:py-20 bg-gray-800/50" id="reservation">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-24">
+                <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+                    <div class="hidden lg:block flex-shrink-0">
+                        <div class="w-80 h-96 rounded-xl overflow-hidden">
+                            <img src="../img/nutri/images/homepage/restaurant.jpg" alt="Restaurant interior" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 max-w-lg mx-auto lg:mx-0">
+                        <div class="text-center lg:text-left mb-8">
+                            <h2 class="text-2xl sm:text-3xl font-medium text-yellow-500 mb-2">Reservation</h2>
+                            <h3 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">Book your table</h3>
+                        </div>
+                        
+                        <form class="space-y-6" onsubmit="handleReservation(event)">
+                            <div>
+                                <label class="block text-gray-300 mb-2">Name</label>
+                                <input type="text" class="input" maxlength="50" required placeholder="Your name">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-300 mb-2">Phone</label>
+                                <input type="tel" class="input" required placeholder="Your phone number">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-300 mb-2">Email</label>
+                                <input type="email" class="input" required placeholder="Your email address">
+                            </div>
+                            
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-gray-300 mb-2">Time</label>
+                                    <select class="input" required>
+                                        <option value="">Select time</option>
+                                        <option value="12:00">12:00 PM</option>
+                                        <option value="13:00">1:00 PM</option>
+                                        <option value="14:00">2:00 PM</option>
+                                        <option value="19:00">7:00 PM</option>
+                                        <option value="20:00">8:00 PM</option>
+                                        <option value="21:00">9:00 PM</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-300 mb-2">Date</label>
+                                    <input type="date" class="input" required>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-300 mb-2">People</label>
+                                <input type="number" value="2" min="1" max="15" class="input" required>
+                            </div>
+                            
+                            <button type="submit" class="btn w-full sm:w-auto sm:ml-auto">
+                                Book table <i class="bi bi-arrow-right"></i>
+                            </button>
+                        </form>
+                        
+                        <div class="text-center mt-8 p-6 bg-gray-800/50 rounded-xl">
+                            <h3 class="text-xl text-gray-300 mb-2">To book call</h3>
+                            <div class="text-2xl sm:text-3xl font-bold text-yellow-500">+123 232 123</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="bg-black  py-16 lg:py-20" id="testimonials">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-24">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-yellow-500">What some of our diners say</h2>
+                </div>
+                
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center">
+                        <div class="min-h-[200px] flex items-center justify-center">
+                            <div class="slides active max-w-2xl">
+                                <blockquote class="text-xl sm:text-2xl italic text-gray-300 mb-6 leading-relaxed">
+                                    "The food at Nutrio is absolutely amazing! Fresh ingredients, incredible flavors, and the atmosphere is perfect for any occasion."
+                                </blockquote>
+                                <div class="flex justify-center gap-1 text-yellow-500 mb-4">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">- Trich B</p>
+                            </div>
+                            
+                            <div class="slides max-w-2xl">
+                                <blockquote class="text-xl sm:text-2xl italic text-gray-300 mb-6 leading-relaxed">
+                                    "Best healthy restaurant in town! The Wednesday discount is a great bonus too."
+                                </blockquote>
+                                <div class="flex justify-center gap-1 text-yellow-500 mb-4">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">- Bára Müllerová</p>
+                            </div>
+                            
+                            <div class="slides max-w-2xl">
+                                <blockquote class="text-xl sm:text-2xl italic text-gray-300 mb-6 leading-relaxed">
+                                    "Outstanding service and delicious food. The coffee is exceptional and the desserts are to die for!"
+                                </blockquote>
+                                <div class="flex justify-center gap-1 text-yellow-500 mb-4">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">- Matt Freeman</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-center mt-8">
+                            <div class="dots-container">
+                                <span class="dot active" onclick="currentSlide(1)"></span>
+                                <span class="dot" onclick="currentSlide(2)"></span>
+                                <span class="dot" onclick="currentSlide(3)"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Map Section -->
+                <div class="mt-20 text-center">
+                    <h3 class="text-2xl sm:text-3xl font-bold text-yellow-500 mb-8">On the map</h3>
+                    <div class="max-w-4xl mx-auto">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0154678346814!2d-122.4194160846818!3d37.774929579758026!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085809c6c8f4459%3A0xb10ed6d9b5050fa5!2sTemple%20Bar!5e0!3m2!1sen!2sus!4v1635789123456!5m2!1sen!2sus" 
+                            class="w-full h-80 rounded-xl border-0" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="bg-black  py-16 lg:py-20 bg-gray-800/50" id="contact">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-24">
+                <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+                    <div class="flex-1 max-w-lg mx-auto lg:mx-0">
+                        <div class="text-center lg:text-left mb-8">
+                            <h2 class="text-2xl sm:text-3xl font-medium text-yellow-500 mb-2">Contact us</h2>
+                            <h3 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">Get in touch</h3>
+                        </div>
+                        
+                        <form class="space-y-6" onsubmit="handleContact(event)">
+                            <div>
+                                <label class="block text-gray-300 mb-2">Name</label>
+                                <input type="text" class="input" maxlength="50" required placeholder="Your name">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-300 mb-2">Email</label>
+                                <input type="email" class="input" required placeholder="Your email address">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-300 mb-2">Subject</label>
+                                <input type="text" class="input" required placeholder="Subject">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-300 mb-2">Message</label>
+                                <textarea class="input h-32" required placeholder="Your message"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn w-full sm:w-auto sm:ml-auto">
+                                Send message <i class="bi bi-arrow-right"></i>
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="hidden lg:block flex-shrink-0">
+                        <div class="w-80 h-96 rounded-xl overflow-hidden">
+                            <img src="../img/nutri/homepage/contact.jpg" alt="Contact us" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid sm:grid-cols-3 gap-6 mt-16 max-w-4xl mx-auto">
+                    <!-- Contact Info 1 -->
+                    <div class="bg-gray-800/30 rounded-xl p-6 text-center">
+                        <div class="text-yellow-500 text-3xl mb-4">
+                            <i class="bi bi-geo-alt"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Address</h3>
+                        <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">
+                            2 Lord Edward St,<br>
+                            Temple Bar,<br>
+                            D02 P634,<br>
+                            US
+                        </p>
+                    </div>
+                    
+                    <!-- Contact Info 2 -->
+                    <div class="bg-gray-800/30 rounded-xl p-6 text-center">
+                        <div class="text-yellow-500 text-3xl mb-4">
+                            <i class="bi bi-telephone"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Phone</h3>
+                        <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">+123 232 123</p>
+                        <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">+123 232 124</p>
+                    </div>
+                    
+                    <!-- Contact Info 3 -->
+                    <div class="bg-gray-800/30 rounded-xl p-6 text-center">
+                        <div class="text-yellow-500 text-3xl mb-4">
+                            <i class="bi bi-envelope"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Email</h3>
+                        <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">info@nutrio.com</p>
+                        <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">reservations@nutrio.com</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hours Section -->
+        <section class="bg-black  py-16 lg:py-20" id="hours">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-24">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-yellow-500 mb-4">Opening Hours</h2>
+                        <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">We're open 7 days a week to serve you</p>
+                    </div>
+                    
+                    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+                        <!-- Monday - Friday -->
+                        <div class="bg-gray-800/30 rounded-xl p-6 text-center">
+                            <h3 class="text-xl font-bold mb-4 text-yellow-500">Monday - Friday</h3>
+                            <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">Breakfast: 8:00 AM - 11:00 AM</p>
+                            <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">Lunch: 12:00 PM - 3:00 PM</p>
+                            <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">Dinner: 6:00 PM - 10:00 PM</p>
+                        </div>
+                        
+                        <!-- Saturday -->
+                        <div class="bg-gray-800/30 rounded-xl p-6 text-center">
+                            <h3 class="text-xl font-bold mb-4 text-yellow-500">Saturday</h3>
+                            <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">Brunch: 9:00 AM - 2:00 PM</p>
+                            <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">Dinner: 5:00 PM - 11:00 PM</p>
+                        </div>
+                        
+                        <!-- Sunday -->
+                        <div class="bg-gray-800/30 rounded-xl p-6 text-center">
+                            <h3 class="text-xl font-bold mb-4 text-yellow-500">Sunday</h3>
+                            <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">Brunch: 9:00 AM - 3:00 PM</p>
+                            <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">Dinner: 5:00 PM - 9:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 border-t border-gray-800 py-16">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-24">
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Logo and Address -->
+                    <div class="text-center md:text-left">
+                        <h3 class="text-3xl sm:text-4xl font-bold text-yellow-500 mb-6">Nutrio</h3>
+                        <address class="text-gray-300 not-italic mb-6 leading-relaxed">
+                            2 Lord Edward St,<br>
+                            Temple Bar,<br>
+                            D02 P634,<br>
+                            US
+                        </address>
+                        <div class="mb-4">
+                            <div class="text-lg font-semibold text-white mb-3">Follow us</div>
+                            <div class="flex justify-center md:justify-start gap-4 text-xl">
+                                <a href="https://www.facebook.com/" aria-label="Facebook" class="footer-link hover:text-yellow-500 transition-colors">
+                                    <i class="bi bi-facebook"></i>
+                                </a>
+                                <a href="https://twitter.com/" aria-label="Twitter" class="footer-link hover:text-yellow-500 transition-colors">
+                                    <i class="bi bi-twitter"></i>
+                                </a>
+                                <a href="https://www.instagram.com/" aria-label="Instagram" class="footer-link hover:text-yellow-500 transition-colors">
+                                    <i class="bi bi-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Links -->
+                    <div class="text-center md:text-left">
+                        <h3 class="text-xl font-bold text-white mb-6">Quick Links</h3>
+                        <ul class="space-y-3">
+                            <li><a href="#about" class="footer-link">About us</a></li>
+                            <li><a href="#menu" class="footer-link">Our Menu</a></li>
+                            <li><a href="#testimonials" class="footer-link">Testimonials</a></li>
+                            <li><a href="#contact" class="footer-link">Contact us</a></li>
+                            <li><a href="#order" class="footer-link">Order Online</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Services -->
+                    <div class="text-center md:text-left">
+                        <h3 class="text-xl font-bold text-white mb-6">Services</h3>
+                        <ul class="space-y-3">
+                            <li><a href="#reservation" class="footer-link">Table Reservation</a></li>
+                            <li><a href="#order" class="footer-link">Food Delivery</a></li>
+                            <li><a href="#order" class="footer-link">Catering</a></li>
+                            <li><a href="#menu" class="footer-link">Private Dining</a></li>
+                            <li><a href="#hours" class="footer-link">Special Events</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Newsletter -->
+                    <div class="text-center md:text-left">
+                        <h3 class="text-xl font-bold text-white mb-6">Newsletter</h3>
+                        <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">
+                            Subscribe to our newsletter for the latest updates and special offers.
+                        </p>
+                        <form class="flex flex-col sm:flex-row gap-2" onsubmit="handleNewsletter(event)">
+                            <input type="email" class="input flex-1" required placeholder="Your email address">
+                            <button type="submit" class="btn">
+                                <i class="bi bi-envelope"></i>
+                            </button>
+                        </form>
+                        <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">
+                            We'll never share your email with anyone else.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                    <p class="text-sm md:text-base lg:text-lg text-gray-600 mb-8">
+                        &copy; 2023 Nutrio Restaurant. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            // Mobile menu toggle
+            function toggleMobileMenu() {
+                const mobileMenu = document.getElementById('mobile-menu');
+                const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                
+                mobileMenu.classList.toggle('open');
+                mobileMenuBtn.innerHTML = mobileMenu.classList.contains('open') 
+                    ? '<i class="bi bi-x"></i>' 
+                    : '<i class="bi bi-list"></i>';
+            }
+            
+            // Testimonial slider
+            let slideIndex = 1;
+            showSlides(slideIndex);
+            
+            function currentSlide(n) {
+                showSlides(slideIndex = n);
+            }
+            
+            function showSlides(n) {
+                let i;
+                let slides = document.getElementsByClassName("slides");
+                let dots = document.getElementsByClassName("dot");
+                
+                if (n > slides.length) {slideIndex = 1}
+                if (n < 1) {slideIndex = slides.length}
+                
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].classList.remove("active");
+                }
+                
+                for (i = 0; i < dots.length; i++) {
+                    dots[i].classList.remove("active");
+                }
+                
+                slides[slideIndex-1].classList.add("active");
+                dots[slideIndex-1].classList.add("active");
+            }
+            
+            // Auto slide testimonials
+            setInterval(() => {
+                currentSlide(slideIndex + 1 > 3 ? 1 : slideIndex + 1);
+            }, 5000);
+            
+            // Form handlers
+            function handleReservation(e) {
+                e.preventDefault();
+                alert('Thank you for your reservation! We will contact you shortly to confirm.');
+                e.target.reset();
+            }
+            
+            function handleContact(e) {
+                e.preventDefault();
+                alert('Thank you for your message! We will get back to you soon.');
+                e.target.reset();
+            }
+            
+            function handleNewsletter(e) {
+                e.preventDefault();
+                alert('Thank you for subscribing to our newsletter!');
+                e.target.reset();
+            }
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        // Close mobile menu if open
+                        const mobileMenu = document.getElementById('mobile-menu');
+                        if (mobileMenu.classList.contains('open')) {
+                            toggleMobileMenu();
+                        }
+                        
+                        // Scroll to target
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
