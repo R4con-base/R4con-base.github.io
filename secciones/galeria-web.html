@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Imágenes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gallery-transition {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .thumbnail-hover:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .active-thumbnail {
+            border: 3px solid #3b82f6;
+            box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-backdrop {
+            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        .zoom-controls {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Esquinas triangulares */
+
+        
+        /* Fondo translúcido */
+        .translucent-bg {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .translucent-dark {
+            background: rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4 md:p-8">
+    <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-white mb-6 text-center">Galería de Paisajes</h2>
+        
+        <div class="translucent-bg triangular-corners-large shadow-2xl p-6">
+            <!-- Imagen Principal -->
+            <div class="mb-6">
+                 <h1 class="text-3xl font-bold text-white mb-6 text-center">Bisto restaurant</h1>
+                <div class="relative group">
+                    <img 
+                        id="mainImage"
+                        class="h-auto w-full max-w-full triangular-corners-large object-cover object-center md:h-[480px] gallery-transition fade-in cursor-zoom-in shadow-md"
+                        src="../img/galeria-web/bistro-resto/resto-1.png"
+                        alt="Imagen principal de la galería"
+                        loading="lazy"
+                    />
+                    
+                    <!-- Overlay con información -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 triangular-corners-large flex items-end">
+                        <div class="p-4 text-white">
+                            <p class="text-sm font-medium" id="imageInfo">Haz clic para ver en pantalla completa</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Botón de pantalla completa -->
+                    <button 
+                        id="fullscreenBtn"
+                        class="absolute top-4 right-4 translucent-dark text-white p-2 triangular-corners-small opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/70"
+                        title="Ver en pantalla completa"
+                    >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Indicador de imagen actual -->
+                <div class="flex justify-center mt-4">
+                    <span class="translucent-bg text-white px-3 py-1 triangular-corners text-sm font-medium">
+                        <span id="currentIndex">1</span> de <span id="totalImages">5</span>
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Miniaturas -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                <div class="thumbnail-container">
+                    <img
+                        src="../img/galeria-web/bistro-resto/resto-2.png"
+                        class="thumbnail object-cover object-center h-20 w-full triangular-corners cursor-pointer gallery-transition thumbnail-hover active-thumbnail"
+                        
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="../img/galeria-web/bistro-resto/resto-3.png"
+                        class="thumbnail object-cover object-center h-20 w-full triangular-corners cursor-pointer gallery-transition thumbnail-hover"
+                         
+                         
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="../img/galeria-web/bistro-resto/resto-4.png"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Montañas nevadas"
+                        data-full="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
+                      
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="../img/galeria-web/bistro-resto/resto-5.png"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Bosque verde exuberante"
+                        data-full="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
+                        data-alt="Bosque verde con vegetación exuberante"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="../img/galeria-web/bistro-resto/resto-6.png"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Paisaje desértico"
+                        data-full="https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
+                        data-alt="Paisaje desértico con formaciones rocosas"
+                        loading="lazy"
+                    />
+                </div>
+            </div>
+            
+            <!-- Controles de navegación -->
+            <div class="flex justify-between items-center mt-6">
+                <button 
+                    id="prevBtn"
+                    class="flex items-center space-x-2 translucent-bg text-white px-4 py-2 triangular-corners hover:bg-white/25 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled
+                >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    <span>Anterior</span>
+                </button>
+                
+                <button 
+                    id="nextBtn"
+                    class="flex items-center space-x-2 translucent-bg text-white px-4 py-2 triangular-corners hover:bg-white/25 transition-colors duration-300"
+                >
+                    <span>Siguiente</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="translucent-bg triangular-corners-large shadow-2xl p-6">
+            <h2 class="text-3xl font-bold text-white mb-6 text-center">Corredora de propiedades</h2>
+            <!-- Imagen Principal -->
+            <div class="mb-6">
+                <div class="relative group">
+                    <img 
+                        id="mainImage"
+                        class="h-auto w-full max-w-full triangular-corners-large object-cover object-center md:h-[480px] gallery-transition fade-in cursor-zoom-in shadow-md"
+                        src="../img/galeria-web/corretaje/corre-1.png"
+                        alt="Imagen principal de la galería"
+                        loading="lazy"
+                    />
+                    
+                    <!-- Overlay con información -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 triangular-corners-large flex items-end">
+                        <div class="p-4 text-white">
+                            <p class="text-sm font-medium" id="imageInfo">Haz clic para ver en pantalla completa</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Botón de pantalla completa -->
+                    <button 
+                        id="fullscreenBtn"
+                        class="absolute top-4 right-4 translucent-dark text-white p-2 triangular-corners-small opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/70"
+                        title="Ver en pantalla completa"
+                    >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Indicador de imagen actual -->
+                <div class="flex justify-center mt-4">
+                    <span class="translucent-bg text-white px-3 py-1 triangular-corners text-sm font-medium">
+                        <span id="currentIndex">1</span> de <span id="totalImages">5</span>
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Miniaturas -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                <div class="thumbnail-container">
+                    <img
+                        src="../img/galeria-web/corretaje/corre-2.png"
+                        class="thumbnail object-cover object-center h-20 w-full triangular-corners cursor-pointer gallery-transition thumbnail-hover active-thumbnail"
+ 
+ 
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="../img/galeria-web/corretaje/corre-3.png"
+                        class="thumbnail object-cover object-center h-20 w-full triangular-corners cursor-pointer gallery-transition thumbnail-hover"
+ 
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="../img/galeria-web/corretaje/corre-4.png"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+ 
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="../img/galeria-web/corretaje/corre-5.png"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="../img/galeria-web/corretaje/corre-6.png"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        loading="lazy"
+                    />
+                </div>
+            </div>
+            
+            <!-- Controles de navegación -->
+            <div class="flex justify-between items-center mt-6">
+                <button 
+                    id="prevBtn"
+                    class="flex items-center space-x-2 translucent-bg text-white px-4 py-2 triangular-corners hover:bg-white/25 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled
+                >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    <span>Anterior</span>
+                </button>
+                
+                <button 
+                    id="nextBtn"
+                    class="flex items-center space-x-2 translucent-bg text-white px-4 py-2 triangular-corners hover:bg-white/25 transition-colors duration-300"
+                >
+                    <span>Siguiente</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="translucent-bg triangular-corners-large shadow-2xl p-6">
+            <h2 class="text-3xl font-bold text-white mb-6 text-center">Energia verde</h2>
+            <!-- Imagen Principal -->
+            <div class="mb-6">
+                <div class="relative group">
+                    <img 
+                        id="mainImage"
+                        class="h-auto w-full max-w-full triangular-corners-large object-cover object-center md:h-[480px] gallery-transition fade-in cursor-zoom-in shadow-md"
+                        src="../img/galeria-web/green/green-1.png"
+                        alt="Imagen principal de la galería"
+                        loading="lazy"
+                    />
+                    
+                    <!-- Overlay con información -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 triangular-corners-large flex items-end">
+                        <div class="p-4 text-white">
+                            <p class="text-sm font-medium" id="imageInfo">Haz clic para ver en pantalla completa</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Botón de pantalla completa -->
+                    <button 
+                        id="fullscreenBtn"
+                        class="absolute top-4 right-4 translucent-dark text-white p-2 triangular-corners-small opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/70"
+                        title="Ver en pantalla completa"
+                    >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Indicador de imagen actual -->
+                <div class="flex justify-center mt-4">
+                    <span class="translucent-bg text-white px-3 py-1 triangular-corners text-sm font-medium">
+                        <span id="currentIndex">1</span> de <span id="totalImages">5</span>
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Miniaturas -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                <div class="thumbnail-container">
+                    <img
+                        src="../img/galeria-web/green/green-2.png"
+                        class="thumbnail object-cover object-center h-20 w-full triangular-corners cursor-pointer gallery-transition thumbnail-hover active-thumbnail"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="../img/galeria-web/green/green-3.png"
+                        class="thumbnail object-cover object-center h-20 w-full triangular-corners cursor-pointer gallery-transition thumbnail-hover"
+ 
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="../img/galeria-web/green/green-4.png"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="../img/galeria-web/green/green-5.png"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="../img/galeria-web/green/green-6.png"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        loading="lazy"
+                    />
+                </div>
+            </div>
+            
+            <!-- Controles de navegación -->
+            <div class="flex justify-between items-center mt-6">
+                <button 
+                    id="prevBtn"
+                    class="flex items-center space-x-2 translucent-bg text-white px-4 py-2 triangular-corners hover:bg-white/25 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled
+                >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    <span>Anterior</span>
+                </button>
+                
+                <button 
+                    id="nextBtn"
+                    class="flex items-center space-x-2 translucent-bg text-white px-4 py-2 triangular-corners hover:bg-white/25 transition-colors duration-300"
+                >
+                    <span>Siguiente</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="translucent-bg triangular-corners-large shadow-2xl p-6">
+            <h2 class="text-3xl font-bold text-white mb-6 text-center">Inteligencia artificial</h2>
+            <!-- Imagen Principal -->
+            <div class="mb-6">
+                <div class="relative group">
+                    <img 
+                        id="mainImage"
+                        class="h-auto w-full max-w-full triangular-corners-large object-cover object-center md:h-[480px] gallery-transition fade-in cursor-zoom-in shadow-md"
+                        src="../img/galeria-web/ia/ia-1.png"
+                        loading="lazy"
+                    />
+                    
+                    <!-- Overlay con información -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 triangular-corners-large flex items-end">
+                        <div class="p-4 text-white">
+                            <p class="text-sm font-medium" id="imageInfo">Haz clic para ver en pantalla completa</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Botón de pantalla completa -->
+                    <button 
+                        id="fullscreenBtn"
+                        class="absolute top-4 right-4 translucent-dark text-white p-2 triangular-corners-small opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/70"
+                        title="Ver en pantalla completa"
+                    >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Indicador de imagen actual -->
+                <div class="flex justify-center mt-4">
+                    <span class="translucent-bg text-white px-3 py-1 triangular-corners text-sm font-medium">
+                        <span id="currentIndex">1</span> de <span id="totalImages">5</span>
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Miniaturas -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                <div class="thumbnail-container">
+                    <img
+                        src="../img/galeria-web/ia/ia-2.png"
+                        class="thumbnail object-cover object-center h-20 w-full triangular-corners cursor-pointer gallery-transition thumbnail-hover active-thumbnail"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full triangular-corners cursor-pointer gallery-transition thumbnail-hover"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Montañas nevadas"
+                        data-full="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
+                        data-alt="Majestuosas montañas cubiertas de nieve"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Bosque verde exuberante"
+                        data-full="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
+                        data-alt="Bosque verde con vegetación exuberante"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Paisaje desértico"
+                        data-full="https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
+                        data-alt="Paisaje desértico con formaciones rocosas"
+                        loading="lazy"
+                    />
+                </div>
+            </div>
+            
+            <!-- Controles de navegación -->
+            <div class="flex justify-between items-center mt-6">
+                <button 
+                    id="prevBtn"
+                    class="flex items-center space-x-2 translucent-bg text-white px-4 py-2 triangular-corners hover:bg-white/25 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled
+                >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    <span>Anterior</span>
+                </button>
+                
+                <button 
+                    id="nextBtn"
+                    class="flex items-center space-x-2 translucent-bg text-white px-4 py-2 triangular-corners hover:bg-white/25 transition-colors duration-300"
+                >
+                    <span>Siguiente</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="translucent-bg triangular-corners-large shadow-2xl p-6">
+            <h2 class="text-3xl font-bold text-white mb-6 text-center">Sistema contable</h2>
+            <!-- Imagen Principal -->
+            <div class="mb-6">
+                <div class="relative group">
+                    <img 
+                        id="mainImage"
+                        class="h-auto w-full max-w-full triangular-corners-large object-cover object-center md:h-[480px] gallery-transition fade-in cursor-zoom-in shadow-md"
+                        src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                        alt="Imagen principal de la galería"
+                        loading="lazy"
+                    />
+                    
+                    <!-- Overlay con información -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 triangular-corners-large flex items-end">
+                        <div class="p-4 text-white">
+                            <p class="text-sm font-medium" id="imageInfo">Haz clic para ver en pantalla completa</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Botón de pantalla completa -->
+                    <button 
+                        id="fullscreenBtn"
+                        class="absolute top-4 right-4 translucent-dark text-white p-2 triangular-corners-small opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/70"
+                        title="Ver en pantalla completa"
+                    >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Indicador de imagen actual -->
+                <div class="flex justify-center mt-4">
+                    <span class="translucent-bg text-white px-3 py-1 triangular-corners text-sm font-medium">
+                        <span id="currentIndex">1</span> de <span id="totalImages">5</span>
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Miniaturas -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full triangular-corners cursor-pointer gallery-transition thumbnail-hover active-thumbnail"
+                        alt="Paisaje montañoso con lago"
+                        data-full="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                        data-alt="Paisaje montañoso con lago cristalino"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full triangular-corners cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Costa rocosa al atardecer"
+                        data-full="https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+                        data-alt="Costa rocosa durante un hermoso atardecer"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Montañas nevadas"
+                        data-full="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
+                        data-alt="Majestuosas montañas cubiertas de nieve"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Bosque verde exuberante"
+                        data-full="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
+                        data-alt="Bosque verde con vegetación exuberante"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Paisaje desértico"
+                        data-full="https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
+                        data-alt="Paisaje desértico con formaciones rocosas"
+                        loading="lazy"
+                    />
+                </div>
+            </div>
+            
+            <!-- Controles de navegación -->
+            <div class="flex justify-between items-center mt-6">
+                <button 
+                    id="prevBtn"
+                    class="flex items-center space-x-2 translucent-bg text-white px-4 py-2 triangular-corners hover:bg-white/25 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled
+                >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    <span>Anterior</span>
+                </button>
+                
+                <button 
+                    id="nextBtn"
+                    class="flex items-center space-x-2 translucent-bg text-white px-4 py-2 triangular-corners hover:bg-white/25 transition-colors duration-300"
+                >
+                    <span>Siguiente</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="translucent-bg triangular-corners-large shadow-2xl p-6">
+            <h2 class="text-3xl font-bold text-white mb-6 text-center">Sistema de Facturacion</h2>
+            <!-- Imagen Principal -->
+            <div class="mb-6">
+                <div class="relative group">
+                    <img 
+                        id="mainImage"
+                        class="h-auto w-full max-w-full triangular-corners-large object-cover object-center md:h-[480px] gallery-transition fade-in cursor-zoom-in shadow-md"
+                        src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                        alt="Imagen principal de la galería"
+                        loading="lazy"
+                    />
+                    
+                    <!-- Overlay con información -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 triangular-corners-large flex items-end">
+                        <div class="p-4 text-white">
+                            <p class="text-sm font-medium" id="imageInfo">Haz clic para ver en pantalla completa</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Botón de pantalla completa -->
+                    <button 
+                        id="fullscreenBtn"
+                        class="absolute top-4 right-4 translucent-dark text-white p-2 triangular-corners-small opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/70"
+                        title="Ver en pantalla completa"
+                    >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Indicador de imagen actual -->
+                <div class="flex justify-center mt-4">
+                    <span class="translucent-bg text-white px-3 py-1 triangular-corners text-sm font-medium">
+                        <span id="currentIndex">1</span> de <span id="totalImages">5</span>
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Miniaturas -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full triangular-corners cursor-pointer gallery-transition thumbnail-hover active-thumbnail"
+                        alt="Paisaje montañoso con lago"
+                        data-full="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                        data-alt="Paisaje montañoso con lago cristalino"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full triangular-corners cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Costa rocosa al atardecer"
+                        data-full="https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+                        data-alt="Costa rocosa durante un hermoso atardecer"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Montañas nevadas"
+                        data-full="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
+                        data-alt="Majestuosas montañas cubiertas de nieve"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Bosque verde exuberante"
+                        data-full="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
+                        data-alt="Bosque verde con vegetación exuberante"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Paisaje desértico"
+                        data-full="https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
+                        data-alt="Paisaje desértico con formaciones rocosas"
+                        loading="lazy"
+                    />
+                </div>
+            </div>
+            
+            <!-- Controles de navegación -->
+            <div class="flex justify-between items-center mt-6">
+                <button 
+                    id="prevBtn"
+                    class="flex items-center space-x-2 translucent-bg text-white px-4 py-2 triangular-corners hover:bg-white/25 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled
+                >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    <span>Anterior</span>
+                </button>
+                
+                <button 
+                    id="nextBtn"
+                    class="flex items-center space-x-2 translucent-bg text-white px-4 py-2 triangular-corners hover:bg-white/25 transition-colors duration-300"
+                >
+                    <span>Siguiente</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!--
+        <div class="translucent-bg triangular-corners-large shadow-2xl p-6">
+            <h2 class="text-3xl font-bold text-white mb-6 text-center">Galería de Paisajes</h2>
+             <div class="mb-6">
+                <div class="relative group">
+                    <img 
+                        id="mainImage"
+                        class="h-auto w-full max-w-full triangular-corners-large object-cover object-center md:h-[480px] gallery-transition fade-in cursor-zoom-in shadow-md"
+                        src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                        alt="Imagen principal de la galería"
+                        loading="lazy"
+                    />
+                    
+                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 triangular-corners-large flex items-end">
+                        <div class="p-4 text-white">
+                            <p class="text-sm font-medium" id="imageInfo">Haz clic para ver en pantalla completa</p>
+                        </div>
+                    </div>
+                    
+                     <button 
+                        id="fullscreenBtn"
+                        class="absolute top-4 right-4 translucent-dark text-white p-2 triangular-corners-small opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/70"
+                        title="Ver en pantalla completa"
+                    >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                 <div class="flex justify-center mt-4">
+                    <span class="translucent-bg text-white px-3 py-1 triangular-corners text-sm font-medium">
+                        <span id="currentIndex">1</span> de <span id="totalImages">5</span>
+                    </span>
+                </div>
+            </div>
+            
+             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full triangular-corners cursor-pointer gallery-transition thumbnail-hover active-thumbnail"
+                        alt="Paisaje montañoso con lago"
+                        data-full="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                        data-alt="Paisaje montañoso con lago cristalino"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full triangular-corners cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Costa rocosa al atardecer"
+                        data-full="https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+                        data-alt="Costa rocosa durante un hermoso atardecer"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Montañas nevadas"
+                        data-full="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
+                        data-alt="Majestuosas montañas cubiertas de nieve"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Bosque verde exuberante"
+                        data-full="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
+                        data-alt="Bosque verde con vegetación exuberante"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Paisaje desértico"
+                        data-full="https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
+                        data-alt="Paisaje desértico con formaciones rocosas"
+                        loading="lazy"
+                    />
+                </div>
+            </div> 
+            
+             <div class="flex justify-between items-center mt-6">
+                <button 
+                    id="prevBtn"
+                    class="flex items-center space-x-2 translucent-bg text-white px-4 py-2 triangular-corners hover:bg-white/25 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled
+                >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    <span>Anterior</span>
+                </button>
+                
+                <button 
+                    id="nextBtn"
+                    class="flex items-center space-x-2 translucent-bg text-white px-4 py-2 triangular-corners hover:bg-white/25 transition-colors duration-300"
+                >
+                    <span>Siguiente</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="translucent-bg triangular-corners-large shadow-2xl p-6">
+            <h2 class="text-3xl font-bold text-white mb-6 text-center">Galería de Paisajes</h2>
+             <div class="mb-6">
+                <div class="relative group">
+                    <img 
+                        id="mainImage"
+                        class="h-auto w-full max-w-full triangular-corners-large object-cover object-center md:h-[480px] gallery-transition fade-in cursor-zoom-in shadow-md"
+                        src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                        alt="Imagen principal de la galería"
+                        loading="lazy"
+                    />
+                    
+                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 triangular-corners-large flex items-end">
+                        <div class="p-4 text-white">
+                            <p class="text-sm font-medium" id="imageInfo">Haz clic para ver en pantalla completa</p>
+                        </div>
+                    </div>
+                    
+                     <button 
+                        id="fullscreenBtn"
+                        class="absolute top-4 right-4 translucent-dark text-white p-2 triangular-corners-small opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/70"
+                        title="Ver en pantalla completa"
+                    >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                 <div class="flex justify-center mt-4">
+                    <span class="translucent-bg text-white px-3 py-1 triangular-corners text-sm font-medium">
+                        <span id="currentIndex">1</span> de <span id="totalImages">5</span>
+                    </span>
+                </div>
+            </div>
+            
+             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full triangular-corners cursor-pointer gallery-transition thumbnail-hover active-thumbnail"
+                        alt="Paisaje montañoso con lago"
+                        data-full="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                        data-alt="Paisaje montañoso con lago cristalino"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full triangular-corners cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Costa rocosa al atardecer"
+                        data-full="https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+                        data-alt="Costa rocosa durante un hermoso atardecer"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Montañas nevadas"
+                        data-full="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
+                        data-alt="Majestuosas montañas cubiertas de nieve"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Bosque verde exuberante"
+                        data-full="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
+                        data-alt="Bosque verde con vegetación exuberante"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Paisaje desértico"
+                        data-full="https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
+                        data-alt="Paisaje desértico con formaciones rocosas"
+                        loading="lazy"
+                    />
+                </div>
+            </div>
+            
+             <div class="flex justify-between items-center mt-6">
+                <button 
+                    id="prevBtn"
+                    class="flex items-center space-x-2 translucent-bg text-white px-4 py-2 triangular-corners hover:bg-white/25 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled
+                >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    <span>Anterior</span>
+                </button>
+                
+                <button 
+                    id="nextBtn"
+                    class="flex items-center space-x-2 translucent-bg text-white px-4 py-2 triangular-corners hover:bg-white/25 transition-colors duration-300"
+                >
+                    <span>Siguiente</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="translucent-bg triangular-corners-large shadow-2xl p-6">
+            <h2 class="text-3xl font-bold text-white mb-6 text-center">Galería de Paisajes</h2>
+             <div class="mb-6">
+                <div class="relative group">
+                    <img 
+                        id="mainImage"
+                        class="h-auto w-full max-w-full triangular-corners-large object-cover object-center md:h-[480px] gallery-transition fade-in cursor-zoom-in shadow-md"
+                        src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                        alt="Imagen principal de la galería"
+                        loading="lazy"
+                    />
+                    
+                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 triangular-corners-large flex items-end">
+                        <div class="p-4 text-white">
+                            <p class="text-sm font-medium" id="imageInfo">Haz clic para ver en pantalla completa</p>
+                        </div>
+                    </div>
+                    
+                     <button 
+                        id="fullscreenBtn"
+                        class="absolute top-4 right-4 translucent-dark text-white p-2 triangular-corners-small opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/70"
+                        title="Ver en pantalla completa"
+                    >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                 <div class="flex justify-center mt-4">
+                    <span class="translucent-bg text-white px-3 py-1 triangular-corners text-sm font-medium">
+                        <span id="currentIndex">1</span> de <span id="totalImages">5</span>
+                    </span>
+                </div>
+            </div>
+            
+             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full triangular-corners cursor-pointer gallery-transition thumbnail-hover active-thumbnail"
+                        alt="Paisaje montañoso con lago"
+                        data-full="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                        data-alt="Paisaje montañoso con lago cristalino"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full triangular-corners cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Costa rocosa al atardecer"
+                        data-full="https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+                        data-alt="Costa rocosa durante un hermoso atardecer"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Montañas nevadas"
+                        data-full="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
+                        data-alt="Majestuosas montañas cubiertas de nieve"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Bosque verde exuberante"
+                        data-full="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
+                        data-alt="Bosque verde con vegetación exuberante"
+                        loading="lazy"
+                    />
+                </div>
+                <div class="thumbnail-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                        class="thumbnail object-cover object-center h-20 w-full rounded-lg cursor-pointer gallery-transition thumbnail-hover"
+                        alt="Paisaje desértico"
+                        data-full="https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
+                        data-alt="Paisaje desértico con formaciones rocosas"
+                        loading="lazy"
+                    />
+                </div>
+            </div>
+            
+             <div class="flex justify-between items-center mt-6">
+                <button 
+                    id="prevBtn"
+                    class="flex items-center space-x-2 translucent-bg text-white px-4 py-2 triangular-corners hover:bg-white/25 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled
+                >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    <span>Anterior</span>
+                </button>
+                
+                <button 
+                    id="nextBtn"
+                    class="flex items-center space-x-2 translucent-bg text-white px-4 py-2 triangular-corners hover:bg-white/25 transition-colors duration-300"
+                >
+                    <span>Siguiente</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    -->
+    <!-- Modal de pantalla completa -->
+    <div id="modal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="relative max-w-7xl w-full">
+                <img 
+                    id="modalImage" 
+                    class="w-full h-auto max-h-screen object-contain triangular-corners-large shadow-2xl"
+                    alt=""
+                />
+                
+                <!-- Controles del modal -->
+                <div class="absolute top-4 right-4 zoom-controls triangular-corners p-2">
+                    <button 
+                        id="closeModal"
+                        class="text-white hover:text-gray-300 transition-colors"
+                        title="Cerrar"
+                    >
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Navegación en modal -->
+                <button 
+                    id="modalPrev"
+                    class="absolute left-4 top-1/2 transform -translate-y-1/2 translucent-dark text-white p-3 triangular-corners hover:bg-black/70 transition-colors"
+                    title="Imagen anterior"
+                >
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                
+                <button 
+                    id="modalNext"
+                    class="absolute right-4 top-1/2 transform -translate-y-1/2 translucent-dark text-white p-3 triangular-corners hover:bg-black/70 transition-colors"
+                    title="Imagen siguiente"
+                >
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+                
+                <!-- Información de la imagen en modal -->
+                <div class="absolute bottom-4 left-4 right-4 zoom-controls triangular-corners p-4">
+                    <p id="modalImageInfo" class="text-white text-center font-medium"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class ImageGallery {
+            constructor() {
+                this.currentIndex = 0;
+                this.images = document.querySelectorAll('.thumbnail');
+                this.mainImage = document.getElementById('mainImage');
+                this.modal = document.getElementById('modal');
+                this.modalImage = document.getElementById('modalImage');
+                this.modalImageInfo = document.getElementById('modalImageInfo');
+                
+                this.init();
+            }
+            
+            init() {
+                this.setupEventListeners();
+                this.updateImageCounter();
+            }
+            
+            setupEventListeners() {
+                // Click en miniaturas
+                this.images.forEach((img, index) => {
+                    img.addEventListener('click', () => this.changeImage(index));
+                });
+                
+                // Botones de navegación
+                document.getElementById('prevBtn').addEventListener('click', () => this.previousImage());
+                document.getElementById('nextBtn').addEventListener('click', () => this.nextImage());
+                
+                // Modal
+                document.getElementById('fullscreenBtn').addEventListener('click', () => this.openModal());
+                this.mainImage.addEventListener('click', () => this.openModal());
+                document.getElementById('closeModal').addEventListener('click', () => this.closeModal());
+                document.getElementById('modalPrev').addEventListener('click', () => this.modalPreviousImage());
+                document.getElementById('modalNext').addEventListener('click', () => this.modalNextImage());
+                
+                // Cerrar modal con ESC
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') this.closeModal();
+                    if (e.key === 'ArrowLeft') this.previousImage();
+                    if (e.key === 'ArrowRight') this.nextImage();
+                });
+                
+                // Cerrar modal al hacer click en el fondo
+                this.modal.addEventListener('click', (e) => {
+                    if (e.target === this.modal) this.closeModal();
+                });
+            }
+            
+            changeImage(index) {
+                if (index < 0 || index >= this.images.length) return;
+                
+                // Remover clase activa de la miniatura actual
+                document.querySelector('.active-thumbnail').classList.remove('active-thumbnail');
+                
+                // Agregar clase activa a la nueva miniatura
+                this.images[index].classList.add('active-thumbnail');
+                
+                // Cambiar imagen principal con efecto fade
+                this.mainImage.style.opacity = '0';
+                
+                setTimeout(() => {
+                    this.mainImage.src = this.images[index].dataset.full;
+                    this.mainImage.alt = this.images[index].dataset.alt;
+                    this.mainImage.style.opacity = '1';
+                    this.mainImage.classList.add('fade-in');
+                }, 150);
+                
+                this.currentIndex = index;
+                this.updateNavigation();
+                this.updateImageCounter();
+            }
+            
+            previousImage() {
+                const newIndex = this.currentIndex > 0 ? this.currentIndex - 1 : this.images.length - 1;
+                this.changeImage(newIndex);
+            }
+            
+            nextImage() {
+                const newIndex = this.currentIndex < this.images.length - 1 ? this.currentIndex + 1 : 0;
+                this.changeImage(newIndex);
+            }
+            
+            updateNavigation() {
+                const prevBtn = document.getElementById('prevBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                
+                prevBtn.disabled = this.currentIndex === 0;
+                nextBtn.disabled = this.currentIndex === this.images.length - 1;
+            }
+            
+            updateImageCounter() {
+                document.getElementById('currentIndex').textContent = this.currentIndex + 1;
+                document.getElementById('totalImages').textContent = this.images.length;
+            }
+            
+            openModal() {
+                this.modal.classList.remove('hidden');
+                this.modalImage.src = this.images[this.currentIndex].dataset.full;
+                this.modalImage.alt = this.images[this.currentIndex].dataset.alt;
+                this.modalImageInfo.textContent = this.images[this.currentIndex].dataset.alt;
+                document.body.style.overflow = 'hidden';
+            }
+            
+            closeModal() {
+                this.modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+            
+            modalPreviousImage() {
+                this.previousImage();
+                this.modalImage.src = this.images[this.currentIndex].dataset.full;
+                this.modalImage.alt = this.images[this.currentIndex].dataset.alt;
+                this.modalImageInfo.textContent = this.images[this.currentIndex].dataset.alt;
+            }
+            
+            modalNextImage() {
+                this.nextImage();
+                this.modalImage.src = this.images[this.currentIndex].dataset.full;
+                this.modalImage.alt = this.images[this.currentIndex].dataset.alt;
+                this.modalImageInfo.textContent = this.images[this.currentIndex].dataset.alt;
+            }
+        }
+        
+        // Inicializar la galería cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', () => {
+            new ImageGallery();
+        });
+        
+        // Lazy loading para las imágenes
+        if ('loading' in HTMLImageElement.prototype) {
+            const images = document.querySelectorAll('img[loading="lazy"]');
+            images.forEach(img => {
+                img.addEventListener('load', () => {
+                    img.classList.add('fade-in');
+                });
+            });
+        }
+    </script>
+</body>
+</html>
