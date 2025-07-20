@@ -1,21 +1,18 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="es" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>Freebie 64 - Portfolio (Tailwind CSS) by pixelcave</title>
-    <meta name="description" content="Freebie 64 - Portfolio (Tailwind CSS). Check out more at https://pixelcave.com" />
-    <meta name="author" content="pixelcave" />
+    <title>Gratis 64 - Portafolio (Tailwind CSS) por pixelcave</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-    <!-- Icons -->
-    <link rel="icon" href="https://cdn.pixelcave.com/favicon.svg" sizes="any" type="image/svg+xml" />
-    <link rel="icon" href="https://cdn.pixelcave.com/favicon.png" type="image/png" />
+    <!-- Iconos -->
 
-    <!-- Inter web font from bunny.net -->
+    <!-- Fuente web Inter de bunny.net -->
     <link rel="preconnect" href="https://fonts.bunny.net" />
     <link href="https://fonts.bunny.net/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-    <!-- Tailwind CSS CDN -->
+    <!-- CDN de Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Alpine.js -->
@@ -29,7 +26,7 @@
     </style>
   </head>
   <body class="antialiased font-inter">
-    <!-- Page Container -->
+    <!-- Contenedor de la página -->
     <div
       x-data="{
         darkMode: false,
@@ -40,9 +37,9 @@
       }"
       class="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-gray-100 transition-colors duration-300"
     >
-      <!-- Page Content -->
+      <!-- Contenido de la página -->
       <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Main Header -->
+        <!-- Encabezado principal -->
         <header class="flex items-center justify-between py-6 sticky top-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-10">
           <div class="flex items-center gap-4">
             <a href="#" class="text-3xl font-bold text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors">
@@ -75,37 +72,37 @@
             </button>
           </div>
           <nav class="flex items-center gap-6">
-            <a href="#projects" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Projects</a>
-            <a href="#contact" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Hire me</a>
+            <a href="#projects" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Proyectos</a>
+            <a href="#contact" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Contrátame</a>
           </nav>
         </header>
-        <!-- END Main Header -->
+        <!-- FIN Encabezado principal -->
 
-        <!-- Main Content -->
+        <!-- Contenido principal -->
         <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-          <!-- Photo -->
+          <!-- Foto -->
           <div class="md:col-span-5">
             <img
-              src="assets/photo.jpg"
-              alt="Photo"
-              class="rounded-2xl w-full aspect-square object-cover shadow-lg hover:shadow-xl transition-shadow duration-300"
+              src="../img/portf/assets/photo.jpg"
+              alt="Foto"
+              class="rounded-2xl w-full aspect-square objqect-cover shadow-lg hover:shadow-xl transition-shadow duration-300"
             />
           </div>
-          <!-- END Photo -->
+          <!-- FIN Foto -->
 
-          <!-- Intro -->
+          <!-- Introducción -->
           <div class="md:col-span-7 relative rounded-2xl bg-white dark:bg-gray-800 p-8 shadow-lg">
             <div class="absolute inset-0 bg-gradient-to-r from-purple-100/30 to-pink-100/30 dark:from-purple-900/30 dark:to-pink-900/30 rounded-2xl"></div>
             <div class="relative">
-              <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">Hi there, I'm Olivia!</h1>
+              <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">¡Hola, soy Olivia!</h1>
               <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                I'm a passionate graphic designer with over 5 years of experience crafting stunning and functional designs. My expertise lies in branding, web design, and print media, creating visuals that tell your story and resonate with your audience.
+                Soy una apasionada diseñadora gráfica con más de 5 años de experiencia creando diseños impresionantes y funcionales. Mi especialidad es el branding, diseño web y medios impresos, creando imágenes que cuentan tu historia y conectan con tu audiencia.
               </p>
             </div>
           </div>
-          <!-- END Intro -->
+          <!-- FIN Introducción -->
 
-          <!-- Projects -->
+          <!-- Proyectos -->
           <div id="projects" class="md:col-span-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <a
               href="#"
@@ -116,11 +113,11 @@
                   <path fill-rule="evenodd" d="M3.75 12a.75.75 0 0 1 .75-.75h13.19l-5.47-5.47a.75.75 0 0 1 1.06-1.06l6.75 6.75a.75.75 0 0 1 0 1.06l-6.75 6.75a.75.75 0 1 1-1.06-1.06l5.47-5.47H4.5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
                 </svg>
               </div>
-              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Abstract set</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">This month</p>
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Set abstracto</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Este mes</p>
               <img
-                src="assets/project1.png"
-                alt="Project 1"
+                src="../img/portf/assets/project1.png"
+                alt="Proyecto 1"
                 class="mt-4 rounded-xl w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </a>
@@ -133,11 +130,11 @@
                   <path fill-rule="evenodd" d="M3.75 12a.75.75 0 0 1 .75-.75h13.19l-5.47-5.47a.75.75 0 0 1 1.06-1.06l6.75 6.75a.75.75 0 0 1 0 1.06l-6.75 6.75a.75.75 0 1 1-1.06-1.06l5.47-5.47H4.5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
                 </svg>
               </div>
-              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Illustration</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">This month</p>
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Ilustración</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Este mes</p>
               <img
-                src="assets/project2.png"
-                alt="Project 2"
+                src="../img/portf/assets/project2.png"
+                alt="Proyecto 2"
                 class="mt-4 rounded-xl w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </a>
@@ -150,11 +147,11 @@
                   <path fill-rule="evenodd" d="M3.75 12a.75.75 0 0 1 .75-.75h13.19l-5.47-5.47a.75.75 0 0 1 1.06-1.06l6.75 6.75a.75.75 0 0 1 0 1.06l-6.75 6.75a.75.75 0 1 1-1.06-1.06l5.47-5.47H4.5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
                 </svg>
               </div>
-              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Graphic pack</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">This month</p>
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Paquete gráfico</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Este mes</p>
               <img
-                src="assets/project3.png"
-                alt="Project 3"
+                src="../img/portf/assets/project3.png"
+                alt="Proyecto 3"
                 class="mt-4 rounded-xl w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </a>
@@ -167,11 +164,11 @@
                   <path fill-rule="evenodd" d="M3.75 12a.75.75 0 0 1 .75-.75h13.19l-5.47-5.47a.75.75 0 0 1 1.06-1.06l6.75 6.75a.75.75 0 0 1 0 1.06l-6.75 6.75a.75.75 0 1 1-1.06-1.06l5.47-5.47H4.5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
                 </svg>
               </div>
-              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Brand identity</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Last month</p>
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Identidad de marca</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Mes pasado</p>
               <img
-                src="assets/project4.png"
-                alt="Project 4"
+                src="../img/portf/assets/project4.png"
+                alt="Proyecto 4"
                 class="mt-4 rounded-xl w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </a>
@@ -184,11 +181,11 @@
                   <path fill-rule="evenodd" d="M3.75 12a.75.75 0 0 1 .75-.75h13.19l-5.47-5.47a.75.75 0 0 1 1.06-1.06l6.75 6.75a.75.75 0 0 1 0 1.06l-6.75 6.75a.75.75 0 1 1-1.06-1.06l5.47-5.47H4.5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
                 </svg>
               </div>
-              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Illustration Builder</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Last month</p>
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Constructor de ilustraciones</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Mes pasado</p>
               <img
-                src="assets/project5.png"
-                alt="Project 5"
+                src="../img/portf/assets/project5.png"
+                alt="Proyecto 5"
                 class="mt-4 rounded-xl w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </a>
@@ -198,33 +195,31 @@
             >
               <div class="absolute top-4 right-4 text-purple-600 dark:text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                  <path fill-rule="evenodd" d="M3.
-
-75 12a.75.75 0 0 1 .75-.75h13.19l-5.47-5.47a.75.75 0 0 1 1.06-1.06l6.75 6.75a.75.75 0 0 1 0 1.06l-6.75 6.75a.75.75 0 1 1-1.06-1.06l5.47-5.47H4.5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                  <path fill-rule="evenodd" d="M3.75 12a.75.75 0 0 1 .75-.75h13.19l-5.47-5.47a.75.75 0 0 1 1.06-1.06l6.75 6.75a.75.75 0 0 1 0 1.06l-6.75 6.75a.75.75 0 1 1-1.06-1.06l5.47-5.47H4.5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
                 </svg>
               </div>
-              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Logo design</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Last month</p>
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Diseño de logo</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Mes pasado</p>
               <img
-                src="assets/project6.png"
-                alt="Project 6"
+                src="../img/portf/assets/project6.png"
+                alt="Proyecto 6"
                 class="mt-4 rounded-xl w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </a>
           </div>
-          <!-- END Projects -->
+          <!-- FIN Proyectos -->
 
-          <!-- Contact -->
+          <!-- Contacto -->
           <div id="contact" class="md:col-span-12 relative rounded-2xl bg-white dark:bg-gray-800 p-8 sm:p-12 shadow-lg">
             <div class="absolute inset-0 bg-gradient-to-r from-purple-100/30 to-pink-100/30 dark:from-purple-900/30 dark:to-pink-900/30 rounded-2xl"></div>
             <div class="relative max-w-md mx-auto">
-              <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">Get in touch</h2>
+              <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">Ponte en contacto</h2>
               <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
-                Looking for a creative partner for your next project? I'm available for freelance work and excited to hear about your ideas. Let's collaborate to bring your vision to life.
+                ¿Buscas un partner creativo para tu próximo proyecto? Estoy disponible para trabajos freelance y emocionada por escuchar tus ideas. Colaboremos para dar vida a tu visión.
               </p>
               <div class="space-y-6">
                 <div>
-                  <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
+                  <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nombre</label>
                   <input
                     type="text"
                     id="name"
@@ -242,7 +237,7 @@
                   />
                 </div>
                 <div>
-                  <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Message</label>
+                  <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Mensaje</label>
                   <textarea
                     id="message"
                     name="message"
@@ -254,14 +249,14 @@
                   type="button"
                   class="w-full sm:w-auto px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors"
                 >
-                  Send Message
+                  Enviar mensaje
                 </button>
               </div>
             </div>
           </div>
-          <!-- END Contact -->
+          <!-- FIN Contacto -->
 
-          <!-- Footer -->
+          <!-- Pie de página -->
           <footer class="md:col-span-12 flex flex-col sm:flex-row items-center justify-between py-8 text-sm text-gray-500 dark:text-gray-400">
             <div class="flex items-center gap-4">
               <a href="#" class="hover:text-gray-800 dark:hover:text-white transition-colors">
@@ -294,12 +289,12 @@
               <span class="font-medium">Olivia</span> © <span x-text="new Date().getFullYear()"></span>
             </div>
           </footer>
-          <!-- END Footer -->
+          <!-- FIN Pie de página -->
         </div>
-        <!-- END Main Content -->
+        <!-- FIN Contenido principal -->
       </main>
-      <!-- END Page Content -->
+      <!-- FIN Contenido de la página -->
     </div>
-    <!-- END Page Container -->
+    <!-- FIN Contenedor de la página -->
   </body>
 </html>
