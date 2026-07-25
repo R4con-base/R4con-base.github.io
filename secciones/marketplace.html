@@ -22,13 +22,8 @@
             border-radius: 1.25rem;
             padding: 3px;
         }
-        .gradient-border-hardware {
-            background: linear-gradient(135deg, #10B981, #059669, #047857);
-            border-radius: 1.25rem;
-            padding: 3px;
-        }
-        .gradient-border-3d {
-            background: linear-gradient(135deg, #F59E0B, #D97706, #B45309);
+        .gradient-border-assistant {
+            background: linear-gradient(135deg, #34D399, #10B981, #059669);
             border-radius: 1.25rem;
             padding: 3px;
         }
@@ -60,6 +55,11 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
+        .tech-badge-emerald {
+            background: rgba(16, 185, 129, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
     </style>
 </head>
 <body class="bg-gray-900">
@@ -71,7 +71,7 @@
                 Mis Servicios
             </h2>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
                 <!-- Card Páginas Web -->
                 <div class="gradient-border-web card-hover">
                     <div class="gradient-border-inner p-6 sm:p-8 lg:p-10 h-full flex flex-col">
@@ -87,12 +87,12 @@
                             </h3>
                             <p class="text-blue-400/80 text-sm font-medium">Desarrollo Frontend & Backend</p>
                         </div>
-                        
+
                         <div class="flex-grow">
                             <p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-6 sm:mb-8">
                                 Desarrollo de sitios web modernos y responsivos utilizando las últimas tecnologías. Desde landing pages hasta aplicaciones web complejas con backend robusto.
                             </p>
-                            
+
                             <div class="space-y-4 mb-6 sm:mb-8">
                                 <div class="flex items-start">
                                     <div class="bg-blue-500/20 p-1.5 rounded-full mr-3 mt-1 flex-shrink-0">
@@ -132,94 +132,93 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="mt-auto">
-                                               <!-- Ejemplo de botón en un card con atributo data-route -->
-                        <button class="w-full px-6 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 font-medium text-sm sm:text-base transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 shadow-lg hover:shadow-xl" data-route="secciones/paginas-web.html">
-                            <span class="flex items-center justify-center">
-                                Ver mas
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                                </svg>
-                            </span>
-                        </button>
+                            <!-- Ejemplo de botón en un card con atributo data-route -->
+                            <button class="w-full px-6 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 font-medium text-sm sm:text-base transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 shadow-lg hover:shadow-xl" data-route="secciones/paginas-web.html">
+                                <span class="flex items-center justify-center">
+                                    Ver mas
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </span>
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                                <!-- Card Hardware Hacking - Versión oscura con "Próximamente" -->
-                <!-- Card Hardware Hacking - Versión oscura sin verde -->
-                <div class="border border-gray-700 rounded-xl bg-gray-900 relative overflow-hidden card-hover">
-                    <!-- Overlay "Próximamente" -->
-                    <div class="absolute inset-0 z-10 flex items-center justify-center">
-                        <span class="text-red-500 text-3xl sm:text-4xl font-bold transform rotate-[-15deg] bg-black/80 px-4 py-2 rounded-lg border-2 border-red-500/50">
-                            PRÓXIMAMENTE
-                        </span>
-                    </div>
-                    
-                    <!-- Card oscuro -->
-                    <div class="p-6 sm:p-8 lg:p-10 h-full flex flex-col opacity-40">
+                <!-- Card Asistente Virtual -->
+                <div class="gradient-border-assistant card-hover">
+                    <div class="gradient-border-inner p-6 sm:p-8 lg:p-10 h-full flex flex-col">
                         <div class="text-center mb-6 sm:mb-8">
-                            <!-- Icono modificado a gris -->
-                            <div class="bg-gray-700 w-18 h-18 sm:w-24 sm:h-24 mx-auto rounded-2xl flex items-center justify-center mb-4 sm:mb-6 floating-icon backdrop-blur-sm border border-gray-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 sm:h-12 sm:w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <!-- Icono de Asistente Virtual -->
+                            <div class="bg-emerald-500/20 w-18 h-18 sm:w-24 sm:h-24 mx-auto rounded-2xl flex items-center justify-center mb-4 sm:mb-6 floating-icon backdrop-blur-sm border border-emerald-400/30">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 sm:h-12 sm:w-12 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
                                 </svg>
                             </div>
-                            <h3 class="text-xl sm:text-2xl lg:text-2xl font-bold text-gray-300 mb-3 sm:mb-4">
-                                Hardware Hacking
+                            <h3 class="text-xl sm:text-2xl lg:text-2xl font-bold text-white mb-3 sm:mb-4">
+                                Asistente Virtual
                             </h3>
-                            <p class="text-gray-500 text-sm font-medium"></p>
+                            <p class="text-emerald-400/80 text-sm font-medium">Chatbots & Automatización</p>
                         </div>
-                        
+
                         <div class="flex-grow">
-                            <p class="text-gray-500 text-sm sm:text-base leading-relaxed mb-6 sm:mb-8">
-                                Creación de soluciones IoT para proyectos específicos.
+                            <p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-6 sm:mb-8">
+                                Diseñamos chatbots que automatizan los procesos más tediosos de tu día a día: agendamiento, respuestas fuera de horario y organización de tu semana de servicios, todo conversando con tu asistente.
                             </p>
-                            
+
                             <div class="space-y-4 mb-6 sm:mb-8">
                                 <div class="flex items-start">
-                                    <div class="bg-gray-700 p-1.5 rounded-full mr-3 mt-1 flex-shrink-0">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <div class="bg-emerald-500/20 p-1.5 rounded-full mr-3 mt-1 flex-shrink-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                         </svg>
                                     </div>
-                                    <span class="text-gray-500 text-sm sm:text-base"> </span>
+                                    <span class="text-gray-300 text-sm sm:text-base">Atención automática, incluso fuera de horario</span>
                                 </div>
                                 <div class="flex items-start">
-                                    <div class="bg-gray-700 p-1.5 rounded-full mr-3 mt-1 flex-shrink-0">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <div class="bg-emerald-500/20 p-1.5 rounded-full mr-3 mt-1 flex-shrink-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                         </svg>
                                     </div>
-                                    <span class="text-gray-500 text-sm sm:text-base">Firmware personalizado</span>
+                                    <span class="text-gray-300 text-sm sm:text-base">Calendario inteligente según tu disponibilidad</span>
                                 </div>
                                 <div class="flex items-start">
-                                    <div class="bg-gray-700 p-1.5 rounded-full mr-3 mt-1 flex-shrink-0">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <div class="bg-emerald-500/20 p-1.5 rounded-full mr-3 mt-1 flex-shrink-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                         </svg>
                                     </div>
-                                    <span class="text-gray-500 text-sm sm:text-base">Desarrollo de sistemas embebidos</span>
+                                    <span class="text-gray-300 text-sm sm:text-base">Reagenda o cancela con solo conversar</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="bg-emerald-500/20 p-1.5 rounded-full mr-3 mt-1 flex-shrink-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                    <span class="text-gray-300 text-sm sm:text-base">Proceso completo automatizado, de la venta a la instalación</span>
                                 </div>
                             </div>
 
                             <!-- Tecnologías -->
                             <div class="mb-6">
-                                <h4 class="text-gray-400 font-semibold mb-3 text-sm">Tecnologías:</h4>
+                                <h4 class="text-white font-semibold mb-3 text-sm">Tecnologías:</h4>
                                 <div class="flex flex-wrap gap-2">
-                                    <span class="px-3 py-1 rounded-full text-gray-400 text-xs font-medium border border-gray-700">Arduino</span>
-                                    <span class="px-3 py-1 rounded-full text-gray-400 text-xs font-medium border border-gray-700">ESP32</span>
-                                    <span class="px-3 py-1 rounded-full text-gray-400 text-xs font-medium border border-gray-700">Raspberry Pi</span>
-                                    <span class="px-3 py-1 rounded-full text-gray-400 text-xs font-medium border border-gray-700">C/C++</span>
+                                    <span class="tech-badge-emerald px-3 py-1 rounded-full text-emerald-400 text-xs font-medium">IA Conversacional</span>
+                                    <span class="tech-badge-emerald px-3 py-1 rounded-full text-emerald-400 text-xs font-medium">WhatsApp</span>
+                                    <span class="tech-badge-emerald px-3 py-1 rounded-full text-emerald-400 text-xs font-medium">Calendario</span>
+                                    <span class="tech-badge-emerald px-3 py-1 rounded-full text-emerald-400 text-xs font-medium">Automatización API</span>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="mt-auto">
-                            <button class="w-full px-6 py-3 sm:py-4 bg-gray-800 text-gray-500 rounded-xl font-medium text-sm sm:text-base cursor-not-allowed border border-gray-700" disabled>
+                            <button class="w-full px-6 py-3 sm:py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 font-medium text-sm sm:text-base transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-gray-800 shadow-lg hover:shadow-xl" data-route="secciones/asistente-virtual.html">
                                 <span class="flex items-center justify-center">
-                                    Ver proyectos
+                                    Ver mas
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                     </svg>
@@ -228,91 +227,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Card Impresiones 3D -->
-                <!-- Card Impresiones 3D - Versión oscura con "Próximamente" -->
-                <div class="border border-gray-700 rounded-xl bg-gray-900 relative overflow-hidden card-hover">
-                    <!-- Overlay "Próximamente" -->
-                    <div class="absolute inset-0 z-10 flex items-center justify-center">
-                        <span class="text-red-500 text-3xl sm:text-4xl font-bold transform rotate-[-15deg] bg-black/80 px-4 py-2 rounded-lg border-2 border-red-500/50">
-                            PRÓXIMAMENTE
-                        </span>
-                    </div>
-                    
-                    <!-- Card oscuro con opacidad reducida -->
-                    <div class="p-6 sm:p-8 lg:p-10 h-full flex flex-col opacity-40">
-                        <div class="text-center mb-6 sm:mb-8">
-                            <!-- Icono en gris -->
-                            <div class="bg-gray-700 w-18 h-18 sm:w-24 sm:h-24 mx-auto rounded-2xl flex items-center justify-center mb-4 sm:mb-6 floating-icon backdrop-blur-sm border border-gray-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 sm:h-12 sm:w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                                </svg>
-                            </div>
-                            <h3 class="text-xl sm:text-2xl lg:text-2xl font-bold text-gray-300 mb-3 sm:mb-4">
-                                Impresiones 3D
-                            </h3>
-                            <p class="text-gray-500 text-sm font-medium">Prototipos</p>
-                        </div>
-                        
-                        <div class="flex-grow">
-                            <p class="text-gray-500 text-sm sm:text-base leading-relaxed mb-6 sm:mb-8">
-                                Servicios de impresión 3D.
-                            </p>
-                            
-                            <div class="space-y-4 mb-6 sm:mb-8">
-                                <div class="flex items-start">
-                                    <div class="bg-gray-700 p-1.5 rounded-full mr-3 mt-1 flex-shrink-0">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </div>
-                                    <span class="text-gray-500 text-sm sm:text-base">Modelado 3D personalizado</span>
-                                </div>
-                                <div class="flex items-start">
-                                    <div class="bg-gray-700 p-1.5 rounded-full mr-3 mt-1 flex-shrink-0">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </div>
-                                    <span class="text-gray-500 text-sm sm:text-base">Impresión de extrusión o resina</span>
-                                </div>
-                            </div>
-
-                            <!-- Tecnologías -->
-                            <div class="mb-6">
-                                <h4 class="text-gray-400 font-semibold mb-3 text-sm">Tecnologías:</h4>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="px-3 py-1 rounded-full text-gray-400 text-xs font-medium border border-gray-700">Blender</span>
-                                    <span class="px-3 py-1 rounded-full text-gray-400 text-xs font-medium border border-gray-700">Fusion 360</span>
-                                </div>
-                            </div>
-                            
-                            <!-- Materiales -->
-                            <div class="mb-6">
-                                <h4 class="text-gray-400 font-semibold mb-3 text-sm">Materiales:</h4>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="px-3 py-1 rounded-full text-gray-400 text-xs font-medium border border-gray-700">PLA</span>
-                                    <span class="px-3 py-1 rounded-full text-gray-400 text-xs font-medium border border-gray-700">Resina</span>
-                                    <span class="px-3 py-1 rounded-full text-gray-400 text-xs font-medium border border-gray-700">PETG</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-auto">
-                            <button class="w-full px-6 py-3 sm:py-4 bg-gray-800 text-gray-500 rounded-xl font-medium text-sm sm:text-base cursor-not-allowed border border-gray-700" disabled>
-                                <span class="flex items-center justify-center">
-                                    Ver proyectos
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                                    </svg>
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </div> 
- 
         </div>
     </section>
 </body>

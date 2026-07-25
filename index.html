@@ -40,7 +40,6 @@
         <nav>
             <ul class="space-y-6 text-center">
                 <li><a href="#inicio" data-route="secciones/inicio.html" class="text-3xl text-white hover:text-cyan-400 transition-colors">Inicio</a></li>
-                <li><a href="#contenido" data-route="secciones/contenido.html" class="text-3xl text-white hover:text-cyan-400 transition-colors">Contenido</a></li>
                 <li><a href="#portafolio" data-route="secciones/portafolio.html" class="text-3xl text-white hover:text-cyan-400 transition-colors">Portafolio</a></li>
                 <li><a href="#marketplace" data-route="secciones/marketplace.html" class="text-3xl text-white hover:text-cyan-400 transition-colors">Marketplace</a></li>
                 <li><a href="#certificaciones" data-route="secciones/certificaciones.html" class="text-3xl text-white hover:text-cyan-400 transition-colors">Certs</a></li>
@@ -58,7 +57,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
             </button>
-            <div class="inner flex-grow flex flex-col items-center">
+            <div class="inner flex-grow flex flex-col items-center justify-center">
                 <nav id="tmMainNav" class="tm-main-nav">
                     <ul class="space-y-4 flex flex-col items-center">
                         <li class="flex justify-center">
@@ -69,11 +68,6 @@
                         <li class="flex justify-center">
                             <a href="#inicio" data-route="secciones/inicio.html" class="flex items-center p-3 hover:bg-gray-700 rounded-lg transition-colors duration-200 w-full justify-center">
                                 <span class="nav-text ml-4 font-Terano-1 a-1 text-xl sidebar-text text tracking-widest">Inicio</span>
-                            </a>
-                        </li>
-                        <li class="flex justify-center">
-                            <a href="#contenido" data-route="secciones/contenido.html" class="flex items-center p-3 hover:bg-gray-700 rounded-lg transition-colors duration-200 w-full justify-center">
-                                <span class="nav-text ml-4 font-Terano-1 a-1 text-xl sidebar-text text tracking-widest">Contenido</span>
                             </a>
                         </li>
                         <li class="flex justify-center w-full">
@@ -121,6 +115,23 @@
     </div>
 
     <div id="contenido" class="transition-all duration-300 relative z-20 min-h-screen overflow-y-auto flex flex-col pt-20 lg:pt-0">
+
+        <!-- Barra de navegación atrás/adelante para el router interno -->
+        <div id="nav-history-bar" class="w-full flex items-center justify-center gap-3 pt-4 pb-1 sm:pt-6">
+            <button id="nav-back" type="button" aria-label="Volver atrás" disabled
+                class="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gray-800/70 hover:bg-gray-700 border border-gray-700 text-white transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-gray-800/70">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+            <button id="nav-forward" type="button" aria-label="Ir adelante" disabled
+                class="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gray-800/70 hover:bg-gray-700 border border-gray-700 text-white transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-gray-800/70">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+        </div>
+
         <div id="contenido-principal" class="flex-grow p-8">
             </div>
         
@@ -152,22 +163,11 @@
                     </div>
                     
                     <div class="flex justify-center space-x-4 sm:space-x-6 mt-6 sm:mt-8">
-                        <!--
-                        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors duration-300 p-2 hover:bg-white/10 rounded-full">
-                            <svg class="h-4 w-4 sm:h-5 sm:w-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                            </svg>
-                        </a>-->
                         <a href="https://github.com/Rac00nSP/Rac00nSP.github.io" class="bg-gray-700/50 hover:bg-black p-2 sm:p-3 rounded-lg transition-colors duration-300 group" aria-label="GitHub">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 text-white group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                                 </svg>
                             </a>
-                        <!--<a href="#" class="text-gray-400 hover:text-blue-500 transition-colors duration-300 p-2 hover:bg-white/10 rounded-full">
-                            <svg class="h-4 w-4 sm:h-5 sm:w-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                            </svg>
-                        </a>-->
                     </div>
                     
                     <div class="border-t border-gray-800 mt-6 sm:mt-8 pt-4 sm:pt-6">
@@ -197,52 +197,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeMobileMenu = document.getElementById('close-mobile-menu');
     const mobileNavLinks = document.querySelectorAll('#mobile-menu a');
 
+    // Navegación interna (flechas atrás/adelante)
+    const navBackButton = document.getElementById('nav-back');
+    const navForwardButton = document.getElementById('nav-forward');
+    let navHistory = [];
+    let navIndex = -1;
+
     // Common variables globales
     const contenido = document.getElementById('contenido');
     let isExpanded = true;
-    let postsContainer = null;
-    let currentPage = 1;
-    let totalPosts = 0;
-    let totalPages = 0;
-    let currentFilteredPosts = [];
-
-    // --- Config ---
-    const config = {
-        postsDirectory: window.location.href.includes('localhost')
-            ? './secciones/posts/'
-            : 'secciones/posts/',
-        postsPerPage: 8,
-        activeSection: null,
-        searchDebounceTime: 300,
-        lastSearchTerm: '',
-        allPosts: [],
-        categories: ["Tutoriales", "Seguridad", "Desarrollo", "Redes", "Hardware", "Linux", "Windows", "Programación", "Bases de Datos", "Cloud", "Ciberseguridad", "Exfiltracion", "Maquinas"]
-    };
-    config.imagesDirectory = `${config.postsDirectory}images/`;
-    config.defaultImage = `${config.imagesDirectory}default.jpg`;
 
     // --- Dynamic Content Loading ---
-    async function cargarContenido(ruta) {
+    async function cargarContenido(ruta, opciones = {}) {
+        const { fromHistory = false } = opciones;
         try {
             const respuesta = await fetch(ruta);
             if (!respuesta.ok) throw new Error('Error al cargar el contenido');
 
+            const contenidoHTML = await respuesta.text();
+            document.getElementById('contenido-principal').innerHTML = contenidoHTML;
+
             // Verifica si es la página de certificados
             if (ruta.includes('certificaciones.html')) {
-                const contenidoHTML = await respuesta.text();
-                document.getElementById('contenido-principal').innerHTML = contenidoHTML;
                 initCertificados(); // Inicializa los eventos de certificados
-            } else {
-                const contenidoHTML = await respuesta.text();
-                document.getElementById('contenido-principal').innerHTML = contenidoHTML;
             }
 
             contenido.scrollTop = 0;
             window.scrollTo(0, 0);
 
             const seccion = ruta.split('/').pop().replace('.html', '');
-            config.activeSection = seccion;
             initializeSection(seccion);
+
+            // Registra la navegación en el historial interno, salvo que
+            // venga de un click en las flechas atrás/adelante.
+            if (!fromHistory) {
+                navHistory = navHistory.slice(0, navIndex + 1);
+                navHistory.push(ruta);
+                navIndex = navHistory.length - 1;
+            }
+            actualizarFlechasNav();
         } catch (error) {
             console.error('Error:', error);
             document.getElementById('contenido-principal').innerHTML = `
@@ -252,6 +245,28 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         }
     }
+
+    function actualizarFlechasNav() {
+        if (navBackButton) navBackButton.disabled = navIndex <= 0;
+        if (navForwardButton) navForwardButton.disabled = navIndex >= navHistory.length - 1;
+    }
+
+    function irAtras() {
+        if (navIndex > 0) {
+            navIndex--;
+            cargarContenido(navHistory[navIndex], { fromHistory: true });
+        }
+    }
+
+    function irAdelante() {
+        if (navIndex < navHistory.length - 1) {
+            navIndex++;
+            cargarContenido(navHistory[navIndex], { fromHistory: true });
+        }
+    }
+
+    if (navBackButton) navBackButton.addEventListener('click', irAtras);
+    if (navForwardButton) navForwardButton.addEventListener('click', irAdelante);
 
     function initCertificados() {
         // Crea el modal si no existe
@@ -567,10 +582,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Punto de extensión para inicializar lógica particular de cada sección
+    // (portafolio, marketplace, etc.) cuando se cargan dinámicamente.
     function initializeSection(seccion) {
-        switch(seccion) {
-            case 'contenido': initServiciosSection(); break;
-        }
+        // Actualmente ninguna sección requiere inicialización extra
+        // aparte de certificaciones (manejada en cargarContenido).
     }
 
     // --- Mobile Menu Logic ---
@@ -594,62 +610,62 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Desktop Sidebar Logic ---
-function toggleSidebar() {
-    if (isExpanded) { // From fullscreen to side-panel
-        sidebar.classList.remove('w-screen');
-        sidebar.classList.add('w-1/4');
-        
-        setTimeout(() => {
-            contenido.classList.remove('hidden');
-            contenido.style.marginLeft = '25%';
-        }, 300);
-        sidebarToggle.style.display = 'none';
-        
-        // Aumentar texto solo cuando se contrae
-        textElements.forEach(element => {
-            element.classList.add('text-xl');
-        });
-    } else { // From side-panel to fullscreen
-        sidebar.classList.remove('w-1/4');
-        sidebar.classList.add('w-screen');
-        contenido.classList.add('hidden');
-        contenido.style.marginLeft = '0';
-        sidebarToggle.style.display = 'block';
-        
-        // Restaurar texto cuando se expande
-        textElements.forEach(element => {
-            element.classList.remove('text-xl');
-        });
+    function toggleSidebar() {
+        if (isExpanded) { // From fullscreen to side-panel
+            sidebar.classList.remove('w-screen');
+            sidebar.classList.add('w-1/4');
+
+            setTimeout(() => {
+                contenido.classList.remove('hidden');
+                contenido.style.marginLeft = '25%';
+            }, 300);
+            sidebarToggle.style.display = 'none';
+
+            // Aumentar texto solo cuando se contrae
+            textElements.forEach(element => {
+                element.classList.add('text-xl');
+            });
+        } else { // From side-panel to fullscreen
+            sidebar.classList.remove('w-1/4');
+            sidebar.classList.add('w-screen');
+            contenido.classList.add('hidden');
+            contenido.style.marginLeft = '0';
+            sidebarToggle.style.display = 'block';
+
+            // Restaurar texto cuando se expande
+            textElements.forEach(element => {
+                element.classList.remove('text-xl');
+            });
+        }
+
+        isExpanded = !isExpanded;
     }
-    
-    isExpanded = !isExpanded;
-}
 
     // --- Event Delegation for Navigation ---
     document.addEventListener('click', function(e) {
         // Manejar clicks en enlaces del sidebar y botones de cards
         const routeElement = e.target.closest('[data-route]');
-        
+
         if (routeElement) {
             e.preventDefault();
             const ruta = routeElement.getAttribute('data-route');
-            
+
             if (ruta) {
                 console.log('Navegando a:', ruta); // Para debugging
-                
+
                 // Mismo comportamiento que el sidebar
                 if (isExpanded && window.innerWidth >= 1024) {
                     toggleSidebar();
                 }
-                
+
                 cargarContenido(ruta);
-                
+
                 // Scroll al inicio
                 contenido.scrollTop = 0;
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
-        
+
         // Manejar el botón de toggle del sidebar
         if (e.target === sidebarToggle || e.target.closest('#sidebarToggle')) {
             e.preventDefault();
@@ -665,7 +681,7 @@ function toggleSidebar() {
     }
 
     setRandomBackground();
-    
+
     // Configuración inicial basada en el viewport
     if(window.innerWidth < 1024){
          // On mobile, the desktop sidebar is hidden via CSS
@@ -675,587 +691,6 @@ function toggleSidebar() {
     }
 
     cargarContenido('secciones/inicio.html');
-
-    // --- ALL THE OTHER FUNCTIONS ---
-    // (El resto de las funciones permanecen igual)
-    window.switchTab = function(activeTab) {
-        const btnPosts = document.getElementById('btnPosts');
-        const btnCategorias = document.getElementById('btnCategorias');
-        const contentPosts = document.getElementById('contentPosts');
-        const contentCategorias = document.getElementById('contentCategorias');
-        if (!btnPosts || !btnCategorias || !contentPosts || !contentCategorias) return;
-
-        if (activeTab === 'posts') {
-            btnPosts.classList.replace('bg-gray-700', 'bg-cyan-600');
-            btnPosts.classList.replace('hover:bg-gray-600', 'hover:bg-cyan-700');
-            btnCategorias.classList.replace('bg-cyan-600', 'bg-gray-700');
-            btnCategorias.classList.replace('hover:bg-cyan-700', 'hover:bg-gray-600');
-            contentPosts.classList.remove('hidden');
-            contentCategorias.classList.add('hidden');
-        } else {
-            btnCategorias.classList.replace('bg-gray-700', 'bg-cyan-600');
-            btnCategorias.classList.replace('hover:bg-gray-600', 'hover:bg-cyan-700');
-            btnPosts.classList.replace('bg-cyan-600', 'bg-gray-700');
-            btnPosts.classList.replace('hover:bg-cyan-700', 'hover:bg-gray-600');
-            contentCategorias.classList.remove('hidden');
-            contentPosts.classList.add('hidden');
-        }
-    };
-
-    function showError(message) {
-        if (!postsContainer) postsContainer = document.getElementById('postsContainer');
-        if (!postsContainer) return;
-        postsContainer.innerHTML = `<div class="text-center py-4 sm:py-6 md:py-8 col-span-4"><p class="text-red-400 text-sm sm:text-base">${message}</p><button onclick="window.location.reload()" class="mt-3 sm:mt-4 px-3 sm:px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 text-sm sm:text-base">Recargar</button></div>`;
-    }
-
-    function initSearch() {
-        const searchInput = document.getElementById('searchInput');
-        if (!searchInput) return;
-        const debounce = (func, wait) => {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => { clearTimeout(timeout); func(...args); };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        };
-        searchInput.addEventListener('input', debounce(function(e) {
-            const searchTerm = e.target.value.trim().toLowerCase();
-            config.lastSearchTerm = searchTerm;
-            if (searchTerm.length === 0) {
-                document.getElementById('searchResultsInfo').classList.add('hidden');
-                window.loadPosts();
-                return;
-            }
-            if (config.allPosts.length === 0) {
-                window.loadPosts().then(posts => { config.allPosts = posts; performSearch(searchTerm); });
-            } else {
-                performSearch(searchTerm);
-            }
-        }, config.searchDebounceTime));
-        searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                const searchTerm = e.target.value.trim().toLowerCase();
-                if (searchTerm.length > 0) performSearch(searchTerm);
-            }
-        });
-    }
-
-    function performSearch(searchTerm) {
-        if (!postsContainer) postsContainer = document.getElementById('postsContainer');
-        if (!postsContainer) return;
-        const resultsInfo = document.getElementById('searchResultsInfo');
-        if (searchTerm.length < 2) { resultsInfo.classList.add('hidden'); return; }
-        postsContainer.innerHTML = `<div class="text-center py-4 sm:py-6 md:py-8 col-span-4"><div class="animate-spin rounded-full h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div><p class="mt-3 sm:mt-4 text-gray-400 text-sm sm:text-base">Buscando "${searchTerm}"...</p></div>`;
-        const filteredPosts = config.allPosts.filter(post => {
-            const inTitle = post.title.toLowerCase().includes(searchTerm);
-            let inCategory = false;
-            if (Array.isArray(post.category)) {
-                inCategory = post.category.some(cat => cat.toLowerCase().includes(searchTerm));
-            } else {
-                inCategory = post.category.toLowerCase().includes(searchTerm);
-            }
-            const inExcerpt = post.excerpt.toLowerCase().includes(searchTerm);
-            let inContent = false;
-            if (post.content) inContent = post.content.toLowerCase().includes(searchTerm);
-            return inTitle || inCategory || inExcerpt || inContent;
-        });
-        if (filteredPosts.length === 0) {
-            postsContainer.innerHTML = `<div class="col-span-4 text-center py-4 sm:py-6 md:py-8"><p class="text-gray-400 text-sm sm:text-base">No se encontraron posts para "${searchTerm}"</p><button onclick="window.loadPosts()" class="mt-3 sm:mt-4 px-3 sm:px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 text-sm sm:text-base">Ver todos los posts</button></div>`;
-            resultsInfo.textContent = `No se encontraron resultados para "${searchTerm}"`;
-            resultsInfo.classList.remove('hidden');
-        } else {
-            renderPosts(filteredPosts, true);
-            resultsInfo.textContent = `Mostrando ${filteredPosts.length} resultados para "${searchTerm}"`;
-            resultsInfo.classList.remove('hidden');
-            highlightSearchTerms(searchTerm);
-        }
-    }
-
-    function highlightSearchTerms(searchTerm) {
-        const elementsToHighlight = [...document.querySelectorAll('.card-hover-effect h3'), ...document.querySelectorAll('.card-hover-effect p'), ...document.querySelectorAll('.card-hover-effect span')];
-        elementsToHighlight.forEach(element => {
-            const text = element.textContent;
-            const regex = new RegExp(searchTerm, 'gi');
-            element.innerHTML = text.replace(regex, match => `<span class="bg-cyan-500/30 text-cyan-300">${match}</span>`);
-        });
-    }
-
-    function initServiciosSection() {
-        const btnPosts = document.getElementById('btnPosts');
-        const btnCategorias = document.getElementById('btnCategorias');
-        postsContainer = document.getElementById('postsContainer');
-        if (!btnPosts || !btnCategorias || !postsContainer) return;
-        btnPosts.addEventListener('click', () => window.switchTab('posts'));
-        btnCategorias.addEventListener('click', () => window.switchTab('categorias'));
-        window.switchTab('posts');
-        initSearch();
-        window.loadPosts().then(posts => { config.allPosts = posts; });
-        window.loadCategories();
-    }
-
-    window.loadPosts = function(page = 1) {
-        return new Promise(async (resolve, reject) => {
-            try {
-                postsContainer = document.getElementById('postsContainer');
-                if (!postsContainer) return reject(new Error('postsContainer no encontrado'));
-
-                // Muestra un spinner de carga
-                postsContainer.innerHTML = `<div class="text-center py-4 sm:py-6 md:py-8 col-span-1 w-full"><div class="animate-spin rounded-full h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div><p class="mt-3 sm:mt-4 text-gray-400 text-sm sm:text-base">Cargando posts...</p></div>`;
-
-                let postNumbers = [];
-                try {
-                    // Intenta cargar el índice de posts
-                    const indexResponse = await fetch(`${config.postsDirectory}index.json`);
-                    if (indexResponse.ok) postNumbers = (await indexResponse.json()).posts || [];
-                } catch (e) { console.warn('Error al cargar index.json:', e); }
-
-                // Si no hay índice, busca posts manualmente
-                if (postNumbers.length === 0) {
-                    for (let i = 1; i <= 50; i++) { // Aumentamos el límite de búsqueda
-                        try {
-                            const response = await fetch(`${config.postsDirectory}post-${i}.json`);
-                            if (response.ok) { JSON.parse(await response.text()); postNumbers.push(i); }
-                        } catch (error) { }
-                    }
-                }
-
-                if (postNumbers.length === 0) {
-                    showError(`No se encontraron posts válidos en ${config.postsDirectory}`);
-                    return resolve([]);
-                }
-
-                // Carga todos los posts
-                const posts = await Promise.all(
-                    postNumbers.map(async number => {
-                        try {
-                            const response = await fetch(`${config.postsDirectory}post-${number}.json`);
-                            if (!response.ok) return null;
-                            const postData = JSON.parse(await response.text());
-
-                            // Procesa la imagen
-                            let imageUrl = postData.image || '';
-                            if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('/')) {
-                                imageUrl = `${config.imagesDirectory}${imageUrl}`;
-                            } else if (!imageUrl) {
-                                imageUrl = config.defaultImage;
-                            }
-
-                            // Carga el contenido (puede estar en archivo separado)
-                            let fullContent = '';
-                            if (postData.contentFile) {
-                                try {
-                                    const contentResponse = await fetch(`${config.postsDirectory}${postData.contentFile}`);
-                                    if (contentResponse.ok) fullContent = await contentResponse.text();
-                                } catch (e) { console.error('Error al cargar contenido:', e); }
-                            } else if (postData.content) {
-                                fullContent = postData.content;
-                            }
-
-                            return {
-                                ...postData,
-                                number,
-                                image: imageUrl,
-                                title: postData.title || 'Sin título',
-                                category: postData.category ? (Array.isArray(postData.category) ? postData.category : [postData.category]) : ['General'],
-                                excerpt: postData.excerpt || '',
-                                date: postData.date || '',
-                                content: fullContent
-                            };
-                        } catch (error) {
-                            console.error(`Error procesando post-${number}.json:`, error);
-                            return null;
-                        }
-                    })
-                );
-
-                // Filtra y ordena todos los posts válidos
-                const validPosts = posts.filter(p => p !== null)
-                                     .sort((a, b) => (new Date(b.date) - new Date(a.date)));
-
-                if (validPosts.length === 0) {
-                    showError('Los posts se encontraron pero no se pudieron cargar');
-                    return resolve([]);
-                }
-
-                // Configura la paginación
-                currentFilteredPosts = validPosts;
-                totalPosts = validPosts.length;
-                totalPages = Math.ceil(totalPosts / config.postsPerPage);
-                currentPage = Math.max(1, Math.min(page, totalPages));
-
-                // Calcula los posts para la página actual
-                const startIndex = (currentPage - 1) * config.postsPerPage;
-                const endIndex = startIndex + config.postsPerPage;
-                const postsForCurrentPage = validPosts.slice(startIndex, endIndex);
-
-                // Renderiza los posts y la paginación
-                renderPostsWithPagination(postsForCurrentPage, false);
-                resolve(validPosts);
-
-            } catch (error) {
-                showError(`Error al cargar los posts: ${error.message}`);
-                reject(error);
-            }
-        });
-    };
-
-    // Función original renderPosts para compatibilidad
-    function renderPosts(posts, isFiltered = false) {
-        // Resetea las variables de paginación para modo compatibilidad
-        currentFilteredPosts = posts;
-        totalPosts = posts.length;
-        totalPages = Math.ceil(totalPosts / config.postsPerPage);
-        currentPage = 1;
-
-        // Usa la función con paginación
-        renderPostsWithPagination(posts, isFiltered);
-    }
-
-    function renderPostsWithPagination(posts, isFiltered = false) {
-        if (!postsContainer) postsContainer = document.getElementById('postsContainer');
-        if (!postsContainer) return;
-
-        // Configura el grid según si está filtrado o no
-        postsContainer.className = isFiltered
-            ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-6"
-            : "grid grid-cols-1 gap-2 sm:gap-3 md:gap-4";
-
-        // Genera el HTML para cada post
-        const postsHTML = posts.map(post => `
-            <div class="bg-gray-800 rounded-lg sm:rounded-xl overflow-hidden shadow-lg card-hover-effect h-full flex flex-col w-full">
-                <img src="${post.image}" alt="${post.title}" class="w-full h-32 sm:h-40 md:h-48 object-cover" onerror="this.onerror=null;this.src='${config.defaultImage}'">
-                <div class="p-3 sm:p-4 flex-grow">
-                    <div class="flex justify-between items-start mb-2">
-                        <div class="flex flex-wrap gap-1">
-                            ${Array.isArray(post.category)
-                                ? post.category.map(cat => `
-                                    <span class="inline-block px-2 py-0.5 sm:px-3 sm:py-1 bg-gray-700 rounded-full text-xs text-cyan-400">
-                                        ${config.categories && config.categories.includes(cat) ? cat : 'General'}
-                                    </span>`).join('')
-                                : `
-                                    <span class="inline-block px-2 py-0.5 sm:px-3 sm:py-1 bg-gray-700 rounded-full text-xs text-cyan-400">
-                                        ${config.categories && config.categories.includes(post.category) ? post.category : 'General'}
-                                    </span>`}
-                        </div>
-                        <span class="text-gray-400 text-xs">${post.date}</span>
-                    </div>
-                    <h3 class="text-base sm:text-lg md:text-xl font-bold text-white mb-2 leading-tight">${post.title}</h3>
-                    <p class="text-gray-300 text-xs sm:text-sm line-clamp-3 leading-relaxed">${post.excerpt}</p>
-                </div>
-                <div class="px-3 sm:px-4 pb-3 sm:pb-4">
-                    <a href="javascript:void(0)" data-post-number="${post.number}" class="view-post-link text-cyan-400 hover:text-cyan-300 text-xs sm:text-sm font-medium">
-                        Leer más →
-                    </a>
-                </div>
-            </div>`).join('');
-
-        // Genera la paginación
-        const paginationHTML = generatePaginationHTML();
-
-        // Combina posts y paginación
-        postsContainer.innerHTML = postsHTML + paginationHTML;
-
-        document.querySelectorAll('.view-post-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.loadFullPost(this.getAttribute('data-post-number'));
-            });
-        });
-
-        // Genera el HTML de la paginación
-        function generatePaginationHTML() {
-            if (totalPages <= 1) return '';
-
-            let paginationHTML = `
-                <div class="col-span-full mt-6 sm:mt-8">
-                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <!-- Información de la página actual -->
-                        <div class="text-gray-400 text-sm">
-                            Mostrando ${((currentPage - 1) * config.postsPerPage) + 1} - ${Math.min(currentPage * config.postsPerPage, totalPosts)} de ${totalPosts} posts
-                        </div>
-
-                        <!-- Controles de paginación -->
-                        <div class="flex items-center gap-2">`;
-
-            // Botón "Primera página"
-            if (currentPage > 1) {
-                paginationHTML += `
-                    <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="1">
-                        ««
-                    </button>`;
-            }
-
-            // Botón "Página anterior"
-            if (currentPage > 1) {
-                paginationHTML += `
-                    <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="${currentPage - 1}">
-                        ‹ Anterior
-                    </button>`;
-            }
-
-            // Números de página
-            const startPage = Math.max(1, currentPage - 2);
-            const endPage = Math.min(totalPages, currentPage + 2);
-
-            // Puntos suspensivos al inicio si es necesario
-            if (startPage > 1) {
-                paginationHTML += `
-                    <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="1">1</button>`;
-                if (startPage > 2) {
-                    paginationHTML += `<span class="text-gray-400 px-2">...</span>`;
-                }
-            }
-
-            // Números de página visibles
-            for (let i = startPage; i <= endPage; i++) {
-                const isActive = i === currentPage;
-                paginationHTML += `
-                    <button class="pagination-btn px-3 py-2 ${isActive ? 'bg-cyan-600 text-white' : 'bg-gray-700 hover:bg-gray-600 text-white'} rounded-lg text-sm transition-colors" data-page="${i}">
-                        ${i}
-                    </button>`;
-            }
-
-            // Puntos suspensivos al final si es necesario
-            if (endPage < totalPages) {
-                if (endPage < totalPages - 1) {
-                    paginationHTML += `<span class="text-gray-400 px-2">...</span>`;
-                }
-                paginationHTML += `
-                    <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="${totalPages}">${totalPages}</button>`;
-            }
-
-            // Botón "Página siguiente"
-            if (currentPage < totalPages) {
-                paginationHTML += `
-                    <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="${currentPage + 1}">
-                        Siguiente ›
-                    </button>`;
-            }
-
-            // Botón "Última página"
-            if (currentPage < totalPages) {
-                paginationHTML += `
-                    <button class="pagination-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors" data-page="${totalPages}">
-                        »»
-                    </button>`;
-            }
-
-            paginationHTML += `
-                </div>
-            </div>
-        </div>`;
-
-            return paginationHTML;
-        }
-
-        // Combina posts y paginación
-        postsContainer.innerHTML = postsHTML + paginationHTML;
-
-        // Añade eventos a los enlaces "Leer más"
-        document.querySelectorAll('.view-post-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.loadFullPost(this.getAttribute('data-post-number'));
-            });
-        });
-
-        // Añade eventos a la paginación
-        addPaginationEvents();
-    }
-
-    // Añade eventos a los botones de paginación
-    function addPaginationEvents() {
-        document.querySelectorAll('.pagination-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const page = parseInt(this.getAttribute('data-page'));
-                if (page && page !== currentPage) {
-                    window.loadPosts(page);
-                    // Scroll suave hacia arriba
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-            });
-        });
-    }
-
-    function performSearchWithPagination(searchTerm, page = 1) {
-        if (!postsContainer) postsContainer = document.getElementById('postsContainer');
-        if (!postsContainer) return;
-
-        const resultsInfo = document.getElementById('searchResultsInfo');
-        if (searchTerm.length < 2) {
-            resultsInfo.classList.add('hidden');
-            return;
-        }
-
-        // Muestra un spinner de carga
-        postsContainer.innerHTML = `
-            <div class="text-center py-4 sm:py-6 md:py-8 col-span-4">
-                <div class="animate-spin rounded-full h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div>
-                <p class="mt-3 sm:mt-4 text-gray-400 text-sm sm:text-base">Buscando "${searchTerm}"...</p>
-            </div>`;
-
-        // Filtra los posts
-        const filteredPosts = config.allPosts.filter(post => {
-            const inTitle = post.title.toLowerCase().includes(searchTerm);
-            let inCategory = false;
-
-            if (Array.isArray(post.category)) {
-                inCategory = post.category.some(cat => cat.toLowerCase().includes(searchTerm));
-            } else {
-                inCategory = post.category.toLowerCase().includes(searchTerm);
-            }
-
-            const inExcerpt = post.excerpt.toLowerCase().includes(searchTerm);
-            let inContent = false;
-            if (post.content) inContent = post.content.toLowerCase().includes(searchTerm);
-
-            return inTitle || inCategory || inExcerpt || inContent;
-        });
-
-        if (filteredPosts.length === 0) {
-            postsContainer.innerHTML = `
-                <div class="col-span-4 text-center py-4 sm:py-6 md:py-8">
-                    <p class="text-gray-400 text-sm sm:text-base">No se encontraron posts para "${searchTerm}"</p>
-                    <button onclick="window.loadPosts()" class="mt-3 sm:mt-4 px-3 sm:px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 text-sm sm:text-base">
-                        Ver todos los posts
-                    </button>
-                </div>`;
-            resultsInfo.textContent = `No se encontraron resultados para "${searchTerm}"`;
-            resultsInfo.classList.remove('hidden');
-        } else {
-            // Configura paginación para búsqueda
-            currentFilteredPosts = filteredPosts;
-            totalPosts = filteredPosts.length;
-            totalPages = Math.ceil(totalPosts / config.postsPerPage);
-            currentPage = Math.max(1, Math.min(page, totalPages));
-
-            // Calcula los posts para la página actual
-            const startIndex = (currentPage - 1) * config.postsPerPage;
-            const endIndex = startIndex + config.postsPerPage;
-            const postsForCurrentPage = filteredPosts.slice(startIndex, endIndex);
-
-            renderPostsWithPagination(postsForCurrentPage, true);
-            resultsInfo.textContent = `Mostrando ${filteredPosts.length} resultados para "${searchTerm}"`;
-            resultsInfo.classList.remove('hidden');
-            highlightSearchTerms(searchTerm);
-        }
-    }
-
-    // Función auxiliar para cambiar de página en búsquedas
-    window.searchPage = function(page) {
-        if (config.lastSearchTerm) {
-            performSearchWithPagination(config.lastSearchTerm, page);
-        }
-    };
-
-    // Actualiza la función de búsqueda original
-    function performSearch(searchTerm) {
-        performSearchWithPagination(searchTerm, 1);
-    }
-
-    window.loadCategories = function() {
-        const categoriesContainer = document.getElementById('categoriesContainer');
-        if (!categoriesContainer || !config.categories) return;
-        categoriesContainer.className = "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3 md:gap-4 lg:gap-6 p-1 sm:p-2 md:p-4";
-        categoriesContainer.innerHTML = config.categories.map(category => `
-            <div class="bg-gray-800 rounded-lg sm:rounded-xl overflow-hidden shadow-lg card-hover-effect h-full flex flex-col w-full">
-                <div class="p-3 sm:p-4 md:p-6 flex-grow flex flex-col items-center justify-center">
-                    <span class="inline-block px-3 py-1 sm:px-4 sm:py-2 bg-cyan-600 rounded-full text-sm sm:text-base md:text-lg text-white mb-2 sm:mb-3 md:mb-4 text-center">${category}</span>
-                    <button data-category="${category}" class="view-category-btn px-3 py-1 sm:px-4 sm:py-2 md:px-6 md:py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors text-xs sm:text-sm md:text-base">Ver Posts</button>
-                </div>
-            </div>`).join('');
-        document.querySelectorAll('.view-category-btn').forEach(btn => { btn.addEventListener('click', function() { window.filterPostsByCategory(this.getAttribute('data-category')); }); });
-    };
-
-    window.filterPostsByCategory = async function(category) {
-        if (typeof window.switchTab === 'function') window.switchTab('posts');
-        if (!postsContainer) postsContainer = document.getElementById('postsContainer');
-        if (!postsContainer) return;
-
-        // Resetea el grid del contenedor para el post completo
-        postsContainer.className = "w-full";
-
-        // Renderiza el post completo
-        postsContainer.innerHTML = `<div class="text-center py-4 sm:py-6 md:py-8 col-span-4"><div class="animate-spin rounded-full h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div><p class="mt-3 sm:mt-4 text-gray-400 text-sm sm:text-base">Cargando posts de ${category}...</p></div>`;
-        try {
-            const allPosts = await window.loadPosts();
-            const filteredPosts = allPosts.filter(post => post.category && (Array.isArray(post.category) ? post.category.some(cat => cat.trim().toLowerCase() === category.trim().toLowerCase()) : post.category.trim().toLowerCase() === category.trim().toLowerCase()));
-            if (filteredPosts.length === 0) {
-                postsContainer.innerHTML = `<div class="col-span-4 text-center py-4 sm:py-6 md:py-8"><p class="text-gray-400 text-sm sm:text-base">No hay posts en la categoría ${category}</p><button onclick="window.loadPosts()" class="mt-3 sm:mt-4 px-3 sm:px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 text-sm sm:text-base">Ver todos los posts</button></div>`;
-            } else {
-                renderPosts(filteredPosts, true);
-                postsContainer.insertAdjacentHTML('afterbegin', `<div class="col-span-4 flex justify-center mb-4 sm:mb-6"><button onclick="window.loadPosts()" class="px-3 sm:px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm sm:text-base">← Ver todas las categorías</button></div>`);
-                postsContainer.insertAdjacentHTML('afterbegin', `<div class="col-span-4 text-center mb-4 sm:mb-6"><h2 class="text-lg sm:text-xl md:text-2xl font-bold text-white">Posts en la categoría: ${category}</h2></div>`);
-            }
-        } catch (error) { postsContainer.innerHTML = `<div class="text-center py-4 sm:py-6 md:py-8 col-span-4"><p class="text-red-400 text-sm sm:text-base">Error al cargar los posts de ${category}: ${error.message}</p><button onclick="window.loadPosts()" class="mt-3 sm:mt-4 px-3 sm:px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 text-sm sm:text-base">Ver todos los posts</button></div>`; }
-    };
-
-    window.loadFullPost = async function(postNumber) {
-        if (!postsContainer) postsContainer = document.getElementById('postsContainer');
-        if (!postsContainer) return;
-        try {
-            postsContainer.innerHTML = `<div class="text-center py-4 sm:py-6 md:py-8 col-span-1 w-full"><div class="animate-spin rounded-full h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 border-t-2 border-b-2 border-cyan-500 mx-auto"></div><p class="mt-3 sm:mt-4 text-gray-400 text-sm sm:text-base">Cargando post...</p></div>`;
-            const response = await fetch(`${config.postsDirectory}post-${postNumber}.json`);
-            if (!response.ok) throw new Error(`No se pudo cargar el post #${postNumber}`);
-            const post = await response.json();
-            let imageUrl = post.image || '';
-            if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('/')) imageUrl = `${config.imagesDirectory}${imageUrl}`;
-            else if (!imageUrl) imageUrl = config.defaultImage;
-            let postContent = '';
-            if (post.contentFile) {
-                try {
-                    const contentResponse = await fetch(`${config.postsDirectory}${post.contentFile}`);
-                    if (contentResponse.ok) {
-                        if (typeof marked !== 'undefined') {
-                            marked.setOptions({ breaks: true, gfm: true, tables: true, sanitize: false });
-                            postContent = typeof DOMPurify !== 'undefined' ? DOMPurify.sanitize(marked.parse(await contentResponse.text())) : marked.parse(await contentResponse.text());
-                        } else {
-                            postContent = await contentResponse.text();
-                        }
-                    }
-                } catch (e) { postContent = `<div class="text-red-400 p-3 sm:p-4 border border-red-400 rounded text-sm sm:text-base"><p>Error al cargar el contenido</p><details class="mt-2 text-xs sm:text-sm"><summary>Detalles técnicos</summary><pre class="overflow-auto">${e.message}</pre></details></div>`; }
-            } else if (post.content) {
-                try {
-                    if (typeof marked !== 'undefined') {
-                        postContent = typeof DOMPurify !== 'undefined' ? DOMPurify.sanitize(marked.parse(post.content)) : marked.parse(post.content);
-                    } else {
-                        postContent = post.content;
-                    }
-                }
-                catch (e) { postContent = `<p class="text-red-400 text-sm sm:text-base">Error al formatear el contenido</p>`; }
-            } else { postContent = '<p class="text-gray-400 text-sm sm:text-base">No hay contenido disponible</p>'; }
-            postsContainer.className = "w-full";
-            postsContainer.innerHTML = `
-                <div class="bg-gray-800 rounded-lg sm:rounded-xl overflow-hidden shadow-lg w-full">
-                    <img src="${imageUrl}" alt="${post.title}" class="w-full h-40 sm:h-48 md:h-60 object-cover" onerror="this.onerror=null;this.src='${config.defaultImage}'">
-                    <div class="p-3 sm:p-4 md:p-6">
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3 sm:mb-4 gap-2">
-                            <div class="flex flex-wrap items-center gap-2">${Array.isArray(post.category) ? post.category.map(cat => `<span class="inline-block px-2 py-0.5 sm:px-3 sm:py-1 bg-gray-700 rounded-full text-xs text-cyan-400">${cat}</span>`).join('') : `<span class="inline-block px-2 py-0.5 sm:px-3 sm:py-1 bg-gray-700 rounded-full text-xs text-cyan-400">${post.category || 'General'}</span>`}
-                                <span class="text-gray-400 text-xs">${post.date || ''}</span>
-                            </div>
-                            <button id="btnBackToPosts" class="text-gray-400 hover:text-white px-3 py-1 bg-gray-700 rounded text-xs sm:text-sm self-start sm:self-auto">← Volver a posts</button>
-                        </div>
-                        <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-white mb-3 sm:mb-4 leading-tight">${post.title || 'Sin título'}</h2>
-                        <div class="text-gray-300 post-content leading-relaxed [&_p]:text-xs [&_p]:sm:text-sm [&_p]:leading-relaxed [&_h1]:text-lg [&_h1]:sm:text-xl [&_h2]:text-base [&_h2]:sm:text-lg">${postContent}</div>
-                    </div>
-                </div>`;
-                document.getElementById('btnBackToPosts').addEventListener('click', function(e) {
-                e.preventDefault();
-                window.loadPosts();
-            });
-
-            // Scroll suave hacia arriba al cargar el post
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        } catch (error) {
-            postsContainer.innerHTML = `<div class="text-center py-4 sm:py-6 md:py-8 col-span-1 w-full"><p class="text-red-400 text-sm sm:text-base">Error: ${error.message}</p><button id="btnErrorBackToPosts" class="mt-3 sm:mt-4 px-3 sm:px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 text-sm sm:text-base">Volver</button></div>`;
-            document.getElementById('btnErrorBackToPosts').addEventListener('click', () => {
-                window.loadPosts();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        }
-    };
 });
 </script>
 </body>
