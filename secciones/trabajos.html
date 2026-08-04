@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algunos de nuestros trabajos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 50%, #4a5568 100%);
+            min-height: 100vh;
+            padding: 3rem 2rem;
+            color: white;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .header h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #3182ce, #63b3ed, #90cdf4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(49, 130, 206, 0.3);
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            color: #a0aec0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: rgba(45, 55, 72, 0.4);
+            border-radius: 24px;
+            padding: 0;
+            border: 1px solid rgba(74, 85, 104, 0.6);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            border-color: #3182ce;
+            box-shadow: 0 25px 50px rgba(49, 130, 206, 0.25);
+        }
+
+        .card-image-section {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+            filter: brightness(0.8);
+        }
+
+        .project-card:hover .card-image {
+            transform: scale(1.1);
+            filter: brightness(1);
+        }
+
+        .card-overlay-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(45deg, #3182ce, #2b6cb0);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(49, 130, 206, 0.4);
+        }
+
+        .card-content {
+            padding: 2rem;
+            position: relative;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #f7fafc;
+            line-height: 1.2;
+        }
+
+        .card-description {
+            color: #cbd5e0;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .card-button {
+            background: linear-gradient(45deg, #3182ce, #2b6cb0);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .card-button:hover::before {
+            left: 100%;
+        }
+
+        .card-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(49, 130, 206, 0.4);
+        }
+
+        /* Tarjetas "próximo proyecto" (placeholder, sin trabajo real cargado aún) */
+        .project-card.placeholder {
+            cursor: default;
+            border-style: dashed;
+        }
+
+        .project-card.placeholder:hover {
+            transform: none;
+            border-color: rgba(74, 85, 104, 0.6);
+            box-shadow: none;
+        }
+
+        .project-card.placeholder .card-image-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .project-card.placeholder .card-image-section svg {
+            width: 48px;
+            height: 48px;
+            color: #4a5568;
+        }
+
+        .project-card.placeholder .card-title,
+        .project-card.placeholder .card-description {
+            color: #718096;
+        }
+
+        .card-button.disabled {
+            background: #2d3748;
+            color: #718096;
+            cursor: not-allowed;
+        }
+
+        .card-button.disabled::before {
+            display: none;
+        }
+
+        .card-button.disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            body {
+                padding: 2rem 1rem;
+            }
+
+            .card-image-section {
+                height: 180px;
+            }
+
+            .card-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Algunos de nuestros trabajos</h1>
+            <p>Proyectos reales entregados a clientes, construidos de principio a fin</p>
+        </div>
+
+        <div class="cards-grid">
+            <!-- Trabajo real 1: Casas Contenedores -->
+            <div class="project-card">
+                <div class="card-image-section">
+                    <img src="/img/fondos-landing-pages/landing-5.jpg"
+                         alt="Contenedores Cadiz y Aravena"
+                         class="card-image">
+                    <span class="card-overlay-badge">En producción</span>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Venta de Casas Contenedores</h3>
+                    <p class="card-description">Sitio a medida para una empresa dedicada a la venta e instalación de casas hechas con contenedores marítimos.</p>
+                    <div class="card-footer">
+                        <a href="https://www.contenedorescadizyaravenalimitada.cl/" target="_blank" rel="noopener noreferrer" class="card-button">Ver mas</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trabajo real 2: Setamani -->
+            <div class="project-card">
+                <div class="card-image-section">
+                    <img src="/img/trabajos/setamani-construccion.jpeg"
+                         alt="Setamani Constructora"
+                         class="card-image">
+                    <span class="card-overlay-badge">En producción</span>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Setamani Constructora</h3>
+                    <p class="card-description">Sitio corporativo para una constructora con más de 20 años de trayectoria: servicios, partners y formulario de cotización.</p>
+                    <div class="card-footer">
+                        <a href="https://setamani.com/" target="_blank" rel="noopener noreferrer" class="card-button">Ver mas</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Placeholders: se reemplazan por proyectos reales a medida que se agreguen -->
+            <div class="project-card placeholder">
+                <div class="card-image-section">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M4 6h16M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Próximo proyecto</h3>
+                    <p class="card-description">Este espacio está reservado para un nuevo trabajo real que se agregará próximamente.</p>
+                    <div class="card-footer">
+                        <span class="card-button disabled">Próximamente</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card placeholder">
+                <div class="card-image-section">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M4 6h16M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Próximo proyecto</h3>
+                    <p class="card-description">Este espacio está reservado para un nuevo trabajo real que se agregará próximamente.</p>
+                    <div class="card-footer">
+                        <span class="card-button disabled">Próximamente</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card placeholder">
+                <div class="card-image-section">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M4 6h16M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Próximo proyecto</h3>
+                    <p class="card-description">Este espacio está reservado para un nuevo trabajo real que se agregará próximamente.</p>
+                    <div class="card-footer">
+                        <span class="card-button disabled">Próximamente</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card placeholder">
+                <div class="card-image-section">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M4 6h16M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Próximo proyecto</h3>
+                    <p class="card-description">Este espacio está reservado para un nuevo trabajo real que se agregará próximamente.</p>
+                    <div class="card-footer">
+                        <span class="card-button disabled">Próximamente</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card placeholder">
+                <div class="card-image-section">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M4 6h16M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Próximo proyecto</h3>
+                    <p class="card-description">Este espacio está reservado para un nuevo trabajo real que se agregará próximamente.</p>
+                    <div class="card-footer">
+                        <span class="card-button disabled">Próximamente</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Efecto de inclinación en las cards reales (no aplica a placeholders)
+        document.querySelectorAll('.project-card:not(.placeholder)').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px) scale(1.03)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
+            });
+        });
+
+        // Nota: los botones "Ver mas" son links reales (href + target="_blank"),
+        // así que no necesitan JS propio de navegación: el navegador los abre
+        // en una pestaña nueva de forma normal, sin pasar por el router interno.
+    </script>
+</body>
+</html>
