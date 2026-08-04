@@ -79,7 +79,6 @@
                                 <span class="nav-text ml-4 font-Terano-1 a-1 text-xl sidebar-text text tracking-widest">Tienda</span> 
                             </a>
                         </li>
-
                         <li class="flex justify-center w-full">
                             <a href="#contact" data-route="secciones/contact.html" class="flex items-center justify-center p-3 hover:bg-gray-700 rounded-lg transition-colors duration-200 w-full">
                                 <span class="nav-text ml-4 font-Terano-1 a-1 text-xl sidebar-text text tracking-widest">Contacto </span>
@@ -173,7 +172,17 @@
                 </div>
             </footer>
     </div>
-    
+
+    <!-- Botón flotante de WhatsApp: fijo, visible en todas las vistas del router -->
+    <a href="https://wa.me/56973177957?text=Quiero%20cotizar%20tus%20servicios%20web"
+       target="_blank" rel="noopener noreferrer" id="whatsapp-float"
+       aria-label="Cotizar por WhatsApp"
+       class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] shadow-lg hover:scale-110 transition-transform duration-300">
+        <span class="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-60"></span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="relative h-6 w-6 sm:h-7 sm:w-7 text-white" fill="currentColor">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 004.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0012.04 2zm5.8 14.14c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.08 1-2.36.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.29.29-.12.57.16.28.73 1.2 1.57 1.95 1.08.96 1.99 1.26 2.27 1.4.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.1 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/>
+        </svg>
+    </a>
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
@@ -211,11 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const contenidoHTML = await respuesta.text();
             document.getElementById('contenido-principal').innerHTML = contenidoHTML;
-
-            // Verifica si es la página de certificados
-            if (ruta.includes('certificaciones.html')) {
-                initCertificados(); // Inicializa los eventos de certificados
-            }
 
             contenido.scrollTop = 0;
             window.scrollTo(0, 0);
@@ -263,325 +267,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navBackButton) navBackButton.addEventListener('click', irAtras);
     if (navForwardButton) navForwardButton.addEventListener('click', irAdelante);
 
-    function initCertificados() {
-        // Crea el modal si no existe
-        if (!document.getElementById('certificateModal')) {
-            const modalHTML = `
-            <div id="certificateModal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
-                <div class="bg-gray-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-auto relative">
-                    <button id="closeCertModal" class="absolute top-4 right-4 text-gray-400 hover:text-white z-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                    <div id="certModalContent" class="p-6"></div>
-                </div>
-            </div>`;
-            document.body.insertAdjacentHTML('beforeend', modalHTML);
-
-            document.getElementById('closeCertModal').addEventListener('click', () => {
-                document.getElementById('certificateModal').classList.add('hidden');
-            });
-        }
-
-        // Delegación de eventos para los botones de certificados
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('view-certificate')) {
-                e.preventDefault();
-                const certId = e.target.getAttribute('data-certificate');
-                showCertificate(certId);
-            }
-        });
-
-        async function showCertificate(certId) {
-            const modal = document.getElementById('certificateModal');
-            const content = document.getElementById('certModalContent');
-
-            content.innerHTML = `
-                <div class="text-center py-8">
-                    <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-cyan-500 mx-auto"></div>
-                    <p class="mt-3 text-gray-400">Cargando certificado...</p>
-                </div>`;
-            modal.classList.remove('hidden');
-
-            try {
-                // Datos específicos para cada certificado
-                let certData = {};
-                switch(certId) {
-                    case 'cert1': // Analista Programador
-                        certData = {
-                            title: "Analista Programador",
-                            image: "/secciones/posts/images/st-logo-1.png",
-                            details: [
-                                {label: "Institución", value: "Santo Tomás"},
-                                {label: "Año", value: "2025"},
-                                {label: "Duración", value: "2 - 3 años"}
-                            ],
-                            description: `
-                                <div class="space-y-4 sm:space-y-5 text-justify">
-                                    <p class="text-xs sm:text-sm md:text-base leading-relaxed text-gray-300 dark:text-gray-300">
-                                        Titulación como analista programador con especialización en desarrollo de software y soluciones tecnológicas innovadoras, preparando profesionales para la era digital actual.
-                                    </p>
-
-                                    <h3 class="font-bold text-cyan-400 dark:text-cyan-300 mt-4 sm:mt-5 mb-2 sm:mb-3 text-sm sm:text-base md:text-lg">
-                                        Competencias Desarrolladas:
-                                    </h3>
-
-                                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 text-xs sm:text-sm md:text-base">
-                                        <li class="flex items-start leading-relaxed">
-                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 mt-1 flex-shrink-0">•</span>
-                                            <span class="text-gray-300 dark:text-gray-400">Desarrollo de software avanzado</span>
-                                        </li>
-                                        <li class="flex items-start leading-relaxed">
-                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 mt-1 flex-shrink-0">•</span>
-                                            <span class="text-gray-300 dark:text-gray-400">Ciberseguridad y protección de datos</span>
-                                        </li>
-                                        <li class="flex items-start leading-relaxed">
-                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 mt-1 flex-shrink-0">•</span>
-                                            <span class="text-gray-300 dark:text-gray-400">Big Data y análisis de información</span>
-                                        </li>
-                                        <li class="flex items-start leading-relaxed">
-                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 mt-1 flex-shrink-0">•</span>
-                                            <span class="text-gray-300 dark:text-gray-400">Tecnologías emergentes (IoT, RA)</span>
-                                        </li>
-                                        <li class="flex items-start leading-relaxed">
-                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 mt-1 flex-shrink-0">•</span>
-                                            <span class="text-gray-300 dark:text-gray-400">Soluciones en la nube</span>
-                                        </li>
-                                        <li class="flex items-start leading-relaxed">
-                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 mt-1 flex-shrink-0">•</span>
-                                            <span class="text-gray-300 dark:text-gray-400">Robótica y domótica</span>
-                                        </li>
-                                    </ul>
-
-                                    <h3 class="font-bold text-cyan-400 dark:text-cyan-300 mt-4 sm:mt-5 mb-2 sm:mb-3 text-sm sm:text-base md:text-lg">
-                                        Campo Laboral:
-                                    </h3>
-
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs sm:text-sm md:text-base">
-                                        <div class="bg-gray-600/30 p-2 sm:p-3 rounded-lg">
-                                            <span class="text-gray-300">Empresas TIC</span>
-                                        </div>
-                                        <div class="bg-gray-600/30 p-2 sm:p-3 rounded-lg">
-                                            <span class="text-gray-300">Sector Financiero</span>
-                                        </div>
-                                        <div class="bg-gray-600/30 p-2 sm:p-3 rounded-lg">
-                                            <span class="text-gray-300">Industria Minera</span>
-                                        </div>
-                                        <div class="bg-gray-600/30 p-2 sm:p-3 rounded-lg">
-                                            <span class="text-gray-300">Manufactura</span>
-                                        </div>
-                                        <div class="bg-gray-600/30 p-2 sm:p-3 rounded-lg">
-                                            <span class="text-gray-300">Sector Público</span>
-                                        </div>
-                                        <div class="bg-gray-600/30 p-2 sm:p-3 rounded-lg">
-                                            <span class="text-gray-300">Consultoría IT</span>
-                                        </div>
-                                    </div>
-
-                                    <h3 class="font-bold text-cyan-400 dark:text-cyan-300 mt-4 sm:mt-5 mb-2 sm:mb-3 text-sm sm:text-base md:text-lg">
-                                        Certificaciones Incluidas:
-                                    </h3>
-
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-                                        <div class="flex items-center space-x-2 bg-gray-600/20 p-2 sm:p-3 rounded-lg">
-                                            <span class="text-green-400 text-sm">✓</span>
-                                            <span class="text-gray-300 text-xs sm:text-sm">Diseño Básico de Software</span>
-                                        </div>
-                                        <div class="flex items-center space-x-2 bg-gray-600/20 p-2 sm:p-3 rounded-lg">
-                                            <span class="text-green-400 text-sm">✓</span>
-                                            <span class="text-gray-300 text-xs sm:text-sm">Programación Básica</span>
-                                        </div>
-                                        <div class="flex items-center space-x-2 bg-gray-600/20 p-2 sm:p-3 rounded-lg">
-                                            <span class="text-green-400 text-sm">✓</span>
-                                            <span class="text-gray-300 text-xs sm:text-sm">Programación Avanzada</span>
-                                        </div>
-                                        <div class="flex items-center space-x-2 bg-gray-600/20 p-2 sm:p-3 rounded-lg">
-                                            <span class="text-green-400 text-sm">✓</span>
-                                            <span class="text-gray-300 text-xs sm:text-sm">Soporte Informático</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-4 sm:mt-5 p-3 sm:p-4 bg-cyan-500/10 border-l-4 border-cyan-400 rounded-r-lg">
-                                        <p class="text-xs sm:text-sm leading-relaxed">
-                                            <span class="font-semibold text-cyan-400">Metodología:</span>
-                                            <span class="text-gray-300">Basado en Marco SFIA y MCTP, con laboratorios equipados y talleres de integración de competencias para evaluación continua del perfil de egreso.</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            `
-                        };
-                        break;
-
-                    case 'cert2': // Fundamentos de Seguridad
-                        certData = {
-                            title: "Fundamentos de Seguridad de la Información",
-                            image: "/secciones/posts/images/logo.webp",
-                            details: [
-                                {label: "Plataforma", value: "HackTheBox"},
-                                {label: "Duración", value: "101 horas"},
-                                {label: "Año", value: "2024"}
-                            ],
-                            description: `
-                                <div class="space-y-4 sm:space-y-5 md:space-y-6 text-justify">
-                                    <p class="text-xs sm:text-sm md:text-base leading-relaxed text-gray-300 dark:text-gray-300">
-                                        La seguridad de la información es un campo con muchas disciplinas especializadas y altamente técnicas. Puestos como evaluador de penetración y analista de seguridad de la información requieren una sólida base técnica de temas fundamentales de TI y seguridad de la información.
-                                    </p>
-
-                                    <p class="text-sm sm:text-base md:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-                                        Esta ruta de habilidades consta de módulos que ayudarán a los estudiantes a desarrollar o fortalecer una comprensión básica antes de continuar con el aprendizaje de temas de seguridad más complejos. Toda construcción con una larga trayectoria necesita primero una base sólida.
-                                    </p>
-
-                                    <h3 class="font-bold text-cyan-400 dark:text-cyan-300 mt-6 sm:mt-7 md:mt-8 mb-3 sm:mb-4 text-base sm:text-lg md:text-xl">
-                                        Temas del curso:
-                                    </h3>
-
-                                    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 md:gap-4 text-sm sm:text-base md:text-lg">
-                                        <li class="flex items-start leading-relaxed">
-                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
-                                            <span class="text-gray-600 dark:text-gray-400">Proceso de aprendizaje adaptado a seguridad informática</span>
-                                        </li>
-                                        <li class="flex items-start leading-relaxed">
-                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
-                                            <span class="text-gray-600 dark:text-gray-400">Preparación eficiente para pruebas de penetración</span>
-                                        </li>
-                                        <li class="flex items-start leading-relaxed">
-                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
-                                            <span class="text-gray-600 dark:text-gray-400">Fundamentos de Linux y Windows</span>
-                                        </li>
-                                        <li class="flex items-start leading-relaxed">
-                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
-                                            <span class="text-gray-600 dark:text-gray-400">Línea de comandos de Windows (CMD/PowerShell)</span>
-                                        </li>
-                                        <li class="flex items-start leading-relaxed">
-                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
-                                            <span class="text-gray-600 dark:text-gray-400">Automatización con scripts Bash</span>
-                                        </li>
-                                        <li class="flex items-start leading-relaxed">
-                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
-                                            <span class="text-gray-600 dark:text-gray-400">Fundamentos de redes y análisis de tráfico</span>
-                                        </li>
-                                        <li class="flex items-start leading-relaxed">
-                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
-                                            <span class="text-gray-600 dark:text-gray-400">Active Directory en entornos corporativos</span>
-                                        </li>
-                                        <li class="flex items-start leading-relaxed">
-                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
-                                            <span class="text-gray-600 dark:text-gray-400">Seguridad en aplicaciones web</span>
-                                        </li>
-                                        <li class="flex items-start leading-relaxed">
-                                            <span class="text-cyan-400 dark:text-cyan-300 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
-                                            <span class="text-gray-600 dark:text-gray-400">Protocolos HTTP y comunicación con backends</span>
-                                        </li>
-                                    </ul>
-
-                                    <div class="mt-4 sm:mt-6 md:mt-7 space-y-2 sm:space-y-3 text-xs sm:text-sm md:text-base">
-                                        <p class="leading-relaxed">
-                                            <span class="font-semibold text-cyan-400 dark:text-cyan-300 text-xs sm:text-sm md:text-base">Enfoque práctico:</span>
-                                            <span class="text-gray-300 dark:text-gray-300 text-xs sm:text-sm md:text-base">Combina teoría con ejercicios hands-on para desarrollar habilidades reales.</span>
-                                        </p>
-                                        <p class="leading-relaxed">
-                                            <span class="font-semibold text-cyan-400 dark:text-cyan-300 text-xs sm:text-sm md:text-base">Para quién es:</span>
-                                            <span class="text-gray-300 dark:text-gray-300 text-xs sm:text-sm md:text-base">Aspirantes a pentesters, analistas de seguridad y administradores de sistemas.</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            `
-                        };
-                        break;
-
-                    case 'cert3': // ISO 27001
-                        certData = {
-                            title: "Fundamentos ISO 27001",
-                            image: "/secciones/posts/images/hk-mentor.webp",
-                            details: [
-                                {label: "Plataforma", value: "Hacker-Mentor"},
-                                {label: "Duración", value: "7 horas"}
-                            ],
-                            description: `
-                                <p class="text-sm sm:text-base md:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-                                    Es la norma internacional que establece los requisitos para un Sistema de Gestión de Seguridad de la Información (SGSI). La actualización más reciente moderniza el enfoque para cubrir amenazas actuales como:
-                                </p>
-                                <ul class="list-disc pl-4 sm:pl-5 md:pl-6 mt-2 sm:mt-3 md:mt-4 space-y-1 sm:space-y-2">
-                                    <li class="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                                        El teletrabajo y la nube
-                                    </li>
-                                    <li class="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                                        El riesgo de terceros (proveedores)
-                                    </li>
-                                    <li class="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                                        El aumento de ataques de ingeniería social
-                                    </li>
-                                    <li class="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                                        Automatización de procesos de monitoreo y respuesta
-                                    </li>
-                                </ul>
-                                <p class="mt-3 sm:mt-4 md:mt-5 text-xs sm:text-sm md:text-base leading-relaxed text-gray-300 dark:text-gray-300 font-medium">
-                                    El enfoque basado en riesgos, controles actualizados y contexto organizacional exige más conocimiento técnico y estratégico que nunca.
-                                </p>
-                            `
-                        };
-                        break;
-
-                    default:
-                        throw new Error("Certificado no encontrado");
-                }
-
-                // Renderizar el certificado con detalles responsivos
-                const detailsHTML = certData.details.map(detail => `
-                    <div class="flex flex-col xs:flex-row xs:items-start gap-1 xs:gap-3 py-2 border-b border-gray-600/30 last:border-b-0">
-                        <span class="font-medium text-gray-300 text-xs sm:text-sm md:text-base shrink-0 xs:min-w-[4rem] sm:min-w-[5rem] md:min-w-[6rem]">
-                            ${detail.label}:
-                        </span>
-                        <span class="text-gray-100 text-xs sm:text-sm md:text-base break-words">
-                            ${detail.value}
-                        </span>
-                    </div>
-                `).join('');
-
-                content.innerHTML = `
-                    <div class="text-center">
-                        <h3 class="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6">${certData.title}</h3>
-                        ${certData.image ? `
-                        <div class="mb-4 sm:mb-6 flex justify-center">
-                            <img src="${certData.image}" alt="Certificado" class="max-w-full h-auto max-h-64 sm:max-h-80 md:max-h-96 rounded-lg border border-gray-700">
-                        </div>` : ''}
-                        <div class="text-left space-y-4 sm:space-y-6">
-                            <!-- Sección de detalles responsiva -->
-                            <div class="bg-gray-700/50 p-3 sm:p-4 md:p-5 rounded-lg">
-                                <h4 class="font-semibold text-gray-200 mb-3 text-sm sm:text-base md:text-lg">Detalles del certificado</h4>
-                                <div class="space-y-1 sm:space-y-2">
-                                    ${detailsHTML}
-                                </div>
-                            </div>
-
-                            <!-- Sección de descripción -->
-                            <div class="bg-gray-700/30 p-3 sm:p-4 md:p-5 rounded-lg">
-                                <h4 class="font-semibold text-gray-200 mb-3 text-sm sm:text-base md:text-lg">Descripción</h4>
-                                <div class="prose prose-sm sm:prose-base md:prose-lg max-w-none">
-                                    ${certData.description}
-                                </div>
-                            </div>
-                        </div>
-                    </div>`;
-            } catch (error) {
-                content.innerHTML = `
-                    <div class="text-center text-red-400 py-8">
-                        <p class="text-sm sm:text-base">Error al cargar el certificado</p>
-                        <p class="text-xs sm:text-sm mt-2">${error.message}</p>
-                        <button onclick="window.location.reload()" class="mt-4 px-4 py-2 bg-gray-700 rounded hover:bg-gray-600 text-sm sm:text-base">
-                            Recargar página
-                        </button>
-                    </div>`;
-            }
-        }
-    }
-
     // Punto de extensión para inicializar lógica particular de cada sección
     // (portafolio, marketplace, etc.) cuando se cargan dinámicamente.
     function initializeSection(seccion) {
-        // Actualmente ninguna sección requiere inicialización extra
-        // aparte de certificaciones (manejada en cargarContenido).
+        // Actualmente ninguna sección requiere inicialización extra.
     }
 
     // --- Mobile Menu Logic ---
