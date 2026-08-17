@@ -1,110 +1,525 @@
-<section class="py-16 sm:py-20 relative overflow-hidden">
+<style>
+    .glow-cyan { box-shadow: 0 0 50px rgba(34, 211, 238, 0.12); }
+    .glow-emerald { box-shadow: 0 0 50px rgba(52, 211, 153, 0.12); }
+</style>
+
+<!-- ═══════════ 1. HERO ═══════════ -->
+<section class="py-16 sm:py-24 relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-gray-900/90 to-gray-800/50 backdrop-blur-sm"></div>
 
-    <div class="container mx-auto px-4 relative z-10">
-        <div class="text-center">
-            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold insetshadow tracking-wider text-white mb-6 sm:mb-8 tracking-tight uppercase font-Emizen-1">
-                Tu negocio merece vender más
-            </h1>
+    <div class="container mx-auto px-4 relative z-10 text-center">
 
-            <div class="hero-section text-white max-w-3xl mx-auto mb-10 sm:mb-14">
-                <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 font-serif leading-relaxed tracking-wide">
-                    Diseñamos páginas web y asistentes virtuales que convierten visitas en clientes reales.
-                    Te ayudamos a mostrar tu negocio de forma profesional, automatizar respuestas y facilitar la compra
-                    para que no pierdas oportunidades por demoras, desorden o falta de presencia digital.
-                </p>
-            </div>
+        <div class="mb-6">
+            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-400/40 bg-cyan-400/10 text-cyan-300 text-sm font-serif tracking-wide">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                Diseño web profesional + Agentes de Inteligencia Artificial
+            </span>
         </div>
 
-        <div class="max-w-4xl mx-auto text-center mb-10 sm:mb-14">
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6 font-Emizen-1 tracking-wide">
-                Convierte tu presencia digital en una herramienta de ventas
+        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight font-Emizen-1 max-w-5xl mx-auto mb-6 leading-tight text-white">
+            Tu página web atrae clientes.
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-emerald-400">Tu agente de IA</span>
+            los convierte en ventas.
+        </h1>
+
+        <p class="text-lg sm:text-xl lg:text-2xl text-gray-300 font-serif leading-relaxed max-w-3xl mx-auto mb-8">
+            En Fusión DevTech creamos páginas web profesionales potenciadas con agentes de IA
+            que responden en segundos, agendan citas y cierran ventas por ti —
+            las 24 horas, todos los días.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm sm:text-base text-gray-400 font-serif mb-10">
+            <span>✓ Responde en segundos, no en horas</span>
+            <span>✓ Trabaja 24/7 sin descanso</span>
+            <span>✓ Sin conocimientos técnicos de tu parte</span>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="#contact" data-route="secciones/contact.html"
+               class="inline-block px-8 py-4 bg-gray-800 border-2 border-cyan-400 text-white font-Emizen-1 font-bold text-lg rounded-lg transition-all hover:bg-cyan-400/10 hover:scale-105 glow-cyan">
+                Quiero mi diagnóstico gratuito →
+            </a>
+            <a href="#agentes"
+               class="inline-block px-8 py-4 text-gray-300 font-serif text-lg hover:text-cyan-400 transition-colors">
+                Ver cómo funciona ↓
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ 2. BARRA DE CONFIANZA ═══════════ -->
+<section class="border-y border-gray-800 bg-gray-800/40 py-6">
+    <div class="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center font-serif text-sm sm:text-base text-gray-300">
+        <div class="flex items-center justify-center gap-2"><span class="text-cyan-400">⚡</span> Respuesta en segundos</div>
+        <div class="flex items-center justify-center gap-2"><span class="text-cyan-400">🕐</span> Disponible 24/7</div>
+        <div class="flex items-center justify-center gap-2"><span class="text-cyan-400">🛡️</span> Garantía de lanzamiento</div>
+        <div class="flex items-center justify-center gap-2"><span class="text-cyan-400">🤝</span> Soporte humano real</div>
+    </div>
+</section>
+
+<!-- ═══════════ 3. EL PROBLEMA ═══════════ -->
+<section class="py-16 sm:py-20">
+    <div class="container mx-auto px-4 max-w-5xl">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-Emizen-1 mb-4 text-white">
+                ¿Cuántas ventas perdiste esta semana por no responder a tiempo?
             </h2>
-            <p class="text-base sm:text-lg md:text-xl text-gray-300 font-serif leading-relaxed tracking-wide max-w-3xl mx-auto">
-                Si hoy tus clientes te escriben y no reciben respuesta inmediata, o si tu negocio depende demasiado de
-                atender todo manualmente, estás perdiendo ventas. Creamos una solución pensada para atraer, responder
-                y cerrar más rápido.
+            <p class="text-lg sm:text-xl text-gray-300 font-serif max-w-3xl mx-auto leading-relaxed">
+                El cliente de hoy no espera. Si escribe y no recibe respuesta en minutos, se va con tu competencia.
+                El problema no es tu negocio: es que hoy solo trabaja cuando tú estás disponible.
             </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto mb-10 sm:mb-14">
-            <div class="bg-gray-800 rounded-lg sm:rounded-xl overflow-hidden shadow-lg card-hover-effect p-5 sm:p-6 text-center">
-                <div class="text-cyan-400 text-3xl sm:text-4xl mb-3">🚀</div>
-                <h3 class="text-white font-bold text-base sm:text-lg mb-2 font-Emizen-1">Más confianza</h3>
-                <p class="text-gray-400 text-base sm:text-lg font-serif leading-relaxed tracking-wide">
-                    Una web profesional hace que tu negocio se vea serio, claro y listo para vender.
-                </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div class="bg-gray-800 rounded-xl p-6 card-hover-effect hover:scale-105 transition-transform">
+                <div class="text-3xl mb-3">🌙</div>
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">Te escriben fuera de horario</h3>
+                <p class="text-gray-400 font-serif leading-relaxed">Y cuando respondes al día siguiente, ese cliente ya eligió a otro.</p>
             </div>
-            <div class="bg-gray-800 rounded-lg sm:rounded-xl overflow-hidden shadow-lg card-hover-effect p-5 sm:p-6 text-center">
-                <div class="text-cyan-400 text-3xl sm:text-4xl mb-3">⚡</div>
-                <h3 class="text-white font-bold text-base sm:text-lg mb-2 font-Emizen-1">Respuestas inmediatas</h3>
-                <p class="text-gray-400 text-base sm:text-lg font-serif leading-relaxed tracking-wide">
-                    Automatiza la atención para que tus clientes no se vayan por esperar demasiado.
-                </p>
+            <div class="bg-gray-800 rounded-xl p-6 card-hover-effect hover:scale-105 transition-transform">
+                <div class="text-3xl mb-3">⏳</div>
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">Horas en preguntas repetidas</h3>
+                <p class="text-gray-400 font-serif leading-relaxed">Precios, horarios, disponibilidad... siempre lo mismo, una y otra vez.</p>
             </div>
-            <div class="bg-gray-800 rounded-lg sm:rounded-xl overflow-hidden shadow-lg card-hover-effect p-5 sm:p-6 text-center">
-                <div class="text-cyan-400 text-3xl sm:text-4xl mb-3">📈</div>
-                <h3 class="text-white font-bold text-base sm:text-lg mb-2 font-Emizen-1">Más ventas</h3>
-                <p class="text-gray-400 text-base sm:text-lg font-serif leading-relaxed tracking-wide">
-                    Simplificamos el camino entre el interés del cliente y la compra de tu servicio.
-                </p>
+            <div class="bg-gray-800 rounded-xl p-6 card-hover-effect hover:scale-105 transition-transform">
+                <div class="text-3xl mb-3">👻</div>
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">Visitas que no compran</h3>
+                <p class="text-gray-400 font-serif leading-relaxed">Tu web recibe gente, pero sin nadie que las oriente, se van sin comprar.</p>
             </div>
         </div>
 
-        <div class="text-center mb-12 sm:mb-16">
-            <a href="#contact" data-route="secciones/contact.html"
-               class="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400 font-Emizen-1 font-bold text-base sm:text-lg md:text-xl border-2 border-cyan-400/40 hover:border-cyan-400 rounded-lg transition-all hover:scale-105">
-                Quiero una web que me ayude a vender →
-            </a>
-        </div>
+        <p class="text-center text-gray-400 font-serif italic mt-10 text-lg">
+            Si te identificas con al menos una de estas... sigue leyendo. 👇
+        </p>
+    </div>
+</section>
 
-        <div class="max-w-4xl mx-auto text-center mb-8 sm:mb-10">
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6 font-Emizen-1 tracking-wide">
-                Automatiza tu atención con un asistente virtual
+<!-- ═══════════ 4. LA SOLUCIÓN ═══════════ -->
+<section id="solucion" class="py-16 sm:py-20 bg-gray-800/30">
+    <div class="container mx-auto px-4 max-w-5xl">
+        <div class="text-center mb-12">
+            <span class="text-cyan-400 text-sm font-bold tracking-widest uppercase font-serif">El sistema Fusión DevTech</span>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-Emizen-1 mt-3 mb-4 text-white">
+                Dos piezas. Un solo objetivo: que vendas más.
             </h2>
-            <p class="text-base sm:text-lg md:text-xl text-gray-300 font-serif leading-relaxed tracking-wide max-w-3xl mx-auto">
-                Si tu negocio recibe muchos mensajes, cotizaciones o reservas, un asistente virtual puede ayudarte a
-                responder, organizar horarios y guiar al cliente hasta la compra sin perder tiempo en tareas repetitivas.
-                Es ideal para negocios que necesitan vender incluso fuera del horario laboral.
+            <p class="text-lg sm:text-xl text-gray-300 font-serif max-w-3xl mx-auto leading-relaxed">
+                No te vendemos una web suelta ni un bot genérico. Integramos ambas piezas
+                para que trabajen juntas como tu equipo de ventas 24/7.
             </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto mb-12 sm:mb-16">
-            <div class="card-neu bg-gray-800/60 rounded-xl p-5 sm:p-6 text-center hover:scale-105 transition-transform">
-                <div class="text-emerald-400 text-3xl sm:text-4xl mb-3">🤖</div>
-                <h3 class="text-white font-bold text-sm sm:text-base mb-2 font-Emizen-1">Atención automática</h3>
-                <p class="text-gray-400 text-base sm:text-lg font-serif leading-relaxed tracking-wide">
-                    Responde preguntas frecuentes y guía al cliente sin que tengas que estar presente todo el día.
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-gray-800 rounded-2xl p-8 border border-cyan-400/20 glow-cyan">
+                <div class="text-4xl mb-4">🌐</div>
+                <h3 class="font-Emizen-1 font-bold text-2xl mb-3 text-white">Tu página web profesional</h3>
+                <p class="text-gray-300 font-serif leading-relaxed mb-5">
+                    Tu vitrina abierta al mundo: diseño a medida, rápida, visible en Google
+                    y pensada para convertir visitas en consultas.
                 </p>
+                <ul class="space-y-2 text-gray-400 font-serif">
+                    <li>✓ Diseño profesional que genera confianza</li>
+                    <li>✓ Optimizada para buscadores (SEO)</li>
+                    <li>✓ Carga rápida y perfecta en móviles</li>
+                    <li>✓ Botones y caminos que guían hacia la compra</li>
+                </ul>
             </div>
-            <div class="card-neu bg-gray-800/60 rounded-xl p-5 sm:p-6 text-center hover:scale-105 transition-transform">
-                <div class="text-emerald-400 text-3xl sm:text-4xl mb-3">📅</div>
-                <h3 class="text-white font-bold text-sm sm:text-base mb-2 font-Emizen-1">Agenda ordenada</h3>
-                <p class="text-gray-400 text-base sm:text-lg font-serif leading-relaxed tracking-wide">
-                    Organiza reservas, horarios y disponibilidad de forma automática.
+
+            <div class="bg-gray-800 rounded-2xl p-8 border border-emerald-400/20 glow-emerald">
+                <div class="text-4xl mb-4">⚡</div>
+                <h3 class="font-Emizen-1 font-bold text-2xl mb-3 text-white">Tu agente de IA</h3>
+                <p class="text-gray-300 font-serif leading-relaxed mb-5">
+                    Tu vendedor incansable: vive dentro de tu web, atiende a cada visitante
+                    al instante y lo lleva de la mano hasta la compra.
                 </p>
+                <ul class="space-y-2 text-gray-400 font-serif">
+                    <li>✓ Responde en lenguaje natural, sin menús</li>
+                    <li>✓ Conoce tus servicios, precios y horarios</li>
+                    <li>✓ Agenda citas directo en tu calendario</li>
+                    <li>✓ Trabaja 24/7 sin vacaciones ni descansos</li>
+                </ul>
             </div>
-            <div class="card-neu bg-gray-800/60 rounded-xl p-5 sm:p-6 text-center hover:scale-105 transition-transform">
-                <div class="text-emerald-400 text-3xl sm:text-4xl mb-3">🔄</div>
-                <h3 class="text-white font-bold text-sm sm:text-base mb-2 font-Emizen-1">Menos tareas manuales</h3>
-                <p class="text-gray-400 text-base sm:text-lg font-serif leading-relaxed tracking-wide">
-                    Reduce el tiempo perdido en mensajes repetidos y procesos de coordinación.
-                </p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ 5. NO ES UN CHATBOT ═══════════ -->
+<section id="agentes" class="py-16 sm:py-20">
+    <div class="container mx-auto px-4 max-w-5xl">
+        <div class="text-center mb-12">
+            <span class="text-cyan-400 text-sm font-bold tracking-widest uppercase font-serif">La diferencia que cambia tu negocio</span>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-Emizen-1 mt-3 mb-4 text-white">
+                No es un chatbot. Es un agente de IA.
+            </h2>
+            <p class="text-lg sm:text-xl text-gray-300 font-serif max-w-3xl mx-auto leading-relaxed">
+                Un chatbot responde con menús y guiones. Un agente de IA entiende a tu cliente,
+                piensa y actúa: consulta tu agenda, propone horarios y cierra la venta él solo.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+            <div class="bg-gray-800/60 border border-red-500/20 rounded-xl p-6 sm:p-8">
+                <h3 class="font-Emizen-1 font-bold text-xl text-red-400 mb-4">❌ Chatbot tradicional</h3>
+                <ul class="space-y-3 text-gray-400 font-serif text-base sm:text-lg">
+                    <li>• Responde solo lo que tiene programado</li>
+                    <li>• Obliga al cliente a elegir opciones de un menú</li>
+                    <li>• Se bloquea ante preguntas nuevas</li>
+                    <li>• Deriva todo a una persona</li>
+                    <li>• Solo conversa: no ejecuta acciones</li>
+                </ul>
             </div>
-            <div class="card-neu bg-gray-800/60 rounded-xl p-5 sm:p-6 text-center hover:scale-105 transition-transform">
-                <div class="text-emerald-400 text-3xl sm:text-4xl mb-3">⚙️</div>
-                <h3 class="text-white font-bold text-sm sm:text-base mb-2 font-Emizen-1">Proceso completo</h3>
-                <p class="text-gray-400 text-base sm:text-lg font-serif leading-relaxed tracking-wide">
-                    Desde el primer mensaje hasta la venta, todo queda más claro y más rápido.
-                </p>
+            <div class="bg-gray-800/60 border border-emerald-400/30 rounded-xl p-6 sm:p-8">
+                <h3 class="font-Emizen-1 font-bold text-xl text-emerald-400 mb-4">✅ Agente de IA</h3>
+                <ul class="space-y-3 text-gray-300 font-serif text-base sm:text-lg">
+                    <li>• Entiende lenguaje natural y el contexto de cada cliente</li>
+                    <li>• Responde cualquier duda sobre tu negocio</li>
+                    <li>• Consulta tu agenda, precios e inventario en tiempo real</li>
+                    <li>• Agenda, cotiza y cierra ventas por sí solo</li>
+                    <li>• Solo avisa a un humano cuando de verdad hace falta</li>
+                </ul>
             </div>
         </div>
 
-        <div class="text-center">
-            <a href="#contact" data-route="secciones/contact.html"
-               class="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400 font-Emizen-1 font-bold text-base sm:text-lg md:text-xl border-2 border-cyan-400/40 hover:border-cyan-400 rounded-lg transition-all hover:scale-105">
-                Quiero automatizar mi negocio →
-            </a>
+        <p class="text-center text-gray-400 font-serif italic text-lg max-w-2xl mx-auto">
+            "Un chatbot es un recepcionista leyendo un guion. Un agente de IA es un vendedor
+            capacitado que trabaja 24/7."
+        </p>
+    </div>
+</section>
+
+<!-- ═══════════ 6. DEMO DE CONVERSACIÓN ═══════════ -->
+<section class="py-16 sm:py-20 bg-gray-800/30">
+    <div class="container mx-auto px-4 max-w-3xl">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl sm:text-4xl font-bold font-Emizen-1 mb-3 text-white">Míralo en acción</h2>
+            <p class="text-lg text-gray-300 font-serif">Así responde tu agente un sábado a las 11 de la noche:</p>
+        </div>
+
+        <div class="bg-gray-800 rounded-2xl p-6 space-y-4 border border-gray-700">
+            <div class="flex">
+                <div class="bg-gray-700 text-gray-200 rounded-2xl rounded-tl-none px-4 py-3 max-w-[85%] font-serif">
+                    Hola, ¿tienen disponibilidad para el sábado?
+                </div>
+            </div>
+            <div class="flex justify-end">
+                <div class="bg-cyan-400/10 border border-cyan-400/30 text-gray-100 rounded-2xl rounded-tr-none px-4 py-3 max-w-[85%] font-serif">
+                    ¡Hola! 👋 Sí, tenemos espacios el sábado a las 10:00 y a las 16:30. ¿Cuál te acomoda?
+                    <span class="block text-xs text-cyan-400 mt-1">Agente de IA · respondió en 3 segundos</span>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="bg-gray-700 text-gray-200 rounded-2xl rounded-tl-none px-4 py-3 max-w-[85%] font-serif">
+                    A las 10 me sirve
+                </div>
+            </div>
+            <div class="flex justify-end">
+                <div class="bg-cyan-400/10 border border-cyan-400/30 text-gray-100 rounded-2xl rounded-tr-none px-4 py-3 max-w-[85%] font-serif">
+                    Listo ✅ Tu cita quedó agendada para el sábado a las 10:00. Te envié la confirmación. ¿Necesitas indicaciones para llegar?
+                    <span class="block text-xs text-emerald-400 mt-1">Cita agendada automáticamente en tu calendario</span>
+                </div>
+            </div>
+            <div class="flex items-center justify-center gap-1 pt-2">
+                <span class="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
+                <span class="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style="animation-delay:.15s"></span>
+                <span class="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style="animation-delay:.3s"></span>
+            </div>
+        </div>
+
+        <p class="text-center text-gray-400 font-serif mt-8 text-lg">
+            Mientras dormías, tu negocio agendó una venta. Así, todos los días.
+        </p>
+    </div>
+</section>
+
+<!-- ═══════════ 7. QUÉ HACE EL AGENTE ═══════════ -->
+<section class="py-16 sm:py-20">
+    <div class="container mx-auto px-4 max-w-5xl">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-Emizen-1 mb-4 text-white">
+                Todo lo que tu agente de IA hace por ti
+            </h2>
+            <p class="text-lg sm:text-xl text-gray-300 font-serif max-w-3xl mx-auto">
+                No es un adorno: es un empleado digital que trabaja de verdad.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-gray-800 rounded-xl p-6 hover:scale-105 transition-transform">
+                <div class="text-3xl mb-3">💬</div>
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">Responde cualquier duda</h3>
+                <p class="text-gray-400 font-serif">Servicios, precios, horarios, ubicación... al instante y con el tono de tu marca.</p>
+            </div>
+            <div class="bg-gray-800 rounded-xl p-6 hover:scale-105 transition-transform">
+                <div class="text-3xl mb-3">📅</div>
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">Agenda citas solo</h3>
+                <p class="text-gray-400 font-serif">Consulta tu disponibilidad, propone horarios y confirma la cita en tu calendario.</p>
+            </div>
+            <div class="bg-gray-800 rounded-xl p-6 hover:scale-105 transition-transform">
+                <div class="text-3xl mb-3">🧾</div>
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">Envía cotizaciones</h3>
+                <p class="text-gray-400 font-serif">Entrega precios, catálogos y propuestas en segundos, sin que muevas un dedo.</p>
+            </div>
+            <div class="bg-gray-800 rounded-xl p-6 hover:scale-105 transition-transform">
+                <div class="text-3xl mb-3">🎯</div>
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">Detecta clientes listos</h3>
+                <p class="text-gray-400 font-serif">Identifica a quien está a punto de comprar y te lo prioriza para cerrar.</p>
+            </div>
+            <div class="bg-gray-800 rounded-xl p-6 hover:scale-105 transition-transform">
+                <div class="text-3xl mb-3">🔔</div>
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">Te avisa cuando hace falta</h3>
+                <p class="text-gray-400 font-serif">Si un caso necesita una persona, te lo transfiere con todo el contexto resumido.</p>
+            </div>
+            <div class="bg-gray-800 rounded-xl p-6 hover:scale-105 transition-transform">
+                <div class="text-3xl mb-3">📊</div>
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">Te muestra resultados</h3>
+                <p class="text-gray-400 font-serif">Sabes cuántas conversaciones atendió, cuántas citas agendó y cuántas ventas generó.</p>
+            </div>
+        </div>
+
+        <p class="text-center text-gray-500 font-serif mt-8">
+            Tu agente vive en tu web y puede conectarse también a WhatsApp y redes sociales.
+        </p>
+    </div>
+</section>
+
+<!-- ═══════════ 8. CÓMO FUNCIONA ═══════════ -->
+<section id="proceso" class="py-16 sm:py-20 bg-gray-800/30">
+    <div class="container mx-auto px-4 max-w-5xl text-center">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-Emizen-1 mb-4 text-white">
+            Así de simple: en 3 pasos está funcionando
+        </h2>
+        <p class="text-lg text-gray-300 font-serif mb-12 max-w-2xl mx-auto">
+            Tú solo nos cuentas sobre tu negocio. Nosotros hacemos todo lo demás.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+            <div class="bg-gray-800 rounded-xl p-8">
+                <div class="text-cyan-400 font-Emizen-1 font-bold text-5xl mb-4">01</div>
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">Conocemos tu negocio</h3>
+                <p class="text-gray-400 font-serif">Tus servicios, tus precios, tus clientes y tu forma de trabajar.</p>
+            </div>
+            <div class="bg-gray-800 rounded-xl p-8">
+                <div class="text-cyan-400 font-Emizen-1 font-bold text-5xl mb-4">02</div>
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">Lo construimos</h3>
+                <p class="text-gray-400 font-serif">Diseñamos tu web y entrenamos tu agente de IA con la información de tu negocio.</p>
+            </div>
+            <div class="bg-gray-800 rounded-xl p-8">
+                <div class="text-cyan-400 font-Emizen-1 font-bold text-5xl mb-4">03</div>
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">Empieza a vender</h3>
+                <p class="text-gray-400 font-serif">Tu agente responde, agenda y cierra. Tú solo ves llegar los clientes.</p>
+            </div>
+        </div>
+
+        <p class="text-gray-500 font-serif italic">
+            ¿Qué necesitas de tu parte? Solo contarnos sobre tu negocio. Del resto nos encargamos nosotros.
+        </p>
+    </div>
+</section>
+
+<!-- ═══════════ 9. PARA QUIÉN ES ═══════════ -->
+<section class="py-16 sm:py-20">
+    <div class="container mx-auto px-4 max-w-5xl">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-Emizen-1 mb-4 text-white">
+                ¿Para qué negocios trabaja Fusión DevTech?
+            </h2>
+            <p class="text-lg sm:text-xl text-gray-300 font-serif max-w-3xl mx-auto">
+                Si tu negocio vive de atender clientes, agendar citas o responder consultas, esto es para ti.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700 hover:border-cyan-400/50 transition-colors">
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">🏥 Clínicas y consultorios</h3>
+                <p class="text-gray-400 font-serif">Agenda de pacientes automática, sin llamadas ni esperas.</p>
+            </div>
+            <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700 hover:border-cyan-400/50 transition-colors">
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">🛍️ Tiendas y e-commerce</h3>
+                <p class="text-gray-400 font-serif">Respuestas sobre stock, envíos y precios al instante.</p>
+            </div>
+            <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700 hover:border-cyan-400/50 transition-colors">
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">💼 Servicios profesionales</h3>
+                <p class="text-gray-400 font-serif">Abogados, contadores, consultores: califica clientes y agenda reuniones.</p>
+            </div>
+            <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700 hover:border-cyan-400/50 transition-colors">
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">🍽️ Restaurantes y locales</h3>
+                <p class="text-gray-400 font-serif">Reservas, menú y horarios siempre respondidos.</p>
+            </div>
+            <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700 hover:border-cyan-400/50 transition-colors">
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">🏠 Inmobiliarias</h3>
+                <p class="text-gray-400 font-serif">Filtra interesados reales y coordina visitas automáticamente.</p>
+            </div>
+            <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700 hover:border-cyan-400/50 transition-colors">
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">💅 Belleza y bienestar</h3>
+                <p class="text-gray-400 font-serif">Turnos, recordatorios y reprogramaciones sin atender el teléfono.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ 10. POR QUÉ FUSIÓN DEVTECH ═══════════ -->
+<section id="por-que" class="py-16 sm:py-20 bg-gray-800/30">
+    <div class="container mx-auto px-4 max-w-5xl">
+        <div class="text-center mb-12">
+            <span class="text-cyan-400 text-sm font-bold tracking-widest uppercase font-serif">Por qué elegirnos</span>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-Emizen-1 mt-3 mb-4 text-white">
+                ¿Por qué Fusión DevTech y no cualquier agencia?
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-gray-800 rounded-xl p-6">
+                <div class="text-cyan-400 text-2xl mb-3 font-Emizen-1 font-bold">01</div>
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">Todo integrado, no piezas sueltas</h3>
+                <p class="text-gray-400 font-serif">Otros te venden la web por un lado y el bot por otro. Nosotros integramos ambos en un solo sistema que se comunica entre sí.</p>
+            </div>
+            <div class="bg-gray-800 rounded-xl p-6">
+                <div class="text-cyan-400 text-2xl mb-3 font-Emizen-1 font-bold">02</div>
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">Entrenado con TU negocio</h3>
+                <p class="text-gray-400 font-serif">No usamos plantillas genéricas. Tu agente aprende tus servicios, tus precios y tu forma de hablar con clientes.</p>
+            </div>
+            <div class="bg-gray-800 rounded-xl p-6">
+                <div class="text-cyan-400 text-2xl mb-3 font-Emizen-1 font-bold">03</div>
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">Hablamos tu idioma</h3>
+                <p class="text-gray-400 font-serif">Cero tecnicismos. Te explicamos todo claro, y el soporte es con personas reales que conocen tu proyecto.</p>
+            </div>
+            <div class="bg-gray-800 rounded-xl p-6">
+                <div class="text-cyan-400 text-2xl mb-3 font-Emizen-1 font-bold">04</div>
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">Resultados que puedes ver</h3>
+                <p class="text-gray-400 font-serif">Sabes cuántas conversaciones atendió tu agente, cuántas citas agendó y qué ventas ayudó a cerrar.</p>
+            </div>
+            <div class="bg-gray-800 rounded-xl p-6">
+                <div class="text-cyan-400 text-2xl mb-3 font-Emizen-1 font-bold">05</div>
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">Rápido y sin dolores de cabeza</h3>
+                <p class="text-gray-400 font-serif">Tu proyecto funcionando en semanas, no en meses. Y tú no tienes que aprender nada técnico.</p>
+            </div>
+            <div class="bg-gray-800 rounded-xl p-6">
+                <div class="text-cyan-400 text-2xl mb-3 font-Emizen-1 font-bold">06</div>
+                <h3 class="font-Emizen-1 font-bold text-lg mb-2 text-white">Nos quedamos contigo</h3>
+                <p class="text-gray-400 font-serif">Después del lanzamiento seguimos a tu lado: soporte, ajustes y mejoras para que tu sistema evolucione.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ 11. GARANTÍA ═══════════ -->
+<section class="py-16 sm:py-20">
+    <div class="container mx-auto px-4 max-w-3xl text-center">
+        <div class="bg-gray-800 rounded-2xl p-8 sm:p-12 border border-emerald-400/30 glow-emerald">
+            <div class="text-5xl mb-4">🛡️</div>
+            <h2 class="text-3xl sm:text-4xl font-bold font-Emizen-1 mb-4 text-white">Nuestra garantía de lanzamiento</h2>
+            <p class="text-lg sm:text-xl text-gray-300 font-serif leading-relaxed mb-4">
+                Tu página web y tu agente de IA funcionando en un plazo acordado por contrato.
+                Si no lo logramos, te devolvemos el dinero.
+            </p>
+            <p class="text-gray-400 font-serif">
+                Y después del lanzamiento no desaparecemos: el soporte está incluido
+                para que nunca trabajes solo.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ 12. FAQ ═══════════ -->
+<section id="faq" class="py-16 sm:py-20 bg-gray-800/30">
+    <div class="container mx-auto px-4 max-w-3xl">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-Emizen-1 mb-4 text-white">
+                Preguntas frecuentes
+            </h2>
+        </div>
+
+        <div class="space-y-4 font-serif">
+            <details class="bg-gray-800 rounded-xl p-6 group">
+                <summary class="font-Emizen-1 font-bold text-lg cursor-pointer list-none flex justify-between items-center text-white">
+                    ¿Cuál es la diferencia entre un chatbot y un agente de IA?
+                    <span class="text-cyan-400 group-open:rotate-45 transition-transform text-2xl">+</span>
+                </summary>
+                <p class="text-gray-400 mt-3 leading-relaxed">
+                    Un chatbot responde con menús y guiones predefinidos. Un agente de IA entiende el lenguaje natural,
+                    conoce tu negocio y ejecuta acciones reales: agenda citas, envía cotizaciones y cierra ventas por sí solo.
+                </p>
+            </details>
+
+            <details class="bg-gray-800 rounded-xl p-6 group">
+                <summary class="font-Emizen-1 font-bold text-lg cursor-pointer list-none flex justify-between items-center text-white">
+                    ¿Necesito conocimientos técnicos?
+                    <span class="text-cyan-400 group-open:rotate-45 transition-transform text-2xl">+</span>
+                </summary>
+                <p class="text-gray-400 mt-3 leading-relaxed">
+                    Ninguno. Nosotros nos encargamos de todo: diseño, configuración y entrenamiento del agente.
+                    Tú solo nos cuentas cómo funciona tu negocio.
+                </p>
+            </details>
+
+            <details class="bg-gray-800 rounded-xl p-6 group">
+                <summary class="font-Emizen-1 font-bold text-lg cursor-pointer list-none flex justify-between items-center text-white">
+                    ¿En cuánto tiempo está listo?
+                    <span class="text-cyan-400 group-open:rotate-45 transition-transform text-2xl">+</span>
+                </summary>
+                <p class="text-gray-400 mt-3 leading-relaxed">
+                    Depende del tamaño del proyecto, pero la mayoría está funcionando en pocas semanas.
+                    En el diagnóstico gratuito te damos un plazo exacto para tu caso.
+                </p>
+            </details>
+
+            <details class="bg-gray-800 rounded-xl p-6 group">
+                <summary class="font-Emizen-1 font-bold text-lg cursor-pointer list-none flex justify-between items-center text-white">
+                    ¿Qué pasa si el agente no sabe responder algo?
+                    <span class="text-cyan-400 group-open:rotate-45 transition-transform text-2xl">+</span>
+                </summary>
+                <p class="text-gray-400 mt-3 leading-relaxed">
+                    Transfiere la conversación a una persona de tu equipo con todo el contexto resumido.
+                    Tu cliente nunca queda sin respuesta.
+                </p>
+            </details>
+
+            <details class="bg-gray-800 rounded-xl p-6 group">
+                <summary class="font-Emizen-1 font-bold text-lg cursor-pointer list-none flex justify-between items-center text-white">
+                    ¿Reemplazará a mi equipo?
+                    <span class="text-cyan-400 group-open:rotate-45 transition-transform text-2xl">+</span>
+                </summary>
+                <p class="text-gray-400 mt-3 leading-relaxed">
+                    No. Tu agente libera a tu equipo de las tareas repetitivas (responder lo mismo una y otra vez)
+                    para que se enfoque en lo que sí necesita una persona: cerrar tratos complejos y atender casos especiales.
+                </p>
+            </details>
+
+            <details class="bg-gray-800 rounded-xl p-6 group">
+                <summary class="font-Emizen-1 font-bold text-lg cursor-pointer list-none flex justify-between items-center text-white">
+                    ¿Cuánto cuesta?
+                    <span class="text-cyan-400 group-open:rotate-45 transition-transform text-2xl">+</span>
+                </summary>
+                <p class="text-gray-400 mt-3 leading-relaxed">
+                    Cada negocio es distinto, por eso no tenemos precios únicos. En el diagnóstico gratuito
+                    entendemos tu caso y te damos una propuesta clara, sin letra chica ni sorpresas.
+                </p>
+            </details>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ 13. CTA FINAL ═══════════ -->
+<section class="py-16 sm:py-24 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-gray-800/80 to-gray-900"></div>
+    <div class="container mx-auto px-4 relative z-10 text-center max-w-3xl">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-Emizen-1 mb-4 text-white">
+            Tu competencia responde en horas.<br>
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-emerald-400">Tú puedes responder en segundos.</span>
+        </h2>
+        <p class="text-lg sm:text-xl text-gray-300 font-serif leading-relaxed mb-10">
+            Cuéntanos sobre tu negocio y te mostramos, sin compromiso, cómo se vería
+            tu agente de IA atendiendo a tus clientes.
+        </p>
+
+        <a href="#contact" data-route="secciones/contact.html"
+           class="inline-block px-10 py-5 bg-gray-800 border-2 border-emerald-400 text-white font-Emizen-1 font-bold text-lg md:text-xl rounded-lg transition-all hover:bg-emerald-400/10 hover:scale-105 glow-emerald">
+            Quiero mi diagnóstico gratuito →
+        </a>
+
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-500 font-serif mt-6">
+            <span>✓ Sin compromiso</span>
+            <span>✓ Respuesta en menos de 24 horas</span>
+            <span>✓ Te mostramos tu agente en acción</span>
         </div>
     </div>
 </section>

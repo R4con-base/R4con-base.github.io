@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentes de IA — Inteligencia artificial que vende 24/7 | FusionDevTech</title>
+    <meta name="description" content="Agentes de inteligencia artificial que atienden, agendan y venden por ti. No son chatbots: entienden, piensan y actúan. Disponibles 24/7 en WhatsApp, Instagram y tu web.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 48px -12px rgba(52, 211, 153, 0.25);
+        }
+
+        .gradient-border {
+            background: linear-gradient(135deg, #34D399, #10B981, #059669);
+            border-radius: 1.25rem;
+            padding: 2px;
+        }
+        .gradient-border-inner {
+            background: linear-gradient(135deg, #1F2937, #111827);
+            border-radius: 1.2rem;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .gradient-border-inner::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(52, 211, 153, 0.3), transparent);
+        }
+
+        .floating-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .typing-dot {
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .tech-badge {
+            background: rgba(16, 185, 129, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-900">
+
+<section class="py-12 sm:py-16 lg:py-24 relative min-h-screen">
+    <div class="absolute inset-0 bg-gradient-to-br from-gray-900/90 to-gray-800/50 backdrop-blur-sm"></div>
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-6xl">
+
+        <!-- ═══════════ 1. HERO ═══════════ -->
+        <div class="text-center max-w-4xl mx-auto mb-12 sm:mb-16">
+            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-400/40 bg-emerald-400/10 text-emerald-300 text-xs sm:text-sm font-medium tracking-wide mb-6">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                Nuestro servicio estrella
+            </span>
+
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight font-Emizen-1 tracking-tight">
+                Tu próximo mejor empleado
+                <span class="block mt-2 bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400">no es humano.</span>
+            </h1>
+
+            <p class="text-lg sm:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto mb-8">
+                Un <strong class="text-white">agente de IA</strong> es mucho más que un chatbot:
+                entiende a tus clientes, piensa, toma decisiones y ejecuta acciones reales
+                — agendar, cotizar, vender — las 24 horas, sin descanso.
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm sm:text-base text-gray-400 mb-10">
+                <span>✓ Responde en segundos</span>
+                <span>✓ Disponible 24/7</span>
+                <span>✓ Aprende tu negocio</span>
+                <span>✓ Se conecta a WhatsApp</span>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button class="px-8 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-bold rounded-xl hover:from-emerald-600 hover:to-emerald-700 transition-all hover:scale-105 shadow-lg" data-route="secciones/contact.html">
+                    Quiero mi agente de IA →
+                </button>
+                <button class="px-8 py-4 text-gray-300 border border-gray-700 rounded-xl hover:bg-gray-800 transition-all" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">
+                    Ver demo en vivo ↓
+                </button>
+            </div>
+        </div>
+
+        <!-- ═══════════ 2. EL PROBLEMA ═══════════ -->
+        <div class="mb-16 sm:mb-20">
+            <div class="text-center mb-10">
+                <span class="text-emerald-400 text-xs sm:text-sm font-bold tracking-widest uppercase">El problema</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-2 font-Emizen-1">
+                    ¿Cuántas ventas pierdes cada día por no responder a tiempo?
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700">
+                    <div class="text-3xl mb-3">🌙</div>
+                    <h3 class="text-white font-bold mb-2">Te escriben de noche</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        El 60% de las consultas llegan fuera de horario. Cuando respondes al día siguiente, el cliente ya compró en otro lado.
+                    </p>
+                </div>
+                <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700">
+                    <div class="text-3xl mb-3">⏳</div>
+                    <h3 class="text-white font-bold mb-2">Horas en lo mismo</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Precios, horarios, ubicación... Respondes las mismas preguntas 50 veces al día en lugar de cerrar ventas.
+                    </p>
+                </div>
+                <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700">
+                    <div class="text-3xl mb-3">👻</div>
+                    <h3 class="text-white font-bold mb-2">Clientes que se van</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Visitan tu web, miran, dudan... y se van sin que nadie los oriente hacia la compra.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════ 3. QUÉ ES UN AGENTE DE IA ═══════════ -->
+        <div class="mb-16 sm:mb-20">
+            <div class="text-center mb-10">
+                <span class="text-emerald-400 text-xs sm:text-sm font-bold tracking-widest uppercase">La solución</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-2 font-Emizen-1">
+                    No es un chatbot. Es un agente de IA.
+                </h2>
+                <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto mt-4 leading-relaxed">
+                    Un chatbot responde con guiones. Un agente de IA entiende, piensa y actúa.
+                </p>
+            </div>
+
+            <div class="gradient-border max-w-5xl mx-auto">
+                <div class="gradient-border-inner p-6 sm:p-8 lg:p-10">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Chatbot -->
+                        <div class="bg-red-500/5 border border-red-500/20 rounded-xl p-6">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 bg-red-500/20 rounded-full flex items-center justify-center">
+                                    <span class="text-red-400 text-xl">❌</span>
+                                </div>
+                                <h3 class="text-red-400 font-bold text-lg">Chatbot tradicional</h3>
+                            </div>
+                            <ul class="space-y-3 text-gray-300 text-sm sm:text-base">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-0.5">•</span>
+                                    <span>Responde con menús de botones</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-0.5">•</span>
+                                    <span>Solo entiende palabras clave predefinidas</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-0.5">•</span>
+                                    <span>Se bloquea ante preguntas fuera del script</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-0.5">•</span>
+                                    <span>Solo conversa: no ejecuta acciones</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-0.5">•</span>
+                                    <span>Deriva todo a una persona</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Agente -->
+                        <div class="bg-emerald-500/5 border border-emerald-500/30 rounded-xl p-6">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 bg-emerald-500/20 rounded-full flex items-center justify-center">
+                                    <span class="text-emerald-400 text-xl">✅</span>
+                                </div>
+                                <h3 class="text-emerald-400 font-bold text-lg">Agente de IA</h3>
+                            </div>
+                            <ul class="space-y-3 text-gray-200 text-sm sm:text-base">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald-400 mt-0.5">•</span>
+                                    <span>Entiende lenguaje natural y contexto</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald-400 mt-0.5">•</span>
+                                    <span>Conoce tu negocio, tus productos y tu tono</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald-400 mt-0.5">•</span>
+                                    <span>Resuelve preguntas nuevas sin problema</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald-400 mt-0.5">•</span>
+                                    <span>Ejecuta acciones: agenda, cotiza, vende</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald-400 mt-0.5">•</span>
+                                    <span>Solo avisa a un humano cuando hace falta</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p class="text-center text-gray-400 font-serif italic mt-8 text-sm sm:text-base">
+                        "Un chatbot es un recepcionista leyendo un guion. <br class="hidden sm:block">
+                        Un agente de IA es un vendedor capacitado que trabaja 24/7."
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════ 4. DEMO DE CONVERSACIÓN ═══════════ -->
+        <div id="demo" class="mb-16 sm:mb-20">
+            <div class="text-center mb-10">
+                <span class="text-emerald-400 text-xs sm:text-sm font-bold tracking-widest uppercase">En acción</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-2 font-Emizen-1">
+                    Así responde tu agente un sábado a las 11 de la noche
+                </h2>
+                <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto mt-4">
+                    Mientras tú duermes, tu agente atiende, agenda y vende.
+                </p>
+            </div>
+
+            <div class="max-w-2xl mx-auto">
+                <!-- Chat simulado -->
+                <div class="bg-gray-800 rounded-2xl p-4 sm:p-6 border border-gray-700 shadow-2xl">
+                    <div class="flex items-center gap-3 pb-4 mb-4 border-b border-gray-700">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-400 flex items-center justify-center text-white font-bold">
+                            IA
+                        </div>
+                        <div>
+                            <p class="text-white font-bold text-sm">Agente de IA · FusionDevTech</p>
+                            <p class="text-emerald-400 text-xs flex items-center gap-1">
+                                <span class="w-2 h-2 bg-emerald-400 rounded-full"></span>
+                                En línea · responde en 3 segundos
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Cliente -->
+                        <div class="flex">
+                            <div class="bg-gray-700 text-gray-100 rounded-2xl rounded-tl-none px-4 py-2.5 max-w-[80%] text-sm">
+                                Hola, ¿tienen disponibilidad para el sábado?
+                            </div>
+                        </div>
+
+                        <!-- Agente -->
+                        <div class="flex justify-end">
+                            <div class="bg-emerald-400/10 border border-emerald-400/30 text-gray-100 rounded-2xl rounded-tr-none px-4 py-2.5 max-w-[85%] text-sm">
+                                ¡Hola! 👋 Sí, tenemos espacios el sábado a las <strong>10:00</strong> y a las <strong>16:30</strong>. ¿Cuál te acomoda?
+                                <span class="block text-xs text-emerald-400 mt-1">respondió en 3 segundos</span>
+                            </div>
+                        </div>
+
+                        <!-- Cliente -->
+                        <div class="flex">
+                            <div class="bg-gray-700 text-gray-100 rounded-2xl rounded-tl-none px-4 py-2.5 max-w-[80%] text-sm">
+                                A las 10 me sirve
+                            </div>
+                        </div>
+
+                        <!-- Agente con acción -->
+                        <div class="flex justify-end">
+                            <div class="bg-emerald-400/10 border border-emerald-400/30 text-gray-100 rounded-2xl rounded-tr-none px-4 py-2.5 max-w-[85%] text-sm">
+                                Listo ✅ Tu cita quedó agendada para el <strong>sábado 15 a las 10:00</strong>. Te envié la confirmación.
+                                <div class="mt-2 bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-2 text-xs">
+                                    <div class="flex items-center gap-2 text-emerald-300 font-semibold">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                        Cita agendada automáticamente
+                                    </div>
+                                    <p class="text-gray-400 mt-1">📅 En tu Google Calendar · Te llega la notificación</p>
+                                </div>
+                                ¿Necesitas indicaciones para llegar?
+                            </div>
+                        </div>
+
+                        <!-- Cliente -->
+                        <div class="flex">
+                            <div class="bg-gray-700 text-gray-100 rounded-2xl rounded-tl-none px-4 py-2.5 max-w-[80%] text-sm">
+                                Sí porfa
+                            </div>
+                        </div>
+
+                        <!-- Agente -->
+                        <div class="flex justify-end">
+                            <div class="bg-emerald-400/10 border border-emerald-400/30 text-gray-100 rounded-2xl rounded-tr-none px-4 py-2.5 max-w-[85%] text-sm">
+                                Aquí tienes 📍 Av. Providencia 1234, local 5. Estacionamiento gratis en el subsuelo. ¡Te esperamos!
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Typing indicator -->
+                    <div class="flex items-center gap-2 mt-4 text-gray-500 text-xs">
+                        <div class="flex gap-1">
+                            <div class="w-2 h-2 bg-gray-500 rounded-full typing-dot"></div>
+                            <div class="w-2 h-2 bg-gray-500 rounded-full typing-dot"></div>
+                            <div class="w-2 h-2 bg-gray-500 rounded-full typing-dot"></div>
+                        </div>
+                        <span>El agente está escribiendo...</span>
+                    </div>
+                </div>
+
+                <p class="text-center text-gray-400 mt-6 text-sm sm:text-base">
+                    Este cliente se agendó mientras el dueño dormía. Así, <strong class="text-white">todos los días</strong>.
+                </p>
+            </div>
+        </div>
+
+        <!-- ═══════════ 5. CAPACIDADES DETALLADAS ═══════════ -->
+        <div class="mb-16 sm:mb-20">
+            <div class="text-center mb-10">
+                <span class="text-emerald-400 text-xs sm:text-sm font-bold tracking-widest uppercase">Qué puede hacer</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-2 font-Emizen-1">
+                    Todo lo que tu agente hace por ti
+                </h2>
+                <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto mt-4">
+                    No es un adorno: es un empleado digital que trabaja de verdad.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700 card-hover">
+                    <div class="text-3xl mb-3">💬</div>
+                    <h3 class="text-white font-bold mb-2">Responde cualquier duda</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Servicios, precios, horarios, ubicación, requisitos... al instante y con el tono de tu marca.
+                    </p>
+                </div>
+
+                <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700 card-hover">
+                    <div class="text-3xl mb-3">📅</div>
+                    <h3 class="text-white font-bold mb-2">Agenda citas solo</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Consulta tu calendario, propone horarios disponibles y confirma la cita sin intervención humana.
+                    </p>
+                </div>
+
+                <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700 card-hover">
+                    <div class="text-3xl mb-3">🧾</div>
+                    <h3 class="text-white font-bold mb-2">Envía cotizaciones</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Genera presupuestos personalizados según lo que el cliente pide y los envía al instante.
+                    </p>
+                </div>
+
+                <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700 card-hover">
+                    <div class="text-3xl mb-3">🎯</div>
+                    <h3 class="text-white font-bold mb-2">Detecta clientes listos</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Identifica a quien está a punto de comprar y te lo prioriza para que cierres el trato.
+                    </p>
+                </div>
+
+                <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700 card-hover">
+                    <div class="text-3xl mb-3">🛒</div>
+                    <h3 class="text-white font-bold mb-2">Recupera carritos</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Si alguien abandona una compra, el agente le escribe y lo convence de terminar.
+                    </p>
+                </div>
+
+                <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700 card-hover">
+                    <div class="text-3xl mb-3">🔔</div>
+                    <h3 class="text-white font-bold mb-2">Te avisa cuando hace falta</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Si un caso necesita una persona, te lo transfiere con todo el contexto resumido.
+                    </p>
+                </div>
+
+                <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700 card-hover">
+                    <div class="text-3xl mb-3">🌍</div>
+                    <h3 class="text-white font-bold mb-2">Multilenguaje</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Atiende en español, inglés, portugués y más, sin que tengas que contratar traductores.
+                    </p>
+                </div>
+
+                <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700 card-hover">
+                    <div class="text-3xl mb-3">📊</div>
+                    <h3 class="text-white font-bold mb-2">Te muestra resultados</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Sabes cuántas conversaciones atendió, cuántas citas agendó y cuántas ventas generó.
+                    </p>
+                </div>
+
+                <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700 card-hover">
+                    <div class="text-3xl mb-3">🧠</div>
+                    <h3 class="text-white font-bold mb-2">Aprende de tu negocio</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Mejora con cada conversación y se adapta a cómo hablas con tus clientes reales.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════ 6. INTEGRACIONES ═══════════ -->
+        <div class="mb-16 sm:mb-20">
+            <div class="text-center mb-10">
+                <span class="text-emerald-400 text-xs sm:text-sm font-bold tracking-widest uppercase">Se conecta a todo</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-2 font-Emizen-1">
+                    Tu agente vive donde están tus clientes
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 max-w-4xl mx-auto">
+                <div class="bg-gray-800/60 rounded-xl p-4 text-center border border-gray-700 hover:border-emerald-400/50 transition-colors">
+                    <div class="text-3xl mb-2">💬</div>
+                    <p class="text-white text-sm font-semibold">WhatsApp</p>
+                </div>
+                <div class="bg-gray-800/60 rounded-xl p-4 text-center border border-gray-700 hover:border-emerald-400/50 transition-colors">
+                    <div class="text-3xl mb-2">📸</div>
+                    <p class="text-white text-sm font-semibold">Instagram</p>
+                </div>
+                <div class="bg-gray-800/60 rounded-xl p-4 text-center border border-gray-700 hover:border-emerald-400/50 transition-colors">
+                    <div class="text-3xl mb-2">🌐</div>
+                    <p class="text-white text-sm font-semibold">Tu sitio web</p>
+                </div>
+                <div class="bg-gray-800/60 rounded-xl p-4 text-center border border-gray-700 hover:border-emerald-400/50 transition-colors">
+                    <div class="text-3xl mb-2">📅</div>
+                    <p class="text-white text-sm font-semibold">Google Calendar</p>
+                </div>
+                <div class="bg-gray-800/60 rounded-xl p-4 text-center border border-gray-700 hover:border-emerald-400/50 transition-colors">
+                    <div class="text-3xl mb-2">📧</div>
+                    <p class="text-white text-sm font-semibold">Email</p>
+                </div>
+                <div class="bg-gray-800/60 rounded-xl p-4 text-center border border-gray-700 hover:border-emerald-400/50 transition-colors">
+                    <div class="text-3xl mb-2">📊</div>
+                    <p class="text-white text-sm font-semibold">CRM / Sheets</p>
+                </div>
+            </div>
+
+            <p class="text-center text-gray-400 text-sm mt-6 max-w-2xl mx-auto">
+                ¿Usas otra herramienta? Casi cualquier sistema con API puede integrarse.
+                Cuéntanos y lo evaluamos.
+            </p>
+        </div>
+
+        <!-- ═══════════ 7. PARA QUIÉN ═══════════ -->
+        <div class="mb-16 sm:mb-20">
+            <div class="text-center mb-10">
+                <span class="text-emerald-400 text-xs sm:text-sm font-bold tracking-widest uppercase">Casos de uso</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-2 font-Emizen-1">
+                    ¿Para qué negocios es ideal un agente de IA?
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700">
+                    <div class="text-2xl mb-2">🍽️</div>
+                    <h3 class="text-white font-bold mb-2">Restaurantes</h3>
+                    <p class="text-gray-400 text-sm">Reservas, menú, pedidos para llevar. Atiende 100 mesas simultáneas.</p>
+                </div>
+                <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700">
+                    <div class="text-2xl mb-2">🏥</div>
+                    <h3 class="text-white font-bold mb-2">Clínicas y consultorios</h3>
+                    <p class="text-gray-400 text-sm">Agenda de pacientes, recordatorios y reprogramaciones automáticas.</p>
+                </div>
+                <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700">
+                    <div class="text-2xl mb-2">🏠</div>
+                    <h3 class="text-white font-bold mb-2">Inmobiliarias</h3>
+                    <p class="text-gray-400 text-sm">Filtra interesados, responde sobre propiedades y agenda visitas.</p>
+                </div>
+                <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700">
+                    <div class="text-2xl mb-2">💼</div>
+                    <h3 class="text-white font-bold mb-2">Servicios profesionales</h3>
+                    <p class="text-gray-400 text-sm">Abogados, contadores, consultores: califica leads y agenda reuniones.</p>
+                </div>
+                <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700">
+                    <div class="text-2xl mb-2">🛍️</div>
+                    <h3 class="text-white font-bold mb-2">E-commerce</h3>
+                    <p class="text-gray-400 text-sm">Asesor de compras, seguimiento de pedidos, recuperación de carritos.</p>
+                </div>
+                <div class="bg-gray-800/60 rounded-xl p-6 border border-gray-700">
+                    <div class="text-2xl mb-2">💅</div>
+                    <h3 class="text-white font-bold mb-2">Belleza y bienestar</h3>
+                    <p class="text-gray-400 text-sm">Turnos de peluquería, spa, dentista. Sin atender el teléfono.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════ 8. CÓMO LO ENTRENAMOS ═══════════ -->
+        <div class="mb-16 sm:mb-20">
+            <div class="text-center mb-10">
+                <span class="text-emerald-400 text-xs sm:text-sm font-bold tracking-widest uppercase">El proceso</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-2 font-Emizen-1">
+                    Así entrenamos tu agente con TU negocio
+                </h2>
+                <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto mt-4">
+                    No usamos plantillas genéricas. Tu agente aprende tu negocio de memoria.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+                <div class="relative">
+                    <div class="text-emerald-400 font-bold text-5xl font-Emizen-1 mb-3">01</div>
+                    <h3 class="text-white font-bold mb-2">Nos cuentas tu negocio</h3>
+                    <p class="text-gray-400 text-sm">
+                        Qué vendes, a quién, cómo hablas con tus clientes, tus precios y horarios.
+                    </p>
+                </div>
+                <div class="relative">
+                    <div class="text-emerald-400 font-bold text-5xl font-Emizen-1 mb-3">02</div>
+                    <h3 class="text-white font-bold mb-2">Lo entrenamos</h3>
+                    <p class="text-gray-400 text-sm">
+                        Cargamos tus catálogos, guiones, respuestas frecuentes y tono de marca en la IA.
+                    </p>
+                </div>
+                <div class="relative">
+                    <div class="text-emerald-400 font-bold text-5xl font-Emizen-1 mb-3">03</div>
+                    <h3 class="text-white font-bold mb-2">Lo conectamos</h3>
+                    <p class="text-gray-400 text-sm">
+                        Lo integramos con tu WhatsApp, calendario, CRM y todo lo que uses.
+                    </p>
+                </div>
+                <div class="relative">
+                    <div class="text-emerald-400 font-bold text-5xl font-Emizen-1 mb-3">04</div>
+                    <h3 class="text-white font-bold mb-2">Empieza a trabajar</h3>
+                    <p class="text-gray-400 text-sm">
+                        Lo probamos juntos y luego queda activo 24/7. Tú solo ves llegar los clientes.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════ 9. TECNOLOGÍAS ═══════════ -->
+        <div class="mb-16 sm:mb-20">
+            <div class="text-center mb-8">
+                <h2 class="text-xl sm:text-2xl font-bold text-white font-Emizen-1">Tecnologías que usamos</h2>
+                <p class="text-gray-400 text-sm mt-2">Las mejores herramientas del mercado, sin tecnicismos para ti.</p>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto">
+                <span class="tech-badge px-4 py-2 rounded-full text-emerald-400 text-xs sm:text-sm font-medium">GPT-4 / Claude 3.5</span>
+                <span class="tech-badge px-4 py-2 rounded-full text-emerald-400 text-xs sm:text-sm font-medium">WhatsApp Business API</span>
+                <span class="tech-badge px-4 py-2 rounded-full text-emerald-400 text-xs sm:text-sm font-medium">Google Calendar API</span>
+                <span class="tech-badge px-4 py-2 rounded-full text-emerald-400 text-xs sm:text-sm font-medium">Meta Messenger API</span>
+                <span class="tech-badge px-4 py-2 rounded-full text-emerald-400 text-xs sm:text-sm font-medium">Stripe / Webpay</span>
+                <span class="tech-badge px-4 py-2 rounded-full text-emerald-400 text-xs sm:text-sm font-medium">Base de datos vectorial</span>
+                <span class="tech-badge px-4 py-2 rounded-full text-emerald-400 text-xs sm:text-sm font-medium">Python / Node.js</span>
+            </div>
+        </div>
+
+        <!-- ═══════════ 10. PRECIOS ORIENTATIVOS ═══════════ -->
+        <div class="mb-16 sm:mb-20">
+            <div class="text-center mb-10">
+                <span class="text-emerald-400 text-xs sm:text-sm font-bold tracking-widest uppercase">Inversión</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-2 font-Emizen-1">
+                    Planes de Agente de IA
+                </h2>
+                <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto mt-4">
+                    Cada negocio es distinto. Estos son planes orientativos, el final se ajusta a ti.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+
+                <!-- Básico -->
+                <div class="bg-gray-800 rounded-2xl p-6 sm:p-8 border border-gray-700">
+                    <h3 class="text-white font-bold text-xl mb-2 font-Emizen-1">Agente Básico</h3>
+                    <p class="text-gray-400 text-sm mb-4">Ideal para empezar a automatizar</p>
+                    <div class="text-3xl font-bold text-white mb-1">$150.000</div>
+                    <p class="text-gray-500 text-xs mb-6">al mes. Incluye hosting, mantención y soporte — Nosotros nos encargamos de todo.</p>
+
+                    <ul class="space-y-2 text-gray-300 text-sm mb-6">
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400">✓</span>
+                            <span>Responde preguntas frecuentes</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400">✓</span>
+                            <span>Integrado a tu web</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400">✓</span>
+                            <span>1 canal (web o WhatsApp)</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400">✓</span>
+                            <span>Entrenamiento con tu info</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Pro (destacado) -->
+                <div class="gradient-border relative">
+                    <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-400 text-gray-900 px-3 py-1 rounded-full text-xs font-bold font-Emizen-1">MÁS POPULAR</span>
+                    <div class="gradient-border-inner p-6 sm:p-8">
+                        <h3 class="text-white font-bold text-xl mb-2 font-Emizen-1">Agente Pro</h3>
+                        <p class="text-gray-400 text-sm mb-4">El que más vendemos</p>
+                        <div class="text-3xl font-bold text-white mb-1">$330.000</div>
+                        <p class="text-gray-500 text-xs mb-6">al mes. Incluye hosting, mantención y soporte — Nosotros nos encargamos de todo.</p>
+
+                        <ul class="space-y-2 text-gray-200 text-sm mb-6">
+                            <li class="flex items-start gap-2">
+                                <span class="text-emerald-400">✓</span>
+                                <span>Todo lo del Básico</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-emerald-400">✓</span>
+                                <span><strong>Agenda citas</strong> en tu calendario</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-emerald-400">✓</span>
+                                <span>2 canales (web + WhatsApp)</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-emerald-400">✓</span>
+                                <span>Envía cotizaciones PDF</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-emerald-400">✓</span>
+                                <span>Reportes mensuales</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Full -->
+                <div class="bg-gray-800 rounded-2xl p-6 sm:p-8 border border-gray-700">
+                    <h3 class="text-white font-bold text-xl mb-2 font-Emizen-1">Agente Full</h3>
+                    <p class="text-gray-400 text-sm mb-4">Para negocios que venden mucho</p>
+                    <div class="text-3xl font-bold text-white mb-1">$559.000</div>
+                    <p class="text-gray-500 text-xs mb-6">al mes. Incluye hosting, mantención y soporte — Nosotros nos encargamos de todo.</p>
+
+                    <ul class="space-y-2 text-gray-300 text-sm mb-6">
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400">✓</span>
+                            <span>Todo lo del Pro</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400">✓</span>
+                            <span><strong>3+ canales</strong> (web, WhatsApp, IG, más)</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400">✓</span>
+                            <span>Integración con CRM / Sheets</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400">✓</span>
+                            <span>Pasarela de pagos</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400">✓</span>
+                            <span>Recuperación de carritos</span>
+                        </li>
+                            <li class="flex items-start gap-2">
+                            <span class="text-emerald-400">✓</span>
+                            <span>Generacion de contenido para redes sociales</span>
+                        </li>
+                                                </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400">✓</span>
+                            <span>3 integraciones mas extras de lo que necesites</span>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+
+            <p class="text-center text-gray-400 text-sm mt-6 max-w-2xl mx-auto">
+                Todos los planes incluyen entrenamiento personalizado, configuración completa y garantía de lanzamiento.
+                <br>Formato de pago: 50% al inicio y 50% al finalizar.
+            </p>
+        </div>
+
+        <!-- ═══════════ 11. FAQ ═══════════ -->
+        <div class="mb-16 sm:mb-20 max-w-3xl mx-auto">
+            <div class="text-center mb-10">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white font-Emizen-1">Preguntas frecuentes</h2>
+            </div>
+
+            <div class="space-y-3">
+                <details class="bg-gray-800/60 rounded-xl p-5 border border-gray-700 group">
+                    <summary class="font-bold text-white cursor-pointer list-none flex justify-between items-center">
+                        ¿Necesito conocimientos técnicos para tener uno?
+                        <span class="text-emerald-400 group-open:rotate-45 transition-transform text-2xl">+</span>
+                    </summary>
+                    <p class="text-gray-400 mt-3 leading-relaxed text-sm">
+                        Ninguno. Nosotros nos encargamos de todo: configuración, entrenamiento e integraciones. Tú solo nos cuentas cómo funciona tu negocio.
+                    </p>
+                </details>
+
+                <details class="bg-gray-800/60 rounded-xl p-5 border border-gray-700 group">
+                    <summary class="font-bold text-white cursor-pointer list-none flex justify-between items-center">
+                        ¿En cuánto tiempo está funcionando?
+                        <span class="text-emerald-400 group-open:rotate-45 transition-transform text-2xl">+</span>
+                    </summary>
+                    <p class="text-gray-400 mt-3 leading-relaxed text-sm">
+                        Entre 1 semana o 1 mes según la complejidad. En el diagnóstico gratuito te damos un plazo exacto para tu caso.
+                    </p>
+                </details>
+
+                <details class="bg-gray-800/60 rounded-xl p-5 border border-gray-700 group">
+                    <summary class="font-bold text-white cursor-pointer list-none flex justify-between items-center">
+                        ¿Qué pasa si el agente no sabe responder algo?
+                        <span class="text-emerald-400 group-open:rotate-45 transition-transform text-2xl">+</span>
+                    </summary>
+                    <p class="text-gray-400 mt-3 leading-relaxed text-sm">
+                        Transfiere la conversación a una persona de tu equipo con todo el contexto resumido. Tu cliente nunca queda sin respuesta.
+                    </p>
+                </details>
+
+                <details class="bg-gray-800/60 rounded-xl p-5 border border-gray-700 group">
+                    <summary class="font-bold text-white cursor-pointer list-none flex justify-between items-center">
+                        ¿Reemplazará a mi equipo humano?
+                        <span class="text-emerald-400 group-open:rotate-45 transition-transform text-2xl">+</span>
+                    </summary>
+                    <p class="text-gray-400 mt-3 leading-relaxed text-sm">
+                        No. Libera a tu equipo de las tareas repetitivas (responder lo mismo una y otra vez) para que se enfoquen en cerrar tratos complejos y atender casos especiales.
+                    </p>
+                </details>
+
+                <details class="bg-gray-800/60 rounded-xl p-5 border border-gray-700 group">
+                    <summary class="font-bold text-white cursor-pointer list-none flex justify-between items-center">
+                        ¿Hay costos mensuales después?
+                        <span class="text-emerald-400 group-open:rotate-45 transition-transform text-2xl">+</span>
+                    </summary>
+                    <p class="text-gray-400 mt-3 leading-relaxed text-sm">
+                        Sí, un costo de hosting e IA mensual que varía según uso. Te lo explicamos claramente antes de empezar, sin sorpresas.
+                    </p>
+                </details>
+
+                <details class="bg-gray-800/60 rounded-xl p-5 border border-gray-700 group">
+                    <summary class="font-bold text-white cursor-pointer list-none flex justify-between items-center">
+                        ¿Qué garantía tengo?
+                        <span class="text-emerald-400 group-open:rotate-45 transition-transform text-2xl">+</span>
+                    </summary>
+                    <p class="text-gray-400 mt-3 leading-relaxed text-sm">
+                        Garantía de lanzamiento: si no entregamos en el plazo acordado por contrato, te devolvemos el dinero.
+                    </p>
+                </details>
+            </div>
+        </div>
+
+        <!-- ═══════════ 12. CTA FINAL ═══════════ -->
+        <div class="gradient-border max-w-4xl mx-auto">
+            <div class="gradient-border-inner p-8 sm:p-12 text-center">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 font-Emizen-1">
+                    ¿Listo para que tu negocio venda mientras duermes?
+                </h2>
+                <p class="text-gray-300 text-base sm:text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
+                    Cuéntanos sobre tu negocio y te mostramos, sin compromiso,
+                    cómo se vería tu agente de IA atendiendo a tus clientes reales.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <button class="px-8 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-bold rounded-xl hover:from-emerald-600 hover:to-emerald-700 transition-all hover:scale-105 shadow-xl" data-route="secciones/contact.html">
+                        Quiero mi diagnóstico gratuito →
+                    </button>
+                    <a href="https://wa.me/56973177957?text=Hola,%20quiero%20saber%20más%20sobre%20los%20agentes%20de%20IA"
+                       target="_blank" rel="noopener noreferrer"
+                       class="inline-flex items-center gap-2 px-8 py-4 bg-[#25D366] hover:bg-[#20BA5C] text-white font-bold rounded-xl transition-all hover:scale-105">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 004.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0012.04 2zm5.8 14.14c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.08 1-2.36.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.29.29-.12.57.16.28.73 1.2 1.57 1.95 1.08.96 1.99 1.26 2.27 1.4.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.1 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+                        Hablar por WhatsApp
+                    </a>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs sm:text-sm text-gray-500 mt-6">
+                    <span>✓ Sin compromiso</span>
+                    <span>✓ Respuesta en 24 horas</span>
+                    <span>✓ Te mostramos el agente funcionando</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+</body>
+</html>
